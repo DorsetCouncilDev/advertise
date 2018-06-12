@@ -1,0 +1,38 @@
+{
+    "name": "test 987",
+    "longText": "test987",
+    "reference": "test-987",
+    "index": "advertise-dorset",
+    "documentType": "roundabout-sponsorship",
+    "published": true,
+    "unpublishedVersion": true,
+    "publishedVersionNumber": 2,
+    "unpublishedVersionNumber": 3,
+    "properties": [{
+        "propertyName": "Available",
+        "propertyReference": "available",
+        "propertyType": "Boolean",
+        "publishedValue": "false",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": "false"
+    }, {
+        "propertyName": "Price",
+        "propertyReference": "price",
+        "propertyType": "Number",
+        "publishedValue": "66.0",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": "66.0"
+    }, {
+        "propertyName": "Contract lengthS",
+        "propertyReference": "contract-lengths",
+        "propertyType": "Number",
+        "publishedValue": null,
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+    }],
+    "locations": [],
+    "unpublishedLocations": []
+}

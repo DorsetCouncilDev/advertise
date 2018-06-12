@@ -1,0 +1,179 @@
+
+// @import "~govuk_template_jinja/assets/stylesheets/fonts";
+
+
+
+$blue:    #005ea5;
+$indigo:  #6610f2;
+$purple:  #2e358b;;
+$pink:    pink;
+$red:     #b10e1e;
+$orange:  orange;
+$yellow:  yellow;
+$green:   #006435;
+$teal:    #20c997;
+$cyan:    #17a2b8;
+
+$warning: $orange;
+$enable-rounded:    false;
+$enable-shadows:    false;
+
+$font-size-base: 1rem * 1.1875;
+
+$input-focus-border-color: $orange;
+$input-btn-focus-color:       $orange;
+ $input-btn-focus-box-shadow:   $orange;
+$border-radius:     0;
+$border-radius-lg:  0;
+$border-radius-sm:  0;                      
+$alert-border-level: 0;
+
+$container-max-widths: (
+  sm: 640px,
+  md: 820px,
+  lg: 960px,
+  xl: 1140px
+) !default;
+
+
+@import '~bootstrap/scss/bootstrap.scss';
+
+
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+      
+      background-
+      &:focus{
+    box-shadow: 0 0 0 0.2rem orange;
+      }
+  }
+}
+@import "multiple-choice";
+.alert {
+    border-top: 0 none transparent;
+    border-right: 0 none transparent;
+    border-bottom: 0 none transparent;
+    border-left-width: 5px;
+    border-left-style: solid;
+    background: none;
+}
+.btn-govuk{
+    background: $green;
+    border-bottom:solid black 4px;
+
+}
+
+.card-header{
+    &.black{
+        background:black;
+        color:white;
+    }
+}
+.breadcrumb{
+    background:none;
+}
+.info{
+    display: flex;
+    flex-wrap: wrap;
+   .ad-breadcrumb{
+       list-style: none;
+       display: inline-flex;
+       font-size:18px;
+       padding-left:0;
+       margin-bottom:5px;
+       width:100%;
+       flex-wrap: wrap;
+       li{
+           
+           margin-right:5px;
+           &:after{
+               
+               content: ' / ';
+              
+           }
+           &:last-child:after{
+                   content: '';
+               }
+           
+       }
+    }
+    .contact{
+        width:100%;
+        margin: 3px 0;
+    }
+}
+@media only screen and (min-width: 415px) {
+    .info{
+    .contact{
+        font-size: 16px;
+    }
+}
+       
+}
+@media only screen and (min-width: 805px) {
+    .info{
+        width:100%;
+        display: inline-flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        border-bottom:lightgrey solid 1px;
+        margin-bottom: 15px;
+        .ad-breadcrumb{
+            width:auto;
+            flex-grow: 2;
+        }
+    .contact{
+        width:auto;
+        font-size: 16px;
+    }
+}
+       
+}
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
+   
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+    
+}
+
+.tab-pane{
+    border-left:solid 1px #dee2e6;
+    border-right:solid 1px #dee2e6;
+    padding:15px;
+}
+.nav-item{
+    border: 1px solid #dee2e6;
+}
+.ad-modal-body{
+    padding:15px;
+}
+.modal-body {
+    padding:0;
+}
+   #mfooter {
+       padding:30px;
+       
+       background: hsl(210,9%,96%);
+        display: flex;
+        justify-content: space-between;
+    }
+.modal-header{
+    border-bottom:none;
+}
+.modal.show modal-dialog{
+    box-shadow: 0 17px 17px rgba(0,0,0,.15), 0 27px 55px rgba(0,0,0,.3) !important;
+}
+
+.contact{
+    font-size:12px;
+}
+@media only screen and (min-width: 600px) {
+    .contact{
+
+        font-size:20px;
+    }
+}

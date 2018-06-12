@@ -1,0 +1,148 @@
+{
+    "name": "dorchester car park",
+    "longText": "dorchester car parking tickets",
+    "reference": "dorchester-car-park",
+    "indexReference": "advertise-dorset",
+    "documentTypeReference": "parking-tickets",
+    "hasAttachments": false,
+    "publishedVersion": {
+        "versionNumber": 1,
+        "published": true,
+        "properties": [{
+            "propertyName": "Width",
+            "propertyReference": "width",
+            "value": "44.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Size",
+            "propertyReference": "sign-size",
+            "value": "44.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "44.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic flow",
+            "propertyReference": "traffic-flow",
+            "value": "5555.0",
+            "display": true,
+            "listValue": []
+        }],
+        "locations": []
+    },
+    "latestUnpublishedVersion": {
+        "versionNumber": 2,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "publishedValue": "44.0",
+            "display": true,
+            "listValue": [null],
+            "unpublishedValue": "44.0"
+        }, {
+            "propertyName": "Traffic flow",
+            "propertyReference": "traffic-flow",
+            "publishedValue": "5555.0",
+            "display": true,
+            "listValue": [null],
+            "unpublishedValue": "5555.0"
+        }, {
+            "propertyName": "Width",
+            "propertyReference": "width",
+            "publishedValue": "44.0",
+            "display": true,
+            "listValue": [null],
+            "unpublishedValue": "44.0"
+        }, {
+            "propertyName": "Sign Size",
+            "propertyReference": "sign-size",
+            "publishedValue": "44.0",
+            "display": true,
+            "listValue": [null],
+            "unpublishedValue": "44.0"
+        }],
+        "locations": [{
+            "latitude": 50.700003,
+            "longitude": -2.447132,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "0ff5d66f-c8b5-420d-871f-4798b35a8f3e"
+        }]
+    },
+    "versions": [{
+        "versionNumber": 1,
+        "published": true,
+        "properties": [{
+            "propertyName": "Width",
+            "propertyReference": "width",
+            "value": "44.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Size",
+            "propertyReference": "sign-size",
+            "value": "44.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "44.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic flow",
+            "propertyReference": "traffic-flow",
+            "value": "5555.0",
+            "display": true,
+            "listValue": []
+        }],
+        "locations": []
+    }, {
+        "versionNumber": 2,
+        "published": false,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "44.0",
+            "display": true,
+            "listValue": [null]
+        }, {
+            "propertyName": "Traffic flow",
+            "propertyReference": "traffic-flow",
+            "value": "5555.0",
+            "display": true,
+            "listValue": [null]
+        }, {
+            "propertyName": "Width",
+            "propertyReference": "width",
+            "value": "44.0",
+            "display": true,
+            "listValue": [null]
+        }, {
+            "propertyName": "Sign Size",
+            "propertyReference": "sign-size",
+            "value": "44.0",
+            "display": true,
+            "listValue": [null]
+        }],
+        "locations": [{
+            "latitude": 50.700003,
+            "longitude": -2.447132,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "0ff5d66f-c8b5-420d-871f-4798b35a8f3e"
+        }]
+    }]
+}
