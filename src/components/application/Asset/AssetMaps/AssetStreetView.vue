@@ -41,6 +41,7 @@
     #streetView {
         min-width: 300px;
         height: 50vh;
+        margin-right:15px;
 
     }
      @media only screen and (min-width: 700px) {

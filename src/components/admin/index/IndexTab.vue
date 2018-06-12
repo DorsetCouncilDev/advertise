@@ -1,12 +1,8 @@
 <template>
    <div>
         <h2>{{index.name}}</h2>
-       change!
-       ff
         <button type="button" class="btn btn-primary" @click="openViewIndexModal">Edit index</button>
         <ViewIndexModal :show="showViewIndexModal" :index="index" @close="closeViewIndexModal" @updated="onUpdated" ></ViewIndexModal>
-       
-       
     </div>
 </template>
 

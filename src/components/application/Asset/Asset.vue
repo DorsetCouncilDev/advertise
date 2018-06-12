@@ -40,7 +40,7 @@
        <h3>Location</h3>
        
        
-            <AssetMaps :locations="document.locations" :streetView="false"></AssetMaps>
+            <AssetMaps :locations="document.locations" :streetView="true"></AssetMaps>
            </div>
   
        

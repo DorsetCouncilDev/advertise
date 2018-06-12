@@ -70,7 +70,7 @@
     
     @media only screen and (min-width: 700px) {
         #map{
-            width:100%;
+            width:90%;
         }   
     }
 
