@@ -6,8 +6,8 @@
           <a href="tel:+18506484200">01305224125</a></div>
            
              <ol class="ad-breadcrumb">
-    <li aria-current="page"><router-link :to="{path: '/' + indexRef}">Home</router-link></li>
-     <li aria-current="page"><router-link :to="{ path: '/' + indexRef + '/search'}">Search Results</router-link></li>
+    <li aria-current="page"><router-link :to="{path: '/' + indexRef}">home</router-link></li>
+     <li aria-current="page"><router-link :to="{ path: '/' + indexRef + '/search'}">search results</router-link></li>
     <li aria-current="page">{{document.reference}}</li>
   </ol>
     </div>
