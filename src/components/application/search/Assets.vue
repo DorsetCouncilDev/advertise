@@ -15,7 +15,7 @@
                     <div class="card-heading">
                         <div class="icon"><img :src="getIcon(d.document.documentType)">
                         </div>
-                        <div class="heading"><div id="heading-text">{{d.document.name}}</div><p class="docTypeText text-muted">{{d.document.documentType}}</p></div>
+                        <div class="heading"><div class="docTypeLabel">{{d.document.documentType}}</div><div class="heading-text">{{d.document.name}}</div></div>
                     </div>
                   
                     
@@ -65,7 +65,7 @@
         methods:{
           getIcon(documentType){
               return require("../../../assets/images/icons/" + documentType + ".svg");
-          } ,
+          },
         changeShowSearchForm(){
                 this.$emit("onChangeShowSearchForm")
             }
@@ -81,8 +81,7 @@
                 else
                     return this.initialDocuments
             },
-            postcode(){
-                
+            postcode(){               
                 return this.$store.state.searchForm.postcode.toUpperCase()
             }
 
@@ -145,7 +144,7 @@
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
-                        font-size: 22px;
+                        font-size: 24px;
                     }
 
                     .icon {
@@ -213,11 +212,10 @@
         }
 
     }
-    
-    .docTypeText{
-        font-size:14px;
-        margin-top:0;
-        margin-bottom: 0;
+    .docTypeLabel{
+        font-size:18px;
+        color:grey;
     }
+  
 
 </style>

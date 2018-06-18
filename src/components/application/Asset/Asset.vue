@@ -41,7 +41,7 @@
        <h3>Location</h3>
        
        
-            <AssetMaps :locations="document.locations" :streetView="true" :name="document.name"></AssetMaps>
+            <AssetMaps :locations="document.locations" :streetView="false" :name="document.name"></AssetMaps>
            </div>
   
        
@@ -74,27 +74,27 @@
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
             getDocument: function() {
-                DocumentService.getDocument(this.indexRef,this.documentRef).then(response => {
+                DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
                 })
             }
         },
         computed: {
-              streetViewRequired(){
-                  return !(this.document.locations[0].streetviewLatitude == null);
-              },
-            assetPrice(){
+            streetViewRequired() {
+                return !(this.document.locations[0].streetviewLatitude == null);
+            },
+            assetPrice() {
                 var price = null
-                this.document.properties.forEach((p)=>{
-                    if(p.propertyReference == 'price')
-                       price = p.publishedValue
+                this.document.properties.forEach((p) => {
+                    if (p.propertyReference == 'price')
+                        price = p.publishedValue
                 })
                 return price
             },
-            assetAvailable(){
-                 var available = false
-                this.document.properties.forEach((p)=>{
-                    if(p.propertyReference == 'available' && p.value == 'true')
+            assetAvailable() {
+                var available = false
+                this.document.properties.forEach((p) => {
+                    if (p.propertyReference == 'available' && p.value == 'true')
                         available = true;
                 })
                 return available
@@ -102,33 +102,30 @@
         },
         beforeMount() {
             this.getDocument();
-        },        
+        },
         filters: {
-            round:  function(value) {
-                if(typeof Number(value) === 'number' ){
+            round: function(value) {
+                if (typeof Number(value) === 'number') {
                     if (!value) {
                         value = 0;
                     }
+                    var decimals = 0;
+                    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+                }
+                return value;
 
-                    
-                      var  decimals = 0;
-                  value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-            }
-  return value;
-                
-                },
-            readBoolean: function(value){
-                if(value == 'true')
+            },
+            readBoolean: function(value) {
+                if (value == 'true')
                     return 'Yes'
                 else if (value == 'false')
                     return 'No'
-                else 
+                else
                     return value
             }
-         
+        }
+    }
 
-    }
-    }
 </script>
 
 <style scoped lang="scss">
@@ -199,11 +196,15 @@
             font-size: 19px;
 
         }
-        
-         .contact{float:right;}
-    @media only screen and (min-width: 805px) {
-        h1{font-size:32px;}
-    }
+
+        .contact {
+            float: right;
+        }
+        @media only screen and (min-width: 805px) {
+            h1 {
+                font-size: 32px;
+            }
+        }
     }
 
 </style>

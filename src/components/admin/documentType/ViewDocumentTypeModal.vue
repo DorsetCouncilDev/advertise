@@ -18,8 +18,18 @@
  
     <b-tabs>
   <b-tab title="Properties" active>
+       <div class="stv-radio-tabs-wrapper">
+       <input  type="radio" class="stv-radio-tab" id="one" name="sortProperties"   value="sortAz" v-model="sortPropertiesBy">
+        <label for="one">A-z</label>
+           
+           <input  type="radio" class="stv-radio-tab" id="two" name="sortProperties"    value="sortZa" v-model="sortPropertiesBy">
+        <label for="two">Z-a</label>
+           
+           <input  type="radio" class="stv-radio-tab" id="three" name="sortProperties" value="selectedFirst" v-model="sortPropertiesBy">
+        <label for="three">Selected first</label>
+    </div>
     <b-list-group>
-            <b-list-group-item  v-for="property in indexProperties" :key="property.property.reference">
+            <b-list-group-item  v-for="property in indexProperties" :key="property.reference">
                 <div class="form-group">
                 <div class="multiple-choice">
                     <input type="checkbox" class="form-control small" :id="property.reference" value="1" v-model="property.selected">
@@ -36,7 +46,18 @@
       <b-list-group>
             <b-list-group-item  v-for="property in selectedProperties" :key="property.property.reference">
               {{property.property.name}}
+                
+                <div class="actions">
+                 <div class="multiple-choice">
+                    <input type="checkbox" class="form-control small" id="one"  :name="property.property.reference" value="1" >
+                    <label class="small pr" for="one" >Display</label>
+                    
+                    
+                </div>
+                
+                
                 <button title="move up one place" class="btn btn-light" @click="moveUp(property.property.reference)"><img src="../../../assets/images/up-arrow.png"></button>
+                    </div>
     </b-list-group-item>
     </b-list-group>
   </b-tab>
@@ -95,10 +116,20 @@
                 currentDocumentType: _.cloneDeep(this.documentType),
                 indexProperties: [],
                 showModal: this.show,
-                errorMessage: ""
+                errorMessage: "",
+                sortPropertiesBy: null
             }
         },
         watch: {
+            sortPropertiesBy: function(){
+                if(this.sortPropertiesBy == 'selectedFirst')
+                    this.sortPropertiesBySelected();
+                if(this.sortPropertiesBy == 'sortAz')
+                    this.sortPropertiesAZ();
+                if(this.sortPropertiesBy == 'sortZa')
+                    this.sortPropertiesZA();
+            },
+            
             show: function() {
                 this.showModal = this.show
             },
@@ -120,10 +151,7 @@
 
                 var securityToken = this.$store.state.securityToken;
                 await DocumentTypeService.movePropertyUp(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response)=>{
-                    this.$emit('updated')
-                    
-                    
-                    
+                    this.$emit('updated')       
                 })
             },
             closeModal: function() {
@@ -143,7 +171,6 @@
                     if (currentProperty.selected)
                         propertiesSelected.push(currentProperty.reference)
                 })
-
 
                 await DocumentTypeService.updateType(this.indexRef, this.documentType.reference, securityToken, updateProperties)
                     .then(async (response) => {
@@ -192,11 +219,6 @@
                 this.currentDocumentType.properties.forEach((typeProperty) => {
                      this.selectedProperties.push(typeProperty) 
                 })
-
-
-
-
-
             },
             sortPropertiesBySelected() {
                 this.indexProperties.sort(function(x, y) {
@@ -209,10 +231,27 @@
                     return 0;
                 });
             },
-            sortPropertiesAlphabetically() {
-
+            sortPropertiesAZ() {
+                this.indexProperties.sort(function(x, y) {
+                 
+                    if (x.name < y.name)
+                        return -1;
+                    if (y.name < x.name)
+                        return 1;
+                    return 0;
+                });
+            },
+            sortPropertiesZA() {
+                
+                this.indexProperties.sort(function(x, y) {
+                 
+                    if (x.name > y.name)
+                        return -1;
+                    if (y.name > x.name)
+                        return 1;
+                    return 0;
+                });
             }
-
         },
         mounted() {
 
@@ -222,6 +261,53 @@
 </script>
 
 <style scoped lang="scss">
+    
+    .multiple-choice label.small {
+    padding: 0 5px 1px 2px; 
+    margin-bottom: 1px; 
+     margin-top: 0; 
+}
+    
+    .actions{
+        display: flex;
+    }
+    
+    .stv-radio-tabs-wrapper {
+            clear: both;
+            display: flex;
+        justify-content: flex-end;
+            padding: 0;
+            position: relative;
+        width: 100%;
+        }
+        input.stv-radio-tab {
+            position: absolute;
+            left: -99999em;
+            top: -99999em;
+
+            &+label {
+                cursor: pointer;
+                float: left;
+                border: solid 1px #ced4da;
+                background-color: #fff;
+               padding:3px 5px;
+              
+              
+                position: relative;
+             
+
+              
+                &:hover {
+                    background-color: #eee;
+                }
+            }
+
+            &:checked+label {
+                background-color: #E9E9E9;
+                z-index: 1;
+            }
+        }
+    
     h2.display-4 {
         font-size: 32px;
     }
@@ -262,11 +348,7 @@
     .list-group-item {
         display: flex;
         justify-content: space-between;
-        .btn {
-           
 
-
-        }
         &:hover {
             .btn {
                 opacity: 1;
