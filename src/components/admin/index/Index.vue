@@ -96,6 +96,7 @@
                         await this.getDocuments(type.reference).then((response)=>{
              
                             response.data.forEach((doc)=>{
+                                console.log("reload documents")
                                 this.documents.push(_.cloneDeep(doc))
                             })       
                         })

@@ -35,7 +35,7 @@ export const mutations = {
         state.showSearchForm = !state.showSearchForm
     },
     setSortResults(state,payload){
-        state.searchResults.results = payload;
+        state.searchResults = payload;
     },
     setSort(state,payload){
         state.sort = payload

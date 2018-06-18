@@ -2,20 +2,21 @@ export default {
 
     sortResultsByProperty(results, propertyReq, type) {
 
-        return results.slice().sort(function (a, b) {
+        return results.sort(function (a, b) {
             var aProperty = null;
             var bProperty = null;
-            a.document.publishedVersion.properties.forEach((property) => {
+            a.document.properties.forEach((property) => {
                 if (property.propertyReference == propertyReq)
-                    aProperty = property.value;
+                    aProperty = Number(property.publishedValue);
             })
-            b.document.publishedVersion.properties.forEach((property) => {
+            b.document.properties.forEach((property) => {
                 if (property.propertyReference == propertyReq)
-                    bProperty = property.value;
+                    bProperty = Number(property.publishedValue);
             })
-            if (type == 'high')
-                return aProperty < bProperty;
-            return aProperty > bProperty;
+           if (type == 'high')
+               return bProperty - aProperty;
+            return  aProperty - bProperty;
+     
         });
     },
     

@@ -21,7 +21,10 @@
                 locations:{
                     type: Array
              
-                }
+                },
+            name: {
+                type:String
+            }
         
         },
         mounted: function() {
@@ -36,12 +39,12 @@
 
             
             
-            this.map = new google.maps.Map(element, options);
+          this.map = new google.maps.Map(element, options);
 
             
           this.locations.forEach((location) => {
                 var position = new google.maps.LatLng(location.latitude, location.longitude);
-                var infoContent = '';
+                var infoContent = '' + this.name;
                 var infowindow = new google.maps.InfoWindow({
                     content: infoContent
                 });

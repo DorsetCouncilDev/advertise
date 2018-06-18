@@ -1,38 +1,101 @@
 {
-    "name": "test 987",
-    "longText": "test987",
-    "reference": "test-987",
-    "index": "advertise-dorset",
-    "documentType": "roundabout-sponsorship",
-    "published": true,
-    "unpublishedVersion": true,
-    "publishedVersionNumber": 2,
-    "unpublishedVersionNumber": 3,
-    "properties": [{
-        "propertyName": "Available",
-        "propertyReference": "available",
-        "propertyType": "Boolean",
-        "publishedValue": "false",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": "false"
+    "name": "Advertise Dorset",
+    "longText": "Advertise Dorset",
+    "reference": "advertise-dorset",
+    "closed": false,
+    "endDate": null,
+    "documentTypes": [{
+        "name": "Car Parking Ticket Advertising",
+        "longText": "Parking ticket advertisings",
+        "reference": "car-parking-ticket-advertising",
+        "documentTypeProperties": [{
+            "display": true,
+            "property": {
+                "name": "Price",
+                "longText": "Price of sponsorship",
+                "reference": "price",
+                "type": "Number",
+                "relation": "LessThan",
+                "sortOrder": null,
+                "active": false,
+                "decimalPlaces": null,
+                "listValues": []
+            }
+        }, {
+            "display": true,
+            "property": {
+                "name": "Available",
+                "longText": "Is the asset currently available",
+                "reference": "available",
+                "type": "Boolean",
+                "relation": "LessThan",
+                "sortOrder": null,
+                "active": false,
+                "decimalPlaces": null,
+                "listValues": []
+            }
+        }]
     }, {
-        "propertyName": "Price",
-        "propertyReference": "price",
-        "propertyType": "Number",
-        "publishedValue": "66.0",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": "66.0"
-    }, {
-        "propertyName": "Contract lengthS",
-        "propertyReference": "contract-lengths",
-        "propertyType": "Number",
-        "publishedValue": null,
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
+        "name": "Roundabout Sponsorship",
+        "longText": "Roundabouts",
+        "reference": "roundabout-sponsorship",
+        "documentTypeProperties": [{
+            "display": true,
+            "property": {
+                "name": "Available",
+                "longText": "Is the asset currently available",
+                "reference": "available",
+                "type": "Boolean",
+                "relation": "LessThan",
+                "sortOrder": null,
+                "active": false,
+                "decimalPlaces": null,
+                "listValues": []
+            }
+        }, {
+            "display": true,
+            "property": {
+                "name": "Price",
+                "longText": "Price of sponsorship",
+                "reference": "price",
+                "type": "Number",
+                "relation": "LessThan",
+                "sortOrder": null,
+                "active": false,
+                "decimalPlaces": null,
+                "listValues": []
+            }
+        }]
     }],
-    "locations": [],
-    "unpublishedLocations": []
+    "properties": [{
+        "name": "Price",
+        "longText": "Price of sponsorship",
+        "reference": "price",
+        "type": "Number",
+        "relation": "LessThan",
+        "sortOrder": null,
+        "active": false,
+        "decimalPlaces": null,
+        "listValues": []
+    }, {
+        "name": "Available",
+        "longText": "Is the asset currently available",
+        "reference": "available",
+        "type": "Boolean",
+        "relation": "LessThan",
+        "sortOrder": null,
+        "active": false,
+        "decimalPlaces": null,
+        "listValues": []
+    }, {
+        "name": "Contract lengthS",
+        "longText": "Contract length",
+        "reference": "contract-lengths",
+        "type": "Number",
+        "relation": "LessThan",
+        "sortOrder": null,
+        "active": false,
+        "decimalPlaces": null,
+        "listValues": []
+    }]
 }

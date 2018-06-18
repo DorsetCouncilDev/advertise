@@ -36,6 +36,11 @@ export default{
     },
    getDocumentTypes(indexRef){
         return api.get(indexRef + '/documenttypes')
+    },
+    movePropertyUp(indexRef,documentTypeRef,propertyRef,token){
+        var url = indexRef + '/documenttypes/' + documentTypeRef + '/properties/' + propertyRef + '/moveup'
+        
+        return api.put(url,null,token);
     }
     
 }

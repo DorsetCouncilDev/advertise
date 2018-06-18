@@ -8,7 +8,7 @@
     <form v-on:submit.prevent="postcodesearch">
     <div class="form-group">
 <div class="input-group">
-        <input type="text" id="search" class="form-control  form-control-lg" placeholder="Search postcode" aria-label="Recipient's username" aria-describedby="basic-addon2" v-model="postcode">
+        <input type="text" id="search" class="form-control  form-control-lg" placeholder="Search postcode" aria-label="Search postcode" aria-describedby="basic-addon2" v-model="postcode">
     <div class="input-group-append">
     <button class="btn btn-success" type="button" @click="postcodesearch"> GO </button>
   </div>
@@ -21,7 +21,7 @@
     </div>
     <div class="col-sm-6 col-md-5 offset-md-1" id="browseLinkBlock">
  <h2>Opportunities available now!</h2>
-       <router-link class="btn btn-primary btn-lg btn-block" id="browseLink" :to="{path: '/' + indexRef + '/search/'}">Start browsing</router-link>
+       <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/' + indexRef + '/search/'}">Start browsing</router-link>
 
  
     </div>

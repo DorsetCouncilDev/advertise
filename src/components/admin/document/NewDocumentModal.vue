@@ -80,8 +80,6 @@
                 type: {
                     documentTypeProperties: []
                 }
-
-
             }
         },
 
@@ -90,6 +88,7 @@
                 this.$emit('close');
             },
             createDocument: async function() {
+                console.log("create")
                 var newDocument = {
                     'indexRef': this.indexRef,
                     'typeRef': this.type.reference,

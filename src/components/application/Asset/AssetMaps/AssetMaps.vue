@@ -3,7 +3,7 @@
        
         <AssetStreetView v-if="streetView" :location="streetViewLocation"></AssetStreetView>
 
-        <AssetMap :locations="locations"></AssetMap>
+        <AssetMap :locations="locations" :name="name"></AssetMap>
     </div>
 </template>
 
@@ -18,6 +18,9 @@
                 },
                streetView: {
                    type: Boolean
+               },
+               name: {
+                   type: String
                }
               },
         components: {

@@ -12,10 +12,11 @@
   </ol>
     </div>
        <div class="document-header">
-           <div class="icon-holder">
+       <div class="icon-holder">
                 <img id="brandImage" :src="getIcon(document.documentType)">
-           </div>
+           </div>   
       <div class="document-headings">
+          <p class="docTypeText text-muted">{{document.documentType}}</p>
        <h1>{{document.name}}</h1>
        <h2>{{document.longText}}</h2>
          
@@ -28,7 +29,7 @@
        <hr>
 
        <p v-for="p in document.properties">
-           <span v-if="p.display && p.propertyReference != 'price' && p.publishedValue != null && p.publishedValue != ''">{{p.propertyName}} :  
+           <span v-if="p.display && p.propertyReference != 'price' && p.publishedValue != null && p.publishedValue != ''">{{p.propertyName}}:  
 {{p.publishedValue | readBoolean}}</span>
           
 
@@ -40,7 +41,7 @@
        <h3>Location</h3>
        
        
-            <AssetMaps :locations="document.locations" :streetView="true"></AssetMaps>
+            <AssetMaps :locations="document.locations" :streetView="true" :name="document.name"></AssetMaps>
            </div>
   
        

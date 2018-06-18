@@ -84,7 +84,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       }
     ),
       new WebpackWarPlugin({
-        archiveName: 'advertise-dorset'
+        archiveName: 'advertise'
       }),
       
     // keep module.id stable when vendor modules does not change

@@ -40,8 +40,6 @@ export const actions = {
         var parameters = context.state.searchCriteria.parameters;
 
         parameters.forEach((parameter) => {
-            console.log("current parameter: " + parameter.reference);
-
             if (parameter.reference == param.reference) {
                 parameter.value = param.value;
                 updated = true;
@@ -75,11 +73,13 @@ export const actions = {
     sortResultsByProperty(context, param) {
         console.log("set sort: " + param.sortValue)
         context.commit("setSort", param.sortValue);
-        var sortedResults = Sorting.sortResultsByProperty(context.state.searchResults.results, param.sortProperty, param.sortType)
+        var sortedResults = Sorting.sortResultsByProperty(context.state.searchResults, param.sortProperty, param.sortType)
+        
         context.commit("setSortResults", sortedResults)
+        
+        
     },
     sortResultsByBestMatch(context) {
-        console.log("actions-sort best match")
         context.commit("setSort", "bestmatch");
         var sortedResults = Sorting.sortByBestMatch(context.state.searchResults.results)
         context.commit("setSortResults", sortedResults)
@@ -174,10 +174,6 @@ export const actions = {
     aSearch(context){
           SearchService.search(context.state.indexReference, context.state.searchCriteria).then((response) => {
                 context.commit("setASearchResults",response.data.results)
-              
-              console.log("search results: " + response.data.numberOfResults)
-              
-            
         }, (error) => {
             /* TODO Handle error */
             console.log("error searching caught")
@@ -185,9 +181,7 @@ export const actions = {
     },
     
     setPostcodeSearchCriteria({state,commit,dispatch}){
-        var postcode = state.searchForm.postcode; 
-        console.log("postcode:: " + postcode)
-    
+        var postcode = state.searchForm.postcode;   
         if(postcode != null && postcode != "" )
         {
             GazetteerService.search(postcode).then((response)=>{
@@ -199,7 +193,7 @@ export const actions = {
                     "latitude": address.latitude,
                     "longitude": address.longitude,
                     "unit": "MILE",
-                    "range": 3
+                    "range": 10
                 } 
                 commit("setPostcodeSearchCriteria",location);
             dispatch("aSearch");

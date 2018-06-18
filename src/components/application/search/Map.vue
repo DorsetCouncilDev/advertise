@@ -43,10 +43,13 @@
                     console.log("loop assets")
                     if (asset.document.locations != null && asset.document.locations.length > 0) {
                         var price = asset.document.properties.find(function(element){
-                            return element.propertyReference == 'price'
-                        })
-                        var infoContent = '<p class="lead">' + asset.document.name + '</p><p class="lead">£' + price.publishedValue + '</p>' +
-                            '<p><a style="font-size:22px; text-decoration: underline;" href="#/' + asset.document.index + '/' + asset.document.reference + '">View this opportunity</a></p>';
+                                        return element.propertyReference == 'price'
+                                    })
+                        
+                        price.publishedValue = parseInt(price.publishedValue, 10);
+                        
+                        var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + asset.document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + price.publishedValue + '</p>' +
+                            '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="#/' + asset.document.index + '/' + asset.document.reference + '">View this opportunity</a></p>';
                         this.addMarker(asset.document.locations[0],infoContent)
                     }
                 })

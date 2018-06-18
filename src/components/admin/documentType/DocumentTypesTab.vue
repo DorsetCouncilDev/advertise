@@ -50,7 +50,14 @@
                 showNewDocumentTypeModal: false
             }
         },
-
+watch: {
+  documentTypes: function(){
+      this.documentTypes.forEach((type)=>{
+                    if(this.currentDocumentType.reference == type.reference)
+                        this.currentDocumentType = type;
+                })
+  }  
+},
         methods: {
             openViewModal: function(docType){
                 this.currentDocumentType = docType
@@ -76,9 +83,10 @@
             },
          
             onUpdated: function() {
+       
                 this.$emit('updated') 
-                 this.showViewModal = false
-                this.currentDocumentType = {}
+                
+              
             },
        
             onDocumentTypeUpdate: async function(){

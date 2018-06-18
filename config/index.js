@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/advertise-dorset/',
+    assetsPublicPath: '/advertise/',
     proxyTable: {},
 
     // Various Dev Server settings

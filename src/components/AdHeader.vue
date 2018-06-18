@@ -3,9 +3,9 @@
 <template>
 <div>
    <header>
-       <div id="dfyHolder"><img src="../assets/images/dfy.png" id="dfyLogo"></div>
+       <div id="dfyHolder"><img src="../assets/images/dfy.png" id="dfyLogo" alt="Go to Dorset for you homepage"></div>
        <div id="titleHolder">
-            <div id="title"><a href="home.html">ADVERTISE DORSET</a>  <img id="brandImage" src="../assets/images/ad-brand-image.svg" > </div>
+            <div id="title"><a href="home.html">ADVERTISE DORSET</a>  <img id="brandImage" src="../assets/images/ad-brand-image.svg" alt=""> </div>
             
         </div>
        <div v-if="signedIn != ''"><a @click="logout">logout</a></div>

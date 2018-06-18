@@ -15,7 +15,7 @@
                     <div class="card-heading">
                         <div class="icon"><img :src="getIcon(d.document.documentType)">
                         </div>
-                        <div class="heading"><div id="heading-text">{{d.document.name}}</div></div>
+                        <div class="heading"><div id="heading-text">{{d.document.name}}</div><p class="docTypeText text-muted">{{d.document.documentType}}</p></div>
                     </div>
                   
                     
@@ -212,6 +212,12 @@
             }
         }
 
+    }
+    
+    .docTypeText{
+        font-size:14px;
+        margin-top:0;
+        margin-bottom: 0;
     }
 
 </style>
