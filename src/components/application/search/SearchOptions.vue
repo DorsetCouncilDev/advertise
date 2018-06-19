@@ -10,14 +10,21 @@
         </div>
             
         <legend>Types</legend>
-         
-        <div class="form-group" v-for="type in documentTypes">
-            <div class="multiple-choice">
-                <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
-                <label :for="type.reference" id="longLabel">{{type.name}}</label>
+        <div v-for="type in documentTypes" v-if="type.display" class="mb-2">
+        <div class="type-options" >
+            <div class="form-group">
+                <div class="multiple-choice">
+                    <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
+                    <label :for="type.reference" id="longLabel">{{type.name}} </label>
+                </div>
             </div>
+            <div class="type-icon">
+                <img :src="getIcon(type.reference)">
+            </div>
+            
         </div>
-
+       
+            </div>
         <button class="btn btn-success mt-4" @click.prevent="search">Search</button>
     </form>
 </div>
@@ -50,21 +57,23 @@
                 postcodeSearch: ""
             }
         },
-        methods:{
-            async search(){
-                if(this.postcodeSearch.length > 0)
-                {
-                    this.$store.commit("setPostcode",this.postcodeSearch)
+        methods: {
+            getIcon(documentType) {
+                return require("../../../assets/images/icons/" + documentType + ".svg");
+            },
+            async search() {
+                if (this.postcodeSearch.length > 0) {
+                    this.$store.commit("setPostcode", this.postcodeSearch)
                     await this.$store.dispatch("setPostcodeSearchCriteria")
-                }else
-                this.$store.dispatch("aSearch"); 
-                 this.$emit("onChangeShowSearchForm")
-            } 
+                } else
+                    this.$store.dispatch("aSearch");
+                this.$emit("onChangeShowSearchForm")
+            }
         },
         watch: {
             documentTypes: {
                 handler: function() {
-                 this.$store.dispatch("setTypesSearchChange",this.documentTypes)
+                    this.$store.dispatch("setTypesSearchChange", this.documentTypes)
                 },
                 deep: true
             },
@@ -74,12 +83,12 @@
         },
         computed: {
             documentTypes: {
-                get: function(){
+                get: function() {
                     return this.$store.state.searchForm.documentTypes
                 }
             },
-            postcode:{
-                get: function(){
+            postcode: {
+                get: function() {
                     var p = this.$store.state.searchForm.postcode
                     p = p.toUpperCase()
                     return p
@@ -95,6 +104,43 @@
 
 
 <style scoped lang="scss">
+    .multiple-choice label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .type-options {
+        display: flex;
+        .form-group {
+            flex-grow: 2;
+            .multiple-choice label.label {
+                line-height: 1.3;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        .type-icon {
+            flex-shrink: 1;
+            position: relative;
+            display: flex;
+            width:50px;
+            img {
+position: absolute;
+                top:-2px;
+        width: 42px;
+        height: 42px;
+    }
+        }
+    }
+
+    img {
+
+        width: 50px;
+        height: 50px;
+    }
+
     #collapsePrice {
         margin-bottom: .5rem;
     }
@@ -161,7 +207,7 @@
         form {
             label {
                 padding-bottom: 0;
-                line-height: 1.2;
+                line-height: 1.3;
             }
             #placesToggle,
             #typesToggle {
@@ -219,12 +265,12 @@
     }
 
     @media only screen and (min-width: 545px) {
-        
+
         #menu {
-            top:300px;
+            top: 300px;
         }
     }
-    
+
     @media only screen and (min-width: 800px) {
 
         #menu {
@@ -240,8 +286,9 @@
             display: none;
         }
     }
-    .invisible{
-        font-size:3px;
+
+    .invisible {
+        font-size: 3px;
         position: absolute;
     }
 

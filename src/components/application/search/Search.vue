@@ -7,9 +7,9 @@
         </div>
         <ol class="ad-breadcrumb">
             <li aria-current="page">
-                <router-link :to="{ path: '/' + indexRef}">Home</router-link>
+                <router-link :to="{ path: '/' + indexRef}">home</router-link>
             </li>
-            <li aria-current="page">Search</li>   
+            <li aria-current="page">search</li>   
         </ol>
     </div>
     <h1>Discover opportunities</h1>

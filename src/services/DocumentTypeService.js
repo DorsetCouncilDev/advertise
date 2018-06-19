@@ -28,11 +28,11 @@ export default{
     movePropertyUp(indexRef,typeRef,propertyRef,token){
         return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/moveup',token)
     },
-    showProperty(indexRef,typeRef,propertyRef){
-        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/show')
+    showProperty(indexRef,typeRef,propertyRef,token){
+        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/show',token)
     },
-    hideProperty(indexRef,typeRef,propertyRef){
-        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/hide')
+    hideProperty(indexRef,typeRef,propertyRef,token){
+        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/hide',token)
     },
    getDocumentTypes(indexRef){
         return api.get(indexRef + '/documenttypes')

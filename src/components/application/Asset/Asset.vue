@@ -16,20 +16,20 @@
                 <img id="brandImage" :src="getIcon(document.documentType)">
            </div>   
       <div class="document-headings">
-          <p class="docTypeText text-muted">{{document.documentType}}</p>
        <h1>{{document.name}}</h1>
-       <h2>{{document.longText}}</h2>
+       <h2>{{document.documentType | removeHyphens}} {{document.longText}}</h2>
          
          
           </div>
            </div>
-       <h3>&pound;{{assetPrice | round()}}</h3>
+       <h3><span v-if="beforePriceText">{{beforePriceText}} </span>&pound;{{assetPrice | round()}}</h3>
+       <p v-if="afterPriceText">{{afterPriceText}} </p>
      
 
        <hr>
 
        <p v-for="p in document.properties">
-           <span v-if="p.display && p.propertyReference != 'price' && p.publishedValue != null && p.publishedValue != ''">{{p.propertyName}}:  
+           <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != ''">{{p.propertyName}}:  
 {{p.publishedValue | readBoolean}}</span>
           
 
@@ -98,6 +98,22 @@
                         available = true;
                 })
                 return available
+            },
+            beforePriceText(){
+                var beforePrice = null
+                this.document.properties.forEach((p) => {
+                    if (p.propertyReference == 'before-price')
+                        beforePrice = p.publishedValue
+                })
+                return beforePrice
+            },
+             afterPriceText(){
+                var afterPrice = null
+                this.document.properties.forEach((p) => {
+                    if (p.propertyReference == 'after-price')
+                        afterPrice = p.publishedValue
+                })
+                return afterPrice
             }
         },
         beforeMount() {
@@ -122,6 +138,10 @@
                     return 'No'
                 else
                     return value
+            },
+             removeHyphens: function(value){
+                return value.replace(new RegExp('-', 'g')," ");
+                
             }
         }
     }

@@ -13,9 +13,9 @@
             <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" data-aos="fade">
                 <router-link :to="{ path: '/' + d.document.index + '/' + d.document.reference}" class="card-link">
                     <div class="card-heading">
-                        <div class="icon"><img :src="getIcon(d.document.documentType)">
+                        <div class="icon"><img :alt="d.document.documentType"  :src="getIcon(d.document.documentType)">
                         </div>
-                        <div class="heading"><div class="docTypeLabel">{{d.document.documentType}}</div><div class="heading-text">{{d.document.name}}</div></div>
+                        <div class="heading"><div class="docTypeLabel" :class="d.document.documentType">{{d.document.documentType | removeHyphens}}</div><div class="heading-text">{{d.document.name}}</div></div>
                     </div>
                   
                     
@@ -94,9 +94,9 @@
         mounted(){
             AOS.init({once:true,
                       offset: 50,
-                      duration: 600,
+                      duration: 400,
                       easing: 'ease-in-sine',
-                      delay: 100});  
+                      delay: 50});  
         },
         filters: {
             round:  function(value) {
@@ -112,12 +112,22 @@
                 },
             uppercase: function(value){
                 return value.toUpperCase()
+            },
+            removeHyphens: function(value){
+                return value.replace(new RegExp('-', 'g')," ");
+                
             }
             }
     }
 </script>
 
 <style scoped lang="scss">
+    $roundabouts: darkgreen;
+    $parking-tickets: purple;
+    
+    
+    
+    
     #searchResultsContainer {
         width: 100%;
         .result-cards {
@@ -145,6 +155,8 @@
                         flex-direction: column;
                         justify-content: center;
                         font-size: 24px;
+                        line-height: 1.2;
+                    
                     }
 
                     .icon {
@@ -215,6 +227,12 @@
     .docTypeLabel{
         font-size:18px;
         color:grey;
+        &.car-parking-ticket-advertising{
+            color: $parking-tickets;
+        }
+        &.roundabout-sponsorship{
+            color: $roundabouts;
+        }
     }
   
 

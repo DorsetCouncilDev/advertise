@@ -1,23 +1,26 @@
 <template>
 
-   <b-modal v-model="showModal" @hidden="onHidden" @show="onShow" hide-footer title="Document type">
-<div class="ad-modal-body"> 
-
-
-            <div class="form-group">    
-                <label for="name">Name</label>
-                <input class="form-control" id="name" type="text" v-model="currentDocumentType.name">
-            </div>
+<b-modal v-model="showModal" @hidden="onHidden" @show="onShow" hide-footer title="Document type">
+    <div class="ad-modal-body"> 
+        <div class="form-group">    
+            <label for="name">Name</label>
+            <input class="form-control" id="name" type="text" v-model="currentDocumentType.name">
+        </div>
            
-            <div class="form-group">    
-                <label for="longText">Long text</label>
-                <input class="form-control" type="text" id="longText" v-model="currentDocumentType.longText">
-            </div>
+        <div class="form-group">    
+            <label for="longText">Long text</label>
+            <input class="form-control" type="text" id="longText" v-model="currentDocumentType.longText">
+        </div>
+    
+        <div class="multiple-choice">
+            <input type="checkbox" class="form-control small" :id="currentDocumentType.reference"  :name="currentDocumentType.reference" v-model="currentDocumentType.display" value="1" >
+            <label class="small pr" :for="currentDocumentType.reference" >Display</label>
+        </div>
  
-            <legend>Properties</legend>
+            <legend class="mt-3">Properties</legend>
  
     <b-tabs>
-  <b-tab title="Properties" active>
+  <b-tab title="All properties" active>
        <div class="stv-radio-tabs-wrapper">
        <input  type="radio" class="stv-radio-tab" id="one" name="sortProperties"   value="sortAz" v-model="sortPropertiesBy">
         <label for="one">A-z</label>
@@ -42,17 +45,15 @@
     </b-list-group-item>
     </b-list-group>
   </b-tab>
-  <b-tab title="Order" >
+  <b-tab title="Selected properties" >
       <b-list-group>
             <b-list-group-item  v-for="property in selectedProperties" :key="property.property.reference">
               {{property.property.name}}
                 
                 <div class="actions">
                  <div class="multiple-choice">
-                    <input type="checkbox" class="form-control small" id="one"  :name="property.property.reference" value="1" >
-                    <label class="small pr" for="one" >Display</label>
-                    
-                    
+                    <input type="checkbox" class="form-control small" :id="property.property.reference"  :name="property.property.reference" v-model="property.display" value="1" @click="updatePropertyDisplay(property.property.reference,property.display)" >
+                    <label class="small pr" :for="property.property.reference" >Display</label>
                 </div>
                 
                 
@@ -145,7 +146,21 @@
         },
 
         methods: {
-
+            updatePropertyDisplay: async function(propertyRef,value){
+                var securityToken = this.$store.state.securityToken;
+                if(!value == true){
+                    DocumentTypeService.showProperty(this.indexRef,this.currentDocumentType.reference,propertyRef,securityToken).then((response)=>{
+                        this.$emit('updated')
+                        this.initialise();
+                    })
+                }
+                 else {
+                     DocumentTypeService.hideProperty(this.indexRef,this.currentDocumentType.reference,propertyRef,securityToken).then((response)=>{
+                        this.$emit('updated')   
+                         this.initialise();
+                    })
+                 }  
+            },
             moveUp: async function(propertyRef) {
                 console.log("move up: " + propertyRef)
 
@@ -162,7 +177,8 @@
             updateType: async function() {
                 var updateProperties = {
                     "name": this.currentDocumentType.name,
-                    "longText": this.currentDocumentType.longText
+                    "longText": this.currentDocumentType.longText,
+                    "display": this.currentDocumentType.display
                 }
                 var securityToken = this.$store.state.securityToken;
 
@@ -197,7 +213,7 @@
                 this.currentDocumentType = {}
                 this.$emit('close')
             },
-            onShow(evt) {
+            initialise(){
                 this.selectedProperties = [];
                 this.currentDocumentType = _.cloneDeep(this.documentType)
                 this.indexProperties = _.cloneDeep(this.properties)
@@ -219,6 +235,9 @@
                 this.currentDocumentType.properties.forEach((typeProperty) => {
                      this.selectedProperties.push(typeProperty) 
                 })
+            },
+            onShow(evt) {
+                this.initialise();
             },
             sortPropertiesBySelected() {
                 this.indexProperties.sort(function(x, y) {
@@ -262,10 +281,16 @@
 
 <style scoped lang="scss">
     
+    .multiple-choice{
+        margin-right:15px;
+        padding: 5px 0 0 25px;
+    }
     .multiple-choice label.small {
     padding: 0 5px 1px 2px; 
     margin-bottom: 1px; 
      margin-top: 0; 
+     
+        
 }
     
     .actions{
