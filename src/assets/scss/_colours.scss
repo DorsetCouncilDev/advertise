@@ -239,10 +239,11 @@ $value in $theme-colors {
 
 #mfooter {
     padding: 30px;
-
+    position: relative;
     background: hsl(210, 9%, 96%);
     display: flex;
     justify-content: space-between;
+
 }
 
 .modal-header {

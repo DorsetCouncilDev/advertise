@@ -3,12 +3,12 @@
         <h2 class="display-4">Asset types</h2> 
              
         <b-list-group>
-            <b-list-group-item :button="true" v-for="documentType in documentTypes" :key="documentType.id" @click="openViewModal(documentType)">{{documentType.name}}</b-list-group-item>
+            <b-list-group-item :button="true" v-for="documentType in documentTypes" :key="documentType.id" @click="openViewModal(documentType.reference)">{{documentType.name}}</b-list-group-item>
         </b-list-group>
             
         <button class="btn btn-primary mt-5" @click="openNewDocumentTypeViewModal">Create new asset type</button>
   
-        <ViewDocumentTypeModal :indexRef="indexRef" :show="showViewModal" :documentType="currentDocumentType" :properties="properties" @close="onCloseViewModal" @updated="onUpdated" ></ViewDocumentTypeModal>
+        <ViewDocumentTypeModal :indexRef="indexRef" :show="showViewModal" :documentTypeRef="currentDocumentTypeRef" :properties="properties" @close="onCloseViewModal" @updated="onUpdated" ></ViewDocumentTypeModal>
          
         <NewDocumentTypeModal :indexRef="indexRef" :show="showNewDocumentTypeModal" @close="onCloseNewDocumentTypeViewModal" @created="onCreated"></NewDocumentTypeModal>
        
@@ -45,33 +45,20 @@
         },
         data() {
             return {
-                currentDocumentType: {},
+                currentDocumentTypeRef: "",
                 showViewModal: false,
                 showNewDocumentTypeModal: false
             }
         },
-watch: {
-  documentTypes: function(){
-      this.documentTypes.forEach((type)=>{
-                    if(this.currentDocumentType.reference == type.reference)
-                        this.currentDocumentType = type;
-                })
-  }  
-},
         methods: {
-            openViewModal: function(docType){
-                this.currentDocumentType = docType
-                    this.showViewModal = true
-                /*
-                this.currentDocumentType.name = docType.name;
-                this.currentDocumentType.longText = docType.longText;
-                this.currentDocumentType.reference = docType.reference;
+            openViewModal: function(docTypeRef){
+                console.log("dtype: " + docTypeRef)
+                this.currentDocumentTypeRef = docTypeRef
                 this.showViewModal = true
-                */
             },
             onCloseViewModal: function() {
                 this.showViewModal = false
-                this.currentDocumentType = {}
+                this.currentDocumentTypeRef = ""
             },
             
             onCloseNewDocumentTypeViewModal: function() {
@@ -95,9 +82,6 @@ watch: {
             },
          
             openNewDocumentTypeViewModal: function(){
-                this.currentDocumentType.name = "";
-                this.currentDocumentType.longText = "";
-                this.currentDocumentType.reference = "";
                 this.showNewDocumentTypeModal = true;
             }
         }

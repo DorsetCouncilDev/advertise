@@ -6,7 +6,7 @@
         </b-list-group>
         <button class="btn btn-primary mt-5" @click="openNewPropertyModal" >Create new property</button>
        
-        <ViewPropertyModal :indexRef="indexRef" :show="showViewPropertyModal" :property="currentProperty" @close="closeViewPropertyModal" @updated="onUpdate" ></ViewPropertyModal>
+        <ViewPropertyModal :indexRef="indexRef" :show="showViewPropertyModal" :propertyRef="currentPropertyRef" @close="closeViewPropertyModal" @updated="onUpdate" ></ViewPropertyModal>
         <NewPropertyModal :indexRef="indexRef" :show="showNewPropertyModal" v-on:created="onCreated" @close="closeNewPropertyModal"></NewPropertyModal>
     </div>
 </template>
@@ -38,7 +38,7 @@
         },
         data() {
             return {
-                currentProperty: {},
+                currentPropertyRef: "",
                 showViewPropertyModal: false,
                 showNewPropertyModal: false
             }
@@ -57,12 +57,11 @@
             },
             openPropertyViewModal: function(property) {
                 this.showViewPropertyModal = true
-                this.currentProperty = property
+                this.currentPropertyRef = property.reference
                
             },
-            onUpdate: function(property) {
-                this.showViewPropertyModal = false
-                this.currentProperty = {}      
+            onUpdate: function() {
+                    
                 this.$emit('updated')
             },
        

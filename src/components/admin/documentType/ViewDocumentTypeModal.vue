@@ -1,98 +1,98 @@
 <template>
 
-<b-modal v-model="showModal" @hidden="onHidden" @show="onShow" hide-footer title="Document type">
+<b-modal v-model="showModal" size="lg" @hidden="onHidden" @show="onShow" hide-footer title="Asset type">
+    
     <div class="ad-modal-body"> 
+    
+       
+        <div class="row">
+            <div class="col-sm-6">
         <div class="form-group">    
             <label for="name">Name</label>
-            <input class="form-control" id="name" type="text" v-model="currentDocumentType.name">
-        </div>
-           
+            <input class="form-control" id="name" type="text" v-model="documentType.name">
+        </div>   
         <div class="form-group">    
             <label for="longText">Long text</label>
-            <input class="form-control" type="text" id="longText" v-model="currentDocumentType.longText">
+            <input class="form-control" type="text" id="longText" v-model="documentType.longText">
         </div>
-    
         <div class="multiple-choice">
-            <input type="checkbox" class="form-control small" :id="currentDocumentType.reference"  :name="currentDocumentType.reference" v-model="currentDocumentType.display" value="1" >
-            <label class="small pr" :for="currentDocumentType.reference" >Display</label>
+            <input type="checkbox" class="form-control small" :id="documentType.reference"  :name="documentType.reference" v-model="documentType.display" value="1" >
+            <label class="small pr" :for="documentType.reference" >Display</label>
         </div>
- 
-            <legend class="mt-3">Properties</legend>
- 
-    <b-tabs>
-  <b-tab title="All properties" active>
-       <div class="stv-radio-tabs-wrapper">
-       <input  type="radio" class="stv-radio-tab" id="one" name="sortProperties"   value="sortAz" v-model="sortPropertiesBy">
-        <label for="one">A-z</label>
-           
-           <input  type="radio" class="stv-radio-tab" id="two" name="sortProperties"    value="sortZa" v-model="sortPropertiesBy">
-        <label for="two">Z-a</label>
-           
-           <input  type="radio" class="stv-radio-tab" id="three" name="sortProperties" value="selectedFirst" v-model="sortPropertiesBy">
-        <label for="three">Selected first</label>
-    </div>
-    <b-list-group>
-            <b-list-group-item  v-for="property in indexProperties" :key="property.reference">
-                <div class="form-group">
-                <div class="multiple-choice">
-                    <input type="checkbox" class="form-control small" :id="property.reference" value="1" v-model="property.selected">
-                    <label class="small pr" :for="property.reference" >{{property.name}} <span class="font-weight-light text-lowercase"> ({{property.type}})</span></label>
-                    
-                    
                 </div>
-                    </div>
-          
-    </b-list-group-item>
-    </b-list-group>
-  </b-tab>
-  <b-tab title="Selected properties" >
-      <b-list-group>
-            <b-list-group-item  v-for="property in selectedProperties" :key="property.property.reference">
-              {{property.property.name}}
-                
-                <div class="actions">
-                 <div class="multiple-choice">
-                    <input type="checkbox" class="form-control small" :id="property.property.reference"  :name="property.property.reference" v-model="property.display" value="1" @click="updatePropertyDisplay(property.property.reference,property.display)" >
-                    <label class="small pr" :for="property.property.reference" >Display</label>
+            <div class="col-sm-6">
+        <legend class="mt-3">Properties</legend>
+        <b-tabs>
+            <b-tab title="All properties" active>
+                <p>Use save button to update</p>
+                <div class="stv-radio-tabs-wrapper">
+                    <input  type="radio" class="stv-radio-tab" id="one" name="sortProperties"   value="sortAz" v-model="sortPropertiesBy">
+                    <label for="one">A-z</label>
+           
+                    <input  type="radio" class="stv-radio-tab" id="two" name="sortProperties"    value="sortZa" v-model="sortPropertiesBy">
+                    <label for="two">Z-a</label>
+           
+                    <input  type="radio" class="stv-radio-tab" id="three" name="sortProperties" value="selectedFirst" v-model="sortPropertiesBy">
+                    <label for="three">Selected first</label>
                 </div>
-                
-                
-                <button title="move up one place" class="btn btn-light" @click="moveUp(property.property.reference)"><img src="../../../assets/images/up-arrow.png"></button>
-                    </div>
-    </b-list-group-item>
-    </b-list-group>
-  </b-tab>
-
-</b-tabs>
-    
-
-         </div>  
-      <div id="mfooter">
-            <b-btn type="button" class="btn btn-outline-secondary" @click="closeModal"> Close </b-btn>
-            <b-btn type="button" variant="success" @click="updateType">Save changes</b-btn>
-            <b-btn class="btn btn-outline-danger" @click="deleteDocumentType">Delete</b-btn>
+                <b-list-group>
+                    <b-list-group-item  v-for="property in indexProperties" :key="property.reference">
+                        <div class="form-group">
+                            <div class="multiple-choice">
+                                <input type="checkbox" class="form-control small" :id="property.reference" value="1" v-model="property.selected">
+                                <label class="small pr" :for="property.reference" >{{property.name}} <span class="font-weight-light text-lowercase"> ({{property.type}})</span></label>
+                            </div>
+                        </div>
+                    </b-list-group-item>
+                </b-list-group>
+            </b-tab>
+            <b-tab title="Selected properties" >
+                <h2 class="display-order-title">In display order</h2>
+                <b-list-group>
+                    <b-list-group-item  v-for="property in selectedProperties" :key="property.property.reference">{{property.property.name}}
+                        <div class="actions">
+                            <div class="multiple-choice">
+                                <input type="checkbox" class="form-control small" :id="property.property.reference"  :name="property.property.reference" v-model="property.display" value="1" @click="updatePropertyDisplay(property.property.reference,property.display)" >
+                                <label class="small pr" :for="property.property.reference" >Display</label>
+                            </div>
+                            <button title="move up one place" class="btn btn-light" @click="moveUp(property.property.reference)"><img src="../../../assets/images/up-arrow.png"></button>
+                        </div>
+                    </b-list-group-item>
+                </b-list-group>
+            </b-tab>
+        </b-tabs>
+                </div>
+    </div> 
+            </div>
+    <div id="mfooter" v-bind:class="{'doingStuff':isDoingStuff}">
+        <b-btn type="button" class="btn btn-outline-secondary" @click="closeModal"> Close </b-btn>
+        <b-btn type="button" variant="success" @click="updateType">Save changes</b-btn>
+        <b-btn class="btn btn-outline-danger" @click="deleteDocumentType">Delete</b-btn>
+         <ModalInfoMessage :info="info"></ModalInfoMessage>
+         <ModalErrorMessage :error="error"></ModalErrorMessage>
     </div>
-
     
-    </b-modal>
-
+</b-modal>
 </template>
 
-
 <script>
+
     import _ from 'lodash'
     import Vue from 'vue'
     import BootstrapVue from 'bootstrap-vue'
     Vue.use(BootstrapVue);
     import DocumentTypeService from '../../../services/DocumentTypeService'
-
+    import ModalErrorMessage from '../../modal-error-message'
+    import ModalInfoMessage from '../../modal-info-message'
     export default {
 
         name: 'DocumentTypeViewModal',
-
+        components: {
+            ModalErrorMessage, ModalInfoMessage
+        },
         props: {
-            documentType: {
-                type: Object,
+            documentTypeRef: {
+                type: String,
                 required: true
             },
 
@@ -108,65 +108,88 @@
                 type: Array,
                 required: true
             },
-            
         },
         data() {
             return {
                 selectedProperties: [],
                 updateDocumentType: {},
-                currentDocumentType: _.cloneDeep(this.documentType),
+                documentType: {},
                 indexProperties: [],
                 showModal: this.show,
-                errorMessage: "",
-                sortPropertiesBy: null
+                sortPropertiesBy: null,
+                isDoingStuff: false,
+                doingStuffMessage: "",
+                error: {
+                    show: false,
+                    message: "",
+                    detail: ""
+                },
+                nameError: false,
+                info: {
+                    message: "",
+                    show:false
+                }
             }
         },
         watch: {
-            sortPropertiesBy: function(){
-                if(this.sortPropertiesBy == 'selectedFirst')
+            sortPropertiesBy: function() {
+                if (this.sortPropertiesBy == 'selectedFirst')
                     this.sortPropertiesBySelected();
-                if(this.sortPropertiesBy == 'sortAz')
+                if (this.sortPropertiesBy == 'sortAz')
                     this.sortPropertiesAZ();
-                if(this.sortPropertiesBy == 'sortZa')
+                if (this.sortPropertiesBy == 'sortZa')
                     this.sortPropertiesZA();
             },
-            
+
             show: function() {
                 this.showModal = this.show
-            },
-            documentType: function(){
-                this.currentDocumentType = {}
-                this.currentDocumentType = _.cloneDeep(this.documentType)
-               this.selectedProperties = []
-                    this.currentDocumentType.properties.forEach((typeProperty) => {
-                        this.selectedProperties.push(typeProperty) 
-                    })
-              
             }
         },
 
         methods: {
-            updatePropertyDisplay: async function(propertyRef,value){
+            updatePropertyDisplay: async function(propertyRef, value) {
+                this.clearInfoMessage()
+                this.clearErrorMessage()
+                this.isDoingStuff = true;
                 var securityToken = this.$store.state.securityToken;
-                if(!value == true){
-                    DocumentTypeService.showProperty(this.indexRef,this.currentDocumentType.reference,propertyRef,securityToken).then((response)=>{
+               
+                if (!value == true) {
+                    DocumentTypeService.showProperty(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response) => {
                         this.$emit('updated')
                         this.initialise();
+                        this.clearActionMessage();           
+                        this.info.show = true;
+                        this.info.message = "Property '" + propertyRef + "' has been set to display";
+                    },(error)=>{
+                         this.clearActionMessage();    
+                         this.error.show = true;
+                         this.error.message = "Sorry something's gone wrong. Properties display has not been changed."
+                    })
+                } else {
+                    DocumentTypeService.hideProperty(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response) => {
+                        this.$emit('updated')
+                        this.initialise();
+                        this.clearActionMessage();           
+                        this.info.show = true;
+                        this.info.message = "Property '" + propertyRef + "' has been set not to display";
+                    },(error)=>{
+                        this.clearActionMessage();    
+                         this.error.show = true;
+                         this.error.message = "Sorry something's gone wrong. Properties display has not been changed."
                     })
                 }
-                 else {
-                     DocumentTypeService.hideProperty(this.indexRef,this.currentDocumentType.reference,propertyRef,securityToken).then((response)=>{
-                        this.$emit('updated')   
-                         this.initialise();
-                    })
-                 }  
             },
             moveUp: async function(propertyRef) {
-                console.log("move up: " + propertyRef)
-
+                this.clearInfoMessage()
+                this.clearErrorMessage()
+                this.isDoingStuff = true;
                 var securityToken = this.$store.state.securityToken;
-                await DocumentTypeService.movePropertyUp(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response)=>{
-                    this.$emit('updated')       
+                await DocumentTypeService.movePropertyUp(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response) => {
+                    this.$emit('updated')
+                    this.clearActionMessage();           
+                    this.info.show = true;
+                    this.info.message = "Property '" + propertyRef + "' has been moved up"
+                  
                 })
             },
             closeModal: function() {
@@ -175,69 +198,92 @@
             },
 
             updateType: async function() {
-                var updateProperties = {
-                    "name": this.currentDocumentType.name,
-                    "longText": this.currentDocumentType.longText,
-                    "display": this.currentDocumentType.display
-                }
-                var securityToken = this.$store.state.securityToken;
+                
+                this.clearInfoMessage()
+                this.clearErrorMessage()
+                
+                this.isDoingStuff = true;
+                
+                if(this.documentType.name == null || this.documentType.name == ""){
+                    this.clearActionMessage();
+                    this.error.show = true;
+                    this.error.message = "Name is required";
+                    this.error.detail = "";   
+                    this.nameError = true;
+                }else{
+                
+                    var updateProperties = {
+                        "name": this.documentType.name,
+                        "longText": this.documentType.longText,
+                        "display": this.documentType.display
+                    }
+                    var securityToken = this.$store.state.securityToken;
 
-                var propertiesSelected = [];
-                this.indexProperties.forEach((currentProperty) => {
-                    if (currentProperty.selected)
-                        propertiesSelected.push(currentProperty.reference)
-                })
-
-                await DocumentTypeService.updateType(this.indexRef, this.documentType.reference, securityToken, updateProperties)
-                    .then(async (response) => {
-                        await DocumentTypeService.addProperties(this.indexRef, response.data.reference, propertiesSelected, securityToken).then((response) => {
-
-                        })
-                        this.$emit('updated', response.data)
-                    }, (error) => {
-                        console.log("ERROR: " + error)
+                    var propertiesSelected = [];
+                    this.indexProperties.forEach((currentProperty) => {
+                        if (currentProperty.selected)
+                            propertiesSelected.push(currentProperty.reference)
                     })
+
+                    await DocumentTypeService.updateType(this.indexRef, this.documentType.reference, securityToken, updateProperties)
+                        .then(async (response) => {
+                        await DocumentTypeService.addProperties(this.indexRef, response.data.reference, propertiesSelected, securityToken).then((response) => { })
+                        this.$emit('updated')
+                        this.clearActionMessage();           
+                        this.info.show = true;
+                        this.info.message = "Changes have been saved"
+                        this.initialise(response.data.reference)
+                    }, (error) => {
+                        this.error.show = true;
+                        this.error.message = "Sorry something's gone wrong. Any changes were not saved."
+                    })
+                }
             },
             deleteDocumentType: async function() {
                 var securityToken = this.$store.state.securityToken;
                 await DocumentTypeService.deleteType(this.indexRef, this.documentType.reference, securityToken)
                     .then((response) => {
 
-                        this.$emit('updated', response.data)
+                        this.$emit('updated')
                     }, (error) => {
                         if (error.response.status === 409)
                             this.errorMessage = "This type is being used"
                     })
             },
             onHidden(evt) {
-                this.currentDocumentType = {}
+                 this.clearAllMessages();  
+                this.documentType = {}
                 this.$emit('close')
             },
-            initialise(){
+            initialise(typeRef) {
+                DocumentTypeService.getType(this.indexRef,typeRef).then((response)=>{
+                    this.documentType = response.data
+                 
+                console.log("prop dref: " + this.documentTypeRef)
                 this.selectedProperties = [];
-                this.currentDocumentType = _.cloneDeep(this.documentType)
+                
                 this.indexProperties = _.cloneDeep(this.properties)
 
                 this.indexProperties.forEach((indexProperty) => {
-                    this.currentDocumentType.properties.forEach((typeProperty) => {
+                    this.documentType.properties.forEach((typeProperty) => {
 
                         console.log("index-p-ref: " + indexProperty.reference)
                         console.log("type-p-ref: " + typeProperty.property.reference)
 
                         if (indexProperty.reference == typeProperty.property.reference) {
                             indexProperty.selected = true;
-                            
                         }
-
                     })
                 })
-                
-                this.currentDocumentType.properties.forEach((typeProperty) => {
-                     this.selectedProperties.push(typeProperty) 
+
+                this.documentType.properties.forEach((typeProperty) => {
+                    this.selectedProperties.push(typeProperty)
                 })
+                    
+                      })  
             },
             onShow(evt) {
-                this.initialise();
+                this.initialise(this.documentTypeRef);
             },
             sortPropertiesBySelected() {
                 this.indexProperties.sort(function(x, y) {
@@ -252,7 +298,6 @@
             },
             sortPropertiesAZ() {
                 this.indexProperties.sort(function(x, y) {
-                 
                     if (x.name < y.name)
                         return -1;
                     if (y.name < x.name)
@@ -261,83 +306,93 @@
                 });
             },
             sortPropertiesZA() {
-                
                 this.indexProperties.sort(function(x, y) {
-                 
                     if (x.name > y.name)
                         return -1;
                     if (y.name > x.name)
                         return 1;
                     return 0;
                 });
+            }, 
+            clearAllMessages(){
+                this.clearActionMessage()
+                this.clearInfoMessage()
+                this.clearErrorMessage()
+            },
+            clearActionMessage(){
+                this.isDoingStuff = false;
+            },
+            clearInfoMessage(){
+                this.info.show = false;
+                this.info.message = "";
+            },
+            clearErrorMessage(){
+                this.error.show = false;
+                this.error.message = "";
+                this.error.detail = ""
+                this.nameError = false;
+            },
+            async getDocumentType(typeRef){
+               await DocumentTypeService.getType(this.indexRef,typeRef).then((response)=>{
+                    this.documentType = response.data
+                })      
             }
-        },
-        mounted() {
-
         }
     }
 
 </script>
 
 <style scoped lang="scss">
-    
-    .multiple-choice{
-        margin-right:15px;
+    .multiple-choice {
+        margin-right: 15px;
         padding: 5px 0 0 25px;
     }
+
     .multiple-choice label.small {
-    padding: 0 5px 1px 2px; 
-    margin-bottom: 1px; 
-     margin-top: 0; 
-     
-        
-}
-    
-    .actions{
+        padding: 0 5px 1px 2px;
+        margin-bottom: 1px;
+        margin-top: 0;
+    }
+
+    .actions {
         display: flex;
     }
-    
+
     .stv-radio-tabs-wrapper {
-            clear: both;
-            display: flex;
+        clear: both;
+        display: flex;
         justify-content: flex-end;
-            padding: 0;
-            position: relative;
+        padding: 0;
+        position: relative;
         width: 100%;
-        }
-        input.stv-radio-tab {
-            position: absolute;
-            left: -99999em;
-            top: -99999em;
+    }
 
-            &+label {
-                cursor: pointer;
-                float: left;
-                border: solid 1px #ced4da;
-                background-color: #fff;
-               padding:3px 5px;
-              
-              
-                position: relative;
-             
+    input.stv-radio-tab {
+        position: absolute;
+        left: -99999em;
+        top: -99999em;
 
-              
-                &:hover {
-                    background-color: #eee;
-                }
-            }
-
-            &:checked+label {
-                background-color: #E9E9E9;
-                z-index: 1;
+        &+label {
+            cursor: pointer;
+            float: left;
+            border: solid 1px #ced4da;
+            background-color: #fff;
+            padding: 3px 5px;
+            position: relative;
+            &:hover {
+                background-color: #eee;
             }
         }
-    
+
+        &:checked+label {
+            background-color: #E9E9E9;
+            z-index: 1;
+        }
+    }
+
     h2.display-4 {
         font-size: 32px;
     }
-
-
 
     .close {
         position: absolute;
@@ -348,22 +403,17 @@
     #propertiesSelectionLink {
         margin-left: 30px;
         &.collapsed:before {
-
-
             content: '+'
         }
         &:before {
             position: absolute;
             content: '-';
             left: 15px;
-
         }
     }
 
     .multiple-choice {
-
         &:after {
-
             position: absolute;
             left: 200px;
             top: 0;
@@ -373,13 +423,20 @@
     .list-group-item {
         display: flex;
         justify-content: space-between;
-
         &:hover {
             .btn {
                 opacity: 1;
-
             }
         }
     }
-
+    .doingStuff {
+        opacity: .3;
+    }
+    .display-order-title{
+        
+    }
+  .ad-modal-body{
+        height:600px;
+        overflow:scroll;
+    }
 </style>

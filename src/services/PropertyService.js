@@ -13,6 +13,9 @@ export default{
     },   
     editProperty(indexRef,propertyRef,property,token){
         return api.put(indexRef + '/properties/' + propertyRef,property,token)
+    },
+    getProperty(indexRef,propertyRef){
+        return api.get(indexRef + '/properties/' + propertyRef)
     }
     
 }

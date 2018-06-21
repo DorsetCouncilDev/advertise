@@ -58,13 +58,14 @@
                 <input class="form-control" type="text" id="longitude" @input="locationChanged = true" name="longitude" v-model="location.latitude">
                 <input class="form-control" type="text" id="latitude" @input="locationChanged = true" name="latitude" v-model="location.longitude">
             </div>   
-            <div class="mt-4 mb-4 d-flex justify-content-between">
+            <div class="mt-4 mb-4 d-flex justify-content-between location-actions">
                 <button class="btn btn-outline-primary" v-if="!hasLocation" @click="addLocation" >Submit location</button>
                 <button class="btn btn-primary" v-if="hasLocation" :disabled="!locationChanged" @click="updateLocation">Save location</button>
                 <button class="btn btn-outline-danger" v-if="hasLocation" @click="deleteLocation">Delete location</button>
-             
+                <ModalErrorMessage :error="locationError"></ModalErrorMessage>
+            <ModalInfoMessage :info="locationInfo"></ModalInfoMessage>
             </div>
-            <p class="text-danger" v-if="locationError">Not a valid location</p>
+        
    
             
            
@@ -72,11 +73,14 @@
            
     
     </div> 
+             
     </div>
-        <div id="mfooter">
+        <div id="mfooter" v-bind:class="{'doingStuff':isDoingStuff}">
             <button  class="btn btn-outline-secondary" @click="closeModal()"> Close </button>
             <button type="button" class="btn btn-success" data-dismiss="modal" @click="updateDocument">Save</button>
             <button type="button" class="btn btn-danger" @click="deleteDocument">Delete</button>
+         <ModalErrorMessage :error="error"></ModalErrorMessage>
+            <ModalInfoMessage :info="info"></ModalInfoMessage>
     </div>
     </b-modal>
 
@@ -91,6 +95,8 @@
     import DocumentTypeService from '../../../services/DocumentTypeService'
     import DocumentService from '../../../services/DocumentService'
     import Location from './Location'
+    import ModalErrorMessage from '../../modal-error-message'
+    import ModalInfoMessage from '../../modal-info-message'
 
     export default {
 
@@ -117,9 +123,11 @@
                 required: true
             }
         },
-    
+
         components: {
-            Location
+            Location,
+            ModalErrorMessage,
+            ModalInfoMessage
         },
         data() {
             return {
@@ -135,7 +143,28 @@
                 locationError: false,
                 hasLocation: false,
                 documentTypeProperties: [],
-                updated: false
+                updated: false,
+                isDoingStuff: false,
+                doingStuffMessage: "",
+                error: {
+                    show: false,
+                    message: "",
+                    detail: ""
+                },
+                nameError: false,
+                info: {
+                    message: "",
+                    show: false
+                },
+                messageShown: false,
+                locationError: {
+                    show: false,
+                    message: ""
+                },
+                locationInfo: {
+                    show:false,
+                    message: ""
+                }
             }
         },
         watch: {
@@ -162,21 +191,20 @@
                     this.$emit("resetUpdate");
                 }
             }
-
         },
- filters:{
-    convertBoolean:{
-        read: function(val){
-            if(val == 'true')
-                return true;
-            else
-                return false;
+        filters: {
+            convertBoolean: {
+                read: function(val) {
+                    if (val == 'true')
+                        return true;
+                    else
+                        return false;
+                },
+                write: function(val) {
+                    return val
+                }
+            }
         },
-        write: function(val){
-            return val
-        }
-    }  
- },
         methods: {
             deleteDocument: async function() {
                 var securityToken = this.$store.state.securityToken;
@@ -189,6 +217,7 @@
                 })
             },
             closeModal: function() {
+                this.clearAllMessages()
                 this.$emit('close');
             },
             addLocation: async function() {
@@ -202,96 +231,104 @@
                 })
             },
             updateLocation: function() {
-                /*
-                this.$emit('locationUpdated', {
-                    "location": {
-                        "latitude": this.location.lat,
-                        "longitude": this.location.long
-                    },
+           
+
+
+                var securityToken = this.$store.state.securityToken;
+
+                var request = {
                     "indexRef": this.indexRef,
-                    "documentRef": this.docRef,
-                    "locationRef": this.location.ref
-                })
-                */
-                
-               
-                 var securityToken = this.$store.state.securityToken;
-                
-                    var request = {"indexRef":this.indexRef,"documentRef":this.docRef}
-                 DocumentService.createNewUnpublishedVersion(request,securityToken).then((response)=>{
+                    "documentRef": this.docRef
+                }
+                DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
                     var unpublishedVersion = response.data;
                     this.location.ref = unpublishedVersion.reference;
                     var updateLocationRequest = {
-                        "locationRef":unpublishedVersion.locations[0].reference,
-                        "indexRef":this.indexRef,
-                        "documentRef":this.docRef,
-                        "location":this.location 
+                        "locationRef": unpublishedVersion.locations[0].reference,
+                        "indexRef": this.indexRef,
+                        "documentRef": this.docRef,
+                        "location": this.location
                     }
-                    
-                    DocumentService.updateLocation(updateLocationRequest,securityToken).then((response)=>{
-                        DocumentService.publishSpecificVersion(this.indexRef,this.docRef,unpublishedVersion.versionNumber,securityToken).then( (response)=>{
-                   
-                        this.$emit('update');
+
+                    DocumentService.updateLocation(updateLocationRequest, securityToken).then((response) => {
+                        DocumentService.publishSpecificVersion(this.indexRef, this.docRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
+                            this.$emit('update');
+                            this.locationInfo.show = true;
+                            this.locationInfo.message = "Location updated"
+                        })
                     })
-                    })
-                 })
+                })
             },
             deleteLocation: function() {
-               /* this.$emit('locationDeletion', {
-                    "indexRef": this.indexRef,
-                    "documentRef": this.docRef,
-                    "locationRef": this.location.ref
-                })
-                
-                */
-                var securityToken = this.$store.state.securityToken;
-                var request = {"indexRef":this.indexRef,"documentRef":this.docRef}
-                
-                
-             
-                DocumentService.createNewUnpublishedVersion(request,securityToken).then((response)=>{
-                    var unpublishedVersion = response.data;
-                      
-                    var deleteLocationRequest = {
-                        "indexRef":this.indexRef,
-                        "documentRef":this.docRef,
-                        "locationRef":unpublishedVersion.locations[0].reference}
+                /* this.$emit('locationDeletion', {
+                     "indexRef": this.indexRef,
+                     "documentRef": this.docRef,
+                     "locationRef": this.location.ref
+                 })
                  
-                     DocumentService.deleteLocation(deleteLocationRequest,securityToken).then((response)=>{
-                   
-                       DocumentService.publishSpecificVersion(this.indexRef,this.docRef,unpublishedVersion.versionNumber,securityToken).then( (response)=>{
-                   
-                        this.$emit('update');
+                 */
+                var securityToken = this.$store.state.securityToken;
+                var request = {
+                    "indexRef": this.indexRef,
+                    "documentRef": this.docRef
+                }
+
+
+
+                DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
+                    var unpublishedVersion = response.data;
+
+                    var deleteLocationRequest = {
+                        "indexRef": this.indexRef,
+                        "documentRef": this.docRef,
+                        "locationRef": unpublishedVersion.locations[0].reference
+                    }
+
+                    DocumentService.deleteLocation(deleteLocationRequest, securityToken).then((response) => {
+
+                        DocumentService.publishSpecificVersion(this.indexRef, this.docRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
+
+                            this.$emit('update');
+                        })
                     })
                 })
-               })
 
             },
             updateDocument: async function() {
+                this.clearInfoMessage()
+                this.clearErrorMessage()
 
-                var securityToken = this.$store.state.securityToken;
-              
-                   var updatedDocument =  {
+                this.isDoingStuff = true;
+
+                
+
+
+                if (this.document.name == null || this.document.name == "") {
+                    this.clearActionMessage();
+                    this.error.show = true;
+                    this.error.message = "Name is required";
+                    this.error.detail = "";
+                    this.nameError = true;
+
+                } else {
+                    var securityToken = this.$store.state.securityToken;
+                    var updatedDocument = {
                         'indexRef': this.indexRef,
                         'reference': this.docRef,
                         'doc': this.document,
                         'properties': this.properties
                     };
-               
-                await DocumentService.updateDocument(updatedDocument, securityToken).then( (response)=>{
-                    
-                    this.$emit('update')
-                    
-                })
-                /*
-                    this.$emit('update', {
-                        'indexRef': this.indexRef,
-                        'reference': this.docRef,
-                        'doc': this.document,
-                        'properties': this.properties
-                    })
-                */
 
+                    await DocumentService.updateDocument(updatedDocument, securityToken).then((response) => {
+                        this.$emit('update')
+                        this.clearActionMessage();
+                        this.info.show = true;
+                        this.info.message = "Changes have been saved"
+                    }, (error) => {
+                        this.error.show = true;
+                        this.error.message = "Sorry something's gone wrong"
+                    })
+                }
             },
             createProperties: async function() {
 
@@ -329,15 +366,16 @@
                 this.document = {}
                 this.properties = {}
                 this.showModal = false
+                this.clearAllMessages();
                 this.$emit('close')
             },
             getDocumentType: async function() {
-                await DocumentTypeService.getType(this.indexRef,this.document.documentType).then((response)=>{
-                 if(response.data.documentTypeProperties != null){
+                await DocumentTypeService.getType(this.indexRef, this.document.documentType).then((response) => {
+                    if (response.data.documentTypeProperties != null) {
                         this.allProperties = response.data.documentTypeProperties
-                               
-                 }
-              })
+
+                    }
+                })
 
             },
             getDocument: async function() {
@@ -346,14 +384,13 @@
                     this.hasLocation = false;
                     if (this.document.published) {
                         this.properties = this.document.properties
-                    
-                        this.properties.forEach((p)=>{
-                            if(p.propertyType == 'Boolean')
-                            {
-                              
+
+                        this.properties.forEach((p) => {
+                            if (p.propertyType == 'Boolean') {
+
                             }
                         })
-                        
+
                         if (this.document.locations != null && this.document.locations.length > 0) {
                             this.location.latitude = this.document.locations[0].latitude
                             this.location.longitude = this.document.locations[0].longitude
@@ -368,6 +405,7 @@
             onShow(evt) {
                 //this.getDocumentType();
                 this.getDocument();
+                this.clearAllMessages();
 
 
             },
@@ -378,12 +416,28 @@
                 this.locationChanged = false
                 this.document = {}
                 this.properties = []
-               if(this.show)
-                   this.$emit('close')
+                if (this.show)
+                    this.$emit('close')
+                this.clearAllMessages()
             },
-            mergeProperties() {
-
-            }
+            clearAllMessages() {
+                this.clearActionMessage()
+                this.clearInfoMessage()
+                this.clearErrorMessage()
+            },
+            clearActionMessage() {
+                this.isDoingStuff = false;
+            },
+            clearInfoMessage() {
+                this.info.show = false;
+                this.info.message = "";
+            },
+            clearErrorMessage() {
+                this.error.show = false;
+                this.error.message = "";
+                this.error.detail = ""
+                this.nameError = false;
+            },
         },
         mounnted() {
 
@@ -406,6 +460,17 @@
 
     #locationSide {
         border-left: solid 1px lightgrey;
+    }
+    .messageShown{
+        margin-bottom:100px;
+    }
+    .ad-modal-body{
+        height:600px;
+        overflow:scroll;
+    }
+    .location-actions{
+        padding-bottom:15px;
+        position: relative;
     }
 
 </style>

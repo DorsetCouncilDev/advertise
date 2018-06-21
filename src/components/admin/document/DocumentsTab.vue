@@ -100,18 +100,7 @@
 
             },
             async updateDocument(){
-                
-                this.showDocumentViewModal = false;
-                
                  this.$emit('updated');
-                
-                /*
-                var securityToken = this.$store.state.securityToken;
-                await DocumentService.updateDocument(updatedDocument, securityToken).then( (response)=>{
-                    this.$emit('updated');
-                    this.showDocumentViewModal = false;
-                })
-                */
                 
             },
             async addLocation(locationRequest){

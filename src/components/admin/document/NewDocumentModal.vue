@@ -2,7 +2,7 @@
   <b-modal v-model="showModal" @hidden="onHidden" @show="onShow" hide-footer title="Create new Asset" size="lg">
       <div class="ad-modal-body">      
       
-      <div class="form-group">    
+            <div class="form-group">    
                 <label for="name">Name</label>
                 <input class="form-control" id="name" type="text" v-model="document.name" >
             </div>
@@ -131,6 +131,10 @@
 <style scoped lang="scss">
     h2.display-4 {
         font-size: 32px;
+    }
+      .ad-modal-body{
+        height:600px;
+        overflow:scroll;
     }
 
 </style>

@@ -53,7 +53,7 @@ var _gazzeteer = axios.create({
 
 export default {
     get(url){
-
+console.log("URL: " + url)
         return _.get(url)
     },
     
