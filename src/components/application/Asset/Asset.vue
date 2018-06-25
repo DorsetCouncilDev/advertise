@@ -1,58 +1,42 @@
 <template>
    <div>
        <div class="info">
-        <div class="contact"> email <a href="mailto:marketing@dorsetcc.gov.uk">
-          marketing@dorsetcc.gov.uk</a> - tel.
-          <a href="tel:+18506484200">01305224125</a></div>
+            <div class="contact"> email <a href="mailto:marketing@dorsetcc.gov.uk">
+            marketing@dorsetcc.gov.uk</a> - tel. <a href="tel:+18506484200">01305224125</a></div>
            
-             <ol class="ad-breadcrumb">
-    <li aria-current="page"><router-link :to="{path: '/' + indexRef}">home</router-link></li>
-     <li aria-current="page"><router-link :to="{ path: '/' + indexRef + '/search'}">search results</router-link></li>
-    <li aria-current="page">{{document.reference}}</li>
-  </ol>
-    </div>
-       <div class="document-header">
-       <div class="icon-holder">
-                <img id="brandImage" :src="getIcon(document.documentType)">
-           </div>   
-      <div class="document-headings">
-       <h1>{{document.name}}</h1>
-       <h2>{{document.documentType | removeHyphens}} {{document.longText}}</h2>
-         
-         
-          </div>
-           </div>
-       <h3><span v-if="beforePriceText">{{beforePriceText}} </span>&pound;{{assetPrice | round()}}</h3>
-       <p v-if="afterPriceText">{{afterPriceText}} </p>
-     
-
-       <hr>
-
-       <p v-for="p in document.properties">
-           <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != ''">{{p.propertyName}}:  
-{{p.publishedValue | readBoolean}}</span>
-          
-
-    </p>
-     
-     
-       <hr>
-       <div  v-if="document.locations.length > 0">
-       <h3>Location</h3>
-       
-       
+            <ol class="ad-breadcrumb">
+                <li aria-current="page"><router-link :to="{path: '/' + indexRef}">home</router-link></li>
+                <li aria-current="page"><router-link :to="{ path: '/' + indexRef + '/search'}">search results</router-link></li>
+                <li aria-current="page">{{document.reference}}</li>
+            </ol>
+        </div>
+        <div class="document-header">
+            <div class="icon-holder">
+                <img id="brandImage" :src="getIcon(document.documentTypeReference)">
+            </div>   
+            <div class="document-headings">
+                <h1>{{document.name}}</h1>
+                <h2>{{document.documentTypeReference | removeHyphens}} {{document.longText}}</h2>
+            </div>
+        </div>
+        <h3>{{assetPrice}}</h3>
+        <p v-if="afterPriceText">{{afterPriceText}} </p>
+        <hr>
+        <p v-for="p in document.properties">
+            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != ''">{{p.propertyName}}: {{p.publishedValue | readBoolean}}</span>
+        </p>
+        <hr>
+        <div v-if="document.locations.length > 0">
+            <h3>Location</h3>
             <AssetMaps :locations="document.locations" :streetView="false" :name="document.name"></AssetMaps>
-           </div>
-  
+        </div>
+        <div class="description-text" v-if="description != ''"><p>{{description}}</p></div>
        
-            <p>Contact our marketing team</p>
-            <p> <a href="#">marketing@dorsetcc.gov.uk</a> </p>
-            <p> <a href="#" rel="tel">01305 224125</a>
-    </p>
-            <p>quoting reference <strong>{{document.reference}}</strong></p>
+        <p>Contact our marketing team</p>
+        <p><a href="#">marketing@dorsetcc.gov.uk</a> </p>
+        <p><a href="#" rel="tel">01305 224125</a></p>
+        <p>quoting reference <strong>{{document.reference}}</strong></p> 
     </div>
-    
-   
 </template>
 
 <script>
@@ -80,16 +64,51 @@
             }
         },
         computed: {
+            description(){
+                var desc = "";
+                   this.document.properties.forEach((p) => {
+                    if (p.propertyReference == 'description')
+                        console.log("found description")
+                        desc =  p.publishedValue
+                   })
+                return desc;
+                
+            },
             streetViewRequired() {
                 return !(this.document.locations[0].streetviewLatitude == null);
             },
             assetPrice() {
                 var price = null
+                var before = null
+                var after = null
+
                 this.document.properties.forEach((p) => {
                     if (p.propertyReference == 'price')
                         price = p.publishedValue
+                    if (p.propertyReference == 'before-price')
+                        before = p.publishedValue
+                    if (p.propertyReference == 'after-price')
+                        after = p.publishedValue
                 })
-                return price
+
+                if (price == null) {
+                    return 'P.O.A'
+                }
+
+                if (isNaN(price))
+                    return 'P.O.A'
+                else {
+                    var priceDescription = ""
+
+                    if (before != null)
+                        priceDescription += before + " ";
+
+                    var decimals = 1;
+                    price = Math.round(price * Math.pow(10, decimals)) / Math.pow(10, decimals);
+                    priceDescription += "£" + price
+                    return priceDescription
+                }
+
             },
             assetAvailable() {
                 var available = false
@@ -99,7 +118,7 @@
                 })
                 return available
             },
-            beforePriceText(){
+            beforePriceText() {
                 var beforePrice = null
                 this.document.properties.forEach((p) => {
                     if (p.propertyReference == 'before-price')
@@ -107,7 +126,7 @@
                 })
                 return beforePrice
             },
-             afterPriceText(){
+            afterPriceText() {
                 var afterPrice = null
                 this.document.properties.forEach((p) => {
                     if (p.propertyReference == 'after-price')
@@ -128,7 +147,7 @@
                     var decimals = 0;
                     value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
                 }
-                return value;
+                return 'P.O.'
 
             },
             readBoolean: function(value) {
@@ -139,9 +158,9 @@
                 else
                     return value
             },
-             removeHyphens: function(value){
-                return value.replace(new RegExp('-', 'g')," ");
-                
+            removeHyphens: function(value) {
+                return value.replace(new RegExp('-', 'g'), " ");
+
             }
         }
     }
@@ -149,6 +168,9 @@
 </script>
 
 <style scoped lang="scss">
+    .description-text{
+        margin:15px 0;
+    }
     h1 {
         font-size: 1.8rem;
         margin-bottom: 2px;
@@ -214,7 +236,6 @@
         }
         .breadcrumb {
             font-size: 19px;
-
         }
 
         .contact {

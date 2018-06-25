@@ -1,7 +1,7 @@
 <template>
-   <div>
+   <div class="assets-list-tab">
         <h2 class="display-4">Assets list</h2>
-       
+     
        <button class="btn btn-primary mt-3 mb-3"  @click="openNewDocumentModal()">Create new asset</button>
        
        <transition name="component-fade" mode="out-in">
@@ -36,6 +36,7 @@
     import DocumentService from '../../../services/DocumentService'
     import ViewDocumentModal from './ViewDocumentModal'
     import NewDocumentModal from './NewDocumentModal'
+      import InfoMessage from '../../info-message'
     export default {
         
         name: 'DocumentsTab',
@@ -50,7 +51,7 @@
             }
         },
         components: {
-            ViewDocumentModal,NewDocumentModal
+            ViewDocumentModal,NewDocumentModal,InfoMessage
         },
         data() {
             return {
@@ -59,7 +60,11 @@
                 showNewDocumentModal:false,
                 locationAdded:false,
                 locationUpdated:false,
-                locationRef: ""
+                locationRef: "",
+                info:{
+                    show:false,
+                    message: ""
+                }
             }
         },
 
@@ -94,8 +99,9 @@
                 this.showDocumentViewModal = false
             },
             create(newDocument){
-
-            this.$emit('updated');
+                this.info.show = true;
+                this.info.message = "New asset created"
+                this.$emit('updated');
                 this.showNewDocumentModal = false;
 
             },
@@ -147,5 +153,7 @@
             cursor:pointer;
         }
     }
-
+    #infoMessageHolder{
+        
+    }
 </style>

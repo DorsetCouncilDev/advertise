@@ -1,22 +1,33 @@
 export default {
 
     sortResultsByProperty(results, propertyReq, type) {
-
         return results.sort(function (a, b) {
             var aProperty = null;
             var bProperty = null;
             a.document.properties.forEach((property) => {
                 if (property.propertyReference == propertyReq)
-                    aProperty = Number(property.publishedValue);
+                    aProperty = Number(property.publishedValue);                 
             })
             b.document.properties.forEach((property) => {
                 if (property.propertyReference == propertyReq)
-                    bProperty = Number(property.publishedValue);
+                    bProperty = Number(property.publishedValue);                 
             })
-           if (type == 'high')
-               return bProperty - aProperty;
-            return  aProperty - bProperty;
-     
+            
+            if(isNaN(aProperty))
+                return 1;
+            else if(isNaN(bProperty))
+                return -1;
+            else if(aProperty == 0)
+                return 1
+            else if(bProperty == 0)
+                return -1
+            
+            if (type == 'high'){
+                return bProperty - aProperty;
+            }
+            else{
+                return aProperty - bProperty;
+            }
         });
     },
     
@@ -26,6 +37,8 @@ export default {
         });
     },
     
+    
+    // test method
     getLocations(){
         return [ 
                           {"name" : "Acland Road", "location": { "latitude" : 50.713449, "longitude": -2.435556}},
@@ -46,11 +59,6 @@ export default {
                           {"name" : "West Walks", "location": { "latitude" : 50.712999, "longitude": -2.440703}},             
                           {"name" : "Weymouth Avenue", "location": { "latitude" : 50.707387, "longitude": -2.441796}},
                           {"name" : "Woolaston Road", "location": { "latitude" : 50.713363, "longitude": -2.433697}}
-        ]
-
-        
-        
-        
-
+        ] 
     }
 }

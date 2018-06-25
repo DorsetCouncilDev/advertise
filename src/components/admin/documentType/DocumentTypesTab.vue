@@ -69,16 +69,13 @@
                 this.$emit('updated')  
             },
          
-            onUpdated: function() {
-       
+            onUpdated: function() {    
                 this.$emit('updated') 
-                
-              
             },
        
             onDocumentTypeUpdate: async function(){
                 this.$emit('update')
-                 this.showNewDocumentTypeModal = false;
+                this.showNewDocumentTypeModal = false;
             },
          
             openNewDocumentTypeViewModal: function(){

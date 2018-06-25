@@ -3,46 +3,50 @@
 </template>
 
 <script>
-            import AOS from 'aos'
+    import AOS from 'aos'
     export default {
-          props: {
+        props: {
             info: {
                 required: true,
                 type: Object
             }
         },
         mounted() {
-           AOS.init({once:true,
-                      offset: 50,
-                      duration: 200,
-                     }); 
+            AOS.init({
+                once: true,
+                offset: 50,
+                duration: 200,
+            });
         }
     }
+
 </script>
 
 <style>
-     .info-message{
-        width:100%;
-        padding:15px;
-         color:black;
-         background: #99C199;
-         position: absolute;
-         top:100%;
-         left:0;
-  
-        p{
+    .info-message {
+        width: 100%;
+        padding: 15px;
+        color: black;
+        background: #99C199;
+        position: absolute;
+        top: 100%;
+        left: 0;
+
+        p {
             font-size: 18px;
         }
+
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .info-icon {
+            margin-bottom: 5px;
+            margin-right: 15px;
+            width: 25px;
+        }
     }
-    h2{
-        font-size: 18px;
-        font-weight: normal;
-        text-align: center;
-        margin-bottom: 0;
-    }
-    .info-icon{
-        margin-bottom:5px;
-        margin-right:15px;
-        width:25px;
-    }
+
 </style>

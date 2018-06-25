@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="showModal" @hidden="onHidden" @show="onShow" hide-footer title="Create new Asset" size="lg">
+  <b-modal v-model="showModal" @hidden="onHidden" @show="onShow" hide-footer title="Create new Asset">
       <div class="ad-modal-body">      
       
             <div class="form-group">    
@@ -18,8 +18,8 @@
                 </option>
             </b-form-select>
     </div>
-       <b-card :title="type.name + ' properties'" v-if="type.documentTypeProperties.length > 0" class="mb-3">
-           <div v-for="p in type.documentTypeProperties">
+       <b-card :title="type.name + ' properties'" v-if="type != null && type.properties != null && type.properties.length > 0" class="mb-3">
+           <div v-for="p in type.properties">
             <div class="form-group" v-if="p.property.reference == 'available'">
                 <div class="multiple-choice">
                  
@@ -36,9 +36,11 @@
         </b-card>
    
     </div> 
-        <div id="mfooter">
+        <div id="mfooter" v-bind:class="{'doingStuff':isDoingStuff}">
             <button type="button" class="btn btn-outline-secondary" @click="closeModal()"> Close </button>
             <button type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="createDocument">Submit</button>
+            <ModalErrorMessage :error="error"></ModalErrorMessage>
+            <ModalInfoMessage :info="info"></ModalInfoMessage>
         </div>
   </b-modal>
 </template>
@@ -50,9 +52,15 @@
     Vue.use(BootstrapVue);
     import DocumentTypeService from '../../../services/DocumentTypeService'
     import DocumentService from '../../../services/DocumentService'
+
+    import ModalErrorMessage from '../../modal-error-message'
+    import ModalInfoMessage from '../../modal-info-message'
     export default {
 
         name: 'NewDocumentModal',
+        components: {
+             ModalErrorMessage, ModalInfoMessage
+        },
         props: {
             show: {
                 type: Boolean,
@@ -78,8 +86,20 @@
                 },
                 documentTypes: [],
                 type: {
-                    documentTypeProperties: []
-                }
+                    properties: []
+                },
+                isDoingStuff: false,
+                doingStuffMessage: "",
+                error: {
+                    show: false,
+                    message: "",
+                    detail: ""
+                },
+                nameError: false,
+                info: {
+                    message: "",
+                    show: false
+                },
             }
         },
 
@@ -88,12 +108,15 @@
                 this.$emit('close');
             },
             createDocument: async function() {
-                console.log("create")
+                 this.clearInfoMessage()
+                this.clearErrorMessage()
+                this.isDoingStuff = true;
+  
                 var newDocument = {
                     'indexRef': this.indexRef,
                     'typeRef': this.type.reference,
                     'doc': this.document,
-                    'properties': this.type.documentTypeProperties
+                    'properties': this.type.properties
                 };
 
                 var securityToken = this.$store.state.securityToken;
@@ -101,10 +124,6 @@
                 await DocumentService.createDocument(newDocument, securityToken).then((response) => {
                     this.$emit('create');
                 })
-
-
-
-
             },
             onShow(evt) {
                 this.getDocumentTypes();
@@ -112,7 +131,7 @@
                 this.document.longText = "";
             },
             onHidden(evt) {
-                this.type.documentTypeProperties.length = 0
+                // this.type.documentTypeProperties.length = 0
                 this.document.name = "";
                 this.document.longText = "";
                 this.$emit('close')
@@ -122,6 +141,24 @@
                     this.documentTypes = response.data
 
                 })
+            },
+               clearAllMessages(){
+                this.clearActionMessage()
+                this.clearInfoMessage()
+                this.clearErrorMessage()
+            },
+            clearActionMessage(){
+                this.isDoingStuff = false;
+            },
+            clearInfoMessage(){
+                this.info.show = false;
+                this.info.message = "";
+            },
+            clearErrorMessage(){
+                this.error.show = false;
+                this.error.message = "";
+                this.error.detail = ""
+                this.nameError = false;
             }
         }
     }
@@ -132,9 +169,10 @@
     h2.display-4 {
         font-size: 32px;
     }
-      .ad-modal-body{
-        height:600px;
-        overflow:scroll;
+
+    .ad-modal-body {
+        height: 600px;
+        overflow: scroll;
     }
 
 </style>

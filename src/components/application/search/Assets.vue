@@ -13,17 +13,16 @@
             <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" data-aos="fade">
                 <router-link :to="{ path: '/' + d.document.index + '/' + d.document.reference}" class="card-link">
                     <div class="card-heading">
-                        <div class="icon"><img :alt="d.document.documentType"  :src="getIcon(d.document.documentType)">
+                        <div class="icon"><img :alt="d.document.documentTypeReference"  :src="getIcon(d.document.documentTypeReference)">
                         </div>
-                        <div class="heading"><div class="docTypeLabel" :class="d.document.documentType">{{d.document.documentType | removeHyphens}}</div><div class="heading-text">{{d.document.name}}</div></div>
+                        <div class="heading"><div class="docTypeLabel" :class="d.document.documentTypeReference">{{d.document.documentTypeReference | removeHyphens}}</div><div class="heading-text">{{d.document.name}}</div></div>
                     </div>
-                  
-                    
+
                     <div class="card-main">
                           
                         {{d.document.longText}}
                         
-                        <p class="price" v-for="property in d.document.properties" v-if="property.propertyReference == 'price' && property.publishedValue != null">&pound;{{property.publishedValue | round()}}</p>
+                        <p class="price" v-for="property in d.document.properties" v-if="property.propertyReference == 'price'">&pound;  {{property.publishedValue | round()}}</p>
                         <p v-if="d.distanceFromCoordinate && postcode != ''">{{d.distanceFromCoordinate | round()}} miles from {{postcode}}</p>
                         <span class="parameter" v-for="matchingParam in d.matchingParameters">{{matchingParam.name}}</span>
                         <span class="parameter unmatched" v-for="param in d.nonMatchingParameters">{{param.name}}</span>
@@ -59,11 +58,20 @@
         data(){
             return {
                 initialDocuments: [],
-                started: false
-            }
+                started: false,
+                "icon":{
+"url":"https://catalogue-test-attachments.s3.eu-west-2.amazonaws.com/d1873e3a-8f7e-48a5-8d1a-6ab5df0b2d52",
+"size":1544,
+"mimeType":"image/svg+xml",
+"reference":"bin icon",
+"title":"Picture of bin",
+"type":"Icon"
+}}
         },
+
         methods:{
           getIcon(documentType){
+              console.log("icon " + documentType)
               return require("../../../assets/images/icons/" + documentType + ".svg");
           },
         changeShowSearchForm(){
@@ -100,21 +108,29 @@
         },
         filters: {
             round:  function(value) {
-                    if (!value) {
-                        value = 0;
-                    }
-
-                    
+               // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
+                
+            if(value == null)
+                {
+                    return 'P.O.A'
+                }
+                
+                if( isNaN(value) )
+                    return 'P.O.A'
+                  else{  
                       var  decimals = 1;
                   value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
   return value;
-                
+                  }
                 },
             uppercase: function(value){
                 return value.toUpperCase()
             },
             removeHyphens: function(value){
-                return value.replace(new RegExp('-', 'g')," ");
+                if(value != null && value != "")
+                    return value.replace(new RegExp('-', 'g')," ");
+                else 
+                    return null;
                 
             }
             }

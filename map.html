@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css">
+          #map{ width:700px; height: 500px; }
+        </style>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB20tzMpjwPqs2eiqh_XmNRCanoaHNzfsk"></script>
+        <script src="map.js"></script>
+        <title>Save Marker Example</title>
+        <style>
+            #pano{
+                width:800px;
+                height:800px;
+            }
+        </style>
+    </head>
+    <body>
+        
+        
+        
+        <form action="/action_page.php">
+  Select your favorite color:
+  <input type="color" name="favcolor" value="#ff0000">
+  <input type="submit">
+</form>
+        <h1>Select a location!</h1>
+        <p>Click on a location on the map to select it. Drag the marker to change location.</p>
+        
+        <!--map div-->
+        <div id="map"></div>
+        
+        <div id="pano"></div>
+        
+        <!--our form-->
+        <h2>Chosen Location</h2>
+        <form method="post">
+            <input type="text" id="lat" readonly="yes"><br>
+            <input type="text" id="lng" readonly="yes">
+        </form>
+        
+        <script type="text/javascript" src="map.js"></script>
+    </body>
+</html>

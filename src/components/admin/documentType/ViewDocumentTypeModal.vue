@@ -186,6 +186,7 @@
                 var securityToken = this.$store.state.securityToken;
                 await DocumentTypeService.movePropertyUp(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response) => {
                     this.$emit('updated')
+                    this.initialise(this.documentTypeRef)
                     this.clearActionMessage();           
                     this.info.show = true;
                     this.info.message = "Property '" + propertyRef + "' has been moved up"

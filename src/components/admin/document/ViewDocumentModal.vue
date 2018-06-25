@@ -156,7 +156,6 @@
                     message: "",
                     show: false
                 },
-                messageShown: false,
                 locationError: {
                     show: false,
                     message: ""
