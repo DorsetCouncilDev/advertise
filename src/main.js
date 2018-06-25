@@ -14,6 +14,7 @@ import './assets/fonts/dorsetforyou-eot.eot'
 import './assets/fonts/dorsetforyou-ttf.ttf'
 import './assets/fonts/dorsetforyou-woff.woff'
 
+
 Vue.config.productionTip = false
 
 import VueResource from 'vue-resource';

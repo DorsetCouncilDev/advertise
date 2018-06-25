@@ -10,6 +10,14 @@
                 <label for="longText">Long text</label>
                 <input class="form-control" type="text" id="longText" v-model="newDocumentType.longText">
             </div>
+    <div class="form-group">
+    <label>Choose type text colour <verte
+    picker="square" @input="colorPicked"
+  >
+  </verte></label>
+               
+    </div>
+
     </div>
         <div id="mfooter">
             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" @click="close"> Close </button>
@@ -23,7 +31,8 @@
 <script>
     import DocumentTypeService from '../../../services/DocumentTypeService'
     import ModalTemplate from '../ModalTemplate'
-    
+    import Verte from 'verte/dist/verte.js';
+
     export default {
         name: 'NewDocumentTypeModal',
         props: {   
@@ -36,6 +45,7 @@
                 required:true
             }
         },
+            components: { Verte },
         watch:{
           show(){
               this.showModal = this.show;
@@ -52,6 +62,9 @@
         },
 
         methods: { 
+            colorPicked: function(value){
+                  console.log("color: " + value)
+            },
             close: function(){
                 this.$emit('close');
             },
@@ -69,7 +82,7 @@
                     })
             },
                 onShow(evt) {
-      
+     
             },
             onHidden(evt) {
                 this.newDocumentType.name = "";
@@ -85,5 +98,6 @@
     h2.display-4{
         font-size:32px;
     }
+ 
 
 </style>

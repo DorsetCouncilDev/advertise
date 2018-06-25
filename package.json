@@ -17,6 +17,8 @@
     "jscoord": "^1.2.0",
     "lodash": "^4.17.10",
     "popper.js": "^1.14.1",
+    "spectrum-colorpicker": "^1.8.0",
+    "verte": "0.0.5",
     "vue": "^2.5.2",
     "vuelidate": "^0.6.2",
     "vuex": "^3.0.1",
