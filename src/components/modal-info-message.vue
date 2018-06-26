@@ -22,7 +22,7 @@
 
 </script>
 
-<style>
+<style scoped lang="scss">
     .info-message {
         width: 100%;
         padding: 15px;

@@ -20,7 +20,7 @@
     }
 </script>
 
-<style>
+<style scoped lang="scss">
         .error-message{
         width:100%;
         padding:15px;

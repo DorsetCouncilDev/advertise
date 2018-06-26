@@ -11,13 +11,14 @@
                 <label for="longText">Long text</label>
                 <input class="form-control" type="text" id="longText" v-model="document.longText">
             </div>
-      <div class="form-group mb-3">
+      <div class="form-group mb-3" :class="{'hasError':errorMessages.type}">
             <label>Asset Type</label>
-            <select v-model="type" :class="{'hasError':errorMessages.type}" >
+            <select class="form-control" v-model="type" >
                 <option v-for="docType in documentTypes" :value="docType">
                     {{docType.name}}
                 </option>
             </select>
+           <div v-if="errorMessages.type" class="text-danger">{{errorMessages.type}}</div>
     </div>
        <b-card :title="type.name + ' properties'" v-if="type != null && type.properties != null && type.properties.length > 0" class="mb-3">
            <div v-for="p in type.properties">
@@ -117,24 +118,26 @@
                 this.clearInfoMessage()
                 this.clearErrorMessage()
                 this.isDoingStuff = true;
-
-
+                var numberOfErrors = 0;
                 if (this.document.name == null || this.document.name == "") {
                     this.clearActionMessage();
                     this.error.show = true;
-                    this.error.message = "Name is required";
+                    this.error.message = "Name is required. ";
                     this.error.detail = "";
                     this.errorMessages.name = "Name is required"
+                    numberOfErrors ++
 
                 }
-                 if (this.type == null) {
+                 if (this.type.reference == null) {
                     this.clearActionMessage();
                     this.error.show = true;
                     this.error.detail = "";
+                     this.error.message += "Type is required. ";
                     this.errorMessages.type = "Asset type is required"
+                     numberOfErrors ++
                 }
                 
-                else {
+               if(numberOfErrors == 0) {
                     var newDocument = {
                         'indexRef': this.indexRef,
                         'typeRef': this.type.reference,
@@ -183,8 +186,10 @@
             clearErrorMessage() {
                 this.error.show = false;
                 this.error.message = "";
-                this.error.detail = ""
+                this.error.detail = "";
                 this.nameError = false;
+                this.errorMessages.name = "";
+                this.errorMessages.type = "";
             }
         }
     }

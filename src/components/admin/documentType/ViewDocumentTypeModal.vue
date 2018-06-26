@@ -7,9 +7,10 @@
        
         <div class="row">
             <div class="col-sm-6">
-        <div class="form-group">    
+        <div class="form-group" :class="{'hasError':errorMessages.name}">    
             <label for="name">Name</label>
             <input class="form-control" id="name" type="text" v-model="documentType.name">
+              <div v-if="errorMessages.name" class="text-danger">{{errorMessages.name}}</div>
         </div>   
         <div class="form-group">    
             <label for="longText">Long text</label>
@@ -124,10 +125,12 @@
                     message: "",
                     detail: ""
                 },
-                nameError: false,
                 info: {
                     message: "",
                     show:false
+                },
+                errorMessages: {
+                    name: ""
                 }
             }
         },
@@ -210,7 +213,8 @@
                     this.error.show = true;
                     this.error.message = "Name is required";
                     this.error.detail = "";   
-                    this.nameError = true;
+                    this.errorMessages.name = "Name is required"
+                    this.isDoingStuff = false;
                 }else{
                 
                     var updateProperties = {
@@ -331,7 +335,7 @@
                 this.error.show = false;
                 this.error.message = "";
                 this.error.detail = ""
-                this.nameError = false;
+                 this.errorMessages.name = ""
             },
             async getDocumentType(typeRef){
                await DocumentTypeService.getType(this.indexRef,typeRef).then((response)=>{

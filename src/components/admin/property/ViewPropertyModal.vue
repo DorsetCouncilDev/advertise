@@ -2,9 +2,10 @@
 <b-modal v-model="showModal" @hidden="onHidden"  @show="onShow" hide-footer title="Property">    
     <div class="ad-modal-body"> 
        
-        <div class="form-group" :class="{'hasError':nameError}">
+        <div class="form-group" :class="{'hasError':errorMessages.name}">
             <label for="name">Name</label>
             <input class="form-control" v-model="currentProperty.name"> 
+             <div v-if="errorMessages.name" class="text-danger">{{errorMessages.name}}</div>
         </div>
         <div class="form-group">
             <label for="longText">Long text</label>
@@ -28,6 +29,10 @@
             <div class="multiple-choice">
                 <input type="radio" class="form-control" name="type" id="bool" value="Boolean" v-model="currentProperty.type">
                 <label class="small" for="bool">Boolean (<span class="text-muted">example: true,false</span>)</label>
+            </div>
+              <div class="multiple-choice">
+                <input type="radio" class="form-control" name="type" id="textarea" value="TextArea" v-model="currentProperty.type">
+                <label class="small" for="textarea">Long text area (<span class="text-muted">for large block of text</span>)</label>
             </div>
         </div>       
                
@@ -76,7 +81,8 @@
 
         name: 'ViewPropertyModal',
         components: {
-            ModealErrorMessage, ModealInfoMessage
+            ModealErrorMessage,
+            ModealInfoMessage
         },
         props: {
             propertyRef: {
@@ -116,10 +122,12 @@
                     message: "",
                     detail: ""
                 },
-                nameError: false,
                 info: {
                     message: "",
-                    show:false
+                    show: false
+                },
+                errorMessages: {
+                    name: ""
                 }
             }
         },
@@ -127,19 +135,19 @@
             close: function() {
                 this.$emit('close');
             },
-            updateProperty: async function() {    
+            updateProperty: async function() {
                 this.clearInfoMessage()
                 this.clearErrorMessage()
-                
+
                 this.isDoingStuff = true;
-                this.doingStuffMessage = "Updating property"
+
 
                 if (this.currentProperty.name == null || this.currentProperty.name.length == 0) {
                     this.clearActionMessage();
                     this.error.show = true;
                     this.error.message = "Name is required";
-                    this.error.detail = "";   
-                    this.nameError = true;
+                    this.error.detail = "";
+                    this.errorMessages.name = "Name is required";
                 } else {
                     var updateData = {
                         "name": this.currentProperty.name,
@@ -150,13 +158,13 @@
                     var securityToken = this.$store.state.securityToken;
                     await PropertyService.editProperty(this.indexRef, this.currentProperty.reference, updateData, securityToken).then((response) => {
                         this.getProperty(response.data.reference);
-                        
+                        this.clearErrorMessage()
                         this.$emit('updated')
-                        this.clearActionMessage();           
-                        
+                        this.clearActionMessage();
+
                         this.info.show = true;
                         this.info.message = "Changes have been saved"
-                        
+
                     }, (error) => {
                         this.clearActionMessage();
                         this.error.show = true;
@@ -180,23 +188,23 @@
                 this.getProperty(this.propertyRef)
                 this.clearAllMessages();
             },
-            clearAllMessages(){
+            clearAllMessages() {
                 this.clearActionMessage()
                 this.clearInfoMessage()
                 this.clearErrorMessage()
             },
-            clearActionMessage(){
+            clearActionMessage() {
                 this.isDoingStuff = false;
             },
-            clearInfoMessage(){
+            clearInfoMessage() {
                 this.info.show = false;
                 this.info.message = "";
             },
-            clearErrorMessage(){
+            clearErrorMessage() {
                 this.error.show = false;
                 this.error.message = "";
                 this.error.detail = ""
-                this.nameError = false;
+                this.errorMessages.name = ""
             },
             onHidden(evt) {
                 this.clearAllMessages();
@@ -217,11 +225,13 @@
     h2.display-4 {
         font-size: 32px;
     }
-    .hasError{
-        input{
-            border:darkred 1px solid;
+
+    .hasError {
+        input {
+            border: darkred 1px solid;
         }
     }
+
     .doingStuff {
         opacity: .3;
     }

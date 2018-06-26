@@ -244,7 +244,9 @@ $value in $theme-colors {
     background: hsl(210, 9%, 96%);
     display: flex;
     justify-content: space-between;
-
+&.doingStuff {
+        opacity: .3;
+    }
 }
 
 .modal-header {
@@ -509,35 +511,9 @@ $value in $theme-colors {
 
 
 
-
-       .error-message{
-        width:100%;
-        padding:15px;
-        color:black;
-        background: #FF7F7F;
-                position: absolute;
-         top:100%;
-         left:0;
-  
-        p{
-            font-size: 18px;
-        }
-    
-    h2{
-        font-size: 18px;
-        font-weight: normal;
-        text-align: center;
-        margin-bottom: 0;
-    }
-    .error-icon{
-        margin-bottom:5px;
-        margin-right:15px;
-        width:25px;
-      }
-    }
 .form-group{
     &.hasError{
-        input{
+        input,select,textarea{
             border:solid 1px darkred;
         }
     }

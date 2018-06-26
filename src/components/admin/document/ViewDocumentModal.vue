@@ -31,7 +31,7 @@
       <legend>Properties</legend>
             
             <div v-for="property in properties">
-                <div class="form-group" v-if="property.propertyType == 'Boolean'">
+                <div class="form-group mb-4 mt-4" v-if="property.propertyType == 'Boolean'">
        
                 <div class="multiple-choice">
                  
@@ -40,6 +40,17 @@
                     <label  :for="property.propertyReference" :title="property.longText">{{property.propertyName}}</label>
                 </div>
         
+    </div>
+                  <div class="form-group" v-else-if="property.propertyType == 'TextArea'">
+                       <label :for="property.propertyReference" >{{property.propertyName}}</label>
+                      <b-form-textarea :id="property.propertyReference"
+                     v-model="property.publishedValue"
+                     placeholder=""
+                     :rows="3"
+                     :max-rows="6">
+    </b-form-textarea>
+                      
+                     
     </div>
          <div class="form-group" v-else>
                 <div class="form-group">
@@ -161,7 +172,7 @@
                     message: ""
                 },
                 locationInfo: {
-                    show:false,
+                    show: false,
                     message: ""
                 }
             }
@@ -230,7 +241,7 @@
                 })
             },
             updateLocation: function() {
-           
+
 
 
                 var securityToken = this.$store.state.securityToken;
@@ -299,7 +310,7 @@
 
                 this.isDoingStuff = true;
 
-                
+
 
 
                 if (this.document.name == null || this.document.name == "") {
@@ -460,15 +471,18 @@
     #locationSide {
         border-left: solid 1px lightgrey;
     }
-    .messageShown{
-        margin-bottom:100px;
+
+    .messageShown {
+        margin-bottom: 100px;
     }
-    .ad-modal-body{
-        height:600px;
-        overflow:scroll;
+
+    .ad-modal-body {
+        height: 600px;
+        overflow: scroll;
     }
-    .location-actions{
-        padding-bottom:15px;
+
+    .location-actions {
+        padding-bottom: 15px;
         position: relative;
     }
 
