@@ -8,12 +8,28 @@
  
     </ol>
       <h1>Assets</h1>
+       <table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Asset</th>
+        <th>Type</th>
+        <th>Published</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr v-for="document in documents">
+            <td><router-link :to="{path:'/admin/indexes/' + indexRef + '/assets/' + document.reference}">{{document.name}}</router-link></td>
+            <td>{{document.documentType}}</td>
+            <td><span v-if="document.publishedVersion.published" class="text-success">published</span><span v-else class="text-warning">unpublished</span></td>
+    </tr>
+    
+    </tbody>
+    </table>
        
-       <div v-for="document in documents">
-            {{document.name}} <span class="text-muted">{{document.documentType}}</span> <span v-if="document.publishedVersion.published" class="text-success">published</span><span v-else class="text-warning">unpublished</span>
-           <router-link :to="{path:'/admin/indexes/' + indexRef + '/assets/' + document.reference}">View</router-link>
+             
+          
         </div>
-    </div>
+
 </template>
 
 <script>

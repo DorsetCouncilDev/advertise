@@ -2,9 +2,10 @@
   <b-modal v-model="showModal" @hidden="onHidden" @show="onShow" hide-footer title="Create new Asset">
       <div class="ad-modal-body">      
       
-            <div class="form-group">    
+            <div class="form-group" :class="{'hasError':errorMessages.name}">    
                 <label for="name">Name</label>
                 <input class="form-control" id="name" type="text" v-model="document.name" >
+                <div v-if="errorMessages.name" class="text-danger">{{errorMessages.name}}</div>
             </div>
             <div class="form-group">    
                 <label for="longText">Long text</label>
@@ -12,11 +13,11 @@
             </div>
       <div class="form-group mb-3">
             <label>Asset Type</label>
-            <b-form-select v-model="type" >
+            <select v-model="type" :class="{'hasError':errorMessages.type}" >
                 <option v-for="docType in documentTypes" :value="docType">
                     {{docType.name}}
                 </option>
-            </b-form-select>
+            </select>
     </div>
        <b-card :title="type.name + ' properties'" v-if="type != null && type.properties != null && type.properties.length > 0" class="mb-3">
            <div v-for="p in type.properties">
@@ -59,7 +60,8 @@
 
         name: 'NewDocumentModal',
         components: {
-             ModalErrorMessage, ModalInfoMessage
+            ModalErrorMessage,
+            ModalInfoMessage
         },
         props: {
             show: {
@@ -100,6 +102,10 @@
                     message: "",
                     show: false
                 },
+                errorMessages: {
+                    name: "",
+                    type: ""
+                }
             }
         },
 
@@ -108,33 +114,53 @@
                 this.$emit('close');
             },
             createDocument: async function() {
-                 this.clearInfoMessage()
+                this.clearInfoMessage()
                 this.clearErrorMessage()
                 this.isDoingStuff = true;
-  
-                var newDocument = {
-                    'indexRef': this.indexRef,
-                    'typeRef': this.type.reference,
-                    'doc': this.document,
-                    'properties': this.type.properties
-                };
 
-                var securityToken = this.$store.state.securityToken;
 
-                await DocumentService.createDocument(newDocument, securityToken).then((response) => {
-                    this.$emit('create');
-                })
+                if (this.document.name == null || this.document.name == "") {
+                    this.clearActionMessage();
+                    this.error.show = true;
+                    this.error.message = "Name is required";
+                    this.error.detail = "";
+                    this.errorMessages.name = "Name is required"
+
+                }
+                 if (this.type == null) {
+                    this.clearActionMessage();
+                    this.error.show = true;
+                    this.error.detail = "";
+                    this.errorMessages.type = "Asset type is required"
+                }
+                
+                else {
+                    var newDocument = {
+                        'indexRef': this.indexRef,
+                        'typeRef': this.type.reference,
+                        'doc': this.document,
+                        'properties': this.type.properties
+                    };
+
+                    var securityToken = this.$store.state.securityToken;
+
+                    await DocumentService.createDocument(newDocument, securityToken).then((response) => {
+                        this.$emit('create');
+                    })
+                }
             },
             onShow(evt) {
                 this.getDocumentTypes();
                 this.document.name = "";
                 this.document.longText = "";
+                this.clearAllMessages();
             },
             onHidden(evt) {
                 // this.type.documentTypeProperties.length = 0
                 this.document.name = "";
                 this.document.longText = "";
-                this.$emit('close')
+                this.$emit('close');
+                this.clearAllMessages();
             },
             getDocumentTypes: async function() {
                 await DocumentTypeService.getDocumentTypes(this.indexRef).then((response) => {
@@ -142,19 +168,19 @@
 
                 })
             },
-               clearAllMessages(){
+            clearAllMessages() {
                 this.clearActionMessage()
                 this.clearInfoMessage()
                 this.clearErrorMessage()
             },
-            clearActionMessage(){
+            clearActionMessage() {
                 this.isDoingStuff = false;
             },
-            clearInfoMessage(){
+            clearInfoMessage() {
                 this.info.show = false;
                 this.info.message = "";
             },
-            clearErrorMessage(){
+            clearErrorMessage() {
                 this.error.show = false;
                 this.error.message = "";
                 this.error.detail = ""

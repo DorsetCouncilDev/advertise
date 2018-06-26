@@ -26,7 +26,7 @@ import ParkingMap from '../components/ParkingMap';
 import AdminLogin from '../components/admin/Login';
 import AssetsList from '../components/admin/index/AssetsList';
 import AssetsView from '../components/admin/index/AssetView';
-
+import AssetLocations from '../components/admin/index/AssetLocations';
 const routes = [
    
     {
@@ -82,7 +82,19 @@ const routes = [
                 next('/admin')
       }
     },
-    
+     {
+
+        // View index with ref
+        path: '/admin/indexes/:indexRef/assets/:documentRef/locations',
+        component: AssetLocations,
+        props: true,
+        beforeEnter: (to, from, next) => {
+            if(store.state.securityToken != null && store.state.securityToken != '')
+                next()
+            else
+                next('/admin')
+      }
+    },
     
     
     

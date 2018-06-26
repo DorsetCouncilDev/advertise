@@ -33,7 +33,7 @@
         p{
             font-size: 18px;
         }
-    }
+    
     h2{
         font-size: 18px;
         font-weight: normal;
@@ -44,5 +44,6 @@
         margin-bottom:5px;
         margin-right:15px;
         width:25px;
+      }
     }
 </style>
