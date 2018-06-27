@@ -102,6 +102,9 @@ export const mutations = {
     },
     setPostcode(state,payload){
         state.searchForm.postcode = payload;
+    },
+    setInitialSearch(state){
+        state.initialSearch = true
     }
     
 }

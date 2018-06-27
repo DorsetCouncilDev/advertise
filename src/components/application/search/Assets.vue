@@ -15,7 +15,7 @@
                     <div class="card-heading">
                         <div class="icon"><img :alt="d.document.documentTypeReference"  :src="getIcon(d.document.documentTypeReference)">
                         </div>
-                        <div class="heading"><div class="docTypeLabel" :class="d.document.documentTypeReference">{{d.document.documentTypeReference | removeHyphens}}</div><div class="heading-text">{{d.document.name}}</div></div>
+                        <div class="heading"><div class="docTypeLabel" v-bind:style="{color: getTypeColor(d.document.documentTypeReference)}">{{d.document.documentTypeName}}</div><div class="heading-text">{{d.document.name}}</div></div>
                     </div>
 
                     <div class="card-main">
@@ -45,105 +45,122 @@
             Toolbar,
             SearchCriteria
         },
-        props:{
-           docs:{
-            type: Array,
-            required: true
-          },
+        props: {
+            docs: {
+                type: Array,
+                required: true
+            },
             showSearchForm: {
-                type:Boolean,
-                required:true
+                type: Boolean,
+                required: true
             }
         },
-        data(){
+        data() {
             return {
                 initialDocuments: [],
                 started: false,
-                "icon":{
-"url":"https://catalogue-test-attachments.s3.eu-west-2.amazonaws.com/d1873e3a-8f7e-48a5-8d1a-6ab5df0b2d52",
-"size":1544,
-"mimeType":"image/svg+xml",
-"reference":"bin icon",
-"title":"Picture of bin",
-"type":"Icon"
-}}
+                "icon": {
+                    "url": "https://catalogue-test-attachments.s3.eu-west-2.amazonaws.com/d1873e3a-8f7e-48a5-8d1a-6ab5df0b2d52",
+                    "size": 1544,
+                    "mimeType": "image/svg+xml",
+                    "reference": "bin icon",
+                    "title": "Picture of bin",
+                    "type": "Icon"
+                }
+            }
         },
 
-        methods:{
-          getIcon(documentType){
-              console.log("icon " + documentType)
-              return require("../../../assets/images/icons/" + documentType + ".svg");
-          },
-        changeShowSearchForm(){
+        methods: {
+            getIcon(documentType) {
+                console.log("icon " + documentType)
+                return require("../../../assets/images/icons/" + documentType + ".svg");
+            },
+            changeShowSearchForm() {
                 this.$emit("onChangeShowSearchForm")
+            },
+            getTypeColor(ref){
+                console.log("searching : " + ref)
+                var colour = "grey";
+                this.documentTypes.forEach((type)=>{
+                    if(type.reference == ref)
+                        colour = type.colour
+                })
+                return colour;
             }
         },
         computed: {
             view() {
                 return this.$store.state.view
             },
-            documents(){
+            documents() {
                 var results = this.$store.state.searchResults;
-                if(results != null && results.length > 0)
+                if (results != null && results.length > 0)
                     return results
                 else
                     return this.initialDocuments
             },
-            postcode(){               
+            postcode() {
                 return this.$store.state.searchForm.postcode.toUpperCase()
+            },
+             documentTypes:{
+                get: function() {
+                 return this.$store.state.searchForm.documentTypes;
+                }
             }
 
         },
-        created(){
-           if(this.$store.state.postcodeSearch == "")
-               this.initialDocuments = this.docs
+        created() {
+            if (this.$store.state.postcodeSearch == "")
+                this.initialDocuments = this.docs
             this.started = true;
         },
-        mounted(){
-            AOS.init({once:true,
-                      offset: 50,
-                      duration: 400,
-                      easing: 'ease-in-sine',
-                      delay: 50});  
+        mounted() {
+            AOS.init({
+                once: true,
+                offset: 50,
+                duration: 400,
+                easing: 'ease-in-sine',
+                delay: 50
+            });
         },
         filters: {
-            round:  function(value) {
-               // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
-                
-            if(value == null)
-                {
+            round: function(value) {
+                // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
+
+                if (value == null) {
                     return 'P.O.A'
                 }
-                
-                if( isNaN(value) )
+
+                if (isNaN(value))
                     return 'P.O.A'
-                  else{  
-                      var  decimals = 1;
-                  value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-  return value;
-                  }
-                },
-            uppercase: function(value){
+                else {
+                    var decimals = 1;
+                    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+                    return value;
+                }
+            },
+            uppercase: function(value) {
                 return value.toUpperCase()
             },
-            removeHyphens: function(value){
-                if(value != null && value != "")
-                    return value.replace(new RegExp('-', 'g')," ");
-                else 
+            removeHyphens: function(value) {
+                if (value != null && value != "")
+                    return value.replace(new RegExp('-', 'g'), " ");
+                else
                     return null;
-                
+
             }
-            }
+        }
     }
+
 </script>
 
 <style scoped lang="scss">
     $roundabouts: darkgreen;
     $parking-tickets: purple;
-    
-    
-    
-    
+
+
+
+
     #searchResultsContainer {
         width: 100%;
         .result-cards {
@@ -172,7 +189,7 @@
                         justify-content: center;
                         font-size: 24px;
                         line-height: 1.2;
-                    
+
                     }
 
                     .icon {
@@ -240,16 +257,16 @@
         }
 
     }
-    .docTypeLabel{
-        font-size:18px;
-        color:grey;
-        &.car-parking-ticket-advertising{
+
+    .docTypeLabel {
+        font-size: 18px;
+        color: grey;
+        &.car-parking-ticket-advertising {
             color: $parking-tickets;
         }
-        &.roundabout-sponsorship{
+        &.roundabout-sponsorship {
             color: $roundabouts;
         }
     }
-  
 
 </style>

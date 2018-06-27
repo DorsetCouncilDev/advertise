@@ -1,148 +1,91 @@
 {
-    "name": "dorchester car park",
-    "longText": "dorchester car parking tickets",
-    "reference": "dorchester-car-park",
-    "indexReference": "advertise-dorset",
-    "documentTypeReference": "parking-tickets",
-    "hasAttachments": false,
-    "publishedVersion": {
-        "versionNumber": 1,
-        "published": true,
-        "properties": [{
-            "propertyName": "Width",
-            "propertyReference": "width",
-            "value": "44.0",
-            "display": true,
-            "listValue": []
-        }, {
-            "propertyName": "Sign Size",
-            "propertyReference": "sign-size",
-            "value": "44.0",
-            "display": true,
-            "listValue": []
-        }, {
-            "propertyName": "Price",
-            "propertyReference": "price",
-            "value": "44.0",
-            "display": true,
-            "listValue": []
-        }, {
-            "propertyName": "Traffic flow",
-            "propertyReference": "traffic-flow",
-            "value": "5555.0",
-            "display": true,
-            "listValue": []
-        }],
-        "locations": []
-    },
-    "latestUnpublishedVersion": {
-        "versionNumber": 2,
-        "properties": [{
-            "propertyName": "Price",
-            "propertyReference": "price",
-            "publishedValue": "44.0",
-            "display": true,
-            "listValue": [null],
-            "unpublishedValue": "44.0"
-        }, {
-            "propertyName": "Traffic flow",
-            "propertyReference": "traffic-flow",
-            "publishedValue": "5555.0",
-            "display": true,
-            "listValue": [null],
-            "unpublishedValue": "5555.0"
-        }, {
-            "propertyName": "Width",
-            "propertyReference": "width",
-            "publishedValue": "44.0",
-            "display": true,
-            "listValue": [null],
-            "unpublishedValue": "44.0"
-        }, {
-            "propertyName": "Sign Size",
-            "propertyReference": "sign-size",
-            "publishedValue": "44.0",
-            "display": true,
-            "listValue": [null],
-            "unpublishedValue": "44.0"
-        }],
-        "locations": [{
-            "latitude": 50.700003,
-            "longitude": -2.447132,
-            "streetviewLatitude": null,
-            "streetviewLongitude": null,
-            "streetviewHeading": null,
-            "streetviewPitch": null,
-            "primaryLocation": true,
-            "reference": "0ff5d66f-c8b5-420d-871f-4798b35a8f3e"
-        }]
-    },
-    "versions": [{
-        "versionNumber": 1,
-        "published": true,
-        "properties": [{
-            "propertyName": "Width",
-            "propertyReference": "width",
-            "value": "44.0",
-            "display": true,
-            "listValue": []
-        }, {
-            "propertyName": "Sign Size",
-            "propertyReference": "sign-size",
-            "value": "44.0",
-            "display": true,
-            "listValue": []
-        }, {
-            "propertyName": "Price",
-            "propertyReference": "price",
-            "value": "44.0",
-            "display": true,
-            "listValue": []
-        }, {
-            "propertyName": "Traffic flow",
-            "propertyReference": "traffic-flow",
-            "value": "5555.0",
-            "display": true,
-            "listValue": []
-        }],
-        "locations": []
+    "name": "test 8888",
+    "longText": "test x",
+    "reference": "test-8888",
+    "index": "advertise-dorset",
+    "published": true,
+    "unpublishedVersion": true,
+    "publishedVersionNumber": 67,
+    "unpublishedVersionNumber": 68,
+    "properties": [{
+        "propertyName": "Contract length",
+        "propertyReference": "contract-length",
+        "propertyType": "Number",
+        "publishedValue": null,
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
     }, {
-        "versionNumber": 2,
-        "published": false,
-        "properties": [{
-            "propertyName": "Price",
-            "propertyReference": "price",
-            "value": "44.0",
-            "display": true,
-            "listValue": [null]
-        }, {
-            "propertyName": "Traffic flow",
-            "propertyReference": "traffic-flow",
-            "value": "5555.0",
-            "display": true,
-            "listValue": [null]
-        }, {
-            "propertyName": "Width",
-            "propertyReference": "width",
-            "value": "44.0",
-            "display": true,
-            "listValue": [null]
-        }, {
-            "propertyName": "Sign Size",
-            "propertyReference": "sign-size",
-            "value": "44.0",
-            "display": true,
-            "listValue": [null]
-        }],
-        "locations": [{
-            "latitude": 50.700003,
-            "longitude": -2.447132,
-            "streetviewLatitude": null,
-            "streetviewLongitude": null,
-            "streetviewHeading": null,
-            "streetviewPitch": null,
-            "primaryLocation": true,
-            "reference": "0ff5d66f-c8b5-420d-871f-4798b35a8f3e"
-        }]
-    }]
+        "propertyName": "After price",
+        "propertyReference": "after-price",
+        "propertyType": "Text",
+        "publishedValue": null,
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+    }, {
+        "propertyName": "Price",
+        "propertyReference": "price",
+        "propertyType": "Text",
+        "publishedValue": "10",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": "10"
+    }, {
+        "propertyName": "Before Price",
+        "propertyReference": "before-price",
+        "propertyType": "Text",
+        "publishedValue": null,
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+    }, {
+        "propertyName": "Available",
+        "propertyReference": "available",
+        "propertyType": "Boolean",
+        "publishedValue": "false",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": "false"
+    }, {
+        "propertyName": "description",
+        "propertyReference": "description",
+        "propertyType": "TextArea",
+        "publishedValue": null,
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+    }, {
+        "propertyName": "Text area",
+        "propertyReference": "text-area",
+        "propertyType": "Text",
+        "publishedValue": null,
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+    }],
+    "locations": [{
+        "latitude": 50.709526,
+        "longitude": -2.439411,
+        "streetviewLatitude": null,
+        "streetviewLongitude": null,
+        "streetviewHeading": null,
+        "streetviewPitch": null,
+        "primaryLocation": true,
+        "reference": "78a5af0b-5359-4884-b76e-0dbfc7c5bfd8"
+    }],
+    "unpublishedLocations": [{
+        "latitude": 50.709526,
+        "longitude": -2.439411,
+        "streetviewLatitude": null,
+        "streetviewLongitude": null,
+        "streetviewHeading": null,
+        "streetviewPitch": null,
+        "primaryLocation": true,
+        "reference": "9bb50592-1f2e-4ff9-8250-3974e4296d47"
+    }],
+    "documentTypeReference": "roundabout-sponsorship",
+    "documentTypeName": "Roundabout Sponsorship",
+    "images": [],
+    "files": []
 }

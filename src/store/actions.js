@@ -146,6 +146,24 @@ export const actions = {
         }) 
     },
     
+    
+     // Set the search options on the form. based on document types available and those currently selected.
+    async setInitialDocumentTypesSearchOptions({dispatch,state,commit}, param) {
+        var documentTypeOptions = [];
+        await DocumentTypeService.getTypes(param).then((response) => {
+            var types = response.data;
+            var typesSelected = state.searchCriteria.documentTypes;
+            types.forEach((type) => {
+                if(type.display){
+                    state.searchCriteria.documentTypes.push(type.reference)
+                    type.selected = true;
+                }
+            })
+            commit("setInitialSearch")
+            commit("setDocumentTypes",types)
+        }) 
+    },
+    
     // Get the current selected document types selected for search
     getDocumentTypeSearchOptions(context) {
         return context.state.searchCriteria.documentTypes;

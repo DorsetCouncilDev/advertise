@@ -14,8 +14,8 @@
     </div>
     <h1>Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions :docTypes="documentTypes" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
-        <Assets :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
+        <SearchOptions  :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
+        <Assets  :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
     </div>
 </div>
 </template>
@@ -84,8 +84,15 @@
 
     },
          created(){
-            this.$store.dispatch("setDocumentTypesSearchOptions",this.indexRef); 
+            this.getDocumentTypes();
+             
+            if(!this.$store.state.initialSearch)
+                this.$store.dispatch("setInitialDocumentTypesSearchOptions",this.indexRef)
+             else
+                this.$store.dispatch("setDocumentTypesSearchOptions",this.indexRef); 
+             
             this.$store.commit("setIndexReference",this.indexRef);
+            
         }
     }
 

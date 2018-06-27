@@ -335,6 +335,7 @@
                         this.info.show = true;
                         this.info.message = "Changes have been saved"
                     }, (error) => {
+                        this.clearActionMessage();
                         this.error.show = true;
                         this.error.message = "Sorry something's gone wrong"
                     })

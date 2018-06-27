@@ -149,6 +149,10 @@
 
                     await DocumentService.createDocument(newDocument, securityToken).then((response) => {
                         this.$emit('create');
+                    },(error)=>{
+                        this.clearActionMessage();
+                        this.error.show = true;
+                        this.error.message = "Sorry something's gone wrong"
                     })
                 }
             },

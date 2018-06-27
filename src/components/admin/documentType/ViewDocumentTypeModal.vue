@@ -17,9 +17,14 @@
             <input class="form-control" type="text" id="longText" v-model="documentType.longText">
         </div>
         <div class="multiple-choice">
-            <input type="checkbox" class="form-control small" :id="documentType.reference"  :name="documentType.reference" v-model="documentType.display" value="1" >
-            <label class="small pr" :for="documentType.reference" >Display</label>
+            <input type="checkbox" class="form-control" :id="documentType.reference"  :name="documentType.reference" v-model="documentType.display" value="1" >
+            <label  :for="documentType.reference" >Display</label>
         </div>
+                <div class="form-group mt-4">
+    <label>Text colour 
+    <input type="color" v-model="documentType.colour"></label>
+               
+    </div>
                 </div>
             <div class="col-sm-6">
         <legend class="mt-3">Properties</legend>
@@ -220,7 +225,8 @@
                     var updateProperties = {
                         "name": this.documentType.name,
                         "longText": this.documentType.longText,
-                        "display": this.documentType.display
+                        "display": this.documentType.display,
+                        "colour" : this.documentType.colour
                     }
                     var securityToken = this.$store.state.securityToken;
 

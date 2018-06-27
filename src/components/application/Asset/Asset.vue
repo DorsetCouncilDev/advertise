@@ -16,21 +16,21 @@
             </div>   
             <div class="document-headings">
                 <h1>{{document.name}}</h1>
-                <h2>{{document.documentTypeReference | removeHyphens}} {{document.longText}}</h2>
+                <h2>{{document.documentTypeName}} {{document.longText}}</h2>
             </div>
         </div>
         <h3>{{assetPrice}}</h3>
         <p v-if="afterPriceText">{{afterPriceText}} </p>
         <hr>
         <p v-for="p in document.properties">
-            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != ''">{{p.propertyName}}: {{p.publishedValue | readBoolean}}</span>
+            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">{{p.propertyName}}: {{p.publishedValue | readBoolean}}</span>
         </p>
         <hr>
         <div v-if="document.locations.length > 0">
             <h3>Location</h3>
             <AssetMaps :locations="document.locations" :streetView="false" :name="document.name"></AssetMaps>
         </div>
-        <div class="description-text" v-if="description != ''"><p>{{description}}</p></div>
+        <div class="description-text" v-if="description != ''"><hr><p>{{description}}</p><hr></div>
        
         <p>Contact our marketing team</p>
         <p><a href="#">marketing@dorsetcc.gov.uk</a> </p>
@@ -64,15 +64,13 @@
             }
         },
         computed: {
-            description(){
+            description: function(){
                 var desc = "";
                    this.document.properties.forEach((p) => {
                     if (p.propertyReference == 'description')
-                        console.log("found description")
                         desc =  p.publishedValue
                    })
                 return desc;
-                
             },
             streetViewRequired() {
                 return !(this.document.locations[0].streetviewLatitude == null);
@@ -92,11 +90,11 @@
                 })
 
                 if (price == null) {
-                    return 'P.O.A'
+                    return '£ P.O.A'
                 }
 
                 if (isNaN(price))
-                    return 'P.O.A'
+                    return '£ P.O.A'
                 else {
                     var priceDescription = ""
 

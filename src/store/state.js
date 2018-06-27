@@ -4,7 +4,7 @@ export const state = {
     searchCriteria: {
         parameters: [],
         // Hard coded temp solution to pre populate browse list
-        documentTypes: ["roundabout-sponsorship","car-parking-ticket-advertising","bus-shelter-advertising","enewsletter-sponsorship","bin-lid-advertising","vehicle-advertising"],
+        documentTypes: [],
         location: null
     },
     showSearchForm: false,
@@ -16,5 +16,6 @@ export const state = {
     searchForm:{
         documentTypes: [],
         postcode: ""
-    }
+    },
+    initialSearch: false
 }

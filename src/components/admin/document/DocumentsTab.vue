@@ -6,16 +6,30 @@
        
        <transition name="component-fade" mode="out-in">
            <div class="row">
-               <div class="col-sm-7">
-         <b-list-group>   
-           <b-list-group-item class="d-flex justify-content-between align-items-center" :button="true" v-for="document in documents" :key="document.id"  @click="openDocumentViewModal(document)">
-                  {{document.name}}  
-               <b-badge variant="light" pill v-if="document.publishedVersion != null && document.publishedVersion.published">published</b-badge>
-               <b-badge variant="danger" v-else> unpublished</b-badge>
-        </b-list-group-item>
-           </b-list-group>
+               <div class="col-sm-10">
+         
+                   <table class="table">
+                    <thead>
+                      <tr>
+                    <th>Name</th>
+                          <th>Type</th>
+                          <th>Status</th>
+    </tr>
+    </thead>
+                       <tbody>
+                           <tr class="document-row" v-for="document in documents" @click="openDocumentViewModal(document)">
+                               <td>{{document.name}}</td>
+                               <td>{{document.documentType}}</td>
+                               <td> <span  v-if="document.publishedVersion != null && document.publishedVersion.published" class="text-success">published</span>
+               <span v-else> unpublished</span></td>
+    </tr>
+    </tbody>
+    </table>
+                   
+                
                    </div>
     </div>
+        
         </transition>
 
        <button class="btn btn-primary mt-3"  @click="openNewDocumentModal()">Create new asset</button>
@@ -155,5 +169,11 @@
     }
     #infoMessageHolder{
         
+    }
+    .document-row{
+        &:hover{
+            background-color: #F1F1F1;
+            cursor: pointer;
+        }
     }
 </style>

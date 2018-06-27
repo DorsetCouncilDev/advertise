@@ -43,14 +43,12 @@
     export default {
         name: 'SearchOptions',
         props: {
-            docTypes: {
-                type: Array,
-                required: true
-            },
+       
             showSearchForm: {
                 type: Boolean,
                 required: true
             }
+         
         },
         data() {
             return {
@@ -82,21 +80,23 @@
             }
         },
         computed: {
-            documentTypes: {
-                get: function() {
-                    return this.$store.state.searchForm.documentTypes
-                }
-            },
+            
             postcode: {
                 get: function() {
                     var p = this.$store.state.searchForm.postcode
                     p = p.toUpperCase()
                     return p
                 }
+            },
+            documentTypes:{
+                get: function() {
+                 return this.$store.state.searchForm.documentTypes;
+                }
             }
         },
         created() {
             this.postcodeSearch = this.postcode;
+      
         }
     }
 
@@ -113,7 +113,7 @@
     .type-options {
         display: flex;
         .form-group {
-            flex-grow: 2;
+           width: 80%;
             .multiple-choice label.label {
                 line-height: 1.3;
                 white-space: nowrap;
@@ -122,10 +122,10 @@
             }
         }
         .type-icon {
-            flex-shrink: 1;
+            width:20%;
             position: relative;
             display: flex;
-            width:50px;
+         
             img {
 position: absolute;
                 top:-2px;
@@ -192,7 +192,7 @@ position: absolute;
         }
         position: absolute;
         width: 97vw;
-        top: 220px;
+        top: 120px;
         left: -200vw;
         height:100%;
         transition: left .5s;
@@ -291,5 +291,13 @@ position: absolute;
         font-size: 3px;
         position: absolute;
     }
+    
+    #searchHeading{
+        width:100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    
 
 </style>
