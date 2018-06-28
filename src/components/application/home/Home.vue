@@ -50,10 +50,9 @@
     // import ParkingMap from './../../ParkingMap';
     export default {
         name: 'Home',
-        props: ['indexRef'],
         data() {
             return {
-                
+                 indexRef: "advertise" 
             }
         },
         components: {

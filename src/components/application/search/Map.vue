@@ -16,7 +16,6 @@
         props: ['assets'],
         watch: {
             assets: function(newVal, oldVal) {
-                console.log("search results change " + this.markers.length);
                 this.setMarkers();
             }
         },
@@ -40,7 +39,6 @@
                 
                 if(this.assets != null){
                 this.assets.forEach((asset) => {
-                    console.log("loop assets")
                     if (asset.document.locations != null && asset.document.locations.length > 0) {
                         var price = asset.document.properties.find(function(element){
                                         return element.propertyReference == 'price'
@@ -49,7 +47,7 @@
                         price.publishedValue = parseInt(price.publishedValue, 10);
                         
                         var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + asset.document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + price.publishedValue + '</p>' +
-                            '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="#/' + asset.document.index + '/' + asset.document.reference + '">View this opportunity</a></p>';
+                            '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="#/' + asset.document.reference + '">View this opportunity</a></p>';
                         this.addMarker(asset.document.locations[0],infoContent)
                     }
                 })
@@ -117,16 +115,10 @@
                 gestureHandling: 'greedy'
             };
             this.map = new google.maps.Map(element, options);
-            
-            
-            console.log("num of assets: " + this.assets.length)
+
             // set markers if any to set
             if(this.assets != null && this.assets.length > 0)
-         
-                
                 this.setMarkers();
-            
-            
         }
     }
 

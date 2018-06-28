@@ -7,7 +7,7 @@
         </div>
         <ol class="ad-breadcrumb">
             <li aria-current="page">
-                <router-link :to="{ path: '/' + indexRef}">home</router-link>
+                <router-link :to="{ path: '/'}">home</router-link>
             </li>
             <li aria-current="page">search</li>   
         </ol>
@@ -33,7 +33,6 @@
 
     export default {
         name: 'Search',
-        props: ['indexRef'],
         data() {
             return {
                 map: null,
@@ -43,7 +42,8 @@
                     numberOfResults: 0
                 },
                 documents: [],
-                showSearchForm: false
+                showSearchForm: false,
+                indexRef: "advertise"
             }
         },
         components: {

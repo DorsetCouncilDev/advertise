@@ -61,7 +61,6 @@ google.maps.event.addDomListener(window, 'load', initMap);
 
 
 function initPano(lat,long) {
-    console.log("init")
   var panorama = new google.maps.StreetViewPanorama(
       document.getElementById('pano'), {
         position: {lat: lat, lng: long},
@@ -75,9 +74,5 @@ function initPano(lat,long) {
     panorama.addListener('pov_changed', function() {
       var headingCell = document.getElementById('heading-cell');
       var pitchCell = document.getElementById('pitch-cell');
-      console.log("heading: " + panorama.getPov().heading + "");
-      console.log("pitch: " + panorama.getPov().pitch + "");
-        
-        
   });
 }

@@ -114,24 +114,23 @@ const routes = [
     },
     
     {
-        path: '/:indexRef',
+        path: '/',
         component: Home,
-        props:true,
+
           meta: {
             title: 'Advertise Dorset Home'
         }
         
     }, 
     {
-        path:  '/:indexRef/search',
+        path:  '/search',
         component: Search,
-        props:true,
         meta: {
             title: 'Search opportunities'
         }
     },
     {
-        path: '/:indexRef/:documentRef',
+        path: '/:documentRef',
         component: Asset,
         props: true,
         meta: {

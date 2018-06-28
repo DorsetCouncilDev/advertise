@@ -53,13 +53,10 @@ var _gazzeteer = axios.create({
 
 export default {
     get(url){
-console.log("URL: " + url)
         return _.get(url)
     },
     
     post(url,payload,authToken){
-        
-        console.log('payload: ' + payload)
            var headers = {
                       headers: {
                             Authorization:  'Bearer ' + authToken

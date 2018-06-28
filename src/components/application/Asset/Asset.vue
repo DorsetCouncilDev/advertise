@@ -5,8 +5,8 @@
             marketing@dorsetcc.gov.uk</a> - tel. <a href="tel:+18506484200">01305224125</a></div>
            
             <ol class="ad-breadcrumb">
-                <li aria-current="page"><router-link :to="{path: '/' + indexRef}">home</router-link></li>
-                <li aria-current="page"><router-link :to="{ path: '/' + indexRef + '/search'}">search results</router-link></li>
+                <li aria-current="page"><router-link :to="{path: '/'}">home</router-link></li>
+                <li aria-current="page"><router-link :to="{ path: '/search'}">search results</router-link></li>
                 <li aria-current="page">{{document.reference}}</li>
             </ol>
         </div>
@@ -44,10 +44,11 @@
     import DocumentService from '../../../services/DocumentService'
     export default {
         name: 'AssetView',
-        props: ['indexRef', 'documentRef'],
+        props: [ 'documentRef'],
         data() {
             return {
-                document: {}
+                document: {},
+                indexRef: "advertise"
             }
         },
         components: {
