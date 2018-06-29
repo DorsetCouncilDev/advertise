@@ -21,7 +21,7 @@
     </div>
     <div class="col-sm-6 col-md-5 offset-md-1" id="browseLinkBlock">
  <h2>Opportunities available now!</h2>
-       <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/search/'}">Start browsing</router-link>
+       <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search/'}">Start browsing</router-link>
 
  
     </div>
@@ -50,7 +50,7 @@
             postcodesearch: async function(){ 
                 this.$store.dispatch("removeAllOtherSearchCriteria");
                 await this.$store.dispatch("setPostcodeSearchCriteria")
-                this.$router.push("/search")
+                this.$router.push("/advertise/search")
                 
             } 
         },

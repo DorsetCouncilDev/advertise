@@ -47,7 +47,7 @@
                         price.publishedValue = parseInt(price.publishedValue, 10);
                         
                         var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + asset.document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + price.publishedValue + '</p>' +
-                            '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="#/' + asset.document.reference + '">View this opportunity</a></p>';
+                            '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="/advertise/' + asset.document.reference + '">View this opportunity</a></p>';
                         this.addMarker(asset.document.locations[0],infoContent)
                     }
                 })

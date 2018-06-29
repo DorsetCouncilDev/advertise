@@ -5,8 +5,8 @@
             marketing@dorsetcc.gov.uk</a> - tel. <a href="tel:+18506484200">01305224125</a></div>
            
             <ol class="ad-breadcrumb">
-                <li aria-current="page"><router-link :to="{path: '/'}">home</router-link></li>
-                <li aria-current="page"><router-link :to="{ path: '/search'}">search results</router-link></li>
+                <li aria-current="page"><router-link :to="{path: '/advertise'}">home</router-link></li>
+                <li aria-current="page"><router-link :to="{ path: '/advertise/search'}">search results</router-link></li>
                 <li aria-current="page">{{document.reference}}</li>
             </ol>
         </div>

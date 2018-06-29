@@ -11,7 +11,7 @@
             
    
             <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" data-aos="fade">
-                <router-link :to="{ path: '/' + d.document.reference}" class="card-link">
+                <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
                     <div class="card-heading">
                         <div class="icon"><img :alt="d.document.documentTypeReference"  :src="getIcon(d.document.documentTypeReference)">
                         </div>

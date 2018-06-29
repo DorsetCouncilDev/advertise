@@ -34,11 +34,11 @@ const routes = [
         component: DevHome
     },
     {
-        path:  '/admin',
+        path:  '/advertise/admin',
          component: AdminLogin,
            beforeEnter: (to, from, next) => {
             if(store.state.securityToken != null && store.state.securityToken != '')
-                next('/admin/indexes')
+                next('/advertise/admin/indexes')
                else
                 next()
             
@@ -46,53 +46,53 @@ const routes = [
     },
     {
         // List of all indexes
-        path:  '/admin/indexes',
+        path:  '/advertise/admin/indexes',
         component: Indexes,
         beforeEnter: (to, from, next) => {
             if(store.state.securityToken != null && store.state.securityToken != '')
                 next()
             else
-                next('/admin')
+                next('/advertise/admin')
       }
     },
     
        {
 
         // View index with ref
-        path: '/admin/indexes/:indexRef/assets',
+        path: '/advertis/admin/indexes/:indexRef/assets',
         component: AssetsList,
         props: true,
         beforeEnter: (to, from, next) => {
             if(store.state.securityToken != null && store.state.securityToken != '')
                 next()
             else
-                next('/admin')
+                next('/advertise/admin')
       }
     },
    {
 
         // View index with ref
-        path: '/admin/indexes/:indexRef/assets/:documentRef',
+        path: '/advertise/admin/indexes/:indexRef/assets/:documentRef',
         component: AssetsView,
         props: true,
         beforeEnter: (to, from, next) => {
             if(store.state.securityToken != null && store.state.securityToken != '')
                 next()
             else
-                next('/admin')
+                next('/advertise/admin')
       }
     },
      {
 
         // View index with ref
-        path: '/admin/indexes/:indexRef/assets/:documentRef/locations',
+        path: '/advertise/admin/indexes/:indexRef/assets/:documentRef/locations',
         component: AssetLocations,
         props: true,
         beforeEnter: (to, from, next) => {
             if(store.state.securityToken != null && store.state.securityToken != '')
                 next()
             else
-                next('/admin')
+                next('/advertise/admin')
       }
     },
     
@@ -102,19 +102,19 @@ const routes = [
     {
 
         // View index with ref
-        path: '/admin/indexes/:indexRef',
+        path: '/advertise/admin/indexes/:indexRef',
         component: Index,
         props: true,
         beforeEnter: (to, from, next) => {
             if(store.state.securityToken != null && store.state.securityToken != '')
                 next()
             else
-                next('/admin')
+                next('/advertise/admin')
       }
     },
     
     {
-        path: '/',
+        path: '/advertise',
         component: Home,
 
           meta: {
@@ -123,14 +123,14 @@ const routes = [
         
     }, 
     {
-        path:  '/search',
+        path:  '/advertise/search',
         component: Search,
         meta: {
             title: 'Search opportunities'
         }
     },
     {
-        path: '/:documentRef',
+        path: '/advertise/:documentRef',
         component: Asset,
         props: true,
         meta: {

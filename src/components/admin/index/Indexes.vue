@@ -11,7 +11,7 @@
        <div class="row">
             <ul class="list-group col-sm-5">
                 <li class="list-group-item" v-for="index in indexes">
-                    <router-link :to="{ path: '/admin/indexes/' + index.reference }">{{index.reference}}</router-link>
+                    <router-link :to="{ path: '/advertise/admin/indexes/' + index.reference }">{{index.reference}}</router-link>
                   <!--  <a class="text-danger float-sm-right" @click="deleteIndex(index.reference)">Delete</a> -->
                 </li>
             </ul>

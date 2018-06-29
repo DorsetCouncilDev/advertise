@@ -63,9 +63,7 @@ export default{
     async setDocumentProperties(indexRef,documentRef,properties,token){
        var url = indexRef + '/documents/' + documentRef + '/properties'
        await api.put(url,properties,token).then((response)=>{
-            return this.publishLatestVersion(indexRef,documentRef,token)
-          
-               
+            return this.publishLatestVersion(indexRef,documentRef,token)   
        })
     },
     async publishLatestVersion(indexRef,documentRef,token){

@@ -2,7 +2,7 @@
 <div>
     <ol class="breadcrumb">
    
-        <li class="breadcrumb-item" aria-current="page"><router-link to="/admin/indexes">Indexes</router-link></li>
+        <li class="breadcrumb-item" aria-current="page"><router-link to="/advertise/admin/indexes">Indexes</router-link></li>
         <li class="breadcrumb-item active" aria-current="page">{{index.name}}</li>
     </ol>
     <h1>{{index.name}}</h1>

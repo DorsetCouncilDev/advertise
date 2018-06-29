@@ -7,7 +7,7 @@
         </div>
         <ol class="ad-breadcrumb">
             <li aria-current="page">
-                <router-link :to="{ path: '/'}">home</router-link>
+                <router-link :to="{ path: '/advertise'}">home</router-link>
             </li>
             <li aria-current="page">search</li>   
         </ol>
