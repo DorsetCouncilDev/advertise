@@ -1,4 +1,4 @@
-<!-- Map component to show search results  -->
+!-- Map component to show search results  -->
 
 <template>
 <div id="map">
@@ -51,8 +51,8 @@
                 var position = new google.maps.LatLng(location.latitude, location.longitude);
                 var marker = new google.maps.Marker({
                     position: position,
-                    map: this.map,
-                    icon: require('../assets/images/icons/park-pin-xsmall.png')
+                    map: this.map
+                /* icon: require('../assets/images/icons/park-pin-xsmall.png') */
                 });
 
 

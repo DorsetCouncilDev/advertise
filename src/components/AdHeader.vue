@@ -5,7 +5,7 @@
    <header>
        <div id="dfyHolder"><img src="../assets/images/dfy.png" id="dfyLogo" alt="Go to Dorset for you homepage"></div>
        <div id="titleHolder">
-            <div id="title"><a href="/">ADVERTISE DORSET</a>  <img id="brandImage" src="../assets/images/ad-brand-image.svg" alt=""> </div>
+            <div id="title"><a href="/advertise">ADVERTISE DORSET</a>  <img id="brandImage" src="../assets/images/ad-brand-image.svg" alt=""> </div>
             
         </div>
        <div v-if="signedIn != ''"><a @click="logout">logout</a></div>
@@ -29,7 +29,7 @@
         methods:{
             logout: function() {
                 this.$store.commit('clearSecurityToken')
-                this.$router.push('/admin')
+                this.$router.push('/advertise/admin')
             }
         }
             
