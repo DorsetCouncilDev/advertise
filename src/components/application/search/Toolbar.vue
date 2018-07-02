@@ -30,16 +30,16 @@
             }
         },
         props: {
-          showSearchForm:{
-              type:Boolean,
-              require: true
-          }  
+            showSearchForm: {
+                type: Boolean,
+                require: true
+            }
         },
         methods: {
             toggleSearchForm: function() {
                 this.$emit("onChangeShowSearchForm")
             }
-            
+
         },
 
         computed: {
@@ -49,9 +49,9 @@
                 },
                 set(value) {
                     var sortValue = value;
-                    if(sortValue == 'bestmatch')
+                    if (sortValue == 'bestmatch')
                         this.$store.dispatch("sortResultsByBestMatch")
-                    else{
+                    else {
                         var sortValueArray = value.split("-");
                         var sortProperty = sortValueArray[0];
                         var sortType = sortValueArray[1];
@@ -70,7 +70,7 @@
                 },
                 set(value) {
                     this.$store.commit("setView", value);
-                    
+
                 }
             }
         }
@@ -113,7 +113,11 @@
             position: absolute;
             left: -99999em;
             top: -99999em;
-
+            &:focus {
+                &+label {
+                    border: orange solid 1px;
+                }
+            }
             &+label {
                 cursor: pointer;
                 float: left;
@@ -128,23 +132,33 @@
                 &:before {
                     position: absolute;
                     left: -1px;
-                    margin-left:4px;
+                    margin-left: 4px;
                 }
+
 
                 &#gridViewLabel {
                     display: none;
                     &:before {
                         content: url(../../../assets/images/grid.svg);
                     }
+                    &:focus {
+                        border: orange solid 1px;
+                    }
                 }
                 &#listViewLabel {
                     &:before {
                         content: url(../../../assets/images/list.svg);
                     }
+                    &:focus {
+                        border: orange solid 1px;
+                    }
                 }
                 &#mapViewLabel {
                     &:before {
                         content: url(../../../assets/images/map.svg);
+                    }
+                    &:focus {
+                        border: orange solid 1px;
                     }
                 }
                 &:hover {
@@ -165,7 +179,11 @@
             width: 105px;
             padding-left: 0;
             color: rgb(33, 37, 41);
+            &:focus {
+                border: orange 1px solid;
+            }
         }
+
     }
 
     @media only screen and (min-width: 800px) {
@@ -208,4 +226,5 @@
             }
         }
     }
+
 </style>

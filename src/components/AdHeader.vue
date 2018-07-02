@@ -1,54 +1,44 @@
 <!-- Common header component  -->
 
 <template>
-<div>
-   <header>
-       <div id="dfyHolder"><img src="../assets/images/dfy.png" id="dfyLogo" alt="Go to Dorset for you homepage"></div>
-       <div id="titleHolder">
-            <div id="title"><a href="/advertise">ADVERTISE DORSET</a>  <img id="brandImage" src="../assets/images/ad-brand-image.svg" alt=""> </div>
-            
-        </div>
-       <div v-if="signedIn != ''"><a @click="logout">logout</a></div>
- 
-    </header>
-
-</div>
+<header>
+    <div id="dfyHolder"><a href="https://www.dorsetforyou.gov.uk" title="DorsetForYou homepage"><img src="../assets/images/dfy.png" id="dfyLogo" alt="Go to Dorset for you homepage"></a></div>
+    <div id="titleHolder">
+        <div id="title"><a href="/advertise" title="Advertise Dorset homepage">ADVERTISE DORSET</a>  <img id="brandImage" src="../assets/images/ad-brand-image.svg" alt=""> </div>    
+    </div>
+    <div v-if="signedIn != ''"><a @click="logout">logout</a></div>
+</header>
 </template>
 
 <script>
     export default {
         name: 'AdHeader',
-        computed:{
-            signedIn(){
-                if(this.$store.state.securityToken)
+        computed: {
+            signedIn() {
+                if (this.$store.state.securityToken)
                     return true
                 else
                     return false
             }
         },
-        methods:{
+        methods: {
             logout: function() {
                 this.$store.commit('clearSecurityToken')
                 this.$router.push('/advertise/admin')
             }
         }
-            
-    
     }
 
 </script>
 
 <style scoped lang="scss">
     header {
-
-       
-        
         display: flex;
         justify-content: space-between;
         width: 100%;
         padding-bottom: 10px;
         border-bottom: solid 1px lightgrey;
-   overflow: hidden;
+        overflow: hidden;
         #dfyHolder {
             img {
                 width: 100px;
@@ -71,13 +61,11 @@
                     }
                 }
                 #brandImage {
-                    transform:scale(0.9);
+                    transform: scale(0.9);
                     transform: rotate(180deg) scale(0.9);
                     position: absolute;
                     top: -80px;
                     left: 52px;
-                
-
                 }
             }
             #tagline {
@@ -85,64 +73,57 @@
                 line-height: 1;
                 font-size: 1rem;
             }
-
         }
     }
-
 
     @media only screen and (min-width: 600px) {
-     header {
-
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding-bottom: 10px;
-        border-bottom: solid 1px lightgrey;
-        height: 130px;
-        #dfyHolder {
-            img {
-                width: 100px;
-            }
-        }
-        #titleHolder {
-
-            flex-grow: 2;
+        header {
             display: flex;
-            flex-flow: wrap;
-            justify-content: center;
-            #title {
-                position: relative;
-                font-size: 2em;
-                a {
-                    color: black;
-                    &:hover,
-                    &:visited {
-                        text-decoration: none;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 10px;
+            border-bottom: solid 1px lightgrey;
+            height: 130px;
+            #dfyHolder {
+                img {
+                    width: 100px;
+                }
+            }
+            #titleHolder {
+                flex-grow: 2;
+                display: flex;
+                flex-flow: wrap;
+                justify-content: center;
+                #title {
+                    position: relative;
+                    font-size: 2em;
+                    a {
+                        color: black;
+                        &:hover,
+                        &:visited {
+                            text-decoration: none;
+                        }
+                    }
+                    #brandImage {
+
+                        transform: rotate(180deg);
+                        position: absolute;
+                        top: -200px;
+                        left: 125px;
+                        width: 400px;
                     }
                 }
-                #brandImage {
-        
-                    transform: rotate(180deg);
-                    position: absolute;
-                    top: -200px;
-                    left: 125px;
-                    width:400px;
-
+                #tagline {
+                    font-style: italic;
+                    line-height: 1;
+                    font-size: 1rem;
                 }
             }
-            #tagline {
-                font-style: italic;
-                line-height: 1;
-                font-size: 1rem;
-            }
-
         }
-    }
     }
 
     @media only screen and (min-width: 550px) {
         header {
-      
             #dfyHolder {
                 img {
                     width: 150px;
@@ -151,15 +132,12 @@
         }
     }
 
-
-
     @media only screen and (min-width: 700px) {
         header {
             #titleHolder {
                 #title {
                     font-size: 2em;
                 }
-         
             }
         }
     }

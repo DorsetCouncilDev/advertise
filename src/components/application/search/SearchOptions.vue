@@ -1,5 +1,5 @@
 <template>
-<div id="menu"  v-bind:class="{'show-search-form': showSearchForm}">
+<section id="menu"  v-bind:class="{'show-search-form': showSearchForm}">
     <h2>Search Options</h2>
     <hr>
     <form>
@@ -13,21 +13,21 @@
         <div v-for="type in documentTypes" v-if="type.display" class="mb-2">
         <div class="type-options" >
             <div class="form-group">
-                <div class="multiple-choice">
+                <div class="multiple-choice" :title="type.name">
                     <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
                     <label :for="type.reference" id="longLabel">{{type.name}} </label>
                 </div>
             </div>
             <div class="type-icon">
-                <img :src="getIcon(type.reference)">
+                <img :src="getIcon(type.reference)" :alt="type.name">
             </div>
             
         </div>
        
             </div>
-        <button class="btn btn-success mt-4" @click.prevent="search">Search</button>
+        <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
     </form>
-</div>
+</section>
 </template>
 
 <script>
@@ -109,7 +109,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
+   
     .type-options {
         display: flex;
         .form-group {
@@ -127,11 +127,11 @@
             display: flex;
          
             img {
-position: absolute;
+                position: absolute;
                 top:-2px;
-        width: 42px;
-        height: 42px;
-    }
+                width: 42px;
+                height: 42px;
+            }
         }
     }
 
@@ -184,7 +184,7 @@ position: absolute;
     #menu {
 
         #longLabel {
-            font-size: 16px;
+            font-size: 14px;
             padding-left: 2px;
         }
         &.show-search-form {
@@ -194,20 +194,26 @@ position: absolute;
         width: 97vw;
         top: 120px;
         left: -200vw;
-        height:100%;
         transition: left .5s;
         background: white;
         padding: 10px;
         z-index: 2;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
         border-bottom: 20px solid white;
         &.open {
             left: 0px;
         }
         form {
+            padding-bottom:30px;
+            border-bottom:solid 2px grey;
             label {
                 padding-bottom: 0;
                 line-height: 1.3;
+                
+            }
+            legend{
+                font-size: 18px;
+                font-weight: 500;
             }
             #placesToggle,
             #typesToggle {
@@ -281,6 +287,13 @@ position: absolute;
             background: white;
             border-right: solid 1px grey;
             padding-right: 30px;
+            legend{
+                font-size:24px
+            }
+            #longLabel {
+            font-size: 16px;
+            padding-left: 2px;
+        }
         }
         #menuOpen {
             display: none;

@@ -1,36 +1,30 @@
 <template>
-    <div id="searchResultsContainer">
-       <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
-        <SearchCriteria></SearchCriteria>
+<div id="searchResultsContainer">
+    <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
+    <SearchCriteria></SearchCriteria>
        
-      <transition name="component-fade" mode="out-in">
+    <transition name="component-fade" mode="out-in">
         <Map v-show="view == 'mapView'" :assets="documents"></Map>
     </transition>
 
-        <div class="result-cards" v-bind:class="{'grid-view': view == 'gridView'}" v-show="view == 'listView' || view == 'gridView'"> 
-            
-   
-            <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" data-aos="fade">
-                <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
-                    <div class="card-heading">
-                        <div class="icon"><img :alt="d.document.documentTypeReference"  :src="getIcon(d.document.documentTypeReference)">
-                        </div>
-                        <div class="heading"><div class="docTypeLabel" v-bind:style="{color: getTypeColor(d.document.documentTypeReference)}">{{d.document.documentTypeName}}</div><div class="heading-text">{{d.document.name}}</div></div>
-                    </div>
+    <div class="result-cards" v-bind:class="{'grid-view': view == 'gridView'}" v-show="view == 'listView' || view == 'gridView'"> 
+        <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" data-aos="fade">
+            <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
+                <div class="card-heading">
+                    <div class="icon"><img :alt="d.document.documentTypeName"  :src="getIcon(d.document.documentTypeReference)"></div>
+                    <div class="heading"><div class="docTypeLabel" v-bind:style="{color: getTypeColor(d.document.documentTypeReference)}">{{d.document.documentTypeName}}</div><div class="heading-text">{{d.document.name}}</div></div>
+                </div>
 
-                    <div class="card-main">
-                          
-                        {{d.document.longText}}
-                        
-                        <p class="price" v-for="property in d.document.properties" v-if="property.propertyReference == 'price'">&pound;  {{property.publishedValue | round()}}</p>
-                        <p v-if="d.distanceFromCoordinate && postcode != ''">{{d.distanceFromCoordinate | round()}} miles from {{postcode}}</p>
-                        <span class="parameter" v-for="matchingParam in d.matchingParameters">{{matchingParam.name}}</span>
-                        <span class="parameter unmatched" v-for="param in d.nonMatchingParameters">{{param.name}}</span>
-                   </div>
-               </router-link>
-            </div>
+                <div class="card-main">{{d.document.longText}}
+                    <p class="price" v-for="property in d.document.properties" v-if="property.propertyReference == 'price'">&pound;  {{property.publishedValue | round()}}</p>
+                    <p v-if="d.distanceFromCoordinate && postcode != ''">{{d.distanceFromCoordinate | round()}} miles from {{postcode}}</p>
+                    <span class="parameter" v-for="matchingParam in d.matchingParameters">{{matchingParam.name}}</span>
+                    <span class="parameter unmatched" v-for="param in d.nonMatchingParameters">{{param.name}}</span>
+                </div>
+            </router-link>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -77,10 +71,10 @@
             changeShowSearchForm() {
                 this.$emit("onChangeShowSearchForm")
             },
-            getTypeColor(ref){
+            getTypeColor(ref) {
                 var colour = "grey";
-                this.documentTypes.forEach((type)=>{
-                    if(type.reference == ref)
+                this.documentTypes.forEach((type) => {
+                    if (type.reference == ref)
                         colour = type.colour
                 })
                 return colour;
@@ -100,12 +94,11 @@
             postcode() {
                 return this.$store.state.searchForm.postcode.toUpperCase()
             },
-             documentTypes:{
+            documentTypes: {
                 get: function() {
-                 return this.$store.state.searchForm.documentTypes;
+                    return this.$store.state.searchForm.documentTypes;
                 }
             }
-
         },
         created() {
             if (this.$store.state.postcodeSearch == "")
@@ -145,7 +138,6 @@
                     return value.replace(new RegExp('-', 'g'), " ");
                 else
                     return null;
-
             }
         }
     }
@@ -153,16 +145,9 @@
 </script>
 
 <style scoped lang="scss">
-    $roundabouts: darkgreen;
-    $parking-tickets: purple;
-
-
-
-
     #searchResultsContainer {
         width: 100%;
         .result-cards {
-
             width: 100%;
             .result-card {
                 border: solid 1px darkgrey;
@@ -187,7 +172,6 @@
                         justify-content: center;
                         font-size: 24px;
                         line-height: 1.2;
-
                     }
 
                     .icon {
@@ -253,18 +237,11 @@
                 }
             }
         }
-
     }
 
     .docTypeLabel {
         font-size: 18px;
         color: grey;
-        &.car-parking-ticket-advertising {
-            color: $parking-tickets;
-        }
-        &.roundabout-sponsorship {
-            color: $roundabouts;
-        }
     }
 
 </style>

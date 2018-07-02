@@ -13,7 +13,7 @@
 
     <HomeSearch :indexRef="indexRef"></HomeSearch>
  <div data-aos="fade-up">
-    <h3 class="mt-3 mb-1">Exposure for your brand</h3>
+    <h2 class="mt-3 mb-1">Exposure for your brand</h2>
      <div class="ad-data-collection  mb-5">
        
             <div class="ad-data">1 <span class="ad-data-label display-3"> Million plus daily motorists</span></div>

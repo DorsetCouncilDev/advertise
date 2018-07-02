@@ -6,7 +6,7 @@
           <a href="tel:+18506484200">01305224125</a>
         </div>
         <ol class="ad-breadcrumb">
-            <li aria-current="page">
+            <li>
                 <router-link :to="{ path: '/advertise'}">home</router-link>
             </li>
             <li aria-current="page">search</li>   
