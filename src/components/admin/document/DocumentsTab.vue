@@ -13,13 +13,15 @@
                       <tr>
                     <th>Name</th>
                           <th>Type</th>
+                          <th scope="col">Locations</th>
                           <th>Status</th>
     </tr>
     </thead>
                        <tbody>
-                           <tr class="document-row" v-for="document in documents" @click="openDocumentViewModal(document)">
-                               <td>{{document.name}}</td>
+                           <tr v-for="document in documents">
+                               <td><span class="view-link" @click="openDocumentViewModal(document)">{{document.name}}</span></td>
                                <td>{{document.documentType}}</td>
+                               <td><router-link :to="{path: '/advertise/admin/indexes/' + indexRef + '/' + document.reference + '/locations'}">{{document.publishedVersion.locations.length}}</router-link></td>
                                <td> <span  v-if="document.publishedVersion != null && document.publishedVersion.published" class="text-success">published</span>
                <span v-else> unpublished</span></td>
     </tr>
@@ -51,6 +53,7 @@
     import ViewDocumentModal from './ViewDocumentModal'
     import NewDocumentModal from './NewDocumentModal'
       import InfoMessage from '../../info-message'
+    import ManageLocations from './ManageLocations'
     export default {
         
         name: 'DocumentsTab',
@@ -170,10 +173,13 @@
     #infoMessageHolder{
         
     }
-    .document-row{
+    .view-link{
+        color:#005ea5;
         &:hover{
-            background-color: #F1F1F1;
+            color:#003259;
             cursor: pointer;
+            text-decoration: underline;
         }
     }
+  
 </style>

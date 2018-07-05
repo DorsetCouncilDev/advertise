@@ -198,11 +198,11 @@ export const actions = {
         });
     },
     
-    setPostcodeSearchCriteria({state,commit,dispatch}){
+    async setPostcodeSearchCriteria({state,commit,dispatch}){
         var postcode = state.searchForm.postcode;   
         if(postcode != null && postcode != "" )
         {
-            GazetteerService.search(postcode).then((response)=>{
+           await GazetteerService.search(postcode).then((response)=>{
             
                 // Use first address from results - possible better way ?
                 var address = response.data.address[0];  
@@ -214,17 +214,15 @@ export const actions = {
                     "range": 10
                 } 
                 commit("setPostcodeSearchCriteria",location);
-            dispatch("aSearch");
-            })
             
+            })
+            dispatch("aSearch");           
         }
         else{
             var locationNull = null
             commit("setPostcodeSearchCriteria",locationNull);
             dispatch("aSearch");
-        }
-        
-        
+        }    
     },
     
     
@@ -238,5 +236,4 @@ export const actions = {
         typesSelected.forEach((type)=>type.selected = false);
         context.commit("setDocumentTypes",typesSelected);
     }
-
 }

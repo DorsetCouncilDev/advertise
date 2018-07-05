@@ -10,10 +10,7 @@ import Indexes from '../components/admin/index/Indexes';
 // View index
 import Index from '../components/admin/index/Index';
 
-
-
 const dcc = '/dcc.dorsetforyou/'
-
 
 // application data store
 import store from '../store';
@@ -27,6 +24,7 @@ import AdminLogin from '../components/admin/Login';
 import AssetsList from '../components/admin/index/AssetsList';
 import AssetsView from '../components/admin/index/AssetView';
 import AssetLocations from '../components/admin/index/AssetLocations';
+import ManageLocations from '../components/admin/document/ManageLocations';
 const routes = [
    
     {
@@ -59,7 +57,7 @@ const routes = [
        {
 
         // View index with ref
-        path: '/advertis/admin/indexes/:indexRef/assets',
+        path: '/advertise/admin/indexes/:indexRef/assets',
         component: AssetsList,
         props: true,
         beforeEnter: (to, from, next) => {
@@ -82,8 +80,10 @@ const routes = [
                 next('/advertise/admin')
       }
     },
-     {
-
+    
+    
+ /*    
+    {
         // View index with ref
         path: '/advertise/admin/indexes/:indexRef/assets/:documentRef/locations',
         component: AssetLocations,
@@ -95,13 +95,23 @@ const routes = [
                 next('/advertise/admin')
       }
     },
-    
-    
-    
+*/
     
     {
 
         // View index with ref
+        path: '/advertise/admin/indexes/:indexRef/:documentRef/locations',
+        component: ManageLocations,
+        props: true,
+        beforeEnter: (to, from, next) => {
+            if(store.state.securityToken != null && store.state.securityToken != '')
+                next()
+            else
+                next('/advertise/admin')
+        }
+    },
+    
+    {
         path: '/advertise/admin/indexes/:indexRef',
         component: Index,
         props: true,
@@ -110,17 +120,15 @@ const routes = [
                 next()
             else
                 next('/advertise/admin')
-      }
+        }
     },
     
     {
         path: '/advertise',
         component: Home,
-
-          meta: {
+        meta: {
             title: 'Advertise Dorset Home'
         }
-        
     }, 
     {
         path:  '/advertise/search',

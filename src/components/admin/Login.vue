@@ -48,7 +48,7 @@
                     if(response.data != null && response.data != ""){
                         this.token =  response.data  
                         this.$store.commit('setSecurityToken',this.token)
-                        this.$router.push('/advertise/admin/indexes')
+                        this.$router.push('/advertise/admin/indexes/advertise')
                     }
                 },(error)=>{
                     this.loginError = true

@@ -1,25 +1,25 @@
 <template>
 <section id="menu"  v-bind:class="{'show-search-form': showSearchForm}">
-    <h2>Search Options</h2>
+    <h2 id="searchOptionsTitle">Search Options</h2>
     <hr>
-    <form>
+    <form id="searchForm">
         <label class="invisible" for="postcode">Postcode search</label>
-        <legend>Postcode</legend>
+        <legend class="form-legend">Postcode</legend>
         <div class="form-group">
             <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcodeSearch"> 
         </div>
             
-        <legend>Types</legend>
+        <legend class="form-legend">Types</legend>
         <div v-for="type in documentTypes" v-if="type.display" class="mb-2">
         <div class="type-options" >
             <div class="form-group">
                 <div class="multiple-choice" :title="type.name">
                     <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
-                    <label :for="type.reference" id="longLabel">{{type.name}} </label>
+                    <label :for="type.reference"  class="mutliple-choice-label">{{type.name}} </label>
                 </div>
             </div>
             <div class="type-icon">
-                <img :src="getIcon(type.reference)" :alt="type.name">
+                <img class="type-icon" :src="getIcon(type.reference)" :alt="type.name">
             </div>
             
         </div>
@@ -43,12 +43,12 @@
     export default {
         name: 'SearchOptions',
         props: {
-       
+
             showSearchForm: {
                 type: Boolean,
                 required: true
             }
-         
+
         },
         data() {
             return {
@@ -63,8 +63,12 @@
                 if (this.postcodeSearch.length > 0) {
                     this.$store.commit("setPostcode", this.postcodeSearch)
                     await this.$store.dispatch("setPostcodeSearchCriteria")
-                } else
+                } else {
+                    this.$store.commit("setPostcodeSearchCriteria", null)
+                    this.$store.commit("setPostcode", "")
                     this.$store.dispatch("aSearch");
+                }
+
                 this.$emit("onChangeShowSearchForm")
             }
         },
@@ -80,7 +84,7 @@
             }
         },
         computed: {
-            
+
             postcode: {
                 get: function() {
                     var p = this.$store.state.searchForm.postcode
@@ -88,15 +92,15 @@
                     return p
                 }
             },
-            documentTypes:{
+            documentTypes: {
                 get: function() {
-                 return this.$store.state.searchForm.documentTypes;
+                    return this.$store.state.searchForm.documentTypes;
                 }
             }
         },
         created() {
             this.postcodeSearch = this.postcode;
-      
+
         }
     }
 
@@ -104,16 +108,16 @@
 
 
 <style scoped lang="scss">
-    .multiple-choice label {
+    .multiple-choice .mutliple-choice-label {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-   
+
     .type-options {
         display: flex;
         .form-group {
-           width: 80%;
+            width: 80%;
             .multiple-choice label.label {
                 line-height: 1.3;
                 white-space: nowrap;
@@ -122,20 +126,20 @@
             }
         }
         .type-icon {
-            width:20%;
+            width: 20%;
             position: relative;
             display: flex;
-         
-            img {
+
+            .type-icon {
                 position: absolute;
-                top:-2px;
+                top: -2px;
                 width: 42px;
                 height: 42px;
             }
         }
     }
 
-    img {
+    .type-icon {
 
         width: 50px;
         height: 50px;
@@ -160,7 +164,6 @@
             left: 10px;
             margin-top: 3px;
             transition: transform .1s;
-
         }
 
         &.collapsed {
@@ -170,20 +173,17 @@
                 left: 10px;
                 margin-top: 3px;
                 transition: transform .1s;
-
-
-
             }
         }
     }
 
-    h2 {
+    #searchOptionsTitle {
         font-size: 22px;
     }
 
     #menu {
 
-        #longLabel {
+        .mutliple-choice-label {
             font-size: 14px;
             padding-left: 2px;
         }
@@ -203,15 +203,14 @@
         &.open {
             left: 0px;
         }
-        form {
-            padding-bottom:30px;
-            border-bottom:solid 2px grey;
-            label {
+        #searchForm {
+            padding-bottom: 30px;
+            border-bottom: solid 2px grey;
+            .mutliple-choice-label {
                 padding-bottom: 0;
                 line-height: 1.3;
-                
             }
-            legend{
+            .form-legend {
                 font-size: 18px;
                 font-weight: 500;
             }
@@ -245,9 +244,7 @@
     }
 
     #menuOpen {
-
         &.open {
-
             &:before {
                 content: url(../../../assets/images/close.svg);
             }
@@ -271,7 +268,6 @@
     }
 
     @media only screen and (min-width: 545px) {
-
         #menu {
             top: 300px;
         }
@@ -287,13 +283,13 @@
             background: white;
             border-right: solid 1px grey;
             padding-right: 30px;
-            legend{
-                font-size:24px
+            .form-legend {
+                font-size: 24px
             }
-            #longLabel {
-            font-size: 16px;
-            padding-left: 2px;
-        }
+            .mutliple-choice-label {
+                font-size: 16px;
+                padding-left: 2px;
+            }
         }
         #menuOpen {
             display: none;
@@ -304,13 +300,11 @@
         font-size: 3px;
         position: absolute;
     }
-    
-    #searchHeading{
-        width:100%;
+
+    #searchHeading {
+        width: 100%;
         display: flex;
         justify-content: space-between;
     }
-    
-    
 
 </style>

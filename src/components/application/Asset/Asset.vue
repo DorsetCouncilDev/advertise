@@ -15,14 +15,14 @@
                 <img id="brandImage" :src="getIcon(document.documentTypeReference)" alt="document.documentTypeReference">
             </div>   
             <div class="document-headings">
-                <h1>{{document.name}}</h1>
-                <h2>{{document.documentTypeName}} {{document.longText}}</h2>
+                <h1 id="assetTitleText">{{document.name}}</h1>
+                <h2 id="assetLongText">{{document.documentTypeName}} {{document.longText}}</h2>
             </div>
         </div>
         <h3>{{assetPrice}}</h3>
-        <p v-if="afterPriceText">{{afterPriceText}} </p>
-        <hr>
-        <p v-for="p in document.properties">
+        <p id="assetParagraph" v-if="afterPriceText">{{afterPriceText}} </p>
+       <hr>
+        <p id="assetParagraph" v-for="p in document.properties">
             <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">{{p.propertyName}}: {{p.publishedValue | readBoolean}}</span>
         </p>
         <hr>
@@ -32,10 +32,10 @@
         </div>
         <div class="description-text" v-if="description != ''"><hr><p>{{description}}</p><hr></div>
        
-        <p>Contact our marketing team</p>
-        <p><a href="#">marketing@dorsetcc.gov.uk</a> </p>
-        <p><a href="#" rel="tel">01305 224125</a></p>
-        <p>quoting reference <strong>{{document.reference}}</strong></p> 
+        <p class="assetParagraph">Contact our marketing team</p>
+        <p class="assetParagraph"><a href="#">marketing@dorsetcc.gov.uk</a> </p>
+        <p class="assetParagraph"><a href="#" rel="tel">01305 224125</a></p>
+        <p class="assetParagraph">quoting reference <strong>{{document.reference}}</strong></p> 
     </div>
 </template>
 
@@ -170,16 +170,16 @@
     .description-text{
         margin:15px 0;
     }
-    h1 {
+    #assetTitleText {
         font-size: 1.8rem;
         margin-bottom: 2px;
     }
 
-    h2 {
+    #assetLongText {
         font-size: 1.2rem;
     }
 
-    p {
+    .assetParagraph {
         font-size: 1rem;
         margin-bottom: 2px;
         margin-top: 2px;
@@ -205,12 +205,10 @@
 
     .available-tag {
         font-size: 14px;
-        p {
+        #assetParagraph {
             margin-bottom: 2px;
         }
-        button {
-            font-size: 14px;
-        }
+       
     }
 
     @media only screen and (min-width: 700px) {
@@ -221,14 +219,14 @@
                 height: 100px;
             }
         }
-        h1 {
+        #assetTitleText {
             font-size: 1.8rem;
             margin-bottom: 5px;
         }
-        h2 {
+        #assetLongText {
             font-size: 1.4rem;
         }
-        p {
+        .assetParagraph {
             font-size: 19px;
             margin-bottom: 2px;
             margin-top: 2px;
@@ -241,7 +239,7 @@
             float: right;
         }
         @media only screen and (min-width: 805px) {
-            h1 {
+             #assetTitleText {
                 font-size: 32px;
             }
         }

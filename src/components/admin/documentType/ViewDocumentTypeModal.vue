@@ -55,7 +55,8 @@
             <b-tab title="Selected properties" >
                 <h2 class="display-order-title">In display order</h2>
                 <b-list-group>
-                    <b-list-group-item  v-for="property in selectedProperties" :key="property.property.reference">{{property.property.name}}
+                    <b-list-group-item  v-for="property in selectedProperties" :key="property.property.reference">
+                        <div class="selected-property-name">{{property.property.name}}</div>
                         <div class="actions">
                             <div class="multiple-choice">
                                 <input type="checkbox" class="form-control small" :id="property.property.reference"  :name="property.property.reference" v-model="property.display" value="1" @click="updatePropertyDisplay(property.property.reference,property.display)" >
@@ -82,7 +83,6 @@
 </template>
 
 <script>
-
     import _ from 'lodash'
     import Vue from 'vue'
     import BootstrapVue from 'bootstrap-vue'
@@ -94,7 +94,8 @@
 
         name: 'DocumentTypeViewModal',
         components: {
-            ModalErrorMessage, ModalInfoMessage
+            ModalErrorMessage,
+            ModalInfoMessage
         },
         props: {
             documentTypeRef: {
@@ -132,7 +133,7 @@
                 },
                 info: {
                     message: "",
-                    show:false
+                    show: false
                 },
                 errorMessages: {
                     name: ""
@@ -160,30 +161,30 @@
                 this.clearErrorMessage()
                 this.isDoingStuff = true;
                 var securityToken = this.$store.state.securityToken;
-               
+
                 if (!value == true) {
                     DocumentTypeService.showProperty(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response) => {
                         this.$emit('updated')
                         this.initialise();
-                        this.clearActionMessage();           
+                        this.clearActionMessage();
                         this.info.show = true;
                         this.info.message = "Property '" + propertyRef + "' has been set to display";
-                    },(error)=>{
-                         this.clearActionMessage();    
-                         this.error.show = true;
-                         this.error.message = "Sorry something's gone wrong. Properties display has not been changed."
+                    }, (error) => {
+                        this.clearActionMessage();
+                        this.error.show = true;
+                        this.error.message = "Sorry something's gone wrong. Properties display has not been changed."
                     })
                 } else {
                     DocumentTypeService.hideProperty(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response) => {
                         this.$emit('updated')
                         this.initialise();
-                        this.clearActionMessage();           
+                        this.clearActionMessage();
                         this.info.show = true;
                         this.info.message = "Property '" + propertyRef + "' has been set not to display";
-                    },(error)=>{
-                        this.clearActionMessage();    
-                         this.error.show = true;
-                         this.error.message = "Sorry something's gone wrong. Properties display has not been changed."
+                    }, (error) => {
+                        this.clearActionMessage();
+                        this.error.show = true;
+                        this.error.message = "Sorry something's gone wrong. Properties display has not been changed."
                     })
                 }
             },
@@ -195,10 +196,10 @@
                 await DocumentTypeService.movePropertyUp(this.indexRef, this.documentType.reference, propertyRef, securityToken).then((response) => {
                     this.$emit('updated')
                     this.initialise(this.documentTypeRef)
-                    this.clearActionMessage();           
+                    this.clearActionMessage();
                     this.info.show = true;
                     this.info.message = "Property '" + propertyRef + "' has been moved up"
-                  
+
                 })
             },
             closeModal: function() {
@@ -207,26 +208,26 @@
             },
 
             updateType: async function() {
-                
+
                 this.clearInfoMessage()
                 this.clearErrorMessage()
-                
+
                 this.isDoingStuff = true;
-                
-                if(this.documentType.name == null || this.documentType.name == ""){
+
+                if (this.documentType.name == null || this.documentType.name == "") {
                     this.clearActionMessage();
                     this.error.show = true;
                     this.error.message = "Name is required";
-                    this.error.detail = "";   
+                    this.error.detail = "";
                     this.errorMessages.name = "Name is required"
                     this.isDoingStuff = false;
-                }else{
-                
+                } else {
+
                     var updateProperties = {
                         "name": this.documentType.name,
                         "longText": this.documentType.longText,
                         "display": this.documentType.display,
-                        "colour" : this.documentType.colour
+                        "colour": this.documentType.colour
                     }
                     var securityToken = this.$store.state.securityToken;
 
@@ -238,16 +239,16 @@
 
                     await DocumentTypeService.updateType(this.indexRef, this.documentType.reference, securityToken, updateProperties)
                         .then(async (response) => {
-                        await DocumentTypeService.addProperties(this.indexRef, response.data.reference, propertiesSelected, securityToken).then((response) => { })
-                        this.$emit('updated')
-                        this.clearActionMessage();           
-                        this.info.show = true;
-                        this.info.message = "Changes have been saved"
-                        this.initialise(response.data.reference)
-                    }, (error) => {
-                        this.error.show = true;
-                        this.error.message = "Sorry something's gone wrong. Any changes were not saved."
-                    })
+                            await DocumentTypeService.addProperties(this.indexRef, response.data.reference, propertiesSelected, securityToken).then((response) => {})
+                            this.$emit('updated')
+                            this.clearActionMessage();
+                            this.info.show = true;
+                            this.info.message = "Changes have been saved"
+                            this.initialise(response.data.reference)
+                        }, (error) => {
+                            this.error.show = true;
+                            this.error.message = "Sorry something's gone wrong. Any changes were not saved."
+                        })
                 }
             },
             deleteDocumentType: async function() {
@@ -262,36 +263,36 @@
                     })
             },
             onHidden(evt) {
-                 this.clearAllMessages();  
+                this.clearAllMessages();
                 this.documentType = {}
                 this.$emit('close')
             },
             initialise(typeRef) {
-                DocumentTypeService.getType(this.indexRef,typeRef).then((response)=>{
+                DocumentTypeService.getType(this.indexRef, typeRef).then((response) => {
                     this.documentType = response.data
-                 
-                console.log("prop dref: " + this.documentTypeRef)
-                this.selectedProperties = [];
-                
-                this.indexProperties = _.cloneDeep(this.properties)
 
-                this.indexProperties.forEach((indexProperty) => {
-                    this.documentType.properties.forEach((typeProperty) => {
+                    console.log("prop dref: " + this.documentTypeRef)
+                    this.selectedProperties = [];
 
-                        console.log("index-p-ref: " + indexProperty.reference)
-                        console.log("type-p-ref: " + typeProperty.property.reference)
+                    this.indexProperties = _.cloneDeep(this.properties)
 
-                        if (indexProperty.reference == typeProperty.property.reference) {
-                            indexProperty.selected = true;
-                        }
+                    this.indexProperties.forEach((indexProperty) => {
+                        this.documentType.properties.forEach((typeProperty) => {
+
+                            console.log("index-p-ref: " + indexProperty.reference)
+                            console.log("type-p-ref: " + typeProperty.property.reference)
+
+                            if (indexProperty.reference == typeProperty.property.reference) {
+                                indexProperty.selected = true;
+                            }
+                        })
                     })
-                })
 
-                this.documentType.properties.forEach((typeProperty) => {
-                    this.selectedProperties.push(typeProperty)
+                    this.documentType.properties.forEach((typeProperty) => {
+                        this.selectedProperties.push(typeProperty)
+                    })
+
                 })
-                    
-                      })  
             },
             onShow(evt) {
                 this.initialise(this.documentTypeRef);
@@ -324,29 +325,29 @@
                         return 1;
                     return 0;
                 });
-            }, 
-            clearAllMessages(){
+            },
+            clearAllMessages() {
                 this.clearActionMessage()
                 this.clearInfoMessage()
                 this.clearErrorMessage()
             },
-            clearActionMessage(){
+            clearActionMessage() {
                 this.isDoingStuff = false;
             },
-            clearInfoMessage(){
+            clearInfoMessage() {
                 this.info.show = false;
                 this.info.message = "";
             },
-            clearErrorMessage(){
+            clearErrorMessage() {
                 this.error.show = false;
                 this.error.message = "";
                 this.error.detail = ""
-                 this.errorMessages.name = ""
+                this.errorMessages.name = ""
             },
-            async getDocumentType(typeRef){
-               await DocumentTypeService.getType(this.indexRef,typeRef).then((response)=>{
+            async getDocumentType(typeRef) {
+                await DocumentTypeService.getType(this.indexRef, typeRef).then((response) => {
                     this.documentType = response.data
-                })      
+                })
             }
         }
     }
@@ -401,10 +402,6 @@
         }
     }
 
-    h2.display-4 {
-        font-size: 32px;
-    }
-
     .close {
         position: absolute;
         top: 5px;
@@ -439,15 +436,20 @@
                 opacity: 1;
             }
         }
+        .selected-property-name {}
     }
+
     .doingStuff {
         opacity: .3;
     }
-    .display-order-title{
-        
+
+    .display-order-title {
+        font-size: 22px;
     }
-  .ad-modal-body{
-        height:600px;
-        overflow:scroll;
+
+    .ad-modal-body {
+        height: 600px;
+        overflow: scroll;
     }
+
 </style>

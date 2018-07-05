@@ -11,7 +11,7 @@
       
       <div class="row">
         <div class="col-sm-6">
-      <div class="form-group">    
+            <div class="form-group">    
                 <label for="name">Name</label>
                 <input class="form-control" id="name" type="text" v-model="document.name" >
             </div>
@@ -22,13 +22,12 @@
                      placeholder=""
                      :rows="3"
                      :max-rows="6">
-    </b-form-textarea>
-               
+                </b-form-textarea>  
             </div>
             
             <p><strong>{{document.documentType}}</strong></p>
             
-      <legend>Properties</legend>
+            <legend>Properties</legend>
             
             <div v-for="property in properties">
                 <div class="form-group mb-4 mt-4" v-if="property.propertyType == 'Boolean'">
@@ -59,10 +58,10 @@
                    
                 </div>
             </div>
-                </div>
+    </div>
     </div>
         <div class="col-sm-6" id="locationSide">
-     <legend>Location</legend>
+            <legend>Location</legend>
             <label class="col-sm-5">Latitude</label>
             <label class="col-sm-5">Longitude</label>
             <div class="input-group location-input">
@@ -76,13 +75,11 @@
                 <ModalErrorMessage :error="locationError"></ModalErrorMessage>
             <ModalInfoMessage :info="locationInfo"></ModalInfoMessage>
             </div>
-        
-   
             
-           
-    </div>
-           
-    
+            <div class="mt-4 mb-4">
+                <button class="btn btn-primary" @click="openLocationPicker">Pick a location</button>
+            </div>          
+        </div>
     </div> 
              
     </div>
@@ -90,9 +87,10 @@
             <button  class="btn btn-outline-secondary" @click="closeModal()"> Close </button>
             <button type="button" class="btn btn-success" data-dismiss="modal" @click="updateDocument">Save</button>
             <button type="button" class="btn btn-danger" @click="deleteDocument">Delete</button>
-         <ModalErrorMessage :error="error"></ModalErrorMessage>
+            <ModalErrorMessage :error="error"></ModalErrorMessage>
             <ModalInfoMessage :info="info"></ModalInfoMessage>
     </div>
+      <LocationPickerModal :show="showLocationPickertModal"></LocationPickerModal>
     </b-modal>
 
 </template>
@@ -108,7 +106,8 @@
     import Location from './Location'
     import ModalErrorMessage from '../../modal-error-message'
     import ModalInfoMessage from '../../modal-info-message'
-
+    import LocationPickerModal from './LocationPickerModal'
+    
     export default {
 
         name: 'ViewDocumentModal',
@@ -138,7 +137,8 @@
         components: {
             Location,
             ModalErrorMessage,
-            ModalInfoMessage
+            ModalInfoMessage,
+            LocationPickerModal
         },
         data() {
             return {
@@ -174,7 +174,8 @@
                 locationInfo: {
                     show: false,
                     message: ""
-                }
+                },
+                showLocationPickertModal: false
             }
         },
         watch: {
@@ -192,7 +193,6 @@
                     this.getDocument()
                     this.locationUpdated = false;
                 }
-
             },
             // awful hack to reload document - FIX
             documentUpdated: function() {
@@ -417,8 +417,6 @@
                 //this.getDocumentType();
                 this.getDocument();
                 this.clearAllMessages();
-
-
             },
             onHidden(evt) {
                 this.location.latitude = ""
@@ -446,9 +444,12 @@
             clearErrorMessage() {
                 this.error.show = false;
                 this.error.message = "";
-                this.error.detail = ""
+                this.error.detail = "";
                 this.nameError = false;
             },
+            openLocationPicker(){
+                this.showLocationPickertModal = true;
+            }
         },
         mounnted() {
 

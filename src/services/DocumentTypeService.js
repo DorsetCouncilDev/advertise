@@ -26,13 +26,13 @@ export default{
         return api.delete(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef)
     },
     movePropertyUp(indexRef,typeRef,propertyRef,token){
-        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/moveup',token)
+        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/moveup',null,token)
     },
     showProperty(indexRef,typeRef,propertyRef,token){
-        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/show',token)
+        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/show',null,token)
     },
     hideProperty(indexRef,typeRef,propertyRef,token){
-        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/hide',token)
+        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef + '/hide',null,token)
     },
    getDocumentTypes(indexRef){
         return api.get(indexRef + '/documenttypes')

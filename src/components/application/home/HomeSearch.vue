@@ -3,7 +3,7 @@
     <section class="col-sm-6 col-md-5" id="postcodeSearchBlock">      
         <form v-on:submit.prevent="postcodesearch">
             <div class="form-group" aria-labelledBy="search" aria-describedby="postcode">
-                <h2 class="home-action-label" id="search">Find opportunities near you</h2>
+                <h2 class="home-action-label mb-2" id="search">Find opportunities near you</h2>
                 <label class="invisible" for="postcode" aria-label="Postcode" id="postcodeLabel">Postcode</label>
                 <div class="input-group">
                     <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Search postcode" v-model="postcode">
@@ -15,7 +15,7 @@
         </form>       
     </section>
     <section class="col-sm-6 col-md-5 offset-md-1" id="browseLinkBlock">
-        <h2 class="home-action-label">Opportunities available now!</h2>
+        <h2 class="home-action-label mb-2">Opportunities available now!</h2>
         <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search/'}">Start browsing</router-link>
     </section>
 </div>
@@ -57,6 +57,7 @@
 <style scoped lang="scss">
     .home-action-label {
         font-size: 26px;
+        text-align:left;
     }
 
     input {
@@ -81,6 +82,7 @@
             margin-top: 30px;
             margin-bottom: 30px;
         }
+ 
     }
     #postcodeLabel{
         position:absolute;
