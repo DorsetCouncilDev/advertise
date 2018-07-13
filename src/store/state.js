@@ -21,5 +21,9 @@ export const state = {
         }
       
     },
-    initialSearch: false
+    initialSearch: false,
+    admin: {
+        locations:[],
+        currentLocation: {}
+    }
 }

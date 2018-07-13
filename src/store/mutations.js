@@ -108,6 +108,17 @@ export const mutations = {
     },
     setAvailableSearch(state,payload){
         state.searchForm.parameters.available = payload
+    },
+    
+    
+    /**********************************************************/
+    /******  ADMIN   ******************************************/
+    
+    setAdminLocations(state,payload){
+        state.admin.locations = payload
+    },
+    setAdminCurrentLocations(state,payload){
+        state.admin.currentLocation = payload
     }
     
 }

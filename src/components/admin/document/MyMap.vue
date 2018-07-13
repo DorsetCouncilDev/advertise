@@ -13,9 +13,9 @@
                 @locationChangeFromMap = "onLocationChangeFromMap"
     >
       <template slot-scope="scopeProps" >
-        <child-marker v-for="(marker,i) in mapMarkers"
+        <child-marker v-for="(location,i) in locations"
           :key="i"
-          :position="marker" 
+          :position="location" 
           :google="scopeProps.google"
           :map="scopeProps.map"
           @locationChangeFromMarker="onLocationChangeFromMarker"
@@ -33,27 +33,30 @@
 
     export default {
         props: {
-            markers: Array,
             updating: Boolean,
             streetviewLocation: Object
         },
         data() {
             return {
-                mapConfig: {
-                    zoom: 12,
-                    center: this.markers[0]
-                },
-                mapMarkers: []
+             
             }
         },
-        watch:{
-           markers:{
-               handler: function(after, before){
-                  console.log("markersChanged")
-                   this.mapMarkers = []
-                  this.mapMarkers = _.cloneDeep(after)
-               },
-               deep:true
+        computed:{
+            locations: {
+                get(){
+                    return this.$store.state.admin.locations;
+                },
+                set(value){
+                    this.$store.commit("setAdminLocations",value)
+                }
+            },
+            currentLocation: {
+                get(){
+                    return this.$store.state.admin.currentLocations;
+                },
+                set(value){
+                    this.$store.commit("setAdminCurrentLocations",value)
+                }
             }
         },
         components: {

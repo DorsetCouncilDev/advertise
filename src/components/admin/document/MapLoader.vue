@@ -55,13 +55,19 @@
                 handler: function(){
                     if(this.streetviewLocation != null)
                     {
-                        this.panorama.setPosition(this.streetviewLocation.getPosition())
+                        const {
+                    LatLng
+                } = this.google.maps
+                        var position = new LatLng( {"lat":this.streetviewLocation.latitude, "lng":this.streetviewLocation.longitude})
+                        this.panorama.setPosition(position)
                         this.panorama.setPov({
                             heading: this.streetviewLocation.streetviewHeading,
                             zoom: 1,
                             pitch: this.streetviewLocation.streetviewPitch
                         })
                         this.panorama.setVisible(true) 
+                    }else{
+                        this.panorama.setVisible(false) 
                     }
                 },
                 deep: true
