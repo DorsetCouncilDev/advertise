@@ -15,7 +15,11 @@ export const state = {
     securityToken: "",
     searchForm:{
         documentTypes: [],
-        postcode: ""
+        postcode: "",
+        parameters: {
+            "available": false
+        }
+      
     },
     initialSearch: false
 }

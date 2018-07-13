@@ -3,44 +3,60 @@
 </template>
 
 <script>
+    import _ from 'lodash'
     import Vue from 'vue'
-    const EventBus = new Vue();
-    
+    var EventBus = new Vue();
+
     export default {
         name: 'Location',
         props: {
-            location: {
+            currentLocation: {
                 type: Object,
                 required: false
             }
         },
-        data(){
+        data() {
             return {
                 map: null,
                 select: false,
                 defaultLocation: {
-                    lat: 50.837374, 
-                    long: -2.341566
-                }
+                    latitude: 50.837374,
+                    longitude: -2.341566
+                },
+                clickCount: 0,
+                location: {},
+                marker: false
             }
         },
-        watch:{
-          location(){
-              this.initMap();
-          }  
+        watch: {
+            currentLocation: {
+                handler: function()
+                {
+                    if(this.currentLocation.latitude != null)
+                         this.location = _.cloneDeep(this.currentLocation)
+                    },
+                    deep: true
+            }
         },
         methods: {
-            sendBack(){
-                 this.$emit('markerSelected');
+            sendBack() {
+                this.$emit('markerSelected');
             },
             initMap() {
-                //The center location of our map.
-                var centerOfMap = null
-                if(this.location.latitude != null)
-                    centerOfMap = new google.maps.LatLng(this.location.latitude, this.location.longitude);
+
+                this.marker = null;
+
+                if (this.currentLocation.latitude != null){
+                    this.location = _.cloneDeep(this.currentLocation)
+                    console.log("cloning cLocation")
+                }
                 else
-                    centerOfMap = new google.maps.LatLng(this.defaultLocation.lat, this.defaultLocation.long);
-                
+                    this.location = _.cloneDeep(this.defaultLocation)
+                //The center location of our map.
+            
+
+                var centerOfMap = new google.maps.LatLng(this.location.latitude, this.location.longitude);
+
                 //Map options.
                 var options = {
                     center: centerOfMap, //Set center.
@@ -50,61 +66,69 @@
 
                 //Create the map object.
                 this.map = new google.maps.Map(document.getElementById('map'), options);
-                 
-                var marker = null;
+
                 
-                if(this.location != null){
+
+                if (this.currentLocation.latitude != null) {
+                    console.log("GOT CURRENT LOCATION")
                     var position = new google.maps.LatLng(this.location.latitude, this.location.longitude);
-                    marker = new google.maps.Marker({
+                    this.marker = new google.maps.Marker({
                         position: position,
                         map: this.map,
                         draggable: true //make it draggable
-                    }); 
+                    });
                 }
-                
+
                 //Listen for any clicks on the map.
                 google.maps.event.addListener(this.map, 'click', function(event) {
-                    
+
                     // var loc = event.latLng;
-                    EventBus.$emit('selected');
-                   
+                    EventBus.$emit('i-got-clicked', event.latLng);
+
                     //Get the location that the user clicked.
                     var clickedLocation = event.latLng;
-                    
+
                     //If the marker hasn't been added.
-                    if (marker === false) {
+                    if (this.marker === false) {
                         //Create the marker.
-                        marker = new google.maps.Marker({
+                        this.marker = new google.maps.Marker({
                             position: clickedLocation,
                             map: this.map,
                             draggable: true //make it draggable
                         });
                         //Listen for drag events!
-                        google.maps.event.addListener(marker, 'dragend', function(event) {
+                        google.maps.event.addListener(this.marker, 'dragend', function(event) {
                             markerLocation();
                         });
                     } else {
                         //Marker has already been added, so just change its location.
-                        marker.setPosition(clickedLocation);
+                 
+                        this.marker.setPosition(clickedLocation);
                     }
                     //Get the marker's location.
                     // markerLocation();
                 });
-              
+
             }
         },
         mounted() {
-           this.initMap();
-               
+
+            this.initMap();
+
+        },
+        created() {
+            EventBus.$on('i-got-clicked', location => {
+                this.$emit("selected", location)
+            });
         }
     }
 
 </script>
 
 <style scoped lang="scss">
-    #map{
-        width:100%;
-        height:60vh;
+    #map {
+        width: 100%;
+        height: 60vh;
     }
 
 </style>

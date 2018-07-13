@@ -105,6 +105,9 @@ export const mutations = {
     },
     setInitialSearch(state){
         state.initialSearch = true
+    },
+    setAvailableSearch(state,payload){
+        state.searchForm.parameters.available = payload
     }
     
 }

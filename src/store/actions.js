@@ -178,7 +178,6 @@ export const actions = {
             }
         })
         commit("setDocumentTypeSearchParameters",typesSelected)
-      
     },
     removeSearchDocumentType(context, param) {
         var typesSelected = context.state.searchForm.documentTypes
@@ -224,7 +223,19 @@ export const actions = {
             dispatch("aSearch");
         }    
     },
-    
+    setAvailableSearch(context,payload){
+       context.commit("setAvailableSearch",payload); 
+       var searchCriteriaParameters = context.state.searchCriteria.parameters;
+       if(searchCriteriaParameters.length > 0 && !payload)
+        {
+            searchCriteriaParameters.splice(0,1)
+        }
+        else if(searchCriteriaParameters.length == 0 && payload)
+        {
+            searchCriteriaParameters.push({"reference":"available","value":true});
+        }
+        context.commit("setSearchParameters",searchCriteriaParameters);
+    },
     
     // Preperation for postcode only search - from homepage
     removeAllOtherSearchCriteria({state,dispatch}){

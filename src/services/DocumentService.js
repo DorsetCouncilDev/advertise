@@ -95,7 +95,6 @@ export default{
         return api.post(url,criteria)
     },
     createLocation(locationRequest,token){
-       
         var url = locationRequest.indexRef + '/documents/' + locationRequest.documentRef + '/locations'
         return api.post(url,locationRequest.location,token)
     },
@@ -103,8 +102,8 @@ export default{
         var url = indexRef + '/documents/' + documentRef + '/locations/' + locationRef + '/primary'
         return api.put(url)
     },
-    deleteLocation(locationRequest,token){
-        var url = locationRequest.indexRef + '/documents/' + locationRequest.documentRef + '/locations/' + locationRequest.locationRef
+    deleteLocation(indexRef,documentRef,locationRef,token){
+        var url = indexRef + '/documents/' + documentRef + '/locations/' + locationRef;
         return api.delete(url,token) 
     },
     updateLocation(locationRequest,token){

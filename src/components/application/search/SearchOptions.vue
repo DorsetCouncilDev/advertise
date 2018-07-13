@@ -8,7 +8,12 @@
         <div class="form-group">
             <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcodeSearch"> 
         </div>
-            
+           <div class="form-group">
+                <div class="multiple-choice" title="available assets">
+                    <input type="checkbox" class="form-control" id="available" v-model="available">
+                    <label for="available"  class="mutliple-choice-label form-legend">Show available only</label>
+                </div>
+            </div> 
         <legend class="form-legend">Types</legend>
         <div v-for="type in documentTypes" v-if="type.display" class="mb-2">
         <div class="type-options" >
@@ -52,7 +57,8 @@
         },
         data() {
             return {
-                postcodeSearch: ""
+                postcodeSearch: "",
+                
             }
         },
         methods: {
@@ -76,6 +82,7 @@
             documentTypes: {
                 handler: function() {
                     this.$store.dispatch("setTypesSearchChange", this.documentTypes)
+                
                 },
                 deep: true
             },
@@ -95,6 +102,14 @@
             documentTypes: {
                 get: function() {
                     return this.$store.state.searchForm.documentTypes;
+                }
+            },
+            available: {
+                get: function(){
+                    return this.$store.state.searchForm.available;
+                },
+                set: function(value){
+                    this.$store.dispatch("setAvailableSearch", value)
                 }
             }
         },

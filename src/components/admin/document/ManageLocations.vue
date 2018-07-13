@@ -3,46 +3,90 @@
    <h1>Locations</h1>
     <div class="row">
         <ul class="col-sm-12">
-            <li :class="{active: hover}" v-for="location in locations" @click="openLocation(location)">{{location.latitude}} {{location.longitude}}  <span v-if="location.primaryLocation" class="font-weight-bold"> Primary location</span></li>
+            
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>no</th>
+                        <th>name</th>
+                        <th>primary</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  :class="{'selected':location.reference == loc.reference}" class="location-select-row" v-for="(loc, index) in locations" @click="openLocation(loc)">
+                        <td>{{index+1}}</td>
+                        <td><span v-if="loc.name == null" class="text-muted">no name</span><span v-else>{{loc.name}}</span></td>
+                        <td><span v-if="loc.primaryLocation" class="font-weight-bold">Primary</span></td>
+                        <td class="delete-link"><span class="delete-link-text" @click="requestDeleteLocation(loc)">delete</span></td>
+                    </tr>
+                </tbody>
+            </table>
+          
         </ul> 
-        <br>
-        <h2>Select a new location the map below</h2>        <hr>
+   
+         
     </div>
+      <hr>
+    <h2 class="display-4 mb-3"><span v-if="location.latitude == null">All locations</span><span v-else>Location: {{currentLocation.name}}</span></h2>
     <div class="row">
-        <div class="col-sm-6">
-            <LocationPicker :location="currentLocation" @selected="selected"></LocationPicker>
+        <div class="col-sm-8">
+            <button class="btn btn-primary" @click="setStreetview">Open streetview</button>
+             <my-map :markers="locations" :streetviewLocation="location" :updating="updatingMap" @locationChangeFromMarker="onLocationChangeFromMarker" @newLocationSelected="onNewLocationSelected" @locationChangedFromMap="onLocationChangeFromMap" @markerClicked="onMarkerClicked"> </my-map>
         </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <form>
-            <p>Location: {{currentLocation.reference}}</p>
+           
+            
+            <div class="form-group">
+                <label for="lat">Location name</label>
+                <input type="text" id="lat" class="form-control" v-model="location.name">
+            </div>
             
             <div class="form-group">
                 <label for="lat">Latitude</label>
-                <input type="text" id="lat" class="form-control" v-model="currentLocation.latitude">
+                <input type="text" id="lat" class="form-control" v-model="location.latitude">
             </div>
             <div class="form-group">
                 <label for="long">Longitude</label>
-                <input type="text" id="long" class="form-control" v-model="currentLocation.longitude">
+                <input type="text" id="long" class="form-control" v-model="location.longitude">
             </div>
+             <div class="form-group">
+                <label for="pitch">Pitch</label>
+                <input type="text" id="pitch" class="form-control" v-model="location.streetviewPitch">
+            </div>
+             <div class="form-group">
+                <label for="heading">Heading</label>
+                <input type="text" id="heading" class="form-control" v-model="location.streetviewHeading">
+            </div>
+            <button class="btn btn-success" @click.prevent="saveLocation">Save</button>
     </form>
     </div>
     </div>
+    <div class="row">
+        
+    
+    </div>
+    <ConfirmDeleteLocationModal :show="showConfirmDeleteLocationModal" :location="locationToDelete" @close="onCloseConfirmDeleteLocationModal" @deleteLocation="onDeleteLocation"></ConfirmDeleteLocationModal>
 </div>
 </template>
 
 
 <script>
+       import _ from 'lodash'
     import Vue from 'vue'
     const EventBus = new Vue();
     import BootstrapVue from 'bootstrap-vue'
     Vue.use(BootstrapVue);
     import DocumentService from '../../../services/DocumentService';
     import LocationPicker from '../LocationPicker';
+    import ConfirmDeleteLocationModal from './ConfirmDeleteLocationModal';
+    import MyMap from './MyMap'
     
     export default {
 
         name: 'ManageLocations',
-        components: {LocationPicker},
+        components: {LocationPicker, MyMap, ConfirmDeleteLocationModal},
         props: {
             indexRef: {
                 type: String,
@@ -57,34 +101,192 @@
             return {
                 locations: [],
                 document: {},
-                currentLocation: {},
-                hover: false
+                currentLocation: {
+                },
+                location:{
+                    latitude: null,
+                    longitude: null,
+                    streetviewPitch:null,
+                    streetviewHeading:null
+                },
+                mapLocations: [],
+                updatingMap: false,
+                showConfirmDeleteLocationModal: false,
+                locationToDelete: {},
             }
         },
         methods: {
-            selected(){
-               console.log("selected init") 
+            setStreetview(){
+                  
             },
-            openLocation(location){
-                this.currentLocation = location;  
+            onMarkerClicked(selectedLocation){
+                this.location = _.cloneDeep(selectedLocation);
+                this.currentLocation = _.cloneDeep(selectedLocation);
+            },
+            saveLocation(){   
+                var securityToken = this.$store.state.securityToken;
+                
+                var request = {
+                    "indexRef": this.indexRef,
+                    "documentRef": this.documentRef
+                }
+                          
+                DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
+                    var unpublishedVersion = response.data;
+                    var newRef =  this.findLocationReference( unpublishedVersion.locations, this.currentLocation)
+                    
+                    var updateLocationRequest = {
+                        "locationRef": newRef,                  
+                        "indexRef": this.indexRef,
+                        "documentRef": this.documentRef,
+                        "location": {
+                            "latitude":this.location.latitude, "longitude":this.location.longitude, "streetviewPitch":this.location.streetviewPitch, "streetviewHeading":this.location.streetviewHeading, 'name':this.location.name
+                        }
+                    }
+
+                    DocumentService.updateLocation(updateLocationRequest, securityToken).then((response) => {
+                        DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {  
+                        })
+                    })
+                })   
+            },
+            onLocationChangeFromMap(newLocation){
+                this.location.streetviewPitch = newLocation.pitch;
+                this.location.streetviewHeading = newLocation.heading;
+                this.location.latitude = newLocation.lat;
+                this.location.longitude = newLocation.lng;
+            },
+            onDeleteLocation(locationRef){
+                var securityToken = this.$store.state.securityToken;
+                
+                var index = this.locations.findIndex(l => l.reference == locationRef)
+
+                DocumentService.deleteLocation(this.indexRef, this.documentRef, locationRef, securityToken).then((response)=>{
+                    
+                    DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, response.data.unpublishedVersionNumber, securityToken ).then((response) => {
+                        this.locations[index].deleted = true;
+                        this.showConfirmDeleteLocationModal = false;
+                        this.locationToDelete = {};
+                        this.getDocument();
+                    })
+                })
+            },
+
+            onCloseConfirmDeleteLocationModal(){
+                this.showConfirmDeleteLocationModal = false;
+                this.locationToDelete = {};
+            },
+            requestDeleteLocation(loc){
+                this.showConfirmDeleteLocationModal = true;
+                this.locationToDelete = loc;
+            },
+            updateName(){
+                console.log("name: " + this.location.name)
+                var securityToken = this.$store.state.securityToken;
+
+                var request = {
+                    "indexRef": this.indexRef,
+                    "documentRef": this.documentRef
+                }
+                DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
+                   var unpublishedVersion = response.data;
+                   var newRef =  this.findLocationReference( unpublishedVersion.locations, this.location)
+                                      
+                   var updateLocationRequest = {
+                        "locationRef": newRef,                   // unpublishedVersion.locations[0].reference,
+                        "indexRef": this.indexRef,
+                        "documentRef": this.documentRef,
+                        "location": { 'latitude':this.location.latitude, 'longitude': this.location.longitude, 'name': this.location.name }
+                    }
+
+                    DocumentService.updateLocation(updateLocationRequest, securityToken).then((response) => {
+                        DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
+                           this.getDocument(); 
+                        })
+                    })
+                })
+            }, 
+            onLocationChangeFromMarker(changedLocation){
+                this.updatingMap = true;      
+                var securityToken = this.$store.state.securityToken;
+
+                var request = {
+                    "indexRef": this.indexRef,
+                    "documentRef": this.documentRef
+                }
+                DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
+                    var unpublishedVersion = response.data;
+                    var newRef =  this.findLocationReference( unpublishedVersion.locations, changedLocation.oldLocation)
+                   
+                    var updateLocationRequest = {
+                        "locationRef": newRef,                   // unpublishedVersion.locations[0].reference,
+                        "indexRef": this.indexRef,
+                        "documentRef": this.documentRef,
+                        "location": {'latitude':changedLocation.location.lat(), 'longitude':changedLocation.location.lng(), 'streetviewPitch':0, 'streetviewHeading':0,'name':changedLocation.oldLocation.name}
+                    }
+
+                    DocumentService.updateLocation(updateLocationRequest, securityToken).then((response) => {
+                        DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
+                            this.updatingMap = false;    
+                        })
+                    })
+                })
+  
+            },
+            async onNewLocationSelected(newLocation){
+                this.updatingMap = true;
+                console.log("creating new location")
+                var locationRequest =  {
+                    "location": {
+                        "latitude": newLocation.lat(),
+                        "longitude": newLocation.lng()
+                    },
+                    "indexRef": this.indexRef,
+                    "documentRef": this.documentRef
+                }
+                
+                var securityToken = this.$store.state.securityToken;
+                await DocumentService.createLocation(locationRequest,securityToken).then(async(response)=>{
+                    await DocumentService.publishLatestVersion(locationRequest.indexRef,locationRequest.documentRef,securityToken).then((response)=>{
+                           this.getDocument(); 
+                        this.updatingMap = false;
+                    })
+                })
+            },
+            findLocationReference(locations, location){
+                var ref = null;
+                locations.forEach((loc)=>{
+                  if(loc.latitude == location.latitude && loc.longitude == location.longitude)    
+                      ref = loc.reference;
+                })
+                return ref;
+            },
+            onSelected(location){
+                this.location.latitude = location.lat()
+                this.location.longitude = location.lng()       
+            },
+            openLocation(selectedLocation){
+                this.location = _.cloneDeep(selectedLocation);
+                this.currentLocation = _.cloneDeep(selectedLocation);
             },
             getLocations(){
-                this.locations = this.document.locations;
+                this.locations = _.cloneDeep(this.document.locations);
+                this.locations.forEach((location)=>{
+                    this.mapLocations.push({"lat":location.latitude,"lng": location.longitude})
+                    location.selected = false;
+                 
+                })
             },
-            getDocument(){
-                DocumentService.getDocument(this.indexRef,this.documentRef).then((response)=>{
+            async getDocument(){
+                await DocumentService.getDocument(this.indexRef,this.documentRef).then((response)=>{
                     this.document = response.data;
                     this.getLocations();
                 })
             }
         },
-        mounted(){
+        created(){
             this.getDocument();
-        },
-        mounted(){
-            
-        }
-        
+        } 
     }
 
 </script>
@@ -93,6 +295,28 @@
 <style scoped lang="scss">
     .active {
          color: red;
+    }
+    .location-select-row{
+        &:hover{
+            background-color:#eef7fa;
+            cursor:pointer;
+        }
+        &.selected{
+            background:#deeff5;
+        }
+    }
+    .delete-link{
+        color:darkred;
+        &:hover{color:white;
+        background:darkred}
+        cursor:default;
+    }
+    .delete-link-text{
+        &:hover{
+            color:lightgrey;
+            text-decoration: underline;
+            cursor:pointer;
+        }
     }
 
 </style>

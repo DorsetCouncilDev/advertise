@@ -1,18 +1,21 @@
 <template>
-    <div id="searchCriteria" >
-
-        <div v-for="documentType in searchForm.documentTypes" class="label label-primary tag-label" v-if="documentType.selected">
-            <span class="tag-item">{{documentType.reference}}</span>
-            <span class="delete show" @click="removeDocumentType(documentType)" tabindex="0" title="Remove search criteria">X</span>     
-        </div>
-        
-        <div v-for="property in searchForm.parameters" class="label label-primary tag-label">
-           <span class="tag-item">
-               <span v-if="property.reference=='price'">Max </span>{{property.reference}}: <span v-if="property.reference=='price'">&pound;</span>{{property.value}}
+<div id="searchCriteria" >
+    <div v-for="documentType in searchForm.documentTypes" class="label label-primary tag-label" v-if="documentType.selected">
+        <span class="tag-item">{{documentType.reference}}</span>
+        <span class="delete show" @click="removeDocumentType(documentType)" tabindex="0" title="Remove search criteria">X</span>     
+    </div>
+<!--
+    <div v-for="property in searchForm.parameters" class="label label-primary tag-label">
+        <span class="tag-item">
+            <span v-if="property.reference=='price'">Max </span>{{property.reference}}: <span v-if="property.reference=='price'">&pound;</span>{{property.value}}
            </span>
             <span class="delete show" @click="removeProperty(property.reference)" tabindex="0" title="Remove search criteria">X</span>
         </div>  
-
+-->
+    <div v-if="searchForm.parameters.available" class="label label-primary tag-label">
+           <span class="tag-item">Available</span>
+           <span class="delete show" @click="removePostcodeSearch" tabindex="0" title="Remove search criteria">X</span>
+    </div>  
        <div v-if="postcode != ''" class="label label-primary tag-label">
            <span class="tag-item">Postcode: {{postcode}}</span>
            <span class="delete show" @click="removePostcodeSearch" tabindex="0" title="Remove search criteria">X</span>

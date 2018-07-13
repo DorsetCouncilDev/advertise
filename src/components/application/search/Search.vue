@@ -3,7 +3,7 @@
     <div class="info">
         <div class="contact"> email <a href="mailto:marketing@dorsetcc.gov.uk">
           marketing@dorsetcc.gov.uk</a> - tel.
-          <a href="tel:+18506484200">01305224125</a>
+          <a href="tel:+441305224125">01305 224125</a>
         </div>
         <ol class="ad-breadcrumb">
             <li>

@@ -25,12 +25,10 @@ import AssetsList from '../components/admin/index/AssetsList';
 import AssetsView from '../components/admin/index/AssetView';
 import AssetLocations from '../components/admin/index/AssetLocations';
 import ManageLocations from '../components/admin/document/ManageLocations';
+import MyMap from '../components/admin/document/MyMap';
 const routes = [
    
-    {
-        path: dcc,
-        component: DevHome
-    },
+ 
     {
         path:  '/advertise/admin',
          component: AdminLogin,

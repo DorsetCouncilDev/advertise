@@ -1,39 +1,15 @@
 {
-    "name": "test 8888",
-    "longText": "test x",
-    "reference": "test-8888",
-    "index": "advertise-dorset",
+    "name": "monster",
+    "longText": "monster",
+    "reference": "monster",
+    "index": "advertise",
     "published": true,
     "unpublishedVersion": true,
-    "publishedVersionNumber": 67,
-    "unpublishedVersionNumber": 68,
+    "publishedVersionNumber": 63,
+    "unpublishedVersionNumber": 64,
     "properties": [{
-        "propertyName": "Contract length",
-        "propertyReference": "contract-length",
-        "propertyType": "Number",
-        "publishedValue": null,
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-    }, {
-        "propertyName": "After price",
-        "propertyReference": "after-price",
-        "propertyType": "Text",
-        "publishedValue": null,
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-    }, {
         "propertyName": "Price",
         "propertyReference": "price",
-        "propertyType": "Text",
-        "publishedValue": "10",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": "10"
-    }, {
-        "propertyName": "Before Price",
-        "propertyReference": "before-price",
         "propertyType": "Text",
         "publishedValue": null,
         "display": true,
@@ -43,49 +19,55 @@
         "propertyName": "Available",
         "propertyReference": "available",
         "propertyType": "Boolean",
-        "publishedValue": "false",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": "false"
-    }, {
-        "propertyName": "description",
-        "propertyReference": "description",
-        "propertyType": "TextArea",
-        "publishedValue": null,
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-    }, {
-        "propertyName": "Text area",
-        "propertyReference": "text-area",
-        "propertyType": "Text",
         "publishedValue": null,
         "display": true,
         "listValue": [],
         "unpublishedValue": null
     }],
     "locations": [{
-        "latitude": 50.709526,
-        "longitude": -2.439411,
+        "name": null,
+        "latitude": 50.71231457959784,
+        "longitude": -2.460611025749472,
+        "streetviewLatitude": null,
+        "streetviewLongitude": null,
+        "streetviewHeading": 93.55983066275769,
+        "streetviewPitch": null,
+        "primaryLocation": true,
+        "reference": "7b9263b9-11da-4933-94d1-37151351f1d4"
+    }, {
+        "name": null,
+        "latitude": 50.70681048944384,
+        "longitude": -2.4477517773914315,
         "streetviewLatitude": null,
         "streetviewLongitude": null,
         "streetviewHeading": null,
         "streetviewPitch": null,
-        "primaryLocation": true,
-        "reference": "78a5af0b-5359-4884-b76e-0dbfc7c5bfd8"
+        "primaryLocation": false,
+        "reference": "5007c5b2-6c81-41ff-9ebb-700122832b8e"
     }],
     "unpublishedLocations": [{
-        "latitude": 50.709526,
-        "longitude": -2.439411,
+        "name": null,
+        "latitude": 50.70113262110358,
+        "longitude": -2.43754561609785,
+        "streetviewLatitude": null,
+        "streetviewLongitude": null,
+        "streetviewHeading": 72.45114218243232,
+        "streetviewPitch": -21.636471213590397,
+        "primaryLocation": true,
+        "reference": "b7095baa-1175-424a-98d9-c5e5fa96f697"
+    }, {
+        "name": null,
+        "latitude": 50.70681048944384,
+        "longitude": -2.4477517773914315,
         "streetviewLatitude": null,
         "streetviewLongitude": null,
         "streetviewHeading": null,
         "streetviewPitch": null,
-        "primaryLocation": true,
-        "reference": "9bb50592-1f2e-4ff9-8250-3974e4296d47"
+        "primaryLocation": false,
+        "reference": "ef298713-0341-4e73-96cb-546c5c598793"
     }],
-    "documentTypeReference": "roundabout-sponsorship",
-    "documentTypeName": "Roundabout Sponsorship",
+    "documentTypeReference": "car-parking-ticket-advertising",
+    "documentTypeName": "Car Parking Ticket Advertising",
     "images": [],
     "files": []
 }

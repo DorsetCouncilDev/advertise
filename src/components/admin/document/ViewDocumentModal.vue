@@ -73,7 +73,7 @@
                 <button class="btn btn-primary" v-if="hasLocation" :disabled="!locationChanged" @click="updateLocation">Save location</button>
                 <button class="btn btn-outline-danger" v-if="hasLocation" @click="deleteLocation">Delete location</button>
                 <ModalErrorMessage :error="locationError"></ModalErrorMessage>
-            <ModalInfoMessage :info="locationInfo"></ModalInfoMessage>
+                <ModalInfoMessage :info="locationInfo"></ModalInfoMessage>
             </div>
             
             <div class="mt-4 mb-4">

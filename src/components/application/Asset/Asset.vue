@@ -2,7 +2,7 @@
    <div>
        <div class="info">
             <div class="contact"> email <a href="mailto:marketing@dorsetcc.gov.uk">
-            marketing@dorsetcc.gov.uk</a> - tel. <a href="tel:+18506484200">01305224125</a></div>
+            marketing@dorsetcc.gov.uk</a> - tel. <a href="tel:+441305224125">01305 224125</a></div>
            
             <ol class="ad-breadcrumb">
                 <li><router-link :to="{path: '/advertise'}">home</router-link></li>
@@ -33,8 +33,8 @@
         <div class="description-text" v-if="description != ''"><hr><p>{{description}}</p><hr></div>
        
         <p class="assetParagraph">Contact our marketing team</p>
-        <p class="assetParagraph"><a href="#">marketing@dorsetcc.gov.uk</a> </p>
-        <p class="assetParagraph"><a href="#" rel="tel">01305 224125</a></p>
+        <p class="assetParagraph"><a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a> </p>
+        <p class="assetParagraph"><a href="tel:+441305224125">01305 224125</a></p>
         <p class="assetParagraph">quoting reference <strong>{{document.reference}}</strong></p> 
     </div>
 </template>
