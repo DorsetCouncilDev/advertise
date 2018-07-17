@@ -1,8 +1,30 @@
 <template>
 <div>
-   <h1>Locations</h1>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item" aria-current="page"><router-link to="/advertise/admin/indexes">Indexes</router-link></li>
+    <li class="breadcrumb-item" aria-current="page">{{indexRef}}</li>
+    <li class="breadcrumb-item" aria-current="page">{{documentRef}}</li>
+    <li class="breadcrumb-item active" aria-current="page">locations</li>
+</ol>
+<h1 class="display-4">{{documentRef}} locations</h1>
+<div class="row">
+    <div class="col-sm-6">
+        <div v-if="locations.length == 0">Choose a location on the map</div>
+        <div v-else-if="locations.length == 1"><span v-if="locations[0].name != null">{{locations[0].name}}</span><span v-else class="text-muted">no name</span><span v-if="locations[0].primaryLocation" class="font-weight-bold"> (primary)</span>
+        </div>
+        <div class="form-group" v-else>
+            <label for="locations">Select location</label>
+            <select name="locations"  class="form-control" v-model="currentLocation">
+                <option :value="loc" v-for="(loc, index) in locations">{{index + 1}} <span v-if="loc.name != null">{{loc.name}}</span><span v-else class="text-muted">no name</span><span v-if="loc.primaryLocation" class="font-weight-bold"> (primary)</span></option>
+            </select>
+        </div>     
+    </div>
+</div>
+    <!--
     <div class="row">
-        <ul class="col-sm-12">
+        
+        
+        <div class="col-sm-12">
             
             <table class="table table-bordered">
                 <thead>
@@ -23,51 +45,61 @@
                 </tbody>
             </table>
           
-        </ul> 
-   
+        </div> 
+  
          
-    </div>
-      <hr>
-    <h2 class="display-4 mb-3"><span v-if="currentLocation == null || currentLocation.name == null">All locations</span><span v-else>Location: {{currentLocation.name}}</span></h2>
-    <div class="row">
-        <div class="col-sm-8">
-            <button class="btn btn-primary" @click="setStreetview">Open streetview</button>
-             <my-map  :streetviewLocation="streetviewLocation"  :updating="updatingMap" @locationChangeFromMarker="onLocationChangeFromMarker" @newLocationSelected="onNewLocationSelected" @locationChangedFromMap="onLocationChangeFromMap" @markerClicked="onMarkerClicked"> </my-map>
+    </div> -->
+<hr>
+  
+<div class="row">
+    <div class="form-group row col-sm-7">
+        <label for="name" class="col-sm-3 col-form-label">Location name</label>
+        <div class="col-sm-7">
+            <input type="text" id="name" class="form-control" v-model="currentLocation.name">
         </div>
-    <div class="col-sm-4">
-        <form>
-           
-            
-            <div class="form-group">
-                <label for="lat">Location name</label>
-                <input type="text" id="lat" class="form-control" v-model="currentLocation.name">
-            </div>
-            
-            <div class="form-group">
-                <label for="lat">Latitude</label>
-                <input type="text" id="lat" class="form-control" v-model="currentLocation.latitude">
-            </div>
-            <div class="form-group">
-                <label for="long">Longitude</label>
-                <input type="text" id="long" class="form-control" v-model="currentLocation.longitude">
-            </div>
-             <div class="form-group">
-                <label for="pitch">Pitch</label>
-                <input type="text" id="pitch" class="form-control" v-model="currentLocation.streetviewPitch">
-            </div>
-             <div class="form-group">
-                <label for="heading">Heading</label>
-                <input type="text" id="heading" class="form-control" v-model="currentLocation.streetviewHeading">
-            </div>
-            <button class="btn btn-success" @click.prevent="saveLocation">Save</button>
-    </form>
     </div>
+    <div class="stv-radio-tabs-wrapper col-sm-3">
+        <input  type="radio" class="stv-radio-tab" id="one" name="tickme" value="map" v-model="view">
+        <label for="one" id="mapViewLabel">Map</label>
+        <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="street" v-model="view">
+        <label for="two" id="gridViewLabel">Streetview</label>
     </div>
-    <div class="row">
-        
-    
+</div>
+<div class="row" id="actionRow">
+    <div v-if="unsaved" id="needsSaving"><div id="messge">Unsaved changes have been made  <button class="btn-success">Save changes</button></div></div>
+    <div v-if="saved">Location saved</div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <my-map  :view="view"  :updating="updatingMap" :currentLocationCopy="currentLocationCopy" @locationChangeFromMarker="onLocationChangeFromMarker" @newLocationSelected="onNewLocationSelected" @locationChangedFromMap="onLocationChangeFromMap" @markerClicked="onMarkerClicked"
+                @povChange="onPovChange"> </my-map>
     </div>
-    <ConfirmDeleteLocationModal :show="showConfirmDeleteLocationModal" :location="locationToDelete" @close="onCloseConfirmDeleteLocationModal" @deleteLocation="onDeleteLocation"></ConfirmDeleteLocationModal>
+</div>
+<div>Edit location details</div>
+<form>
+    <div class="form-group">
+        <label for="lat">Location name</label>
+        <input type="text" id="lat" class="form-control" v-model="currentLocationCopy.name">
+    </div>
+    <div class="form-group">
+        <label for="lat">Latitude</label>
+        <input type="text" id="lat" class="form-control" v-model="currentLocationCopy.latitude">
+    </div>
+    <div class="form-group">
+        <label for="long">Longitude</label>
+        <input type="text" id="long" class="form-control" v-model="currentLocationCopy.longitude">
+    </div>
+    <div class="form-group">
+        <label for="pitch">Pitch</label>
+        <input type="text" id="pitch" class="form-control" v-model="currentLocationCopy.streetviewPitch">
+    </div>
+    <div class="form-group">
+        <label for="heading">Heading</label>
+        <input type="text" id="heading" class="form-control" v-model="currentLocationCopy.streetviewHeading">
+    </div>
+    <button class="btn btn-success" @click.prevent="saveLocation">Save</button>
+</form>
+<ConfirmDeleteLocationModal :show="showConfirmDeleteLocationModal" :location="locationToDelete" @close="onCloseConfirmDeleteLocationModal" @deleteLocation="onDeleteLocation"></ConfirmDeleteLocationModal>
 </div>
 </template>
 
@@ -107,8 +139,23 @@
                 updatingMap: false,
                 showConfirmDeleteLocationModal: false,
                 locationToDelete: {},
-                streetviewLocation: {},
-                currentLocationCopy: {}
+                streetview: false,
+                currentLocationCopy: {},
+                view: 'map',
+                unsaved: false,
+                saved: false
+            }
+        },
+        watch:{
+            locations:{
+                handler: function(){
+                    if(this.locations.length == 1){
+                         this.streetviewLocation = null;
+                this.currentLocationCopy = _.cloneDeep(this.locations[0]);
+                this.currentLocation = _.cloneDeep(this.locations[0]);
+                    }
+                },
+                deep:true
             }
         },
         computed:{
@@ -117,6 +164,7 @@
                     return this.$store.state.admin.locations;
                 },
                 set(value){
+                    
                     this.$store.commit("setAdminLocations",value)
                 }
             },
@@ -124,20 +172,32 @@
                 get(){
                     if(this.$store.state.admin.currentLocation != null)
                         return this.$store.state.admin.currentLocation
-                    else
+                    else{
+                        this.currentLocationCopy = {}
                         return {name:null}
+                    }
+                        
                 },
                 set(value){
-                    this.$store.commit("setAdminCurrentLocations",value)
+                    (value != null)
+                    {
+                        this.streetviewLocation = null;
+                        this.currentLocationCopy = _.cloneDeep(value);
+ 
+                    }
+                    this.$store.dispatch("setAdminCurrentLocation",value)
                 }
             }
         },
         methods: {
-            setStreetview() {
-                this.streetviewLocation = this.currentLocation
+            onPovChange(pov){
+                this.currentLocationCopy.streetviewHeading = pov.heading;
+                this.currentLocationCopy.streetviewPitch = pov.pitch;
+                this.unsaved = true
             },
             onMarkerClicked(selectedLocation) {
                 this.currentLocation = _.cloneDeep(selectedLocation);
+                
             },
             saveLocation() {
                 var securityToken = this.$store.state.securityToken;
@@ -169,11 +229,9 @@
                     })
                 })
             },
-            onLocationChangeFromMap(newLocation) {
-                this.currentLocation.streetviewPitch = newLocation.pitch;
-                this.currentLocation.streetviewHeading = newLocation.heading;
-                this.currentLocation.latitude = newLocation.lat;
-                this.currentLocation.longitude = newLocation.lng;
+            onLocationChangeFromMap(pos) {
+                this.currentLocation.latitude = pos.lat;
+                this.currentLocation.longitude = pos.lng;
             },
             onDeleteLocation(locationRef) {
                 var securityToken = this.$store.state.securityToken;
@@ -265,10 +323,7 @@
                 this.updatingMap = true;
                 console.log("creating new location")
                 var locationRequest = {
-                    "location": {
-                        "latitude": newLocation.lat(),
-                        "longitude": newLocation.lng()
-                    },
+                    "location": newLocation,
                     "indexRef": this.indexRef,
                     "documentRef": this.documentRef
                 }
@@ -295,9 +350,9 @@
 
             },
             openLocation(selectedLocation, index) {
-                this.streetviewLocation = null;
+              /*  this.streetviewLocation = null;
                 this.currentLocationCopy = _.cloneDeep(selectedLocation);
-                this.currentLocation = _.cloneDeep(selectedLocation);
+                this.currentLocation = _.cloneDeep(selectedLocation);  */
             },
             getLocations() {
                 this.locations = _.cloneDeep(this.document.locations);
@@ -322,10 +377,10 @@
 
 
 <style scoped lang="scss">
-    .active {
-        color: red;
+   /* .active {
+       color: red;
     }
-
+*/
     .location-select-row {
         &:hover {
             background-color: #eef7fa;
@@ -350,6 +405,96 @@
             color: lightgrey;
             text-decoration: underline;
             cursor: pointer;
+        }
+    }
+  .stv-radio-tabs-wrapper {
+            clear: both;
+            display: inline-block;
+            padding: 0;
+            position: relative;
+      float:right;
+        }
+
+        input.stv-radio-tab {
+            position: absolute;
+            left: -99999em;
+            top: -99999em;
+            &:focus {
+                &+label {
+                    border: orange solid 1px;
+                }
+            }
+            &+label {
+                cursor: pointer;
+                float: left;
+                border: solid 1px #ced4da;
+                background-color: #fff;
+                margin-right: -1px;
+                padding-left: 40px;
+                padding-top: 10px;
+                padding-right: 5px;
+                padding-bottom: 10px;
+                position: relative;
+                &:before {
+                    position: absolute;
+                    left: -1px;
+                    margin-left: 4px;
+                }
+
+
+                &#gridViewLabel {
+              
+                    &:before {
+                        content: url(../../../assets/images/streetview.svg);
+                    }
+                    &:focus {
+                        border: orange solid 1px;
+                    }
+                }
+                &#listViewLabel {
+                    &:before {
+                        content: url(../../../assets/images/list.svg);
+                    }
+                    &:focus {
+                        border: orange solid 1px;
+                    }
+                }
+                &#mapViewLabel {
+                    &:before {
+                        content: url(../../../assets/images/map.svg);
+                    }
+                    &:focus {
+                        border: orange solid 1px;
+                    }
+                }
+                &:hover {
+                    background-color: #eee;
+                }
+            }
+
+            &:checked+label {
+                background-color: lightblue;
+                z-index: 1;
+            }
+    }
+    #actionRow{
+        transition:height 1s;
+        #saved{
+              background: #99C199;
+        }
+        #needsSaving{
+            color: darkred;
+            background: #fafafa;
+            padding:15px;
+            width:100%;
+            margin-left:15px;
+            margin-right:15px;
+            display: flex;
+            justify-content: center;
+            #message{
+                
+            }
+            
         }
     }
 

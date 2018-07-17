@@ -7,10 +7,12 @@
         zoom: 12,
         center: {'lat':50.712174,'lng':-2.470366}
       }"
-      :streetviewLocation="streetviewLocation"
+      :view="view"
+                :currentLocationCopy="currentLocationCopy"
       apiKey="AIzaSyB20tzMpjwPqs2eiqh_XmNRCanoaHNzfsk"
                 @newLocationRequested = "onNewLocationRequested"
                 @locationChangeFromMap = "onLocationChangeFromMap"
+                @povChange = "onPovChange"
     >
       <template slot-scope="scopeProps" >
         <child-marker v-for="(location,i) in locations"
@@ -34,7 +36,8 @@
     export default {
         props: {
             updating: Boolean,
-            streetviewLocation: Object
+            view: String,
+            currentLocationCopy: Object
         },
         data() {
             return {
@@ -76,6 +79,9 @@
             },
             onMarkerClicked(location){
                 this.$emit("markerClicked",location)
+            },
+            onPovChange(pov){
+                this.$emit("povChange",pov)
             }
         },
        beforeMount() {

@@ -33,7 +33,9 @@
             },
             currentLocation:{
                 handler: function(){
+                    console.log("clickeddddddddddddddd")
                     if(this.currentLocation.reference == this.position.reference){
+                        console.log("set MARKER BOUNCE")
                         this.marker.setIcon(this.selectedIcon)
                         this.marker.setAnimation(this.google.maps.Animation.BOUNCE)
                         var m = this.marker
@@ -57,9 +59,7 @@
         },
         mounted() {
 
-            const {
-                Marker
-            } = this.google.maps
+            const {Marker} = this.google.maps
 
             // var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 

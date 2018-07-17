@@ -117,7 +117,7 @@ export const mutations = {
     setAdminLocations(state,payload){
         state.admin.locations = payload
     },
-    setAdminCurrentLocations(state,payload){
+    setAdminCurrentLocation(state,payload){
         state.admin.currentLocation = payload
     }
     

@@ -246,5 +246,17 @@ export const actions = {
         var typesSelected = context.state.searchForm.documentTypes
         typesSelected.forEach((type)=>type.selected = false);
         context.commit("setDocumentTypes",typesSelected);
+    },
+    
+    /*************************************************************************/
+    
+    setAdminCurrentLocation(context,payload){
+        context.commit("setAdminCurrentLocation",payload)
+        var pov = {
+            "heading":payload.streetviewHeading,
+            "pitch":payload.pitch,
+            "zoom":1
+        }
+        
     }
 }

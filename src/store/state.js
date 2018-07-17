@@ -24,6 +24,11 @@ export const state = {
     initialSearch: false,
     admin: {
         locations:[],
-        currentLocation: {}
+        currentLocation: {},
+        currentPov:{
+            heading: 0,
+            pitch: 0,
+            zoom: 1
+        }
     }
 }

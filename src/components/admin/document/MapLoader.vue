@@ -4,8 +4,6 @@
     <template v-if="!!this.google && !!this.map">
       <slot :google="google" :map="map"/>
     </template>
-<div id="pano"></div>
-<button class="btn btn-primary">switch</button>
 </div>
 </template>
 
@@ -18,7 +16,8 @@
             mapConfig: Object,
             apiKey: String,
             updating: Boolean,
-            streetviewLocation: Object
+            view: String,
+            currentLocationCopy:Object
         },
         components: {
             MapProvider
@@ -27,13 +26,7 @@
             return {
                 google: null,
                 map: null,
-                panorama: null,
-                location: {
-                    lat: null,
-                    lng: null,
-                    heading: null,
-                    pitch: null
-                }
+                panorama: null
             }
         },
         mounted() { // point 3
@@ -44,67 +37,125 @@
                 this.initializeMap()
             })
         },
-        watch: {
-            location: {
-                handler: function() {
-                    this.$emit("locationChangeFromMap", this.location)
-                },
-                deep: true
+        watch: {       
+            view() {
+                this.setMapView();  
             },
-            streetviewLocation: {
+            currentLocation:{
                 handler: function(){
-                    if(this.streetviewLocation != null)
-                    {
-                        const {
-                    LatLng
-                } = this.google.maps
-                        var position = new LatLng( {"lat":this.streetviewLocation.latitude, "lng":this.streetviewLocation.longitude})
-                        this.panorama.setPosition(position)
-                        this.panorama.setPov({
-                            heading: this.streetviewLocation.streetviewHeading,
-                            zoom: 1,
-                            pitch: this.streetviewLocation.streetviewPitch
-                        })
-                        this.panorama.setVisible(true) 
-                    }else{
-                        this.panorama.setVisible(false) 
-                    }
+                    if(this.currentLocation != null)
+                        this.setMapView()
                 },
-                deep: true
+                deep:true
             }
         },
+        computed: {
+            currentLocation: {
+                get() {
+                    if (this.$store.state.admin.currentLocation != null){
+                        return this.$store.state.admin.currentLocation
+                    }
+                    else
+                        return null
+                }
+            }
+            
+        },
         methods: {
+            setMapView(){
+                if (this.view == 'street') {
+
+                    var heading = 0 
+                    if(this.currentLocation.streetviewHeading != null && (!isNaN(this.currentLocation.streetviewHeading)) && this.currentLocation.streetviewHeading != 0)
+                        heading = this.currentLocation.streetviewHeading;
+                    var pitch = 0
+                    if(this.currentLocation.streetviewHeading != null && (!isNaN(this.currentLocation.streetviewHeading)) && this.currentLocation.streetviewPitch != 0)
+                        pitch =this.currentLocation.streetviewPitch;
+                    
+                    
+                    console.log("sv lat: " + this.currentLocation.latitude)
+                    const {LatLng} = this.google.maps
+                    var position = new LatLng({ 
+                        "lat": this.currentLocation.latitude,
+                        "lng": this.currentLocation.longitude
+                    })
+                    
+                    this.panorama.setPosition(position)
+                
+                    var pov = {
+                        "heading":heading,
+                        "zoom":1,
+                        "pitch":pitch
+                    }
+                    
+                    this.panorama.setPov(pov)
+                    this.panorama.setVisible(true)
+                    
+                } else {
+                   this.panorama.setVisible(false)
+                }
+            },
 
             povChange(pov) {
-                this.location.heading = pov.heading;
-                this.location.pitch = pov.pitch;
+                if (pov != null && 
+                    (this.currentLocationCopy.streetviewHeading != pov.heading || this.currentLocationCopy.streetviewPitch!= pov.pitch)) {
+                    this.$emit("povChange",pov)
+                }
             },
             positionChange(pos) {
-                this.location.lat = pos.lat();
-                this.location.lng = pos.lng();
+                console.log("cpos: " + this.currentLocation.latitude)
+                console.log("pos change" + pos.lat)
+                if(this.currentLocationCopy.latitude != pos.lat || this.currentLocationCopy.longitude != pos.lng)
+                    this.$emit("locationChangeFromMap",pos)
             },
             initializeMap() {
                 var mapL = this;
                 const mapContainer = this.$el.querySelector('#map') // point 1
-                const {
-                    Map
-                } = this.google.maps
+                
+                const { Map }    = this.google.maps
+                const { LatLng } = this.google.maps
+                const { Marker } = this.google.maps
+                
                 this.map = new Map(mapContainer, this.mapConfig)
-
-                var locationDetails = this.location;
-
-                this.map.addListener('click', function(e) {
-                    mapL.$emit('newLocationRequested', e.latLng)
-                });
+                
                 this.panorama = this.map.getStreetView();
-                var pan = this.panorama;
-                var mapLoader
+                
+                var mapRef = this.map
+                
+                this.map.addListener('click', function(e) {
+                    var marker = new Marker({
+                        position: {
+                            "lat":  e.latLng.lat(),
+                            "lng": e.latLng.lng()
+                        },map: mapRef
+                    })
+                    
+                    var position = new LatLng({
+                        "lat": e.latLng.lat(),
+                        "lng": e.latLng.lng()
+                    })
+               
+                    var newLocation = {
+                        "latitude": e.latLng.lat(),
+                        "longitude": e.latLng.lng(),
+                        "streetviewHeading": marker.getMap().getStreetView().getPov().heading,
+                        "streetviewPitch": marker.getMap().getStreetView().getPov().pitch
+                    }
+                    mapL.$emit('newLocationRequested', newLocation)
+                
+                    marker = null;
+                });
+                
+                var pan = this.panorama;    
                 this.panorama.addListener('pov_changed', function() {
+                    console.log("POV CHANGE EVENT")
                     mapL.povChange(pan.getPov())
                 })
                 this.panorama.addListener('position_changed', function() {
-                    mapL.positionChange(pan.getPosition())
-                })
+                    console.log("POSITION CHANGE EVENT")
+                    if(!isNaN(pan.getPosition().lat))
+                        mapL.positionChange(pan.getPosition())
+                })      
             }
         }
     }
