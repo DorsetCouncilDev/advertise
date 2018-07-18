@@ -15,7 +15,7 @@
      <div class="ad-data-collection  mb-5">
         <div class="ad-data">1 <span class="ad-data-label display-3"> Million plus daily motorists</span></div>
         <div class="ad-data">18 <span class="ad-data-label display-3">Million yearly visitors</span></div>
-        <div class="ad-data">422,730 <span class="ad-data-label display-3">residents</span></div>
+        <div class="ad-data">424,670 <span class="ad-data-label display-3">residents</span></div>
         <div class="ad-data">22,000 <span class="ad-data-label display-3">businesses</span></div>
     </div>
 </div>

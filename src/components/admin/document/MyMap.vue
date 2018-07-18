@@ -9,7 +9,7 @@
       }"
       :view="view"
                 :currentLocationCopy="currentLocationCopy"
-      apiKey="AIzaSyB20tzMpjwPqs2eiqh_XmNRCanoaHNzfsk"
+      apiKey="AIzaSyAVLqUxdgLoBovYi83r-2YZNgvZFlsJR2g"
                 @newLocationRequested = "onNewLocationRequested"
                 @locationChangeFromMap = "onLocationChangeFromMap"
                 @povChange = "onPovChange"
@@ -78,6 +78,7 @@
                 this.$emit( "newLocationSelected", newLocation)
             },
             onMarkerClicked(location){
+                console.log("myMap emitting: " + location.reference)
                 this.$emit("markerClicked",location)
             },
             onPovChange(pov){

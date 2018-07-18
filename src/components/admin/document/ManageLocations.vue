@@ -6,14 +6,14 @@
     <li class="breadcrumb-item" aria-current="page">{{documentRef}}</li>
     <li class="breadcrumb-item active" aria-current="page">locations</li>
 </ol>
-<h1 class="display-4">{{documentRef}} locations</h1>
+<h1 class="locations-header">{{documentRef}} locations</h1>
 <div class="row">
     <div class="col-sm-6">
         <div v-if="locations.length == 0">Choose a location on the map</div>
         <div v-else-if="locations.length == 1"><span v-if="locations[0].name != null">{{locations[0].name}}</span><span v-else class="text-muted">no name</span><span v-if="locations[0].primaryLocation" class="font-weight-bold"> (primary)</span>
         </div>
         <div class="form-group" v-else>
-            <label for="locations">Select location</label>
+            <label for="locations">Select from {{locations.length}} locations</label>
             <select name="locations"  class="form-control" v-model="currentLocation">
                 <option :value="loc" v-for="(loc, index) in locations">{{index + 1}} <span v-if="loc.name != null">{{loc.name}}</span><span v-else class="text-muted">no name</span><span v-if="loc.primaryLocation" class="font-weight-bold"> (primary)</span></option>
             </select>
@@ -51,14 +51,20 @@
     </div> -->
 <hr>
   
-<div class="row">
-    <div class="form-group row col-sm-7">
+<div class="row" v-show="currentLocation.latitude != null">
+    <div class="form-group row col-sm-7" >
         <label for="name" class="col-sm-3 col-form-label">Location name</label>
         <div class="col-sm-7">
-            <input type="text" id="name" class="form-control" v-model="currentLocation.name">
+            <div class="input-group">
+            <input placeholder="no name" type="text" id="name" class="form-control" v-model="currentLocationCopy.name">
+                <div class="input-group-append">
+    <button class="btn btn-success" type="button" id="button-addon2" :disabled="disableNameButton" @click="saveLocation">Save name</button>
+  </div>
+    </div>
+            
         </div>
     </div>
-    <div class="stv-radio-tabs-wrapper col-sm-3">
+    <div class="stv-radio-tabs-wrapper col-sm-3" >
         <input  type="radio" class="stv-radio-tab" id="one" name="tickme" value="map" v-model="view">
         <label for="one" id="mapViewLabel">Map</label>
         <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="street" v-model="view">
@@ -66,17 +72,20 @@
     </div>
 </div>
 <div class="row" id="actionRow">
-    <div v-if="unsaved" id="needsSaving"><div id="messge">Unsaved changes have been made  <button class="btn-success">Save changes</button></div></div>
+    <div v-if="unsaved" id="needsSaving"><div id="messge">Unsaved changes  <button class="btn-success" @click="saveLocation" >Save changes</button></div></div>
     <div v-if="saved">Location saved</div>
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <my-map  :view="view"  :updating="updatingMap" :currentLocationCopy="currentLocationCopy" @locationChangeFromMarker="onLocationChangeFromMarker" @newLocationSelected="onNewLocationSelected" @locationChangedFromMap="onLocationChangeFromMap" @markerClicked="onMarkerClicked"
+        <my-map :view="view" :updating="updatingMap" :currentLocationCopy="currentLocationCopy" @locationChangeFromMarker="onLocationChangeFromMarker" @newLocationSelected="onNewLocationSelected" @locationChangedFromMap="onLocationChangeFromMap" @markerClicked="onMarkerClicked"
                 @povChange="onPovChange"> </my-map>
     </div>
 </div>
-<div>Edit location details</div>
-<form>
+
+    <div class="mt-4">
+    <b-link v-b-toggle.collapse1 >Edit location details</b-link>
+<b-collapse id="collapse1" class="mt-2">
+    <form>
     <div class="form-group">
         <label for="lat">Location name</label>
         <input type="text" id="lat" class="form-control" v-model="currentLocationCopy.name">
@@ -99,6 +108,8 @@
     </div>
     <button class="btn btn-success" @click.prevent="saveLocation">Save</button>
 </form>
+    </b-collapse>
+        </div> 
 <ConfirmDeleteLocationModal :show="showConfirmDeleteLocationModal" :location="locationToDelete" @close="onCloseConfirmDeleteLocationModal" @deleteLocation="onDeleteLocation"></ConfirmDeleteLocationModal>
 </div>
 </template>
@@ -143,17 +154,26 @@
                 currentLocationCopy: {},
                 view: 'map',
                 unsaved: false,
-                saved: false
+                saved: false,
+                disableNameButton: true
             }
         },
         watch:{
-            locations:{
-                handler: function(){
-                    if(this.locations.length == 1){
-                         this.streetviewLocation = null;
-                this.currentLocationCopy = _.cloneDeep(this.locations[0]);
-                this.currentLocation = _.cloneDeep(this.locations[0]);
-                    }
+            currentLocation:{
+                handler: function(){      
+                        this.unsaved = false;
+                        this.saved = false;
+                },
+                deep:true
+            },
+            'currentLocationCopy.name':{
+                 handler: function(){
+                    console.log("copy: " + this.currentLocationCopy.name + " - " + this.currentLocation.name)
+                    if(this.currentLocationCopy.name == this.currentLocation.name )
+                            this.disableNameButton = true
+                        else
+                            this.disableNameButton = false
+                    
                 },
                 deep:true
             }
@@ -163,8 +183,7 @@
                 get(){
                     return this.$store.state.admin.locations;
                 },
-                set(value){
-                    
+                set(value){                  
                     this.$store.commit("setAdminLocations",value)
                 }
             },
@@ -179,13 +198,18 @@
                         
                 },
                 set(value){
-                    (value != null)
+                    console.log("type of value: " + typeof(value))
+                    if(value != null  || typeof(value) != "undefined")
                     {
                         this.streetviewLocation = null;
+                       if(value.name == null)
+                            value.name = ''
                         this.currentLocationCopy = _.cloneDeep(value);
- 
+                        this.$store.dispatch("setAdminCurrentLocation",value)
+                    }else{
+                        this.$store.dispatch("setAdminCurrentLocation",null)
                     }
-                    this.$store.dispatch("setAdminCurrentLocation",value)
+                    
                 }
             }
         },
@@ -197,11 +221,12 @@
             },
             onMarkerClicked(selectedLocation) {
                 this.currentLocation = _.cloneDeep(selectedLocation);
+                this.currentLocationCopy = _.cloneDeep(this.currentLocation);
                 
             },
             saveLocation() {
                 var securityToken = this.$store.state.securityToken;
-
+                this.updatingMap = true;
                 var request = {
                     "indexRef": this.indexRef,
                     "documentRef": this.documentRef
@@ -209,29 +234,38 @@
 
                 DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
                     var unpublishedVersion = response.data;
-                    var newRef = this.findLocationReference(unpublishedVersion.locations, this.currentLocationCopy)
+                    
+                    var index = this.locations.findIndex(l => l.reference == this.currentLocationCopy.reference)
 
                     var updateLocationRequest = {
-                        "locationRef": newRef,
+                        "locationRef": unpublishedVersion.locations[index].reference,
                         "indexRef": this.indexRef,
                         "documentRef": this.documentRef,
                         "location": {
-                            "latitude": this.currentLocation.latitude,
-                            "longitude": this.currentLocation.longitude,
-                            "streetviewPitch": this.currentLocation.streetviewPitch,
-                            "streetviewHeading": this.currentLocation.streetviewHeading,
-                            'name': this.currentLocation.name
+                            "latitude": this.currentLocationCopy.latitude,
+                            "longitude": this.currentLocationCopy.longitude,
+                            "streetviewPitch": this.currentLocationCopy.streetviewPitch,
+                            "streetviewHeading": this.currentLocationCopy.streetviewHeading,
+                            'name': this.currentLocationCopy.name
                         }
                     }
 
                     DocumentService.updateLocation(updateLocationRequest, securityToken).then((response) => {
-                        DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {})
+                        DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
+                             this.updatingMap = false;
+                            this.unsaved= false,
+                            this.saved= false,
+                             this.locations = _.cloneDeep(response.data.locations);
+                            this.currentLocation = _.cloneDeep(this.locations[index])
+                             
+                        })
                     })
                 })
             },
             onLocationChangeFromMap(pos) {
-                this.currentLocation.latitude = pos.lat;
-                this.currentLocation.longitude = pos.lng;
+                this.currentLocationCopy.latitude = pos.lat();
+                this.currentLocationCopy.longitude = pos.lng();
+                 this.unsaved = true
             },
             onDeleteLocation(locationRef) {
                 var securityToken = this.$store.state.securityToken;
@@ -257,35 +291,7 @@
                 this.showConfirmDeleteLocationModal = true;
                 this.locationToDelete = loc;
             },
-            updateName() {
-                var securityToken = this.$store.state.securityToken;
-
-                var request = {
-                    "indexRef": this.indexRef,
-                    "documentRef": this.documentRef
-                }
-                DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
-                    var unpublishedVersion = response.data;
-                    var newRef = this.findLocationReference(unpublishedVersion.locations, this.currentLocation)
-
-                    var updateLocationRequest = {
-                        "locationRef": newRef, // unpublishedVersion.locations[0].reference,
-                        "indexRef": this.indexRef,
-                        "documentRef": this.documentRef,
-                        "location": {
-                            'latitude': this.currentLocation.latitude,
-                            'longitude': this.currentLocation.longitude,
-                            'name': this.currentLocation.name
-                        }
-                    }
-
-                    DocumentService.updateLocation(updateLocationRequest, securityToken).then((response) => {
-                        DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
-                            this.getDocument();
-                        })
-                    })
-                })
-            },
+            
             onLocationChangeFromMarker(changedLocation) {
                 this.updatingMap = true;
                 var securityToken = this.$store.state.securityToken;
@@ -294,10 +300,13 @@
                     "indexRef": this.indexRef,
                     "documentRef": this.documentRef
                 }
+                 var index = this.locations.findIndex(l => l.reference == changedLocation.oldLocation.reference)
+                 
+                 
                 DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
                     var unpublishedVersion = response.data;
-                    var newRef = this.findLocationReference(unpublishedVersion.locations, changedLocation.oldLocation)
-
+                    var newRef = unpublishedVersion.locations[index].reference
+                   
                     var updateLocationRequest = {
                         "locationRef": newRef, // unpublishedVersion.locations[0].reference,
                         "indexRef": this.indexRef,
@@ -321,7 +330,6 @@
             },
             async onNewLocationSelected(newLocation) {
                 this.updatingMap = true;
-                console.log("creating new location")
                 var locationRequest = {
                     "location": newLocation,
                     "indexRef": this.indexRef,
@@ -336,24 +344,7 @@
                     })
                 })
             },
-            findLocationReference(locations, locationToFind) {
-                var ref = null;
-                locations.forEach((loc) => {
-                    console.log("loc lat: " + loc.latitude)
-                    console.log("ltf lat: " + locationToFind.latitude)
-                    if (loc.latitude == locationToFind.latitude && loc.longitude == locationToFind.longitude)
-                        ref = loc.reference;
-                })
-                return ref;
-            },
-            onSelected(location) {
-
-            },
-            openLocation(selectedLocation, index) {
-              /*  this.streetviewLocation = null;
-                this.currentLocationCopy = _.cloneDeep(selectedLocation);
-                this.currentLocation = _.cloneDeep(selectedLocation);  */
-            },
+   
             getLocations() {
                 this.locations = _.cloneDeep(this.document.locations);
             },
@@ -495,6 +486,12 @@
                 
             }
             
+        }
+    }
+    .locations-header{
+        font-size:26px;
+        #numberOfLocations{
+        
         }
     }
 

@@ -7,23 +7,23 @@ import axios from 'axios'
 
 var _security = axios.create({
   baseURL: 'http://52.56.188.219/catalogue/v1/public/users/login',  
-  timeout: 5000
+  timeout: 10000
 });
 
 var _ = axios.create({
   baseURL: 'http://52.56.188.219/catalogue/v1/indexes',
-  timeout: 5000
+  timeout: 10000
 });
 
 var _gazzeteer = axios.create({
   baseURL: 'https://apptest.dorsetcc.gov.uk/gazetteer/rest/address/postcode/',
-  timeout: 5000
+  timeout: 10000
 });
 
 
 var _search = axios.create({
     baseURL: 'http://52.56.188.219/catalogue/v1/search/index/',
-    timeout: 5000
+    timeout: 10000
 });
 
 
@@ -31,23 +31,23 @@ var _search = axios.create({
 /*
 var _security = axios.create({
   baseURL: 'https://web.dorsetcc.gov.uk/catalogue/v1/public/users/login',  
-  timeout: 5000
+  timeout: 10000
 });
 
 var _ = axios.create({
   baseURL: 'https://web.dorsetcc.gov.uk/catalogue/v1/indexes',
-  timeout: 5000
+  timeout: 10000
 });
 
 var _search = axios.create({
     baseURL: 'https://web.dorsetcc.gov.uk/catalogue/v1/search/index/',
-    timeout: 5000
+    timeout: 10000
 });
 
 
 var _gazzeteer = axios.create({
   baseURL: 'https://app.dorsetcc.gov.uk/gazetteer/rest/address/postcode/',
-  timeout: 5000
+  timeout: 10000
 });
 */
 

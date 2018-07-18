@@ -21,30 +21,35 @@
         watch: {
             position: {
                 handler: function() {
-                    console.log("watcher for marker")
                     if (this.position.deleted) {
-                        console.log("deleting marker")
                         this.marker = null;
                     }else if(this.position.selected){
                         this.marker.setIcon(this.icon)
                     }
+                    this.marker.setTitle(this.position.name)
+                    
                 },
                 deep: true
             },
             currentLocation:{
                 handler: function(){
-                    console.log("clickeddddddddddddddd")
+                    if(this.currentLocation != null){
                     if(this.currentLocation.reference == this.position.reference){
-                        console.log("set MARKER BOUNCE")
                         this.marker.setIcon(this.selectedIcon)
                         this.marker.setAnimation(this.google.maps.Animation.BOUNCE)
                         var m = this.marker
+                        this.marker.setZIndex(4)
                         setTimeout(function(){
                             m.setAnimation(null)
                         },100)
                     }
-                    else(this.marker.setIcon(''))
+                    else{
+                        this.marker.setIcon('');
+                        this.marker.setZIndex(0)
+                  }
                 }
+                },
+                deep: true
             }
         },
         computed: {
@@ -57,12 +62,19 @@
                 }
             } 
         },
+        methods:{
+            locationClicked(){
+                console.log("clicked::: " + this.position.name)
+                this.$emit("markerClicked",this.position)
+            }
+        },
         mounted() {
 
             const {Marker} = this.google.maps
 
             // var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-
+            // var labelNumber = this.key + 1 
+            // console.log(labelNumber)
             if(this.position.selected){
             this.marker = new Marker({
                 position: {
@@ -72,18 +84,20 @@
                 map: this.map,
                 title: this.position.name,
                 draggable: true,
-                icon: this.icon
+                icon: this.icon,
+                zIndex: 4
             })
             }else{
                   this.marker = new Marker({
-                position: {
+                  position: {
                     "lat": this.position.latitude,
                     "lng": this.position.longitude
                 },
                 map: this.map,
                 title: this.position.name,
                 draggable: true,
-                      label: '1'
+                      zIndex: 0
+                 
             })
             }
 
@@ -106,15 +120,10 @@
             var lMarker = this.marker
 
             this.marker.addListener('click', function(event) {
-                /*    var pan = lMap.getStreetView();
-                    pan.setPosition(lMarker.getPosition())
-                    pan.setPov({
-                        heading: pos.streetviewHeading,
-                        zoom: 1,
-                        pitch: pos.streetviewPitch
-                    })
-                    pan.setVisible(true) */
-                ChildMarker.$emit("markerClicked", pos)
+                console.log("child marker emitting: " + pos.reference)
+                console.log(pos.name)
+                ChildMarker.locationClicked()
+                
             })
         }
     }

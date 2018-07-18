@@ -64,20 +64,22 @@
         methods: {
             setMapView(){
                 if (this.view == 'street') {
-
+                    
+                    console.log("setLocation view")
+                    console.log("pos Lat: " + this.currentLocationCopy.latitude)
+                    console.log("pos Lng: " + this.currentLocationCopy.longitude)
+                    
                     var heading = 0 
-                    if(this.currentLocation.streetviewHeading != null && (!isNaN(this.currentLocation.streetviewHeading)) && this.currentLocation.streetviewHeading != 0)
-                        heading = this.currentLocation.streetviewHeading;
+                    if(this.currentLocationCopy.streetviewHeading != null && (!isNaN(this.currentLocationCopy.streetviewHeading)) && this.currentLocationCopy.streetviewHeading != 0)
+                        heading = this.currentLocationCopy.streetviewHeading;
                     var pitch = 0
-                    if(this.currentLocation.streetviewHeading != null && (!isNaN(this.currentLocation.streetviewHeading)) && this.currentLocation.streetviewPitch != 0)
-                        pitch =this.currentLocation.streetviewPitch;
+                    if(this.currentLocationCopy.streetviewHeading != null && (!isNaN(this.currentLocationCopy.streetviewHeading)) && this.currentLocationCopy.streetviewPitch != 0)
+                        pitch =this.currentLocationCopy.streetviewPitch;
                     
-                    
-                    console.log("sv lat: " + this.currentLocation.latitude)
                     const {LatLng} = this.google.maps
                     var position = new LatLng({ 
-                        "lat": this.currentLocation.latitude,
-                        "lng": this.currentLocation.longitude
+                        "lat": this.currentLocationCopy.latitude,
+                        "lng": this.currentLocationCopy.longitude
                     })
                     
                     this.panorama.setPosition(position)
@@ -102,10 +104,10 @@
                     this.$emit("povChange",pov)
                 }
             },
-            positionChange(pos) {
-                console.log("cpos: " + this.currentLocation.latitude)
-                console.log("pos change" + pos.lat)
-                if(this.currentLocationCopy.latitude != pos.lat || this.currentLocationCopy.longitude != pos.lng)
+            positionChanged(pos) {
+                console.log("curr lat: " + this.currentLocation.latitude)
+                console.log("ch lat: " + pos.lat())
+                if(this.currentLocation.latitude != pos.lat() || this.currentLocation.longitude != pos.lng())
                     this.$emit("locationChangeFromMap",pos)
             },
             initializeMap() {
@@ -143,18 +145,15 @@
                     }
                     mapL.$emit('newLocationRequested', newLocation)
                 
-                    marker = null;
+                    marker.setMap(null);
                 });
                 
                 var pan = this.panorama;    
                 this.panorama.addListener('pov_changed', function() {
-                    console.log("POV CHANGE EVENT")
                     mapL.povChange(pan.getPov())
                 })
                 this.panorama.addListener('position_changed', function() {
-                    console.log("POSITION CHANGE EVENT")
-                    if(!isNaN(pan.getPosition().lat))
-                        mapL.positionChange(pan.getPosition())
+                        mapL.positionChanged(pan.getPosition())
                 })      
             }
         }

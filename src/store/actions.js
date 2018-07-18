@@ -252,11 +252,7 @@ export const actions = {
     
     setAdminCurrentLocation(context,payload){
         context.commit("setAdminCurrentLocation",payload)
-        var pov = {
-            "heading":payload.streetviewHeading,
-            "pitch":payload.pitch,
-            "zoom":1
-        }
+        
         
     }
 }
