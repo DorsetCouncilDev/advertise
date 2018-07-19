@@ -9,17 +9,21 @@
 <h1 class="locations-header">{{documentRef}} locations</h1>
 <div class="row">
     <div class="col-sm-6">
-        <div v-if="locations.length == 0">Choose a location on the map</div>
-        <div v-else-if="locations.length == 1"><span v-if="locations[0].name != null">{{locations[0].name}}</span><span v-else class="text-muted">no name</span><span v-if="locations[0].primaryLocation" class="font-weight-bold"> (primary)</span>
-        </div>
+        <div v-if="locations.length == 0">This asset has no locations</div>
+        <ul v-else-if="locations.length == 1">
+        <li><span v-if="locations[0].name != null && locations[0].name != ''">{{locations[0].name}}</span><span v-else class="text-muted">no name</span><span v-if="locations[0].primaryLocation" class="font-weight-bold"> (primary)</span>
+        </li>
+            </ul>
         <div class="form-group" v-else>
             <label for="locations">Select from {{locations.length}} locations</label>
             <select name="locations"  class="form-control" v-model="currentLocation">
-                <option :value="loc" v-for="(loc, index) in locations">{{index + 1}} <span v-if="loc.name != null">{{loc.name}}</span><span v-else class="text-muted">no name</span><span v-if="loc.primaryLocation" class="font-weight-bold"> (primary)</span></option>
+                <option :value="loc" v-for="(loc, index) in locations"><span v-if="loc.name != null && loc.name != '' ">{{loc.name}}</span><span v-else class="text-muted">no name</span><span v-if="loc.primaryLocation" class="font-weight-bold"> (primary)</span></option>
             </select>
         </div>     
     </div>
 </div>
+
+
     <!--
     <div class="row">
         
@@ -50,8 +54,10 @@
          
     </div> -->
 <hr>
-  
+     <p class="font-weight-bold">Right click at a point on the map to create a new location</p>
 <div class="row" v-show="currentLocation.latitude != null">
+  
+    <div id="currentLocationToolbar">
     <div class="form-group row col-sm-7" >
         <label for="name" class="col-sm-3 col-form-label">Location name</label>
         <div class="col-sm-7">
@@ -70,15 +76,21 @@
         <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="street" v-model="view">
         <label for="two" id="gridViewLabel">Streetview</label>
     </div>
+    <div class="col-sm-2" >
+        <button class="btn btn-outline-danger" @click="requestDeleteLocation">Delete location</button>
+    </div>
+        </div>
 </div>
-<div class="row" id="actionRow">
-    <div v-if="unsaved" id="needsSaving"><div id="messge">Unsaved changes  <button class="btn-success" @click="saveLocation" >Save changes</button></div></div>
-    <div v-if="saved">Location saved</div>
-</div>
+
+   
+    <div class="status" id="needsSaving" :class="{'show':unsaved}"><div id="messge"><div>Unsaved changes  <button class="btn-success" @click="saveLocation" >Save changes</button></div></div></div>
+    <div class="status" id="saved" :class="{'show':saved}"><div>{{savedMessage}}</div></div>
+  
+
 <div class="row">
     <div class="col-sm-12">
-        <my-map :view="view" :updating="updatingMap" :currentLocationCopy="currentLocationCopy" @locationChangeFromMarker="onLocationChangeFromMarker" @newLocationSelected="onNewLocationSelected" @locationChangedFromMap="onLocationChangeFromMap" @markerClicked="onMarkerClicked"
-                @povChange="onPovChange"> </my-map>
+        <my-map :view="view" :updating="updatingMap" :currentLocationCopy="currentLocationCopy" :deletion="deletion" :newLocation="newLocation" @locationChangeFromMarker="onLocationChangeFromMarker" @newLocationSelected="onNewLocationSelected" @locationChangedFromMap="onLocationChangeFromMap" @markerClicked="onMarkerClicked"
+        @povChange="onPovChange" @newLocationAdded="onNewLocationAdded"> </my-map>
     </div>
 </div>
 
@@ -146,7 +158,7 @@
         },
         data() {
             return {
-                document: {},        
+                document: {},
                 updatingMap: false,
                 showConfirmDeleteLocationModal: false,
                 locationToDelete: {},
@@ -155,66 +167,73 @@
                 view: 'map',
                 unsaved: false,
                 saved: false,
-                disableNameButton: true
+                disableNameButton: true,
+                deletion: false,
+                newLocation: false,
+                savedMessage: ""
             }
         },
-        watch:{
-            currentLocation:{
-                handler: function(){      
-                        this.unsaved = false;
-                        this.saved = false;
+        watch: {
+            currentLocation: {
+                handler: function() {
+                    this.unsaved = false;
+                    this.saved = false;
                 },
-                deep:true
+                deep: true
             },
-            'currentLocationCopy.name':{
-                 handler: function(){
+            'currentLocationCopy.name': {
+                handler: function() {
                     console.log("copy: " + this.currentLocationCopy.name + " - " + this.currentLocation.name)
-                    if(this.currentLocationCopy.name == this.currentLocation.name )
-                            this.disableNameButton = true
-                        else
-                            this.disableNameButton = false
-                    
+                    if (this.currentLocationCopy.name == this.currentLocation.name)
+                        this.disableNameButton = true
+                    else
+                        this.disableNameButton = false
+
                 },
-                deep:true
+                deep: true
             }
         },
-        computed:{
+        computed: {
+
             locations: {
-                get(){
+                get() {
                     return this.$store.state.admin.locations;
                 },
-                set(value){                  
-                    this.$store.commit("setAdminLocations",value)
+                set(value) {
+                    this.$store.commit("setAdminLocations", value)
                 }
             },
             currentLocation: {
-                get(){
-                    if(this.$store.state.admin.currentLocation != null)
+                get() {
+                    if (this.$store.state.admin.currentLocation != null)
                         return this.$store.state.admin.currentLocation
-                    else{
+                    else {
                         this.currentLocationCopy = {}
-                        return {name:null}
+                        return {
+                            name: null
+                        }
                     }
-                        
+
                 },
-                set(value){
+                set(value) {
                     console.log("type of value: " + typeof(value))
-                    if(value != null  || typeof(value) != "undefined")
-                    {
-                        this.streetviewLocation = null;
-                       if(value.name == null)
+                    if (value != null && typeof(value) != "undefined") {
+                        if (value.name == null)
                             value.name = ''
                         this.currentLocationCopy = _.cloneDeep(value);
-                        this.$store.dispatch("setAdminCurrentLocation",value)
-                    }else{
-                        this.$store.dispatch("setAdminCurrentLocation",null)
+                        this.$store.dispatch("setAdminCurrentLocation", value)
+                    } else {
+                        this.$store.dispatch("setAdminCurrentLocation", null)
                     }
-                    
                 }
             }
         },
         methods: {
-            onPovChange(pov){
+            onNewLocationAdded() {
+
+                this.newLocation = false;
+            },
+            onPovChange(pov) {
                 this.currentLocationCopy.streetviewHeading = pov.heading;
                 this.currentLocationCopy.streetviewPitch = pov.pitch;
                 this.unsaved = true
@@ -222,7 +241,7 @@
             onMarkerClicked(selectedLocation) {
                 this.currentLocation = _.cloneDeep(selectedLocation);
                 this.currentLocationCopy = _.cloneDeep(this.currentLocation);
-                
+
             },
             saveLocation() {
                 var securityToken = this.$store.state.securityToken;
@@ -234,7 +253,7 @@
 
                 DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
                     var unpublishedVersion = response.data;
-                    
+
                     var index = this.locations.findIndex(l => l.reference == this.currentLocationCopy.reference)
 
                     var updateLocationRequest = {
@@ -252,12 +271,13 @@
 
                     DocumentService.updateLocation(updateLocationRequest, securityToken).then((response) => {
                         DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
-                             this.updatingMap = false;
-                            this.unsaved= false,
-                            this.saved= false,
-                             this.locations = _.cloneDeep(response.data.locations);
+                            this.updatingMap = false;
+                            this.unsaved = false;
+                                this.saved = true;
+                        
+                                this.savedMessage = "Location changes saved"
+                                this.locations = _.cloneDeep(response.data.locations);
                             this.currentLocation = _.cloneDeep(this.locations[index])
-                             
                         })
                     })
                 })
@@ -265,34 +285,37 @@
             onLocationChangeFromMap(pos) {
                 this.currentLocationCopy.latitude = pos.lat();
                 this.currentLocationCopy.longitude = pos.lng();
-                 this.unsaved = true
+                this.unsaved = true
             },
             onDeleteLocation(locationRef) {
+                console.log("about to delete location: " + locationRef)
+                this.locations.forEach((l) => console.log(l.reference))
                 var securityToken = this.$store.state.securityToken;
-
-                var index = this.locations.findIndex(l => l.reference == locationRef)
-
+                this.updatingMap = true;
+                this.deletion = true;
                 DocumentService.deleteLocation(this.indexRef, this.documentRef, locationRef, securityToken).then((response) => {
-
                     DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, response.data.unpublishedVersionNumber, securityToken).then((response) => {
-                        this.locations[index].deleted = true;
                         this.showConfirmDeleteLocationModal = false;
-                        this.locationToDelete = {};
                         this.getDocument();
+                        this.currentLocation = null;
+                        this.deletion = false;
                     })
                 })
+                this.updatingMap = false;
             },
 
             onCloseConfirmDeleteLocationModal() {
                 this.showConfirmDeleteLocationModal = false;
                 this.locationToDelete = {};
             },
-            requestDeleteLocation(loc) {
+            requestDeleteLocation() {
                 this.showConfirmDeleteLocationModal = true;
-                this.locationToDelete = loc;
+                this.locationToDelete = this.currentLocationCopy;
             },
-            
+
             onLocationChangeFromMarker(changedLocation) {
+                console.log("about to changeLocation: " + changedLocation.oldLocation.reference)
+                this.locations.forEach((l) => console.log(l.reference))
                 this.updatingMap = true;
                 var securityToken = this.$store.state.securityToken;
 
@@ -300,13 +323,14 @@
                     "indexRef": this.indexRef,
                     "documentRef": this.documentRef
                 }
-                 var index = this.locations.findIndex(l => l.reference == changedLocation.oldLocation.reference)
-                 
-                 
+                var index = this.locations.findIndex(l => l.reference == changedLocation.oldLocation.reference)
+                console.log("index to move: " + index)
+                console.log("ref to move: " + changedLocation.oldLocation.reference)
+
                 DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
                     var unpublishedVersion = response.data;
                     var newRef = unpublishedVersion.locations[index].reference
-                   
+
                     var updateLocationRequest = {
                         "locationRef": newRef, // unpublishedVersion.locations[0].reference,
                         "indexRef": this.indexRef,
@@ -323,6 +347,7 @@
                     DocumentService.updateLocation(updateLocationRequest, securityToken).then((response) => {
                         DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
                             this.updatingMap = false;
+                            this.getDocument();
                         })
                     })
                 })
@@ -330,6 +355,7 @@
             },
             async onNewLocationSelected(newLocation) {
                 this.updatingMap = true;
+                this.newLocation = true
                 var locationRequest = {
                     "location": newLocation,
                     "indexRef": this.indexRef,
@@ -341,24 +367,36 @@
                     await DocumentService.publishLatestVersion(locationRequest.indexRef, locationRequest.documentRef, securityToken).then((response) => {
                         this.getDocument();
                         this.updatingMap = false;
+                        this.saved = true;
+                        this.savedMessage = "New location added"
+
+
+
                     })
                 })
             },
-   
+
             getLocations() {
                 this.locations = _.cloneDeep(this.document.locations);
+                console.log("GOT LOCATIONS")
+                this.locations.forEach((l) => console.log(l.reference))
+                if (this.newLocation)
+                    this.currentLocation = this.locations[this.locations.length - 1]
+
+
             },
             async getDocument() {
                 await DocumentService.getDocument(this.indexRef, this.documentRef).then((response) => {
                     this.document = response.data;
                     this.getLocations();
+
                 })
             }
         },
         created() {
             this.getDocument();
         },
-        destroyed(){
+        destroyed() {
             this.locations = [];
             this.currentLocation = {};
         }
@@ -368,10 +406,11 @@
 
 
 <style scoped lang="scss">
-   /* .active {
+    /* .active {
        color: red;
     }
 */
+
     .location-select-row {
         &:hover {
             background-color: #eef7fa;
@@ -398,101 +437,121 @@
             cursor: pointer;
         }
     }
-  .stv-radio-tabs-wrapper {
-            clear: both;
-            display: inline-block;
-            padding: 0;
-            position: relative;
-      float:right;
-        }
 
-        input.stv-radio-tab {
-            position: absolute;
-            left: -99999em;
-            top: -99999em;
-            &:focus {
-                &+label {
+    .stv-radio-tabs-wrapper {
+        clear: both;
+        display: inline-block;
+        padding: 0;
+        position: relative;
+        float: right;
+    }
+
+    input.stv-radio-tab {
+        position: absolute;
+        left: -99999em;
+        top: -99999em;
+        &:focus {
+            &+label {
+                border: orange solid 1px;
+            }
+        }
+        &+label {
+            cursor: pointer;
+            float: left;
+            border: solid 1px #ced4da;
+            background-color: #fff;
+            margin-right: -1px;
+            padding-left: 40px;
+            padding-top: 5px;
+            padding-right: 5px;
+            padding-bottom: 10px;
+            position: relative;
+            &:before {
+                position: absolute;
+                left: -1px;
+                margin-left: 4px;
+            }
+
+
+            &#gridViewLabel {
+
+                &:before {
+                    margin-top: 5px;
+                    margin-left: 10px;
+                    content: url(../../../assets/images/streetview.svg);
+                }
+                &:focus {
                     border: orange solid 1px;
                 }
             }
-            &+label {
-                cursor: pointer;
-                float: left;
-                border: solid 1px #ced4da;
-                background-color: #fff;
-                margin-right: -1px;
-                padding-left: 40px;
-                padding-top: 10px;
-                padding-right: 5px;
-                padding-bottom: 10px;
-                position: relative;
+
+            &#mapViewLabel {
                 &:before {
-                    position: absolute;
-                    left: -1px;
-                    margin-left: 4px;
+                    margin-top: 5px;
+                    margin-left: 10px;
+                    content: url(../../../assets/images/map.svg);
                 }
-
-
-                &#gridViewLabel {
-              
-                    &:before {
-                        content: url(../../../assets/images/streetview.svg);
-                    }
-                    &:focus {
-                        border: orange solid 1px;
-                    }
-                }
-                &#listViewLabel {
-                    &:before {
-                        content: url(../../../assets/images/list.svg);
-                    }
-                    &:focus {
-                        border: orange solid 1px;
-                    }
-                }
-                &#mapViewLabel {
-                    &:before {
-                        content: url(../../../assets/images/map.svg);
-                    }
-                    &:focus {
-                        border: orange solid 1px;
-                    }
-                }
-                &:hover {
-                    background-color: #eee;
+                &:focus {
+                    border: orange solid 1px;
                 }
             }
-
-            &:checked+label {
-                background-color: lightblue;
-                z-index: 1;
+            &:hover {
+                background-color: #eee;
             }
-    }
-    #actionRow{
-        transition:height 1s;
-        #saved{
-              background: #99C199;
         }
-        #needsSaving{
+
+        &:checked+label {
+            background-color: lightblue;
+            z-index: 1;
+        }
+    }
+
+    .status {
+     
+        transition: max-height .3s;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        height: 0;
+        max-height:0;
+
+        &.show {
+            height: auto;
+            max-height: 100px;
+            padding: 15px;
+            width: 100%;
+        }
+        &#saved {
+            background: #99C199;
+            animation: showMessage 2s;
+        }
+        &#needsSaving {
             color: darkred;
             background: #fafafa;
-            padding:15px;
-            width:100%;
-            margin-left:15px;
-            margin-right:15px;
-            display: flex;
-            justify-content: center;
-            #message{
-                
-            }
+        }
+        .message{
             
         }
     }
-    .locations-header{
-        font-size:26px;
-        #numberOfLocations{
-        
-        }
+@keyframes showMessage {
+    from {max-height:auto}
+    to {max-height:0}
+}
+    .locations-header {
+        font-size: 26px;
+
+    }
+
+    #currentLocationToolbar {
+        background: #f6f6f6;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding-top: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+        padding-bottom: 5px;
+
     }
 
 </style>

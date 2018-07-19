@@ -124,7 +124,7 @@
                 
                 var mapRef = this.map
                 
-                this.map.addListener('click', function(e) {
+                this.map.addListener('rightclick', function(e) {
                     var marker = new Marker({
                         position: {
                             "lat":  e.latLng.lat(),

@@ -23,7 +23,7 @@
 <h3 class="third-header">What others say</h3>
 <q>We'd recommend roundabout sponsorship in Dorset as a great way of raising brand awareness, and at Dorset Windows we find it provides good value for money. With the right roundabout, we're able to promote our brand as people travel around and be in the forefront of people's minds.</q>
 
-<p class="mb-5">Kath Pumfrey, Dorset Windows</p>
+<p class="mb-5">Kath Pumfrey, of Dorset Windows</p>
 </div>
 </div>
 </template>
@@ -65,6 +65,11 @@
 
 
 <style scoped lang="scss">
+    .home-second-header{
+        font-size: 2rem;
+        text-align:left;
+    }
+    
     .home-header {
         font-size: 1.8rem;
         margin-top: 10px;

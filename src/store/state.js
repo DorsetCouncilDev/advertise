@@ -29,6 +29,7 @@ export const state = {
             heading: 0,
             pitch: 0,
             zoom: 1
-        }
+        },
+        status: null
     }
 }

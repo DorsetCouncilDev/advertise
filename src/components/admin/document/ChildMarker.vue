@@ -6,125 +6,139 @@
         props: {
             google: Object,
             map: Object,
-            position: Object
+            position: Object,
+            deletion: Boolean,
+            newLocation: Boolean
         },
         data() {
             return {
                 marker: null,
                 selectedIcon: {
-                url: image, // url
-                scaledSize: new google.maps.Size(50, 50) // scaled size
-    
-            }
+                    url: image, // url
+                    scaledSize: new google.maps.Size(50, 50) // scaled size
+
+                }
             }
         },
         watch: {
-            position: {
-                handler: function() {
-                    if (this.position.deleted) {
-                        this.marker = null;
-                    }else if(this.position.selected){
-                        this.marker.setIcon(this.icon)
-                    }
-                    this.marker.setTitle(this.position.name)
-                    
-                },
-                deep: true
+            deletion(){
+            
+              if(this.currentLocation != null && this.currentLocation.reference != null && this.currentLocation.reference == this.position.reference && this.deletion)
+                  this.marker.setMap(null) 
             },
-            currentLocation:{
-                handler: function(){
-                    if(this.currentLocation != null){
-                    if(this.currentLocation.reference == this.position.reference){
-                        this.marker.setIcon(this.selectedIcon)
-                        this.marker.setAnimation(this.google.maps.Animation.BOUNCE)
-                        var m = this.marker
-                        this.marker.setZIndex(4)
-                        setTimeout(function(){
-                            m.setAnimation(null)
-                        },100)
+            currentLocation: {
+                handler: function() {
+                     
+                    if (this.currentLocation != null) {
+                       console.log("current ref: " + this.currentLocation.reference)
+                       console.log("pos ref: " + this.position.reference)
+                       if (this.currentLocation.reference == this.position.reference) {
+                          
+                            this.marker.setIcon(this.selectedIcon)
+                            this.marker.setAnimation(this.google.maps.Animation.BOUNCE)
+                            var m = this.marker
+                            this.marker.setZIndex(4)
+                            setTimeout(function() {
+                                m.setAnimation(null)
+                            }, 100)
+                        } else {
+                            this.marker.setIcon('');
+                            this.marker.setZIndex(0)
+                            console.log("unset selected")
+                        }
                     }
-                    else{
-                        this.marker.setIcon('');
-                        this.marker.setZIndex(0)
-                  }
-                }
                 },
                 deep: true
             }
         },
         computed: {
-           currentLocation: {
-                get(){
-                    return this.$store.state.admin.currentLocation     
+            currentLocation: {
+                get() {
+                    return this.$store.state.admin.currentLocation
                 },
-                set(value){
-                    this.$store.commit("setAdminCurrentLocations",value)
+                set(value) {
+                    this.$store.commit("setAdminCurrentLocations", value)
                 }
-            } 
+            },
+            locations: {
+                get() {
+                    return this.$store.state.admin.locations;
+                },
+                set(value) {
+                    this.$store.commit("setAdminLocations", value)
+                }
+            },
         },
-        methods:{
-            locationClicked(){
-                console.log("clicked::: " + this.position.name)
-                this.$emit("markerClicked",this.position)
+        methods: {
+            markerAdded(){
+                    this.$emit("markerAdded")
+            },
+            locationClicked() {
+                this.$emit("markerClicked", this.position)
+            },
+            locationChanged(latLng){
+                var markerChange = {
+                    "location": latLng,
+                    "oldLocation": this.position
+                };
+                this.$emit("locationChangeFromMarker", markerChange);
             }
         },
         mounted() {
 
-            const {Marker} = this.google.maps
-
-            // var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-            // var labelNumber = this.key + 1 
-            // console.log(labelNumber)
-            if(this.position.selected){
-            this.marker = new Marker({
-                position: {
-                    "lat": this.position.latitude,
-                    "lng": this.position.longitude
-                },
-                map: this.map,
-                title: this.position.name,
-                draggable: true,
-                icon: this.icon,
-                zIndex: 4
-            })
-            }else{
-                  this.marker = new Marker({
-                  position: {
-                    "lat": this.position.latitude,
-                    "lng": this.position.longitude
-                },
-                map: this.map,
-                title: this.position.name,
-                draggable: true,
-                      zIndex: 0
-                 
-            })
+            const {
+                Marker
+            } = this.google.maps
+console.log("new location: " + this.newLocation.reference)
+            if (this.position.reference == this.currentLocation.reference || this.newLocation) {
+                console.log("setting new marker and selected")
+                this.marker = new Marker({
+                    position: {
+                        "lat": this.position.latitude,
+                        "lng": this.position.longitude
+                    },
+                    map: this.map,
+                    title: this.position.name,
+                    draggable: true,
+                    icon: this.selectedIcon,
+                    zIndex: 4     
+                })
+                 this.marker.setAnimation(this.google.maps.Animation.BOUNCE)
+                var m = this.marker;
+                setTimeout(function() {
+                                m.setAnimation(null)
+                            }, 100)
+            } else {
+                this.marker = new Marker({
+                    position: {
+                        "lat": this.position.latitude,
+                        "lng": this.position.longitude
+                    },
+                    map: this.map,
+                    title: this.position.name,
+                    draggable: true,
+                    zIndex: 0,
+                })
             }
 
             this.marker.locationRef = this.position.reference;
-
-            var pos = this.position;
             var ChildMarker = this;
 
-            var currentLoation = this.position;
-
             this.marker.addListener('dragend', function(event) {
-                var markerChange = {
-                    "location": event.latLng,
-                    "oldLocation": currentLoation
-                };
-                ChildMarker.$emit("locationChangeFromMarker", markerChange);
+                ChildMarker.locationChanged(event.latLng)
+               
             })
 
             var lMap = this.map
             var lMarker = this.marker
 
             this.marker.addListener('click', function(event) {
-                console.log("child marker emitting: " + pos.reference)
-                console.log(pos.name)
+
                 ChildMarker.locationClicked()
-                
+
             })
+            console.log("new marker made")
+        this.markerAdded()
         }
     }
 

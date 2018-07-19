@@ -20,9 +20,12 @@
           :position="location" 
           :google="scopeProps.google"
           :map="scopeProps.map"
+          :deletion="deletion"
+          :newLocation="newLocation"
           @locationChangeFromMarker="onLocationChangeFromMarker"
           @markerClicked="onMarkerClicked"
-                      />
+          @markerAdded="onMarkerAdded"
+      />
       </template>
 </map-loader>
 </div>
@@ -37,7 +40,9 @@
         props: {
             updating: Boolean,
             view: String,
-            currentLocationCopy: Object
+            currentLocationCopy: Object,
+            deletion: Boolean,
+            newLocation: Boolean
         },
         data() {
             return {
@@ -67,6 +72,9 @@
             ChildMarker
         },
         methods: {
+            onMarkerAdded(){
+                this.$emit('newLocationAdded');
+            },
             onLocationChangeFromMap(newLocation){
                 this.$emit("locationChangedFromMap",newLocation)
             },
