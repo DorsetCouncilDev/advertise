@@ -194,6 +194,7 @@
 
     #searchOptionsTitle {
         font-size: 22px;
+        text-align: left;
     }
 
     #menu {

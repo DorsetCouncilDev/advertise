@@ -6,7 +6,8 @@
     <li class="breadcrumb-item" aria-current="page">{{documentRef}}</li>
     <li class="breadcrumb-item active" aria-current="page">locations</li>
 </ol>
-<h1 class="locations-header">{{documentRef}} locations</h1>
+<h1 class="locations-header">{{documentRef}} locations <small><span class="text-muted"> ({{locations.length}})</span></small></h1>
+    <hr>
 <div class="row">
     <div class="col-sm-6">
         <div v-if="locations.length == 0">This asset has no locations</div>
@@ -15,7 +16,7 @@
         </li>
             </ul>
         <div class="form-group" v-else>
-            <label for="locations">Select from {{locations.length}} locations</label>
+            <label for="locations" class="font-weight-bold">Select a location</label>
             <select name="locations"  class="form-control" v-model="currentLocation">
                 <option :value="loc" v-for="(loc, index) in locations"><span v-if="loc.name != null && loc.name != '' ">{{loc.name}}</span><span v-else class="text-muted">no name</span><span v-if="loc.primaryLocation" class="font-weight-bold"> (primary)</span></option>
             </select>
@@ -23,52 +24,30 @@
     </div>
 </div>
 
-
-    <!--
-    <div class="row">
-        
-        
-        <div class="col-sm-12">
-            
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>no</th>
-                        <th>name</th>
-                        <th>primary</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr  :class="{'selected': currentLocation != null && loc.reference == currentLocation.reference}" class="location-select-row" v-for="(loc, index) in locations" @click="openLocation(loc)">
-                        <td>{{index+1}}</td>
-                        <td><span v-if="loc.name == null" class="text-muted">no name</span><span v-else>{{loc.name}}</span></td>
-                        <td><span v-if="loc.primaryLocation" class="font-weight-bold">Primary</span></td>
-                        <td class="delete-link"><span class="delete-link-text" @click="requestDeleteLocation(loc)">delete</span></td>
-                    </tr>
-                </tbody>
-            </table>
-          
-        </div> 
-  
-         
-    </div> -->
 <hr>
      <p class="font-weight-bold">Right click at a point on the map to create a new location</p>
 <div class="row" v-show="currentLocation.latitude != null">
   
     <div id="currentLocationToolbar">
-    <div class="form-group row col-sm-7" >
-        <label for="name" class="col-sm-3 col-form-label">Location name</label>
-        <div class="col-sm-7">
+    <div class="form-group row col-sm-5" >
+   
+        <div class="col-sm-12">
             <div class="input-group">
-            <input placeholder="no name" type="text" id="name" class="form-control" v-model="currentLocationCopy.name">
+            <input placeholder="no name" type="text" id="name" class="form-control" v-model="currentLocationCopy.name" title="name of location">
                 <div class="input-group-append">
-    <button class="btn btn-success" type="button" id="button-addon2" :disabled="disableNameButton" @click="saveLocation">Save name</button>
+    <button title="Save location name" class="btn btn-success" type="button" id="button-addon2" :disabled="disableNameButton" @click="saveLocation">save</button>
   </div>
     </div>
             
         </div>
+    </div>
+
+    <div class="col-sm-2" >
+        <div v-if="currentLocation.primary">
+    </div>
+    <div v-else>
+        <button v-if="!currentLocation.primaryLocation" class="btn btn-outline-primary" @click="setPrimaryLocation">Set as primary</button>
+    </div>
     </div>
     <div class="stv-radio-tabs-wrapper col-sm-3" >
         <input  type="radio" class="stv-radio-tab" id="one" name="tickme" value="map" v-model="view">
@@ -76,11 +55,11 @@
         <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="street" v-model="view">
         <label for="two" id="gridViewLabel">Streetview</label>
     </div>
-    <div class="col-sm-2" >
-        <button class="btn btn-outline-danger" @click="requestDeleteLocation">Delete location</button>
+        <div class="col-sm-2">
+   <button v-if="currentLocation.primaryLocation" class="btn btn-outline-primary" @click="toggleStreetview"><span v-if="currentLocationCopy.streetviewLatitude != null">Streetview Active</span><span v-else>Streetview Not active</span></button>
     </div>
         </div>
-</div>
+    </div>
 
    
     <div class="status" id="needsSaving" :class="{'show':unsaved}"><div id="messge"><div>Unsaved changes  <button class="btn-success" @click="saveLocation" >Save changes</button></div></div></div>
@@ -95,6 +74,9 @@
 </div>
 
     <div class="mt-4">
+         <div class="col-sm-2" >
+        <button class="btn btn-outline-danger mb-4" @click="requestDeleteLocation">Delete</button>
+    </div>
     <b-link v-b-toggle.collapse1 >Edit location details</b-link>
 <b-collapse id="collapse1" class="mt-2">
     <form>
@@ -183,7 +165,6 @@
             },
             'currentLocationCopy.name': {
                 handler: function() {
-                    console.log("copy: " + this.currentLocationCopy.name + " - " + this.currentLocation.name)
                     if (this.currentLocationCopy.name == this.currentLocation.name)
                         this.disableNameButton = true
                     else
@@ -213,10 +194,8 @@
                             name: null
                         }
                     }
-
                 },
                 set(value) {
-                    console.log("type of value: " + typeof(value))
                     if (value != null && typeof(value) != "undefined") {
                         if (value.name == null)
                             value.name = ''
@@ -226,9 +205,31 @@
                         this.$store.dispatch("setAdminCurrentLocation", null)
                     }
                 }
-            }
+            },
+
+          
         },
         methods: {
+            setPrimaryLocation(){
+                 var securityToken = this.$store.state.securityToken;
+                DocumentService.setPrimaryLocation(this.indexRef,this.documentRef,this.currentLocationCopy.reference,securityToken).then((response)=>{
+                    this.getDocument().then((response)=>{
+                        var index = this.locations.findIndex(l =>l.primaryLocation == true)
+                        this.currentLocation = this.locations[index];
+                    });
+                })
+            },
+            toggleStreetview(){
+                if(this.currentLocationCopy.streetviewLatitude == null){
+                    this.currentLocationCopy.streetviewLatitude = this.currentLocationCopy.latitude;
+                    this.currentLocationCopy.streetviewLongitude = this.currentLocationCopy.longitude;
+                }else{
+                    this.currentLocationCopy.streetviewLatitude = null;
+                    this.currentLocationCopy.streetviewLongitude = null;
+                }
+                this.saveLocation();
+                
+            },
             onNewLocationAdded() {
 
                 this.newLocation = false;
@@ -265,6 +266,8 @@
                             "longitude": this.currentLocationCopy.longitude,
                             "streetviewPitch": this.currentLocationCopy.streetviewPitch,
                             "streetviewHeading": this.currentLocationCopy.streetviewHeading,
+                            "streetviewLongitude":this.currentLocationCopy.streetviewLongitude,
+                            "streetviewLatitude":this.currentLocationCopy.streetviewLatitude,
                             'name': this.currentLocationCopy.name
                         }
                     }
@@ -273,10 +276,10 @@
                         DocumentService.publishSpecificVersion(this.indexRef, this.documentRef, unpublishedVersion.versionNumber, securityToken).then((response) => {
                             this.updatingMap = false;
                             this.unsaved = false;
-                                this.saved = true;
-                        
-                                this.savedMessage = "Location changes saved"
-                                this.locations = _.cloneDeep(response.data.locations);
+                            this.saved = true;
+
+                            this.savedMessage = "Location changes saved"
+                            this.locations = _.cloneDeep(response.data.locations);
                             this.currentLocation = _.cloneDeep(this.locations[index])
                         })
                     })
@@ -288,8 +291,6 @@
                 this.unsaved = true
             },
             onDeleteLocation(locationRef) {
-                console.log("about to delete location: " + locationRef)
-                this.locations.forEach((l) => console.log(l.reference))
                 var securityToken = this.$store.state.securityToken;
                 this.updatingMap = true;
                 this.deletion = true;
@@ -314,7 +315,6 @@
             },
 
             onLocationChangeFromMarker(changedLocation) {
-                console.log("about to changeLocation: " + changedLocation.oldLocation.reference)
                 this.locations.forEach((l) => console.log(l.reference))
                 this.updatingMap = true;
                 var securityToken = this.$store.state.securityToken;
@@ -324,8 +324,6 @@
                     "documentRef": this.documentRef
                 }
                 var index = this.locations.findIndex(l => l.reference == changedLocation.oldLocation.reference)
-                console.log("index to move: " + index)
-                console.log("ref to move: " + changedLocation.oldLocation.reference)
 
                 DocumentService.createNewUnpublishedVersion(request, securityToken).then((response) => {
                     var unpublishedVersion = response.data;
@@ -369,21 +367,14 @@
                         this.updatingMap = false;
                         this.saved = true;
                         this.savedMessage = "New location added"
-
-
-
                     })
                 })
             },
 
             getLocations() {
                 this.locations = _.cloneDeep(this.document.locations);
-                console.log("GOT LOCATIONS")
-                this.locations.forEach((l) => console.log(l.reference))
                 if (this.newLocation)
                     this.currentLocation = this.locations[this.locations.length - 1]
-
-
             },
             async getDocument() {
                 await DocumentService.getDocument(this.indexRef, this.documentRef).then((response) => {
@@ -507,13 +498,13 @@
     }
 
     .status {
-     
+
         transition: max-height .3s;
         overflow: hidden;
         display: flex;
         justify-content: center;
         height: 0;
-        max-height:0;
+        max-height: 0;
 
         &.show {
             height: auto;
@@ -529,14 +520,18 @@
             color: darkred;
             background: #fafafa;
         }
-        .message{
-            
+        .message {}
+    }
+
+    @keyframes showMessage {
+        from {
+            max-height: auto
+        }
+        to {
+            max-height: 0
         }
     }
-@keyframes showMessage {
-    from {max-height:auto}
-    to {max-height:0}
-}
+
     .locations-header {
         font-size: 26px;
 

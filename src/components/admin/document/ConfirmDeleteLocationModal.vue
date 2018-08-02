@@ -6,7 +6,7 @@
     <p>Are you sure you want to delete this location?</p>
     </div>
        <div id="mfooter">
-            <button  class="btn btn-outline-secondary">No, Cancel &amp; close</button>
+            <button @click="close"  class="btn btn-outline-secondary">No, Cancel &amp; close</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal" @click="deleteLocation" >Yes, Delete this location</button>
     </div>
     </b-modal>
@@ -41,6 +41,9 @@
             }
         },
         methods:{
+            close(){
+                  this.$emit("close")
+            },
             onHidden(){
                 this.$emit("close")
             },

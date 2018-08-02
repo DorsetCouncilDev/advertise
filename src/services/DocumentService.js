@@ -98,9 +98,9 @@ export default{
         var url = locationRequest.indexRef + '/documents/' + locationRequest.documentRef + '/locations'
         return api.post(url,locationRequest.location,token)
     },
-    setPrimaryLocation(indexRef,documentRef,locationRef){
+    setPrimaryLocation(indexRef,documentRef,locationRef,token){
         var url = indexRef + '/documents/' + documentRef + '/locations/' + locationRef + '/primary'
-        return api.put(url)
+        return api.put(url,null,token)
     },
     deleteLocation(indexRef,documentRef,locationRef,token){
         var url = indexRef + '/documents/' + documentRef + '/locations/' + locationRef;

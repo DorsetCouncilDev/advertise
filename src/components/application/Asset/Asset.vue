@@ -28,7 +28,7 @@
         <hr>
         <div v-if="document.locations.length > 0">
             <h3>Location</h3>
-            <AssetMaps :locations="document.locations" :streetView="false" :name="document.name"></AssetMaps>
+            <AssetMaps :locations="document.locations" :streetView="streetViewRequired" :name="document.name"></AssetMaps>
         </div>
         <div class="description-text" v-if="description != ''"><hr><p>{{description}}</p><hr></div>
        
@@ -74,7 +74,10 @@
                 return desc;
             },
             streetViewRequired() {
-                return !(this.document.locations[0].streetviewLatitude == null);
+               if(this.document.locations[0].streetviewLatitude != null)
+                   return true;
+                else
+                    return false;
             },
             assetPrice() {
                 var price = null

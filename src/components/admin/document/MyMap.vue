@@ -78,15 +78,13 @@
             onLocationChangeFromMap(newLocation){
                 this.$emit("locationChangedFromMap",newLocation)
             },
-            onLocationChangeFromMarker(movedLocation){
-                console.log("moved location" + movedLocation)
+            onLocationChangeFromMarker(movedLocation){    
                 this.$emit("locationChangeFromMarker", movedLocation)
             },
             onNewLocationRequested(newLocation) { 
                 this.$emit( "newLocationSelected", newLocation)
             },
             onMarkerClicked(location){
-                console.log("myMap emitting: " + location.reference)
                 this.$emit("markerClicked",location)
             },
             onPovChange(pov){

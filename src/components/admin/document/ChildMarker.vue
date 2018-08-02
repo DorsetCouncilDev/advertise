@@ -16,35 +16,26 @@
                 selectedIcon: {
                     url: image, // url
                     scaledSize: new google.maps.Size(50, 50) // scaled size
-
                 }
             }
         },
         watch: {
-            deletion(){
-            
+            deletion(){     
               if(this.currentLocation != null && this.currentLocation.reference != null && this.currentLocation.reference == this.position.reference && this.deletion)
                   this.marker.setMap(null) 
             },
             currentLocation: {
-                handler: function() {
-                     
+                handler: function() {          
                     if (this.currentLocation != null) {
-                       console.log("current ref: " + this.currentLocation.reference)
-                       console.log("pos ref: " + this.position.reference)
                        if (this.currentLocation.reference == this.position.reference) {
-                          
                             this.marker.setIcon(this.selectedIcon)
                             this.marker.setAnimation(this.google.maps.Animation.BOUNCE)
                             var m = this.marker
                             this.marker.setZIndex(4)
-                            setTimeout(function() {
-                                m.setAnimation(null)
-                            }, 100)
+                            setTimeout(function() {  m.setAnimation(null) }, 100)
                         } else {
                             this.marker.setIcon('');
                             this.marker.setZIndex(0)
-                            console.log("unset selected")
                         }
                     }
                 },
@@ -86,12 +77,8 @@
         },
         mounted() {
 
-            const {
-                Marker
-            } = this.google.maps
-console.log("new location: " + this.newLocation.reference)
+            const {Marker} = this.google.maps
             if (this.position.reference == this.currentLocation.reference || this.newLocation) {
-                console.log("setting new marker and selected")
                 this.marker = new Marker({
                     position: {
                         "lat": this.position.latitude,
@@ -105,9 +92,7 @@ console.log("new location: " + this.newLocation.reference)
                 })
                  this.marker.setAnimation(this.google.maps.Animation.BOUNCE)
                 var m = this.marker;
-                setTimeout(function() {
-                                m.setAnimation(null)
-                            }, 100)
+                setTimeout(function() { m.setAnimation(null) }, 100)
             } else {
                 this.marker = new Marker({
                     position: {
@@ -126,19 +111,16 @@ console.log("new location: " + this.newLocation.reference)
 
             this.marker.addListener('dragend', function(event) {
                 ChildMarker.locationChanged(event.latLng)
-               
             })
 
             var lMap = this.map
             var lMarker = this.marker
 
             this.marker.addListener('click', function(event) {
-
                 ChildMarker.locationClicked()
-
             })
-            console.log("new marker made")
-        this.markerAdded()
+
+            this.markerAdded()
         }
     }
 

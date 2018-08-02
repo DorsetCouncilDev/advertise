@@ -64,11 +64,6 @@
         methods: {
             setMapView(){
                 if (this.view == 'street') {
-                    
-                    console.log("setLocation view")
-                    console.log("pos Lat: " + this.currentLocationCopy.latitude)
-                    console.log("pos Lng: " + this.currentLocationCopy.longitude)
-                    
                     var heading = 0 
                     if(this.currentLocationCopy.streetviewHeading != null && (!isNaN(this.currentLocationCopy.streetviewHeading)) && this.currentLocationCopy.streetviewHeading != 0)
                         heading = this.currentLocationCopy.streetviewHeading;
@@ -105,8 +100,6 @@
                 }
             },
             positionChanged(pos) {
-                console.log("curr lat: " + this.currentLocation.latitude)
-                console.log("ch lat: " + pos.lat())
                 if(this.currentLocation.latitude != pos.lat() || this.currentLocation.longitude != pos.lng())
                     this.$emit("locationChangeFromMap",pos)
             },

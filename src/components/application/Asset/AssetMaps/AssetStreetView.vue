@@ -15,17 +15,22 @@
                     type: Object
                 }
         },
+        data(){
+            return {
+            panorama: null
+        }
+        },
         mounted: function() {   
-            var panorama = new google.maps.StreetViewPanorama(document.getElementById('streetView'), {
+            this.panorama = new google.maps.StreetViewPanorama(document.getElementById('streetView'), {
                 position: {
                     lat: this.location.latitude,
                     lng: this.location.longitude
                 },
                 pov: {
                     // direction facing, in degrees from north
-                    heading: 0,
+                    heading: this.location.streetviewHeading,
                     // vertical angle, 0 - straight forward
-                    pitch: 0
+                    pitch: this.location.streetviewPitch
                 },
                 zoom: 1
             });  
@@ -39,7 +44,7 @@
   
 
     #streetView {
-        min-width: 300px;
+        min-width: 400px;
         height: 50vh;
         margin-right:15px;
 
