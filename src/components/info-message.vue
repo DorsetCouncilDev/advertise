@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="info.show" class="info-message"  data-aos="flip-up"><h2><img src="../assets/images/tick.png" class="info-icon"> {{info.message}}</h2></div>
+    <div  v-if="info.show" class="info-message"  data-aos="flip-up"><h2 id="infoMessageHeader"><img src="../assets/images/tick.png" class="info-icon"> {{info.message}}</h2></div>
 </template>
 
 <script>
@@ -32,7 +32,7 @@
             font-size: 18px;
         }
     }
-    h2{
+    #infoMessageHeader{
         font-size: 18px;
         font-weight: normal;
         text-align: center;

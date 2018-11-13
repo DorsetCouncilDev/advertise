@@ -9,8 +9,7 @@
     </div>
           <div class="row" v-if="updated">Updated</div>
       
-      <div class="row">
-        <div class="col-sm-6">
+    
             <div class="form-group">    
                 <label for="name">Name</label>
                 <input class="form-control" id="name" type="text" v-model="document.name" >
@@ -60,29 +59,8 @@
             </div>
     </div>
     </div>
-        <div class="col-sm-6" id="locationSide">
-            <legend>Location</legend>
-            <label class="col-sm-5">Latitude</label>
-            <label class="col-sm-5">Longitude</label>
-            <div class="input-group location-input">
-                <input class="form-control" type="text" id="longitude" @input="locationChanged = true" name="longitude" v-model="location.latitude">
-                <input class="form-control" type="text" id="latitude" @input="locationChanged = true" name="latitude" v-model="location.longitude">
-            </div>   
-            <div class="mt-4 mb-4 d-flex justify-content-between location-actions">
-                <button class="btn btn-outline-primary" v-if="!hasLocation" @click="addLocation" >Submit location</button>
-                <button class="btn btn-primary" v-if="hasLocation" :disabled="!locationChanged" @click="updateLocation">Save location</button>
-                <button class="btn btn-outline-danger" v-if="hasLocation" @click="deleteLocation">Delete location</button>
-                <ModalErrorMessage :error="locationError"></ModalErrorMessage>
-                <ModalInfoMessage :info="locationInfo"></ModalInfoMessage>
-            </div>
-            
-            <div class="mt-4 mb-4">
-                <button class="btn btn-primary" @click="openLocationPicker">Pick a location</button>
-            </div>          
-        </div>
-    </div> 
-             
-    </div>
+       
+   
         <div id="mfooter" v-bind:class="{'doingStuff':isDoingStuff}">
             <button  class="btn btn-outline-secondary" @click="closeModal()"> Close </button>
             <button type="button" class="btn btn-success" data-dismiss="modal" @click="updateDocument">Save</button>

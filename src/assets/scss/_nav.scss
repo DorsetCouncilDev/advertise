@@ -1,0 +1,132 @@
+.ad-breadcrumb {
+    list-style: none;
+    display: inline-flex;
+    flex-wrap: nowrap;
+
+    padding-left: 0;
+    flex-grow: 2;
+    margin-bottom: 2px;
+    li {
+        float: left;
+        margin-right: 5px;
+        &:after {
+            content: ' / ';
+        }
+        &:last-child {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &:after {
+                content: '';
+            }
+        }
+    }
+}
+
+.info {
+    background: white;
+    margin-left: -12px;
+    margin-right: -12px;
+    margin-bottom: 10px;
+
+}
+
+#menuLinksOne,
+#menuLinksTwo {
+    border-bottom: 3px solid #fca82f;
+    padding-bottom: 2px;
+    a {
+        padding: 2px;
+
+
+        color: black;
+        &:hover,
+        &:focus,
+        &:visited {
+            text-decoration: none;
+            border-bottom: solid 6px #60d844;
+        }
+        &.selected {
+            border-bottom: solid 4px #4587de;
+        }
+    }
+}
+
+#menuLinksTwo {
+    display: none;
+}
+
+#menuLinksOne {
+    font-size: 14px;
+}
+
+.contact {
+    width: 100%;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#navRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+@media only screen and (min-width: 430px) {
+
+    #menuLinksTwo {
+        display: block;
+
+    }
+    #menuLinksOne {
+        display: none;
+    }
+
+}
+
+@media only screen and (min-width: 550px) {
+    .contact {
+        font-size: 14px;
+    }
+    .info {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    .info {
+        border-top: 1px solid lightgrey;
+        border-bottom: 1px solid lightgrey;
+        display: flex;
+        flex-direction: row-reverse;
+        .contact {
+            width: auto;
+            padding-top: 2px;
+            z-index: 2;
+            font-size: 18px;
+            span {
+                margin-right: 15px;
+            }
+        }
+        #navRow {
+            width: auto;
+            font-size: 18px;
+        }
+        justify-content: space-between;
+    }
+    #menuLinksTwo {
+        a {
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    #navLinks {
+        font-size: 18px
+    }
+}

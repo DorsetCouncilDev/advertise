@@ -46,15 +46,30 @@
                         
                         price.publishedValue = parseInt(price.publishedValue, 10);
                         
-                        var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + asset.document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + price.publishedValue + '</p>' +
+                        var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + asset.document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + this.getPrice(price.publishedValue) + '</p>' +
                             '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="/advertise/' + asset.document.reference + '">View this opportunity</a></p>';
-                        this.addMarker(asset.document.locations[0],infoContent)
+                        this.addMarker(asset.document,infoContent)
                     }
                 })
                 this.fitMapToBounds();
                 this.map.setZoom(10);
                 }
                
+            },
+            getPrice: function(value) {
+                // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
+
+                if (value == null) {
+                    return 'P.O.A'
+                }
+
+                if (isNaN(value))
+                    return 'P.O.A'
+                else {
+                    var decimals = 1;
+                    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+                    return value;
+                }
             },
             // Sets the map on all markers in the array.
             setMapOnAll: function(map) {
@@ -63,11 +78,18 @@
 
                 }
             },
-            addMarker: function(location,infoContent) {
+            addMarker: function(document,infoContent) {
+                var iconFileName = "pin-" + document.documentTypeReference + ".svg";
+                var pinImage = {
+                    url: require("../../../assets/images/icons/map-pins/" + iconFileName),
+                    scaledSize: new google.maps.Size(45, 55)
+                } 
+                var location = document.locations[0];  
                 var position = new google.maps.LatLng(location.latitude, location.longitude);
                 var marker = new google.maps.Marker({
                     position: position,
-                    map: this.map
+                    map: this.map,
+                    icon: pinImage
                 });
                 
 

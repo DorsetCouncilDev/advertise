@@ -33,7 +33,7 @@ export default{
              return  this.setDocumentProperties(updatedDocument.indexRef,response.data.reference,properties,token)
         })
     },
-    async createDocument(newDocument,token){
+    createDocument(newDocument,token){
         
         // Prepare new document details
         var newDoc = {
@@ -42,35 +42,25 @@ export default{
         }
         
         // Prepare document properties
-        var properties = [];        
-        newDocument.properties.forEach((p) => {
-            var property = {
-                'reference': p.property.reference,
-                'value': p.property.value };
-            properties.push(property);
-            console.log("setting properpert: "  + p.property.reference + " : " + p.property.value)
-        })
+       
         
         // Prepare url
         var url = newDocument.indexRef + '/documenttypes/' + newDocument.typeRef + '/documents';
         
         // Create document
-        await api.post(url,newDoc,token).then((response)=>{
-            return this.setDocumentProperties(newDocument.indexRef,response.data.reference,properties,token)
-        })
+        return api.post(url,newDoc,token);
     },
     
     async setDocumentProperties(indexRef,documentRef,properties,token){
        var url = indexRef + '/documents/' + documentRef + '/properties'
-       await api.put(url,properties,token).then((response)=>{
-            return this.publishLatestVersion(indexRef,documentRef,token)   
-       })
+       return api.put(url,properties,token);
     },
-    async publishLatestVersion(indexRef,documentRef,token){
+    publishLatestVersion(indexRef,documentRef,token){
         var url = indexRef + '/documents/' + documentRef + '/publish'
-        await api.put(url,null,token).then((response)=>{
-            return true;
-        })
+      // return api.publishFailTest(url,null,token); 
+
+      return api.put(url,null,token);
+       
     },
     deleteDocument(indexRef,documentRef,token){
         var url = indexRef + '/documents/' + documentRef;

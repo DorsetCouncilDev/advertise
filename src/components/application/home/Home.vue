@@ -1,30 +1,43 @@
 <template>
 <div class="mb-3">
-<div class="info">
-    <div class="contact"> email <a href="mailto:marketing@dorsetcc.gov.uk"> marketing@dorsetcc.gov.uk</a> - tel.
-        <a href="tel:+441305224125">01305 224125</a>
+   <div class="info">
+        <div class="contact"> 
+            <span>email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span>tel. <a href="tel:+441305224125">01305 224125</a></span>
+            <div id="menuLinksTwo">
+                <router-link to="/advertise/info/contact">Contact us</router-link> 
+                <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+            </div>
+        </div>
+        <div id="navRow">
+            <div id="navLinks">
+                <ol class="ad-breadcrumb">
+                    <li aria-current="page">home</li> 
+                </ol>
+            </div>
+            <div id="menuLinksOne">
+                <router-link to="/advertise/info/contact">Contact us</router-link> 
+                <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+            </div>
+        </div>
     </div>
-    <ol class="ad-breadcrumb">
-        <li aria-current="page">Home</li>   
-    </ol>  
-</div>
 <h1 class="display-4 home-header">Advertise in Dorset to promote your brand.</h1>     
 <HomeSearch :indexRef="indexRef"></HomeSearch>
-<div data-aos="fade-up">
-    <h2 class="mt-3 mb-1 home-second-header">Exposure for your brand</h2>
+<section data-aos="fade-up">
+    <h1 class="mt-3 mb-1 home-second-header">Exposure for your brand</h1>
      <div class="ad-data-collection  mb-5">
         <div class="ad-data">1 <span class="ad-data-label display-3"> Million plus daily motorists</span></div>
         <div class="ad-data">18 <span class="ad-data-label display-3">Million yearly visitors</span></div>
         <div class="ad-data">424,670 <span class="ad-data-label display-3">residents</span></div>
         <div class="ad-data">22,000 <span class="ad-data-label display-3">businesses</span></div>
     </div>
-</div>
-<div data-aos="fade-up">
-<h3 class="third-header">What others say</h3>
+</section>
+<section data-aos="fade-up">
+<h1 class="third-header">What others say</h1>
 <q>We'd recommend roundabout sponsorship in Dorset as a great way of raising brand awareness, and at Dorset Windows we find it provides good value for money. With the right roundabout, we're able to promote our brand as people travel around and be in the forefront of people's minds.</q>
 
 <p class="mb-5">Kath Pumfrey, of Dorset Windows</p>
-</div>
+</section>
 </div>
 </template>
 

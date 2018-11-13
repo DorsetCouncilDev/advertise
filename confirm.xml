@@ -1,0 +1,20 @@
+<xsd:complexType name="EnquiryStructure">
+    <xsd:sequence>
+        <xsd:element name="EnquiryNumber" type="dd:EnquiryNumberType" />
+        <xsd:element name="ExternalSystemNumber" type="dd:ExternalSystemNumberType" minOccurs="0" />
+        <xsd:element name="ExternalSystemReference" type="dd:ExternalSystemReferenceType" minOccurs="0" />
+        <xsd:element name="ServiceCode" type="dd:ServiceCodeType" />
+        <xsd:element name="ServiceName" type="dd:ServiceNameType" />
+        <xsd:element name="SubjectCode" type="dd:SubjectCodeType" />
+        <xsd:element name="SubjectName" type="dd:SubjectNameType" />
+        <xsd:element name="EnquiryDescription" type="dd:EnquiryDescriptionType" minOccurs="0" />
+        <xsd:element name="EnquiryLocation" type="dd:EnquiryLocationType" minOccurs="0" />
+        <xsd:element name="EnquiryLogNumber" type="dd:Number4" />
+        <xsd:element name="EnquiryStatusCode" type="dd:EnquiryStatusCodeType" />
+        <xsd:element name="EnquiryStatusName" type="dd:EnquiryStatusNameType" />
+        <xsd:element name="AssignedOfficerCode" type="dd:AssignedOfficerCodeType" />
+        <xsd:element name="AssignedOfficerName" type="dd:AssignedOfficerNameType" />
+        <xsd:element name="AssignedOfficerPhone" type="dd:PhoneNumber" minOccurs="0" />
+        <xsd:element name="AssignedOfficerEmail" type="dd:AssignedOfficerEmailType" minOccurs="0" />
+        <xsd:element name="LoggedTime" type="dd:LoggedTimeType">
+            <xsd:annotation>

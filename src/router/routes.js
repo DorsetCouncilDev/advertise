@@ -16,6 +16,8 @@ const dcc = '/dcc.dorsetforyou/'
 import store from '../store';
 
 // application
+import ContactForm from '../components/ContactForm';
+import Mediapack from '../components/application/mediapack/Mediapack';
 import Search from '../components/application/search/Search';
 import Asset from '../components/application/Asset/Asset';
 import Home from '../components/application/home/Home';
@@ -141,6 +143,28 @@ const routes = [
         props: true,
         meta: {
             title: 'Advertising opportunity details'
+        }
+    },
+    {
+        path: '/advertise/info/mediapack',
+        component: Mediapack,
+        meta: {
+            title: 'Media Pack'
+        }
+    },
+      {
+        path: '/advertise/info/contact/:documentRef',
+        component: ContactForm,
+          props:true,
+        meta: {
+            title: 'Contact form'
+        }
+    },
+    {
+        path: '/advertise/info/contact',
+        component: ContactForm,
+        meta: {
+            title: 'Contact form'
         }
     }
 ]

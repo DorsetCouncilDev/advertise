@@ -13,7 +13,7 @@
             </div>
     <div class="form-group">
     <label>Choose type text colour 
-    <input type="color" v-model="newDocumentType.colour"></label>
+    <input type="color" v-model="newDocumentType.colour" @change="checkContrast"></label>
                
     </div>
 
@@ -34,6 +34,7 @@
     import Verte from 'verte/dist/verte.js';
     import ModalErrorMessage from '../../modal-error-message'
     import ModalInfoMessage from '../../modal-info-message'
+
     export default {
         name: 'NewDocumentTypeModal',
         props: {
@@ -83,6 +84,9 @@
         },
 
         methods: {
+            checkContrast(){
+                console.log("checking color contrast")
+            },
             colorPicked: function(value) {
                 this.newDocumentType.color = value;
             },

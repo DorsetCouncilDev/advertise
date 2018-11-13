@@ -58,11 +58,12 @@
                 set(value) {
                     this.$store.commit("setAdminLocations", value)
                 }
+                
             },
         },
         methods: {
             markerAdded(){
-                    this.$emit("markerAdded")
+                    this.$emit("markerAdded",this.marker)
             },
             locationClicked() {
                 this.$emit("markerClicked", this.position)

@@ -3,6 +3,7 @@
   <div>
     <map-loader 
       :updating="updating"
+     :markerLocations="locations"
       :map-config="{
         zoom: 12,
         center: {'lat':50.712174,'lng':-2.470366}
@@ -13,6 +14,7 @@
                 @newLocationRequested = "onNewLocationRequested"
                 @locationChangeFromMap = "onLocationChangeFromMap"
                 @povChange = "onPovChange"
+                :markers = "markers"
     >
       <template slot-scope="scopeProps" >
         <child-marker v-for="(location,i) in locations"
@@ -46,7 +48,7 @@
         },
         data() {
             return {
-             
+               markers:[]
             }
         },
         computed:{
@@ -72,8 +74,10 @@
             ChildMarker
         },
         methods: {
-            onMarkerAdded(){
+            onMarkerAdded(marker){
                 this.$emit('newLocationAdded');
+                this.markers.push(marker);
+                
             },
             onLocationChangeFromMap(newLocation){
                 this.$emit("locationChangedFromMap",newLocation)

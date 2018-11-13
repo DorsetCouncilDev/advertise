@@ -1,27 +1,42 @@
 <template>
    <div>
        <div class="info">
-            <div class="contact"> email <a href="mailto:marketing@dorsetcc.gov.uk">
-            marketing@dorsetcc.gov.uk</a> - tel. <a href="tel:+441305224125">01305 224125</a></div>
-           
-            <ol class="ad-breadcrumb">
-                <li><router-link :to="{path: '/advertise'}">home</router-link></li>
-                <li><router-link :to="{ path: '/advertise/search'}">search results</router-link></li>
-                <li aria-current="page">{{document.reference}}</li>
-            </ol>
+        <div class="contact"> 
+            <span>email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span>tel. <a href="tel:+441305224125">01305 224125</a></span>
+            <div id="menuLinksTwo">
+                <router-link to="/advertise/info/contact">Contact us</router-link> 
+                <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+            </div>
         </div>
+        <div id="navRow">
+            <div id="navLinks">
+                <ol class="ad-breadcrumb">
+                    <li><router-link :to="{path: '/advertise'}">home</router-link></li>
+                <li><router-link :to="{ path: '/advertise/search'}">search results</router-link></li>
+                <li aria-current="page">asset</li>   
+                </ol>
+            </div>
+            <div id="menuLinksOne">
+                <router-link to="/advertise/info/contact">Contact us</router-link> 
+                <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+            </div>
+        </div>
+    </div>
+     
         <div class="document-header">
             <div class="icon-holder">
                 <img id="brandImage" :src="getIcon(document.documentTypeReference)" alt="document.documentTypeReference">
             </div>   
             <div class="document-headings">
                 <h1 id="assetTitleText">{{document.name}}</h1>
-                <h2 id="assetLongText">{{document.documentTypeName}} {{document.longText}}</h2>
+                <h2 id="assetLongText">{{document.documentTypeName}} - {{document.longText}}</h2>
             </div>
         </div>
         <h3>{{assetPrice}}</h3>
         <p id="assetParagraph" v-if="afterPriceText">{{afterPriceText}} </p>
        <hr>
+   <router-link class="btn btn-primary" v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/'+documentRef}">Add to waiting list</router-link>
         <p id="assetParagraph" v-for="p in document.properties">
             <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">{{p.propertyName}}: {{p.publishedValue | readBoolean}}</span>
         </p>
@@ -115,8 +130,9 @@
             assetAvailable() {
                 var available = false
                 this.document.properties.forEach((p) => {
-                    if (p.propertyReference == 'available' && p.value == 'true')
-                        available = true;
+                    console.log("checking property " + p.propertyReference)
+                    if (p.propertyReference == 'available' && p.publishedValue == 'true')
+                       available = true;
                 })
                 return available
             },
@@ -176,10 +192,12 @@
     #assetTitleText {
         font-size: 1.8rem;
         margin-bottom: 2px;
+         text-align: left;
     }
 
     #assetLongText {
         font-size: 1.2rem;
+        text-align: left;
     }
 
     .assetParagraph {
@@ -225,9 +243,11 @@
         #assetTitleText {
             font-size: 1.8rem;
             margin-bottom: 5px;
+             text-align: left;
         }
         #assetLongText {
             font-size: 1.4rem;
+            text-align:left;
         }
         .assetParagraph {
             font-size: 19px;

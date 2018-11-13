@@ -56,7 +56,7 @@
         <label for="two" id="gridViewLabel">Streetview</label>
     </div>
         <div class="col-sm-2">
-   <button v-if="currentLocation.primaryLocation" class="btn btn-outline-primary" @click="toggleStreetview"><span v-if="currentLocationCopy.streetviewLatitude != null">Streetview Active</span><span v-else>Streetview Not active</span></button>
+   <button v-if="currentLocation.primaryLocation" class="btn btn-outline-primary" @click="toggleStreetview"><span v-if="currentLocationCopy.streetviewLatitude != null" title="show streetview on asset page">Streetview Active</span><span v-else>Streetview Not active</span></button>
     </div>
         </div>
     </div>
@@ -69,13 +69,13 @@
 <div class="row">
     <div class="col-sm-12">
         <my-map :view="view" :updating="updatingMap" :currentLocationCopy="currentLocationCopy" :deletion="deletion" :newLocation="newLocation" @locationChangeFromMarker="onLocationChangeFromMarker" @newLocationSelected="onNewLocationSelected" @locationChangedFromMap="onLocationChangeFromMap" @markerClicked="onMarkerClicked"
-        @povChange="onPovChange" @newLocationAdded="onNewLocationAdded"> </my-map>
+        @povChange="onPovChange" @newLocationAdded="onNewLocationAdded" > </my-map>
     </div>
 </div>
 
     <div class="mt-4">
          <div class="col-sm-2" >
-        <button class="btn btn-outline-danger mb-4" @click="requestDeleteLocation">Delete</button>
+        <button class="btn btn-danger mb-4" @click="requestDeleteLocation">Delete selected location</button>
     </div>
     <b-link v-b-toggle.collapse1 >Edit location details</b-link>
 <b-collapse id="collapse1" class="mt-2">
@@ -152,7 +152,8 @@
                 disableNameButton: true,
                 deletion: false,
                 newLocation: false,
-                savedMessage: ""
+                savedMessage: "",
+                map: null
             }
         },
         watch: {
@@ -210,6 +211,7 @@
           
         },
         methods: {
+      
             setPrimaryLocation(){
                  var securityToken = this.$store.state.securityToken;
                 DocumentService.setPrimaryLocation(this.indexRef,this.documentRef,this.currentLocationCopy.reference,securityToken).then((response)=>{
@@ -230,8 +232,7 @@
                 this.saveLocation();
                 
             },
-            onNewLocationAdded() {
-
+            onNewLocationAdded() {  
                 this.newLocation = false;
             },
             onPovChange(pov) {
@@ -373,13 +374,17 @@
 
             getLocations() {
                 this.locations = _.cloneDeep(this.document.locations);
-                if (this.newLocation)
+                if (this.newLocation || this.locations.length == 1)
                     this.currentLocation = this.locations[this.locations.length - 1]
+          
+                  
             },
             async getDocument() {
                 await DocumentService.getDocument(this.indexRef, this.documentRef).then((response) => {
                     this.document = response.data;
                     this.getLocations();
+                            
+                    
 
                 })
             }

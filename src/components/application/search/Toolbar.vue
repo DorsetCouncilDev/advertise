@@ -1,10 +1,12 @@
 <template>
 <div id="searchToolbar">
-    <div id="menuIcon"><button v-on:click="toggleSearchForm" class="btn btn-light"><img src="../../../assets/images/search-black.svg"></button></div> 
+    <div id="menuIcon">
+        <button v-on:click="toggleSearchForm" type="button" aria-label="Search" class="btn btn-light" aria-describedby="descriptionSearch"><img src="../../../assets/images/search-black.svg" alt="Open search menu"></button>
+    </div> 
         <div class="stv-radio-tabs-wrapper">
                 <label id="sortSelectLabel" for="sortSelect">Sort</label>
                 <select class="stv-radio-tab form-control" id="sortSelect" v-model="sort" >
-                    <option value="bestmatch" selected="selected">Best match</option>
+                    <option value="best-match" selected="selected">Best match</option>
                     <option value="price-high">Cost high</option>
                     <option value="price-low">Cost low</option>
                 </select>
@@ -18,6 +20,7 @@
                 <input type="radio" class="stv-radio-tab" id="three" name="tickme" value="listView" v-model="view">
                 <label for="three" id="listViewLabel">List</label>
         </div>
+    <div id="descriptionSearch">Open the search options, when hidden on a small screen. Selecting again shall close the search options.</div>
     </div>
 </template>
 
@@ -84,6 +87,11 @@
     $sortSelectHeight:35px;
     $sortSelectWidth:100px;
 
+    #descriptionSearch{
+        position:absolute;
+        left:-1000px;
+        opacity:0;
+    }
     #searchToolbar {
         width: 100%;
         position: relative;

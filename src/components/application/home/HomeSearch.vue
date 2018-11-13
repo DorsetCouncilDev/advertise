@@ -2,13 +2,13 @@
 <div class="row">
     <section class="col-sm-6 col-md-5" id="postcodeSearchBlock">      
         <form v-on:submit.prevent="postcodesearch">
-            <div class="form-group" aria-labelledBy="search" aria-describedby="postcode">
+            <div class="form-group" aria-labelledBy="search">
                 <h2 class="home-action-label mb-2" id="search">Find opportunities near you</h2>
-                <label class="invisible" for="postcode" aria-label="Postcode" id="postcodeLabel">Postcode</label>
+                <label class="invisible" for="postcode" id="postcodeLabel">Postcode</label>
                 <div class="input-group">
                     <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Search postcode" v-model="postcode">
                     <div class="input-group-append">
-                        <button class="btn btn-success" aria-label="search" type="button" @click="postcodesearch" role="button"> GO </button>
+                        <button class="btn btn-success" type="button" @click="postcodesearch"> GO </button>
                     </div>
                 </div>
             </div>

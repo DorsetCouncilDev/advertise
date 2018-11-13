@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="type-icon">
-                <img class="type-icon" :src="getIcon(type.reference)" :alt="type.name">
+                <img class="type-icon" :src="getIcon(type.reference)" alt="">
             </div>
             
         </div>

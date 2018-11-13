@@ -27,7 +27,7 @@
                 <tr v-for="document in filteredBySearch" :key="document.reference">
                     <td><span class="view-link" @click="openDocumentViewModal(document)">{{document.name}}</span></td>
                     <td>{{document.documentType}}</td>
-                    <td class="locations-column"><router-link :to="{path: '/advertise/admin/indexes/' + indexRef + '/' + document.reference + '/locations'}">{{document.publishedVersion.locations.length}}</router-link></td>
+                    <td class="locations-column"><router-link v-if="document.publishedVersion != null && document.publishedVersion.published" :to="{path: '/advertise/admin/indexes/' + indexRef + '/' + document.reference + '/locations'}">{{document.publishedVersion.locations.length}}</router-link></td>
                     <td> <span  v-if="document.publishedVersion != null && document.publishedVersion.published" class="text-success">published</span><span v-else> unpublished</span></td>
                 </tr>
             </tbody>

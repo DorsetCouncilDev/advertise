@@ -17,7 +17,8 @@
             apiKey: String,
             updating: Boolean,
             view: String,
-            currentLocationCopy:Object
+            currentLocationCopy:Object,
+            markers:Array
         },
         components: {
             MapProvider
@@ -26,7 +27,9 @@
             return {
                 google: null,
                 map: null,
-                panorama: null
+                panorama: null,
+                newMarkersAdded: false
+                
             }
         },
         mounted() { // point 3
@@ -47,7 +50,28 @@
                         this.setMapView()
                 },
                 deep:true
-            }
+            },
+            markers:{
+            handler: function() {
+                if(!this.newMarkerAdded){
+              
+                 console.log("marker change")
+                 const {LatLngBounds} = this.google.maps
+               let bounds = new LatLngBounds();
+             
+
+           this.markers.forEach((marker) =>{
+              bounds.extend(marker.position)
+            
+             }) 
+               this.map.fitBounds(bounds);
+            this.map.setZoom(10);
+                    
+                }
+            },
+        deep:false
+    }
+    
         },
         computed: {
             currentLocation: {
@@ -111,13 +135,15 @@
                 const { LatLng } = this.google.maps
                 const { Marker } = this.google.maps
                 
+                
                 this.map = new Map(mapContainer, this.mapConfig)
                 
                 this.panorama = this.map.getStreetView();
                 
                 var mapRef = this.map
-                
+                var markerAdded = this.newMarkerAdded;
                 this.map.addListener('rightclick', function(e) {
+                    markerAdded = true;
                     var marker = new Marker({
                         position: {
                             "lat":  e.latLng.lat(),
@@ -147,9 +173,12 @@
                 })
                 this.panorama.addListener('position_changed', function() {
                         mapL.positionChanged(pan.getPosition())
-                })      
+                }) 
+
+        }  
+                
             }
-        }
+
     }
 
 </script>

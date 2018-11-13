@@ -1,173 +1,1468 @@
-{
-    "name": "Dorch Car Park",
-    "longText": "dd",
-    "reference": "dorch-car-park",
+[{
+    "name": "Pavilion Roundabout No.29",
+    "longText": "Weymouth",
+    "reference": "pavilion-roundabout-no-29",
     "index": "advertise",
-    "published": true,
-    "unpublishedVersion": false,
-    "publishedVersionNumber": 57,
-    "unpublishedVersionNumber": 0,
-    "properties": [{
-        "propertyName": "Price",
-        "propertyReference": "price",
-        "propertyType": "Text",
-        "publishedValue": null,
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-    }, {
-        "propertyName": "Available",
-        "propertyReference": "available",
-        "propertyType": "Boolean",
-        "publishedValue": "true",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-    }],
-    "locations": [{
-        "name": null,
-        "latitude": 50.71211965056588,
-        "longitude": -2.46144879114604,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.7703923227326044,
-        "streetviewPitch": 0.0,
-        "primaryLocation": true,
-        "reference": "b3206302-6f92-4de7-9059-9ec1d9658c61"
-    }, {
-        "name": "",
-        "latitude": 50.71211965056593,
-        "longitude": -2.4836360241172315,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "d81c1c39-276a-45a4-ac0a-f9f6367deda2"
-    }, {
-        "name": null,
-        "latitude": 50.712377809816736,
-        "longitude": -2.4558697963950635,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.7703923227326044,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "9d0c667c-b49c-47de-9336-459cc0c801bf"
-    }, {
-        "name": null,
-        "latitude": 50.71259520597789,
-        "longitude": -2.4529515529868604,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.7703923227326044,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "76b718e0-a043-4652-8611-e73299a5c6f8"
-    }, {
-        "name": null,
-        "latitude": 50.71097829789284,
-        "longitude": -2.4564614284668096,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "ad4d1cd5-f44d-4551-b050-1fa176dfcc23"
-    }, {
-        "name": "near town",
-        "latitude": 50.723803329290455,
-        "longitude": -2.4588646877441533,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "539bf32e-37eb-4349-ac79-c835fda53678"
-    }, {
-        "name": "",
-        "latitude": 50.71141310218788,
-        "longitude": -2.4647011745605596,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "5068d95c-72e8-4da0-9e7e-7376d3d5f0ab"
-    }, {
-        "name": null,
-        "latitude": 50.711847902450025,
-        "longitude": -2.5000634182129033,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "40355daf-d245-4ec3-a5ef-91d6b7e909fd"
-    }, {
-        "name": null,
-        "latitude": 50.7216042052941,
-        "longitude": -2.541591973137315,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 78.56489536693806,
-        "streetviewPitch": -0.41183305945753546,
-        "primaryLocation": false,
-        "reference": "b75376eb-dddd-45de-a912-2c3f4e3c19e8"
-    }, {
-        "name": null,
-        "latitude": 50.715108775866696,
-        "longitude": -2.5220360744629033,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "6f4d2191-2a92-4de5-8401-28a1eff35a06"
-    }, {
-        "name": "well outta there",
-        "latitude": 50.72489003504933,
-        "longitude": -2.5673546779785283,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "7735c314-c6af-4500-a45c-d09e28c85eb8"
-    }, {
-        "name": "out of town19",
-        "latitude": 50.74401193125619,
-        "longitude": -2.519976137939466,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "f7f69e75-58a2-4fb7-b2c8-0310b91ba5f2"
-    }, {
-        "name": "south",
-        "latitude": 50.69727989815562,
-        "longitude": -2.491137026611341,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "0443dbba-94fd-46a5-8e74-877df632b2ba"
-    }, {
-        "name": null,
-        "latitude": 50.729019287077904,
-        "longitude": -2.564264773193372,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": 0.0,
-        "streetviewPitch": 0.0,
-        "primaryLocation": false,
-        "reference": "5047dee3-550d-47f4-a752-63a4fc8711b6"
-    }],
-    "unpublishedLocations": [],
-    "documentTypeReference": "car-parking-ticket-advertising",
-    "documentTypeName": "Car Parking Ticket Advertising",
-    "images": [],
-    "files": []
-}
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 22,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "2",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1219mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "currently available",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3600.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £250 + VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.609162,
+            "longitude": -2.448061,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": false,
+            "reference": "cf9f627a-fe7c-4d2c-8f08-46bd2f907f93"
+        }]
+    }
+}, {
+    "name": "Castletown Roundabout No.31",
+    "longText": "Portland",
+    "reference": "castletown-roundabout-no-31",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 7,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £125 + VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "currently available",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "1800.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.  Castletown Roundabout (no.31) is close to the Osprey Quay Leisure Centre and the Castletown D-Day Centre - a recreation of the busy  wartime Portland dockyard.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.567761,
+            "longitude": -2.445455,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "74b2e80f-2b34-420f-b42f-81ee37227a50"
+        }]
+    }
+}, {
+    "name": "Gore Cross Roundabout No.5",
+    "longText": "Bradpole, Bridport",
+    "reference": "gore-cross-roundabout-no-5",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 13,
+        "published": true,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3900.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "4",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1219mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic Flow Per 12 Hour Period",
+            "propertyReference": "traffic-flow-per-12-hour-period",
+            "value": "21969",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £270.83 + VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "Under Offer",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "false",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape. Gore Cross Roundabout (no.5) is located next to the Gore Cross Business Park between bridport and Beaminster and has a high volume of passing vehicles making it a prime location for sponsorship.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.747757,
+            "longitude": -2.743106,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "712c9ac3-525f-4762-9023-ca1795047e39"
+        }]
+    }
+}, {
+    "name": "Max Gate Roundabout No.38",
+    "longText": "Dorchester",
+    "reference": "max-gate-roundabout-no-38",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 13,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "4",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "under offer",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3000.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic Flow Per 12 Hour Period",
+            "propertyReference": "traffic-flow-per-12-hour-period",
+            "value": "13500",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £208.33 + VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "false",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.7070124,
+            "longitude": -2.419641,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "c6efe3a2-e896-49b7-894a-a70960a14f4c"
+        }]
+    }
+}, {
+    "name": "Came View Roundabout No.39",
+    "longText": "Dorchester",
+    "reference": "came-view-roundabout-no-39",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 13,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "currently available",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "2700.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic Flow Per 12 Hour Period",
+            "propertyReference": "traffic-flow-per-12-hour-period",
+            "value": "13500",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £187.50 + VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.705548,
+            "longitude": -2.415822,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "4e65d35f-f726-46e1-8fa5-45768cbc1e3b"
+        }]
+    }
+}, {
+    "name": "Troy Town Roundabout No.41",
+    "longText": "Troy Town",
+    "reference": "troy-town-roundabout-no-41",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 6,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "currently available",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "2280.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £158.34 + VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Before price",
+            "propertyReference": "before-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.744396,
+            "longitude": -2.362982,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "4ee64552-672b-4bcd-96bd-27273a78a430"
+        }]
+    }
+}, {
+    "name": "Northbrook Junction South Roundabout No.43",
+    "longText": "Puddletown",
+    "reference": "northbrook-junction-south-roundabout-no-43",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 12,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "under offer",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "2880.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £200 + VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape. Located close to the A35 near Puddletown, this roundabout provides a great opportunity to connect with rural communities, residents and visitors to the area.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "false",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.753561,
+            "longitude": -2.342338,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "28285da7-6994-470c-8664-c021b6d93739"
+        }, {
+            "name": null,
+            "latitude": 50.753561,
+            "longitude": -2.342338,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": false,
+            "reference": "76a6d9c3-3557-4335-9d3f-c2531dfb0e23"
+        }, {
+            "name": null,
+            "latitude": 50.753561,
+            "longitude": -2.342338,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": false,
+            "reference": "e5cbf717-6a53-4e59-826a-7347d483c2ef"
+        }, {
+            "name": null,
+            "latitude": 50.753561,
+            "longitude": -2.342338,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": false,
+            "reference": "1ab06bb8-b5e1-41c0-b3e1-e98e816552cd"
+        }, {
+            "name": null,
+            "latitude": 50.753561,
+            "longitude": -2.342338,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": false,
+            "reference": "eef8e040-e57b-4b65-bf58-976f824ca152"
+        }, {
+            "name": null,
+            "latitude": 50.753561,
+            "longitude": -2.342338,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": false,
+            "reference": "9116db3b-014c-4800-a797-fe6bafbf4ba2"
+        }]
+    }
+}, {
+    "name": "Worgret Roundabout No.62",
+    "longText": "Wareham",
+    "reference": "worgret-roundabout-no-62",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 9,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "4",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "Sponsored by Meyers Estates Wareham",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic Flow Per 12 Hour Period",
+            "propertyReference": "traffic-flow-per-12-hour-period",
+            "value": "19150",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": null,
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "false",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.683412,
+            "longitude": -2.125189,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "967400b3-756d-4442-a8f6-6f9ac8ec065f"
+        }]
+    }
+}, {
+    "name": "Station Roundabout No.63",
+    "longText": "Wareham",
+    "reference": "station-roundabout-no-63",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 4,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Overview of Sponsorship",
+            "propertyReference": "overview-of-sponsorship",
+            "value": null,
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "currently available",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3000.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic Flow Per 12 Hour Period",
+            "propertyReference": "traffic-flow-per-12-hour-period",
+            "value": "6137",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business rate £208.33 +VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.693681,
+            "longitude": -2.11453,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "66cc4055-092c-4101-b46d-51ce61ef2810"
+        }]
+    }
+}, {
+    "name": "Woodlands Roundabout No.68",
+    "longText": "Sandford, Wareham",
+    "reference": "woodlands-roundabout-no-68",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 8,
+        "published": true,
+        "properties": [{
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "under offer",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "2700.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business rate £187.50 +VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape. Woodlands Roundabout (No.68) is located on the A351 road approximately two miles from Wareham and seven miles from Poole. ",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "false",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.710758,
+            "longitude": -2.095298,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "09b1cf4e-d24c-4535-87ac-4aeeebb9acd9"
+        }]
+    }
+}, {
+    "name": "Blackhill Roundabout No.69",
+    "longText": "Holton Heath, Wareham St. Mary",
+    "reference": "blackhill-roundabout-no-69",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 23,
+        "published": true,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": null,
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic Flow Per 12 Hour Period",
+            "propertyReference": "traffic-flow-per-12-hour-period",
+            "value": "22050",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £187.50 +VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "Sponsored by Southern Engineering Equipment Ltd",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "false",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.  Blackhill Roundabout offers great value for money; with a high traffic flow making the opportunities to see your adverts just £0.34 per 1000 views.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": []
+    }
+}, {
+    "name": "Upton Gateway Roundabout No.79",
+    "longText": "Upton",
+    "reference": "upton-gateway-roundabout-no-79",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 7,
+        "published": true,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3180.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Overview of Sponsorship",
+            "propertyReference": "overview-of-sponsorship",
+            "value": null,
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "4",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1219mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic Flow Per 12 Hour Period",
+            "propertyReference": "traffic-flow-per-12-hour-period",
+            "value": "19950",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business Price £220.84 +VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "currently available",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.  Upton Gateway Roundabout (No.79) is at the junction of the A35 and A350, close to Upton Country Park.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.7401658024739,
+            "longitude": -2.0139037624619505,
+            "streetviewLatitude": 50.7401658024739,
+            "streetviewLongitude": -2.0139037624619505,
+            "streetviewHeading": 38.039018959295795,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "db95b217-6c51-46cc-89b7-8ea1a54a55ec"
+        }]
+    }
+}, {
+    "name": "Champtoceaux (Coopers Lane) Roundabout No.92",
+    "longText": "Verwood",
+    "reference": "champtoceaux-coopers-lane-roundabout-no-92",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 16,
+        "published": true,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "2400.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "910mm x 560mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £166.67 +VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "currently available",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape. \n",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.88544321669561,
+            "longitude": -1.8813614780455055,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": 73.16004570718698,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "bd6cfffa-90a6-43fb-9b6c-2d5e58b831f4"
+        }, {
+            "name": null,
+            "latitude": 50.88558512730141,
+            "longitude": -1.8811909007338272,
+            "streetviewLatitude": 50.88551855362305,
+            "streetviewLongitude": -1.8810145849772653,
+            "streetviewHeading": 108.87870428458538,
+            "streetviewPitch": null,
+            "primaryLocation": false,
+            "reference": "dcf81db6-d257-4354-9d66-8effe506ffe7"
+        }]
+    }
+}, {
+    "name": "Great Field Roundabout No.20",
+    "longText": "Dorchester",
+    "reference": "great-field-roundabout-no-20",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 12,
+        "published": true,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3900.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "4",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £270.83 +VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "Under Offer",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "false",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape. The Great Field Roundabout (no.20) provides an advertising opportunity between Poundbury and Dorchester, an ideal location for marketing to residents and businesses.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.712336,
+            "longitude": -2.459186,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "132e7c69-a684-4709-9122-7ee44b2ef8b2"
+        }]
+    }
+}, {
+    "name": "Stour Roundabout No.108",
+    "longText": "Christchurch",
+    "reference": "stour-roundabout-no-108",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 11,
+        "published": true,
+        "properties": [{
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "4",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "910mm x 560mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Traffic Flow Per 12 Hour Period",
+            "propertyReference": "traffic-flow-per-12-hour-period",
+            "value": "21700",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £225 +VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "Sponsored by Your Room Self Storage",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "false",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape. ",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT) ",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.73124,
+            "longitude": -1.788891,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "e09b9d37-e40e-4347-be41-060c2dbc3d11"
+        }, {
+            "name": null,
+            "latitude": 50.73124,
+            "longitude": -1.788891,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": false,
+            "reference": "032e4f2a-fdbc-4870-bae6-56fe33a5b0ac"
+        }]
+    }
+}, {
+    "name": "Black Hill Roundabout No.98",
+    "longText": "Verwood",
+    "reference": "black-hill-roundabout-no-98",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 13,
+        "published": true,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3120.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "4",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016 mm x 610 mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £216.67 + VAT @ 20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "Currently Available",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT)",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": []
+    }
+}, {
+    "name": "Chapel Gate Roundabout No.99",
+    "longText": "Chapel Gate, East Parley",
+    "reference": "chapel-gate-roundabout-no-99",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 3,
+        "published": true,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3900.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "Available from 1st October 2018",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "minimum 12 months",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business rate £270.83 +VAT@20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "3",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1219mm x 610mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "including VAT",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": null,
+            "latitude": 50.778961,
+            "longitude": -1.860044,
+            "streetviewLatitude": null,
+            "streetviewLongitude": null,
+            "streetviewHeading": null,
+            "streetviewPitch": null,
+            "primaryLocation": true,
+            "reference": "75a0c0a1-80b3-4bc3-9352-9ff132f2aac1"
+        }]
+    }
+}, {
+    "name": "Windgreen Roundabout No.77",
+    "longText": "Corfe Mullen",
+    "reference": "windgreen-roundabout-no-77",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": {
+        "versionNumber": 4,
+        "published": true,
+        "properties": [{
+            "propertyName": "Price",
+            "propertyReference": "price",
+            "value": "3120.0",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Duration of Sponsorship",
+            "propertyReference": "duration-of-sponsorship",
+            "value": "12 months minimum",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Number of Signs",
+            "propertyReference": "number-of-signs",
+            "value": "4",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sign Sizes",
+            "propertyReference": "sign-sizes",
+            "value": "1016 mm x 610 mm",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Sponsorship Fee Per Month",
+            "propertyReference": "sponsorship-fee-per-month",
+            "value": "business price £216.67 + VAT @ 20%",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Availability",
+            "propertyReference": "availability",
+            "value": "available from 1st November 2018",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "Available",
+            "propertyReference": "available",
+            "value": "true",
+            "display": false,
+            "listValue": []
+        }, {
+            "propertyName": "Description",
+            "propertyReference": "description",
+            "value": "Advertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+            "display": true,
+            "listValue": []
+        }, {
+            "propertyName": "After price",
+            "propertyReference": "after-price",
+            "value": "per annum (including VAT)",
+            "display": false,
+            "listValue": []
+        }],
+        "locations": [{
+            "name": "Windgreen Roundabout",
+            "latitude": 50.77691967234115,
+            "longitude": -2.0150064281428968,
+            "streetviewLatitude": 50.77691967234115,
+            "streetviewLongitude": -2.0150064281428968,
+            "streetviewHeading": 97.28100855314142,
+            "streetviewPitch": -3.4514697362863274,
+            "primaryLocation": true,
+            "reference": "b6f02eb2-13b5-4914-927f-2d43be940e65"
+        }]
+    }
+}, {
+    "name": "Bakers Arms Roundabout No.74",
+    "longText": "Upton",
+    "reference": "bakers-arms-roundabout-no-74",
+    "index": "advertise",
+    "documentType": "roundabout-sponsorship",
+    "publishedVersion": null
+}]

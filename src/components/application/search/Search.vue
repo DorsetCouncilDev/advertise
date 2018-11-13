@@ -1,16 +1,26 @@
 <template>
 <div>
     <div class="info">
-        <div class="contact"> email <a href="mailto:marketing@dorsetcc.gov.uk">
-          marketing@dorsetcc.gov.uk</a> - tel.
-          <a href="tel:+441305224125">01305 224125</a>
+        <div class="contact"> 
+            <span>email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span>tel. <a href="tel:+441305224125">01305 224125</a></span>
+            <div id="menuLinksTwo">
+                <router-link to="/advertise/info/contact">Contact us</router-link> 
+                <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+            </div>
         </div>
-        <ol class="ad-breadcrumb">
-            <li>
-                <router-link :to="{ path: '/advertise'}">home</router-link>
-            </li>
-            <li aria-current="page">search</li>   
-        </ol>
+        <div id="navRow">
+            <div id="navLinks">
+                <ol class="ad-breadcrumb">
+                    <li><router-link :to="{ path: '/advertise'}">home</router-link></li>
+                    <li aria-current="page">search</li>      
+                </ol>
+            </div>
+            <div id="menuLinksOne">
+                <router-link to="/advertise/info/contact">Contact us</router-link> 
+                <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+            </div>
+        </div>
     </div>
     <h1>Discover opportunities</h1>
     <div id="searchContainer">

@@ -14,11 +14,11 @@
 
         <div class="footer-block" id="links">
             <ul class="list-inline" id="textLinks">
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/website" title="About">About <span id="dfyLText">'Dorset for you'</span></a></li>
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/accessibility" title="Accessibility">Accessibility</a></li>
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/contactus" title="Contact">Contact</a></li>
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/privacypolicy" title="Privacy policy">Privacy policy</a></li>
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/termsandconditions" title="Terms &amp; conditions">Terms &amp; conditions</a></li><li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/translate" title="Translate">Translate</a></li>
+                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/website">About <span id="dfyLText">'Dorset for you'</span></a></li>
+                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/accessibility" >Accessibility</a></li>
+                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/contactus">Contact</a></li>
+                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/privacypolicy" >Privacy policy</a></li>
+                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/termsandconditions">Terms &amp; conditions</a></li><li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/translate">Translate</a></li>
             </ul>
         </div>
         <div class="footer-block" id="socialBlock">
@@ -32,7 +32,7 @@
                 <li class="list-inline-item"><a href="https://www.instagram.com/dorsetforyou/" title="Instagram" target="_blank" class="social-link instagram">
                         <span class="invisible">Instagram</span></a>
                 </li>
-                <li class="list-inline-item"><a href="https://www.youtube.com/channel/UCsvVB0izExckoxLqPIYla6Q" title="YouTube" target="_blank" class="social-link youtube">
+                <li class="list-inline-item"><a href="https://www.youtube.com/channel/UCsvVB0izExckoxLqPIYla6Q"  target="_blank" class="social-link youtube">
                         <span class="invisible">YouTube</span></a>
                 </li>
                 <li class="list-inline-item"><a href="https://www.flickr.com/photos/dorsetforyou/" title="Flickr" target="_blank" class="social-link flickr">

@@ -1,20 +1,16 @@
 <template>
-<div  v-if="error.show" class="error-message" data-aos="flip-up"><h2 id="errorMessageText"><img src="../assets/images/cross.png" class="error-icon"> {{error.message}}</h2><p class="errorParagraph" v-if="error.detail">{{error.detail}}</p></div>
+<div  class="error-message" data-aos="flip-up"><h2 id="errorMessageText"><img src="../../../assets/images/cross.png" class="error-icon"> Asset was created but failed to publish</h2>
+    <p id="errorParagraph">Attempt to publish again or try again later</p>
+    <div class="d-flex justify-content-center">
+    <button class="btn btn-success" @click="$emit('publish')">Publish asset</button>
+</div>
+    </div>
 </template>
 
 <script>
     import AOS from 'aos'
     export default {
-        props: {
-            error: {
-                required: true,
-                type: Object
-            },
-            publishOption:{
-                required: false,
-                type: Boolean
-            }
-        },
+        name: "PublishedError",
         mounted() {
             AOS.init({
                 once: true,
@@ -38,11 +34,12 @@
 
         #errorParagraph {
             font-size: 18px;
+            text-align: center;
         }
 
         #errorMessageText {
-            font-size: 18px;
-            font-weight: normal;
+            font-size: 22px;
+            font-weight: bolder;
             margin-bottom: 0;
         }
         .error-icon {

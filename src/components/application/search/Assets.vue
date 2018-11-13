@@ -32,6 +32,7 @@
     import Toolbar from './Toolbar'
     import SearchCriteria from './SearchCriteria'
     import AOS from 'aos'
+
     export default {
         name: 'Assets',
         components: {

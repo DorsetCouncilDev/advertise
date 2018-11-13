@@ -1,7 +1,7 @@
 <template>
   <b-modal v-model="showModal" @hidden="onHidden" @show="onShow" hide-footer title="Create new Asset">
       <div class="ad-modal-body">      
-      
+       
             <div class="form-group" :class="{'hasError':errorMessages.name}">    
                 <label for="name">Name</label>
                 <input class="form-control" id="name" type="text" v-model="document.name" >
@@ -41,8 +41,9 @@
         <div id="mfooter" v-bind:class="{'doingStuff':isDoingStuff}">
             <button type="button" class="btn btn-outline-secondary" @click="closeModal()"> Close </button>
             <button type="button" class="btn btn-success pull-right" data-dismiss="modal" @click="createDocument">Submit</button>
-            <ModalErrorMessage :error="error"></ModalErrorMessage>
+        <!--    <ModalErrorMessage :error="error" :publishOption="document.reference != null && !document.published"></ModalErrorMessage> -->
             <ModalInfoMessage :info="info"></ModalInfoMessage>
+            <ModalPublishedErrorMessage v-show="publishError" @publish="publish"></ModalPublishedErrorMessage>
         </div>
   </b-modal>
 </template>
@@ -57,12 +58,14 @@
 
     import ModalErrorMessage from '../../modal-error-message'
     import ModalInfoMessage from '../../modal-info-message'
+    import ModalPublishedErrorMessage from './PublishedError'
     export default {
 
         name: 'NewDocumentModal',
         components: {
             ModalErrorMessage,
-            ModalInfoMessage
+            ModalInfoMessage,
+            ModalPublishedErrorMessage
         },
         props: {
             show: {
@@ -106,11 +109,23 @@
                 errorMessages: {
                     name: "",
                     type: ""
-                }
+                },
+                publishError: false,
+                document: {}
             }
         },
 
         methods: {
+            publish : function(){
+                 var securityToken = this.$store.state.securityToken;
+                  DocumentService.publishLatestVersion(this.indexRef, this.document.reference,  securityToken).then((response) => {
+                                this.$emit('create');
+                            }, (error) => {
+                                this.clearActionMessage();
+                                this.error.show = true;
+                                this.error.message = "Asset was created, but failed to publish";
+                            });
+            },
             closeModal: function() {
                 this.$emit('close');
             },
@@ -125,19 +140,19 @@
                     this.error.message = "Name is required. ";
                     this.error.detail = "";
                     this.errorMessages.name = "Name is required"
-                    numberOfErrors ++
+                    numberOfErrors++
 
                 }
-                 if (this.type.reference == null) {
+                if (this.type.reference == null) {
                     this.clearActionMessage();
                     this.error.show = true;
                     this.error.detail = "";
-                     this.error.message += "Type is required. ";
+                    this.error.message += "Type is required. ";
                     this.errorMessages.type = "Asset type is required"
-                     numberOfErrors ++
+                    numberOfErrors++
                 }
-                
-               if(numberOfErrors == 0) {
+
+                if (numberOfErrors == 0) {
                     var newDocument = {
                         'indexRef': this.indexRef,
                         'typeRef': this.type.reference,
@@ -147,12 +162,44 @@
 
                     var securityToken = this.$store.state.securityToken;
 
-                    await DocumentService.createDocument(newDocument, securityToken).then((response) => {
-                        this.$emit('create');
-                    },(error)=>{
+
+                    DocumentService.createDocument(newDocument, securityToken).then((response) => {
+
+                        var properties = [];
+                        newDocument.properties.forEach((p) => {
+                            var property = {
+                                'reference': p.property.reference,
+                                'value': p.property.value
+                            };
+                            properties.push(property);
+                            console.log("setting properpert: " + p.property.reference + " : " + p.property.value)
+                            this.document = response.data
+                        })
+                        DocumentService.setDocumentProperties(newDocument.indexRef, response.data.reference, properties,  securityToken).then((response) => {
+                            
+                            DocumentService.publishLatestVersion(newDocument.indexRef, response.data.reference,  securityToken).then((response) => {
+                                this.$emit('create');
+                            }, (error) => {
+                                this.clearActionMessage();
+                                this.publishError = true;
+                                this.error.message = "Asset was created, but failed to publish";
+                            });
+                        })
+
+
+                    }).catch((error) => {
                         this.clearActionMessage();
                         this.error.show = true;
-                        this.error.message = "Sorry something's gone wrong"
+                        this.error.message = "Failed to create asset";
+                        
+                        if(error.response)
+                            this.error.detail = "Error status code: " + error.response.status
+                        else if(error.request && error.config.timeout == 1) 
+                            this.error.detail = "Request took too long. May be a network problem. Please try again.";
+                        else
+                            this.error.detail = "Something went wrong. Please try again.";
+                            
+                        this.error.show = true;
                     })
                 }
             },
@@ -163,9 +210,11 @@
                 this.clearAllMessages();
             },
             onHidden(evt) {
-                // this.type.documentTypeProperties.length = 0
+                this.$emit("create");
+               this.type.properties.length = 0
                 this.document.name = "";
                 this.document.longText = "";
+                this.document.reference = null;
                 this.$emit('close');
                 this.clearAllMessages();
             },
@@ -188,6 +237,7 @@
                 this.info.message = "";
             },
             clearErrorMessage() {
+                this.publishError = false;
                 this.error.show = false;
                 this.error.message = "";
                 this.error.detail = "";
