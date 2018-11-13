@@ -32,15 +32,15 @@
             "parameters",
             "documnetTypes",
             "location"
-           
+
         ],
-        watch:{
-             searchForm: {
-                 handler: function(){
-                     this.$store.dispatch("aSearch")
-                 },
-                 deep:true
-             } 
+        watch: {
+            searchForm: {
+                handler: function() {
+                    this.$store.dispatch("aSearch")
+                },
+                deep: true
+            }
         },
         methods: {
             removeProperty: function(propertyToRemove) {
@@ -55,26 +55,26 @@
                 this.postcode = ""
                 this.$store.dispatch("aSearch")
             },
-              toggleSearchForm(){
-                this.$emit("onChangeShowSearchFom",!this.showSearchForm) 
+            toggleSearchForm() {
+                this.$emit("onChangeShowSearchFom", !this.showSearchForm)
             }
         },
         computed: {
-           postcode:{
-                get: function(){
+            postcode: {
+                get: function() {
                     var p = this.$store.state.searchForm.postcode
                     p = p.toUpperCase()
                     return p
                 },
-                set: function(newValue){
-                   this.$store.commit("setPostcode",newValue);
-                   this.$store.dispatch("setPostcodeSearchCriteria");
+                set: function(newValue) {
+                    this.$store.commit("setPostcode", newValue);
+                    this.$store.dispatch("setPostcodeSearchCriteria");
                 }
             },
             searchForm() {
 
-                    return this.$store.state.searchForm;
-     
+                return this.$store.state.searchForm;
+
             }
 
         }
@@ -84,7 +84,7 @@
 
 <style scoped lang="scss">
     #searchCriteria {
-        display: flex;
+        display: none;
         margin-bottom: 15px;
         flex-wrap: wrap;
 
@@ -102,10 +102,10 @@
             border-radius: 0;
             transition: all 1s;
             border-bottom: solid 1px lightgrey;
-    width: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 50px;
+            width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 50px;
             .tag-item {
                 padding-right: 5px;
                 &:focus {
@@ -147,23 +147,27 @@
         }
     }
 
-    @media only screen and (min-width: 800px) {
+    @media only screen and (min-width: 767px) {
 
         #searchCriteria {
             margin-left: 25px;
+            display: flex;
+            justify-content: center;
+            margin-top:10px;
         }
     }
+
     @media only screen and (min-width: 550px) {
-          #searchCriteria {
-     
+        #searchCriteria {
 
 
-        .label {
-     width: auto;
-    overflow: hidden;
-    text-overflow: inherit;
-    height: auto;
-              }
+
+            .label {
+                width: auto;
+                overflow: hidden;
+                text-overflow: inherit;
+                height: auto;
+            }
         }
     }
 

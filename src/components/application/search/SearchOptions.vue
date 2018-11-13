@@ -1,10 +1,15 @@
 <template>
 <section id="menu"  v-bind:class="{'show-search-form': showSearchForm}">
+    <div id="fadedBackgroundBlock" @click="closeMenu" ></div>
+    <div id="searchOptionsContainer">
+         <div id="closeBtnHolder" v-show="showSearchForm" >
+            <button class="btn btn-light" id="closeBtn" @click="closeMenu">hide</button>
+        </div>
     <h2 id="searchOptionsTitle">Search Options</h2>
-    <hr>
+
     <form id="searchForm">
-        <label class="invisible" for="postcode">Postcode search</label>
-        <legend class="form-legend">Postcode</legend>
+       
+        <label for="postcode">Postcode search</label>
         <div class="form-group">
             <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcodeSearch"> 
         </div>
@@ -32,6 +37,7 @@
             </div>
         <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
     </form>
+        </div>
 </section>
 </template>
 
@@ -58,10 +64,13 @@
         data() {
             return {
                 postcodeSearch: "",
-                
+
             }
         },
         methods: {
+            closeMenu() {
+                this.$emit("onChangeShowSearchForm");
+            },
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
@@ -82,7 +91,7 @@
             documentTypes: {
                 handler: function() {
                     this.$store.dispatch("setTypesSearchChange", this.documentTypes)
-                
+
                 },
                 deep: true
             },
@@ -105,10 +114,10 @@
                 }
             },
             available: {
-                get: function(){
+                get: function() {
                     return this.$store.state.searchForm.available;
                 },
-                set: function(value){
+                set: function(value) {
                     this.$store.dispatch("setAvailableSearch", value)
                 }
             }
@@ -123,6 +132,119 @@
 
 
 <style scoped lang="scss">
+    #menu {
+        left: 0;
+        top: 110px;
+        position: absolute;
+        display: flex;
+        left: -1000px;
+        justify-content: center;
+        width: 100%;
+        z-index: 2;
+        background: none;
+        transition: opacity .5s;
+        opacity: 0;
+        &.show-search-form {
+            left: 0;
+            opacity: 1;
+        }
+    }
+
+    #searchOptionsContainer {
+        background: white;
+        z-index: 2;
+        padding: 15px;
+        max-width: 318px;
+        margin-top:25px;
+    }
+
+    #fadedBackgroundBlock {
+        position: absolute;
+        width: 100%;
+        height: 150vh;
+        background: lightgrey;
+        opacity: .4;
+    }
+
+    #closeBtnHolder {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+        #closeBtn {
+            border: solid 1px grey;
+            &:before {
+                content: 'X ';
+            }
+        }
+    }
+
+
+    #searchOptionsTitle {
+        font-size: 19px;
+    }
+
+    @media only screen and (min-width: 767px) {
+        #searchOptionsContainer {
+            margin-top: 25px;
+        }
+
+    }
+
+    #searchForm {
+        font-size: 16px;
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+
+    @media only screen and (min-width: 360px) {
+        #menu {
+            top: 120px;
+        }
+    }
+
+    @media only screen and (min-width: 430px) {
+        #menu {
+            top: 130px;
+        }
+    }
+
+    @media only screen and (min-width: 760px) {
+        #menu {
+            top: 150px;
+        }
+    }
+
+    @media only screen and (min-width: 795px) {
+        #menu {
+            top: 175px;
+        }
+    }
+
+    @media only screen and (min-width: 900px) {
+        #menu {
+            display: flex;
+            position: relative;
+            left: 0;
+            opacity:1;
+            top:0;
+            width:275px;
+            #searchOptionsContainer{
+                display: block;
+            }
+        }
+        #fadedBackgroundBlock {
+            display: none;
+        }
+        #searchOptionsContainer{
+            display: none;
+            margin-top:0;
+        }
+    }
+
     .multiple-choice .mutliple-choice-label {
         white-space: nowrap;
         overflow: hidden;
@@ -162,165 +284,6 @@
 
     #collapsePrice {
         margin-bottom: .5rem;
-    }
-
-    #typesButton,
-    #placesButton,
-    #priceButton {
-        font-size: 19px;
-        padding-left: 30px;
-        color: black;
-        &:hover {
-            text-decoration: none;
-        }
-        &:before {
-            content: '-';
-            position: absolute;
-            left: 10px;
-            margin-top: 3px;
-            transition: transform .1s;
-        }
-
-        &.collapsed {
-            &:before {
-                content: '+';
-                position: absolute;
-                left: 10px;
-                margin-top: 3px;
-                transition: transform .1s;
-            }
-        }
-    }
-
-    #searchOptionsTitle {
-        font-size: 22px;
-        text-align: left;
-    }
-
-    #menu {
-
-        .mutliple-choice-label {
-            font-size: 14px;
-            padding-left: 2px;
-        }
-        &.show-search-form {
-            left: 0;
-        }
-        position: absolute;
-        width: 97vw;
-        top: 120px;
-        left: -200vw;
-        transition: left .5s;
-        background: white;
-        padding: 10px;
-        z-index: 2;
-        margin-bottom: 50px;
-        border-bottom: 20px solid white;
-        &.open {
-            left: 0px;
-        }
-        #searchForm {
-            padding-bottom: 30px;
-            border-bottom: solid 2px grey;
-            .mutliple-choice-label {
-                padding-bottom: 0;
-                line-height: 1.3;
-            }
-            .form-legend {
-                font-size: 18px;
-                font-weight: 500;
-            }
-            #placesToggle,
-            #typesToggle {
-                margin-bottom: 5px;
-                display: block;
-                &:focus {
-                    text-decoration: none;
-                }
-                &:hover {
-                    text-decoration: none;
-                }
-                &:visited {
-                    text-decoration: none;
-                }
-                &:before {
-                    content: '+';
-                    top: 5px;
-                    position: relative;
-                }
-                &[aria-expanded=true] {
-                    &:before {
-                        content: '-';
-                        top: 5px;
-                        position: relative;
-                    }
-                }
-            }
-        }
-    }
-
-    #menuOpen {
-        &.open {
-            &:before {
-                content: url(../../../assets/images/close.svg);
-            }
-        }
-        &:before {
-            content: url(../../../assets/images/settings-sm.svg);
-            margin-right: 1px;
-        }
-        &:after {
-            content: 'Search';
-        }
-        &.open:after {
-            content: 'Close';
-        }
-    }
-
-    #searchMenuHolder {
-        width: 100%;
-        height: 80px;
-        position: relative;
-    }
-
-    @media only screen and (min-width: 545px) {
-        #menu {
-            top: 300px;
-        }
-    }
-
-    @media only screen and (min-width: 800px) {
-
-        #menu {
-            position: relative;
-            width: 40%;
-            left: 0;
-            top: 0;
-            background: white;
-            border-right: solid 1px grey;
-            padding-right: 30px;
-            .form-legend {
-                font-size: 24px
-            }
-            .mutliple-choice-label {
-                font-size: 16px;
-                padding-left: 2px;
-            }
-        }
-        #menuOpen {
-            display: none;
-        }
-    }
-
-    .invisible {
-        font-size: 3px;
-        position: absolute;
-    }
-
-    #searchHeading {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
     }
 
 </style>

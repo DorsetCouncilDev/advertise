@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="info">
+     <div class="info">
         <div class="contact"> 
             <span>email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
             <span>tel. <a href="tel:+441305224125">01305 224125</a></span>
@@ -12,8 +12,8 @@
         <div id="navRow">
             <div id="navLinks">
                 <ol class="ad-breadcrumb">
-                    <li><router-link :to="{ path: '/advertise'}">home</router-link></li>
-                    <li aria-current="page">search</li>      
+                      <li><router-link :to="{ path: '/advertise'}">home</router-link></li>
+                    <li aria-current="page">search</li>     
                 </ol>
             </div>
             <div id="menuLinksOne">
@@ -22,10 +22,11 @@
             </div>
         </div>
     </div>
+
     <h1>Discover opportunities</h1>
     <div id="searchContainer">
         <SearchOptions  :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
-        <Assets  :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
+        <Assets :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
     </div>
 </div>
 </template>
@@ -111,21 +112,30 @@
 
 <style scoped lang="scss">
     #searchContainer {
-        display: flex;
+      
     }
 
     h1 {
         font-size: 26px;
-        margin-bottom: 20px;
+        margin-bottom: 0;
     }
 
     #mapView {
         width: 700px;
         height: 700px;
     }
-    .contact{float:right;}
+
     @media only screen and (min-width: 805px) {
-        h1{font-size:32px;}
+        h1{font-size:32px;
+         margin-bottom: 20px;}
+    }
+    
+      @media only screen and (min-width: 900px) {
+           #searchContainer {
+       display:flex;
+    }
+          
+         
     }
 
 </style>

@@ -43,9 +43,11 @@
                         var price = asset.document.properties.find(function(element){
                                         return element.propertyReference == 'price'
                                     })
-                        
-                        price.publishedValue = parseInt(price.publishedValue, 10);
-                        
+                        if(price != null){
+                            price.publishedValue = parseInt(price.publishedValue, 10);
+                        }
+                        else
+                            price = {puclishedValue:""}
                         var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + asset.document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + this.getPrice(price.publishedValue) + '</p>' +
                             '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="/advertise/' + asset.document.reference + '">View this opportunity</a></p>';
                         this.addMarker(asset.document,infoContent)
@@ -148,6 +150,7 @@
 
 <style scoped lang="scss">
     #map {
+        margin-top:15px;
         width: 100%;
         height: 60vh;
         box-shadow: 12px 12px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);

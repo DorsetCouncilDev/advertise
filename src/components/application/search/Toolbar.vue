@@ -193,8 +193,24 @@
         }
 
     }
+@media only screen and (min-width: 767px) {
+    #searchToolbar {
+            font-size: 19px;
+            justify-content: center;
+       
+            input.stv-radio-tab {
+                &+label {
 
-    @media only screen and (min-width: 800px) {
+                    &#gridViewLabel {
+                        display: block;
+                    }
+                }
+            }
+    }
+    }
+    
+    
+    @media only screen and (min-width: 900px) {
         #searchToolbar {
             font-size: 19px;
             justify-content: flex-end;

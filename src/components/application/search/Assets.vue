@@ -1,5 +1,5 @@
 <template>
-<div id="searchResultsContainer">
+<div id="searchResultsContainer" >
     <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
     <SearchCriteria></SearchCriteria>
        
@@ -7,7 +7,7 @@
         <Map v-show="view == 'mapView'" :assets="documents"></Map>
     </transition>
 
-    <div class="result-cards" v-bind:class="{'grid-view': view == 'gridView'}" v-show="view == 'listView' || view == 'gridView'"> 
+    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="view == 'listView' || view == 'gridView'"> 
         <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" data-aos="fade">
             <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
                 <div class="card-heading">
@@ -146,10 +146,18 @@
 </script>
 
 <style scoped lang="scss">
+    
+    .greyed-search-area{
+        background: grey;
+        opacity:.5;
+    }
+    
     #searchResultsContainer {
         width: 100%;
         .result-cards {
+            margin-top:15px;
             width: 100%;
+            transition:background 1s;
             .result-card {
                 border: solid 1px darkgrey;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -216,15 +224,18 @@
         }
     }
 
-    @media only screen and (min-width: 800px) {
+    
+    
+    
+    @media only screen and (min-width: 767px) {
         #searchResultsContainer {
             margin-left: 20px;
 
             .result-cards {
-
+                margin-top:10px;
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: flex-end;
+                justify-content: center;
                 .result-card {
                     width: 90%;
                 }
