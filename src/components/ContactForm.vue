@@ -99,7 +99,7 @@
                 formHasErrors: false
             }
         },
-        props: ['documentRef'],
+        props: ['documentRef','action'],
         components: {
             VueRecaptcha
         },
@@ -148,8 +148,12 @@
         },
         mounted() {
             if (this.documentRef != null && this.documentRef != '') {
-                this.message = "Add me to the waiting list for " + this.documentRef;
+                if(this.action == "waiting")
+                    this.message = "Add me to the waiting list for " + this.documentRef;
+                else if(this.action == "book")
+                    this.message = "I would like to book " + this.documentRef;
             }
+      
         }
     }
 

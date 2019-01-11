@@ -158,7 +158,15 @@ const routes = [
         }
     },
       {
-        path: '/advertise/info/contact/:documentRef',
+        path: '/advertise/info/contact/:documentRef/:action',
+        component: ContactForm,
+          props:true,
+        meta: {
+            title: 'Contact form'
+        }
+    },
+    {
+        path: '/advertise/info/contact/:documentRef/:action',
         component: ContactForm,
           props:true,
         meta: {

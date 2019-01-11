@@ -36,8 +36,9 @@
         <h3>{{assetPrice}}</h3>
         <p id="assetParagraph" v-if="afterPriceText">{{afterPriceText}} </p>
        <hr>
-   <router-link class="btn btn-primary" id="waitingListBtn" v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/'+documentRef}">Add to waiting list</router-link>
-        <p id="assetParagraph" v-for="p in document.properties">
+   <router-link class="btn btn-primary" id="waitingListBtn" v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
+   <router-link class="btn btn-primary" id="waitingListBtn" v-if="assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Message us to book</router-link>
+        <p id="assetParagraph" v-for="p in document.properties"  v-bind:key="p.reference">
             <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">{{p.propertyName}}: {{p.publishedValue | readBoolean}}</span>
         </p>
         <hr>
@@ -63,7 +64,9 @@
         data() {
             return {
                 document: {},
-                indexRef: "advertise"
+                indexRef: "advertise",
+                waiting:"waiting",
+                book:"book"
             }
         },
         components: {
