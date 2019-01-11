@@ -26,7 +26,7 @@
      
         <div class="document-header">
             <div class="icon-holder">
-                <img id="brandImage" :src="getIcon(document.documentTypeReference)" alt="document.documentTypeReference">
+                <img :src="getIcon(document.documentTypeReference)" :alt="document.documentTypeReference">
             </div>   
             <div class="document-headings">
                 <h1 id="assetTitleText">{{document.name}}</h1>
@@ -74,22 +74,28 @@
         },
         methods: {
             getIcon(documentType) {
+                if (typeof documentType !== "undefined") {
+                console.log("get icon: " + document.type);
                 return require("../../../assets/images/icons/" + documentType + ".svg");
+                }
             },
             getDocument: function() {
                 DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
+                        document.title = this.document.name;
                 })
             }
         },
         computed: {
             description: function(){
                 var desc = "";
+                if(this.document != null){
                    this.document.properties.forEach((p) => {
                     if (p.propertyReference == 'description')
                         desc =  p.publishedValue
                    })
                 return desc;
+                }
             },
             streetViewRequired() {
                if(this.document.locations[0].streetviewLatitude != null)
@@ -158,6 +164,7 @@
         },
         beforeMount() {
             this.getDocument();
+       
         },
         filters: {
             round: function(value) {
@@ -183,6 +190,10 @@
                 return value.replace(new RegExp('-', 'g'), " ");
 
             }
+        },
+        created: function(){
+            console.log(this.$route.meta.title);
+              
         }
     }
 

@@ -145,10 +145,8 @@ const routes = [
     {
         path: '/advertise/:documentRef',
         component: Asset,
-        props: true,
-        meta: {
-            title: 'Advertising opportunity details'
-        }
+        props: true
+    
     },
     {
         path: '/advertise/info/mediapack',
