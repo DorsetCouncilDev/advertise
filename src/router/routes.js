@@ -130,6 +130,11 @@ const routes = [
             title: 'Advertise Dorset Home'
         }
     }, 
+    { path: "*",   component: Home,
+        meta: {
+            title: 'Advertise Dorset Home'
+        }
+    },
     {
         path:  '/advertise/search',
         component: Search,

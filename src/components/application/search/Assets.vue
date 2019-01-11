@@ -6,21 +6,29 @@
     <transition name="component-fade" mode="out-in">
         <Map v-show="view == 'mapView'" :assets="documents"></Map>
     </transition>
-
-    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="view == 'listView' || view == 'gridView'"> 
-        <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" data-aos="fade">
+    <div class="result-cards" v-show="noResultsFound" id="noResultsMessage">
+        {{searchingMessage}}
+    </div>
+    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView') && !noResultsFound"> 
+        <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" >
             <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
                 <div class="card-heading">
                     <div class="icon"><img :alt="d.document.documentTypeName"  :src="getIcon(d.document.documentTypeReference)"></div>
                     <div class="heading"><div class="docTypeLabel" v-bind:style="{color: getTypeColor(d.document.documentTypeReference)}">{{d.document.documentTypeName}}</div><div class="heading-text">{{d.document.name}}</div></div>
                 </div>
 
-                <div class="card-main">{{d.document.longText}}
-                    <p class="price" v-for="property in d.document.properties" v-if="property.propertyReference == 'price'">&pound;  {{property.publishedValue | round()}}</p>
-                    <p v-if="d.distanceFromCoordinate && postcode != ''">{{d.distanceFromCoordinate | round()}} miles from {{postcode}}</p>
-                    <span class="parameter" v-for="matchingParam in d.matchingParameters">{{matchingParam.name}}</span>
-                    <span class="parameter unmatched" v-for="param in d.nonMatchingParameters">{{param.name}}</span>
+                <div class="card-main"><div>{{d.document.longText}}</div>
+                    <div class="info-row">
+                         <div  >
+                    <div class="distance-tag"  v-if="d.distanceFromCoordinate && postcode != ''">{{d.distanceFromCoordinate | round()}} miles from {{postcode}}</div>
+                          
+                   </div>
+                        <div >
+                    <div class="price-tag" v-for="property in d.document.properties" v-if="property.propertyReference == 'price'">&pound;  {{property.publishedValue | round()}}</div>
+                  </div>
+                       
                 </div>
+    </div>
             </router-link>
         </div>
     </div>
@@ -54,14 +62,7 @@
             return {
                 initialDocuments: [],
                 started: false,
-                "icon": {
-                    "url": "https://catalogue-test-attachments.s3.eu-west-2.amazonaws.com/d1873e3a-8f7e-48a5-8d1a-6ab5df0b2d52",
-                    "size": 1544,
-                    "mimeType": "image/svg+xml",
-                    "reference": "bin icon",
-                    "title": "Picture of bin",
-                    "type": "Icon"
-                }
+                searchingMessage:"Loading assets..."
             }
         },
 
@@ -87,10 +88,14 @@
             },
             documents() {
                 var results = this.$store.state.searchResults;
-                if (results != null && results.length > 0)
+                if (results != null && results.length > 0){
+                     this.searchingMessage = "Sorry, no results found for that search";
                     return results
-                else
+                }
+                else{
+                    
                     return this.initialDocuments
+                }
             },
             postcode() {
                 return this.$store.state.searchForm.postcode.toUpperCase()
@@ -99,37 +104,47 @@
                 get: function() {
                     return this.$store.state.searchForm.documentTypes;
                 }
+            },
+            noResultsFound(){
+               if(this.documents.length == 0){
+                   
+                   return true;
+               }
+                
+                return false;
             }
         },
         created() {
-            if (this.$store.state.postcodeSearch == "")
+            if (this.$store.state.postcodeSearch == ""){
                 this.initialDocuments = this.docs
+    
+            }
             this.started = true;
         },
         mounted() {
-            AOS.init({
+         /*   AOS.init({
                 once: true,
                 offset: 50,
                 duration: 400,
                 easing: 'ease-in-sine',
                 delay: 50
-            });
+            });  */
         },
         filters: {
             round: function(value) {
                 // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
-
-                if (value == null) {
+               
+              if (value == null) {
                     return 'P.O.A'
                 }
 
                 if (isNaN(value))
                     return 'P.O.A'
-                else {
+                else 
                     var decimals = 1;
                     value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
                     return value;
-                }
+               // }
             },
             uppercase: function(value) {
                 return value.toUpperCase()
@@ -146,25 +161,53 @@
 </script>
 
 <style scoped lang="scss">
-    
-    .greyed-search-area{
-        background: grey;
-        opacity:.5;
+    $noResultsMessageColor: darken(#60d844,40%);
+    #noResultsMessage{
+        padding:30px;
+        font-size:24px;
+        color:$noResultsMessageColor;
+        text-align: center;
     }
-    
+    .greyed-search-area {
+        background: grey;
+        opacity: .5;
+    }
+
     #searchResultsContainer {
         width: 100%;
+        margin-top: 10px;
         .result-cards {
-            margin-top:15px;
+            margin-top: 15px;
             width: 100%;
-            transition:background 1s;
+            transition: background 1s;
             .result-card {
                 border: solid 1px darkgrey;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 padding: 10px;
                 margin-bottom: 15px;
                 width: 100%;
-
+                position: relative;
+                overflow: hidden;
+                .info-row{
+                    position: relative;
+                    display: flex;
+                    justify-content: space-between;
+                .price-tag{
+                    
+                   
+                    background:#f1f1f1;
+                    font-weight:500;
+                    padding:5px;
+                }
+                .distance-tag{
+                   
+                
+                    background:#f1f1f1;
+                    font-weight:500;
+                    padding:5px;
+                }
+                }
+                
                 &:hover {
                     outline: orange solid 1px;
                 }
@@ -224,15 +267,18 @@
         }
     }
 
-    
-    
-    
-    @media only screen and (min-width: 767px) {
+
+
+    @media only screen and (min-width: 900px) {
         #searchResultsContainer {
             margin-left: 20px;
+        }
+    }
 
+    @media only screen and (min-width: 767px) {
+        #searchResultsContainer {
             .result-cards {
-                margin-top:10px;
+                margin-top: 10px;
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;

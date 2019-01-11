@@ -26,8 +26,7 @@
 .info {
     
     background: white;
-    margin-left: -12px;
-    margin-right: -12px;
+
     margin-bottom: 10px;
   //   width:100vw;
  // position:relative;
@@ -41,8 +40,6 @@
     padding-bottom: 2px;
     a {
         padding: 2px;
-
-
         color: black;
         &:hover,
         &:focus,
@@ -56,19 +53,24 @@
     }
 }
 
-#menuLinksTwo {
+#menuLinksOne {
     display: none;
 }
 
-#menuLinksOne {
-    font-size: 14px;
-}
+
 
 .contact {
+    margin-bottom:10px;
     width: 100%;
-    font-size: 12px;
+    font-size: 14px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    #emailContact{
+        display:none;
+    }
+    #telContact{
+        display: none;
+    }
 }
 
 #navRow {
@@ -90,9 +92,16 @@
 
 }
 
-@media only screen and (min-width: 550px) {
+@media only screen and (min-width: 650px) {
     .contact {
-        font-size: 14px;
+        justify-content: space-around;
+        font-size: 16px;
+        #emailContact{
+        display:initial;
+    }
+    #telContact{
+        display: initial;
+    }
     }
     .info {
         margin-left: 0;

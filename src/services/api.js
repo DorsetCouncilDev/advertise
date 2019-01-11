@@ -2,6 +2,8 @@ import axios from 'axios'
   // web.dorsetcc.gov.uk
 
 // Development
+
+
 /*
 var _test_fail = axios.create({
   baseURL: 'http://52.56.188.219/catalogue/v1/indexes',
@@ -45,7 +47,7 @@ var _ = axios.create({
 
 var _search = axios.create({
     baseURL: 'https://web.dorsetcc.gov.uk/catalogue/v1/search/index/',
-    timeout: 10000
+    timeout: 20000
 });
 
 

@@ -19,8 +19,7 @@ export default{
         }
         
          var properties = [];   
-        
-        console.log("number of updated properties: " + updatedDocument.properties.length)
+
         updatedDocument.properties.forEach((p) => {
             var property = {
                 'reference': p.propertyReference,
@@ -29,8 +28,10 @@ export default{
         })
         
         var url = updatedDocument.indexRef + '/documents/' + updatedDocument.reference
-        await api.put(url,updatedDoc,token).then((response)=>{
-             return  this.setDocumentProperties(updatedDocument.indexRef,response.data.reference,properties,token)
+        await api.put(url,updatedDoc,token).then(async(response)=>{
+             await  this.setDocumentProperties(updatedDocument.indexRef,response.data.reference,properties,token).then(async(response)=>{
+                await this.publishLatestVersion(response.data.index,response.data.reference,token)
+             })
         })
     },
     createDocument(newDocument,token){

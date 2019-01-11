@@ -1,6 +1,5 @@
 import axios from 'axios';
 var emailService = axios.create({
-    baseURL: 'http://52.56.188.219/catalogue/v1/public/mail',
     timeout: 10000
 });
 export default {
@@ -12,7 +11,7 @@ export default {
             "text": message,
             "token": token
         };
-        emailService.post("http://52.56.188.219/catalogue/v1/public/mail", formObject).then((response) => {
+        emailService.post("https://web.dorsetcc.gov.uk/catalogue/v1/public/mail", formObject).then((response) => {
             resolve("worked")
         }).catch((err) => {
             reject("failed")
@@ -25,7 +24,7 @@ export default {
             "text": message,
             "token": token
         };
-        emailService.post("http://52.56.188.219/catalogue/v1/public/mail", formObject).then((response) => {
+        emailService.post("https://web.dorsetcc.gov.uk/catalogue/v1/public/mail", formObject).then((response) => {
             return new Promise();
         }).catch((err) => {
             return new Promise();

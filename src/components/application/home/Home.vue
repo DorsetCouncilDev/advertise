@@ -2,8 +2,8 @@
 <div class="mb-3">
    <div class="info">
         <div class="contact"> 
-            <span>email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
-            <span>tel. <a href="tel:+441305224125">01305 224125</a></span>
+            <span id="emailContact">email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span id="telContact">tel. <a href="tel:+441305224125">01305 224125</a></span>
             <div id="menuLinksTwo">
                 <router-link to="/advertise/info/contact">Contact us</router-link> 
                 <router-link to="/advertise/info/mediapack">Media pack</router-link> 

@@ -2,8 +2,8 @@
 <div>
          <div class="info">
         <div class="contact"> 
-            <span>email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
-            <span>tel. <a href="tel:+441305224125">01305 224125</a></span>
+            <span id="emailContact">email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span id="telContact">tel. <a href="tel:+441305224125">01305 224125</a></span>
             <div id="menuLinksTwo">
                 <router-link class="selected" to="/advertise/info/contact">Contact us</router-link> 
                 <router-link to="/advertise/info/mediapack">Media pack</router-link> 
@@ -24,16 +24,17 @@
     </div>
   
             
-        <h1>Get in touch</h1>
+        <h1 id="contactHeading">Get in touch</h1>
     <div v-show="formSent" id="formSentMessage">
     Thank you, we'll be in touch soon.
     
     </div>
     <div id="contactSection"  v-show="!formSent">
-        <h2>Looking to discuss advertising options in the Dorset area?</h2> 
-        <p>Give us a call on <a href="tel:+441305224125">01305 224125</a>, email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a> or fill in the below form and we will get back to you shortly.</p>
+        <p>Looking to discuss advertising options in the Dorset area?</p> 
+        <p>Give us a call on <a href="tel:+441305224125">01305 224125</a>, email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a> or fill in the form below and we will get back to you shortly.</p>
         <div class="row">
    
+            
             <form class="col-sm-8" id="demo-form" action="homepage" method="POST"  @submit.prevent="onSubmit" novalidate>
     
                 <div class="form-group">
@@ -45,11 +46,11 @@
                     <input class="form-control form-bold-border" id="email" name="email" type="email" v-model="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="tel">Phone <span>(optional)</span></label>
+                    <label for="tel"><span class="form-label-bold">Phone <span>(optional)</span></span></label>
                     <input class="form-control form-bold-border" id="tel" name="tel" type="tel" v-model="phone">
                 </div>
                 <div class="form-group">
-                    <label for="message">Message</label>
+                    <label for="message"><span class="form-label-bold">Message</span></label>
                     <textarea rows="12" class="form-control form-bold-border" id="message" v-model="message" required></textarea>
                 </div>
                 <hr>
@@ -60,7 +61,7 @@
                     </div>
                 </div> 
                 <hr>
-                <p>The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank">privacy notice</a>. </p>
+                <p id="privacyText">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank">privacy notice</a>. </p>
                 <hr>
                <vue-recaptcha   ref="invisibleRecaptcha"
                                 @verify="onVerify"
@@ -155,6 +156,17 @@
 </script>
 
 <style scoped lang="scss">
+    #privacyText{
+        font-size:16px;
+    }
+    
+    .form-label-bold{
+        font-weight:400;
+    }
+    #contactHeading{
+        font-size:26px;
+    }
+    
     .multiple-choice {
         .form-ck {
             &:before {
@@ -180,7 +192,18 @@
     }
 
     .subHeading {
-        font-size: 26px;
+        font-size: 18px;
+    }
+    
+     @media only screen and (min-width: 600px) {
+          #privacyText{
+        font-size:18px;
+    }
+    
+
+    #contactHeading{
+        font-size:42px;
+    }
     }
 
 </style>

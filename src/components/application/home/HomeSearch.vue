@@ -6,9 +6,9 @@
                 <h2 class="home-action-label mb-2" id="search">Find opportunities near you</h2>
                 <label class="invisible" for="postcode" id="postcodeLabel">Postcode</label>
                 <div class="input-group">
-                    <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Search postcode" v-model="postcode">
+                    <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Enter full postcode" v-model="postcode">
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="button" @click="postcodesearch"> GO </button>
+                        <button class="btn btn-success" type="button" id="searchGoBtn" @click="postcodesearch"> GO </button>
                     </div>
                 </div>
             </div>
@@ -55,6 +55,20 @@
 
 
 <style scoped lang="scss">
+    
+    $buttonBrowseDark: darken(#5975de,50%);
+    $buttonBrowse: darken(#5975de,30%);
+    
+    $buttonBrowseHoverDark: darken(#5975de,40%);
+    $buttonBrowseHover: darken(#5975de,20%);
+    
+    $buttonGoDark: darken(#60d844,50%);
+    $buttonGo:darken(#60d844,30%);
+    
+     $buttonGoHoverDark: darken(#60d844,40%);
+    $buttonGoHover:darken(#60d844,20%);
+
+    
     .home-action-label {
         font-size: 26px;
         text-align:left;
@@ -71,8 +85,20 @@
 
     #browseLinkBlock {
         margin-bottom: 20px;
+        
     }
-
+    #browseLink{
+        background-image: linear-gradient(to right, $buttonBrowseDark,$buttonBrowse);
+        &:hover{
+            background-image: linear-gradient(to right, $buttonBrowseHoverDark, $buttonBrowseHover);
+        }
+    }
+    #searchGoBtn{
+         background-image: linear-gradient(to right, $buttonGoDark, $buttonGo);
+        &:hover{
+            background-image: linear-gradient(to right, $buttonGoHoverDark, $buttonGoHover);
+        }
+    }
     @media only screen and (min-width: 576px) {
         #postcodeSearchBlock {
             margin-top: 30px;

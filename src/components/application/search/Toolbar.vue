@@ -1,7 +1,7 @@
 <template>
 <div id="searchToolbar">
     <div id="menuIcon">
-        <button v-on:click="toggleSearchForm" type="button" aria-label="Search" class="btn btn-light" aria-describedby="descriptionSearch"><img src="../../../assets/images/search-black.svg" alt="Open search menu"></button>
+        <button v-on:click="toggleSearchForm" type="button" aria-label="Search" class="btn btn-light" aria-describedby="descriptionSearch" id="searchOptionsBtn"><img src="../../../assets/images/search-black.svg" alt="Open search menu" id="searchButtonIcon"></button>
     </div> 
         <div class="stv-radio-tabs-wrapper">
                 <label id="sortSelectLabel" for="sortSelect">Sort</label>
@@ -87,11 +87,12 @@
     $sortSelectHeight:35px;
     $sortSelectWidth:100px;
 
-    #descriptionSearch{
-        position:absolute;
-        left:-1000px;
-        opacity:0;
+    #descriptionSearch {
+        position: absolute;
+        left: -1000px;
+        opacity: 0;
     }
+
     #searchToolbar {
         width: 100%;
         position: relative;
@@ -193,11 +194,20 @@
         }
 
     }
-@media only screen and (min-width: 767px) {
-    #searchToolbar {
+
+     @media only screen and (min-width: 440px) {
+         #searchOptionsBtn{
+             &:after{
+                 content:' Search options'
+             } 
+         }
+    }
+    
+    @media only screen and (min-width: 767px) {
+        #searchToolbar {
             font-size: 19px;
             justify-content: center;
-       
+
             input.stv-radio-tab {
                 &+label {
 
@@ -206,14 +216,14 @@
                     }
                 }
             }
+        }
     }
-    }
-    
-    
+
+
     @media only screen and (min-width: 900px) {
         #searchToolbar {
             font-size: 19px;
-            justify-content: flex-end;
+            justify-content: center;
             #menuIcon {
                 display: none;
             }

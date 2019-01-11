@@ -1,5 +1,5 @@
 // @import "~govuk_template_jinja/assets/stylesheets/fonts";
-$blue : #005ea5;
+$blue : darken(#5975de,20%);
 $indigo : #6610f2;
 $purple : #2e358b;
 $pink : pink;
@@ -52,7 +52,9 @@ $value in $theme-colors {
 @import "multiple-choice";
 @import 'nav';
 
-
+.container{
+    max-width:1340px;
+}
 
 .form-error-message{
     display:block;

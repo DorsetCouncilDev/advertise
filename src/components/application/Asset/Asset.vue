@@ -2,8 +2,8 @@
    <div>
        <div class="info">
         <div class="contact"> 
-            <span>email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
-            <span>tel. <a href="tel:+441305224125">01305 224125</a></span>
+            <span id="emailContact">email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span id="telContact">tel. <a href="tel:+441305224125">01305 224125</a></span>
             <div id="menuLinksTwo">
                 <router-link to="/advertise/info/contact">Contact us</router-link> 
                 <router-link to="/advertise/info/mediapack">Media pack</router-link> 
@@ -14,7 +14,7 @@
                 <ol class="ad-breadcrumb">
                     <li><router-link :to="{path: '/advertise'}">home</router-link></li>
                 <li><router-link :to="{ path: '/advertise/search'}">search results</router-link></li>
-                <li aria-current="page">asset</li>   
+                <li id="docRefBreadCrumb" aria-current="page">{{document.reference}}</li>   
                 </ol>
             </div>
             <div id="menuLinksOne">
@@ -36,7 +36,7 @@
         <h3>{{assetPrice}}</h3>
         <p id="assetParagraph" v-if="afterPriceText">{{afterPriceText}} </p>
        <hr>
-   <router-link class="btn btn-primary" v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/'+documentRef}">Add to waiting list</router-link>
+   <router-link class="btn btn-primary" id="waitingListBtn" v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/'+documentRef}">Add to waiting list</router-link>
         <p id="assetParagraph" v-for="p in document.properties">
             <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">{{p.propertyName}}: {{p.publishedValue | readBoolean}}</span>
         </p>
@@ -186,6 +186,25 @@
 </script>
 
 <style scoped lang="scss">
+    .ad-breadcrumb{
+        width:90%;
+        white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+    }
+    $buttonAddWaitingListBtn: darken(#5975de,50%);
+    $buttonAddWaitingListBtnDark: darken(#5975de,30%);
+    
+    $buttonAddWaitingListBtnHoverDark: darken(#5975de,40%);
+    $buttonAddWaitingListBtnHover: darken(#5975de,20%);
+    
+    #waitingListBtn{
+         background-image: linear-gradient(to right, $buttonAddWaitingListBtnDark,$buttonAddWaitingListBtn);
+        &:hover{
+            background-image: linear-gradient(to right, $buttonAddWaitingListBtnHoverDark, $buttonAddWaitingListBtnHover);
+        }
+    }
+    
     .description-text{
         margin:15px 0;
     }
@@ -266,6 +285,16 @@
                 font-size: 32px;
             }
         }
+    }
+
+    
+     @media only screen and (min-width: 420px) {
+      .ad-breadcrumb{
+        width:auto;
+        white-space: nowrap;
+  overflow: hidden;
+ 
+    }
     }
 
 </style>

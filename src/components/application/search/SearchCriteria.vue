@@ -90,14 +90,13 @@
 
 
         .label {
-            font-size: 16px;
+            font-size: 14px;
             float: left;
             position: relative;
             display: inline-block;
             margin-left: 20px;
             font-weight: normal;
-            padding: 2px;
-            margin-bottom: 5px;
+            padding: 1px;
             padding-right: 25px;
             border-radius: 0;
             transition: all 1s;
@@ -105,12 +104,16 @@
             width: 80px;
             overflow: hidden;
             text-overflow: ellipsis;
-            height: 50px;
+            height: 40px;
             .tag-item {
                 padding-right: 5px;
                 &:focus {
                     outline: orange 1px solid;
                     +.delete {
+                        &:hover{
+                            color:darkred;
+                            cursor: pointer;
+                        }
                         background-color: darken(#337ab7, 10%);
                         color: white;
                     }

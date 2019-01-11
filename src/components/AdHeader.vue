@@ -3,11 +3,11 @@
 <template>
 <header id="header">
     <div id="dfyHolder"><a href="https://www.dorsetforyou.gov.uk" title="DorsetForYou homepage">
-         <img src="../assets/images/dfy.png" id="dfyLogo" alt="Go to Dorset for you homepage"></a>
+         <img src="../assets/images/dfy.png" id="dfyLogo" alt=""></a>
     </div>
     <div id="titleHolder">
         <div id="title">
-            <a href="/advertise" title="Advertise Dorset homepage">ADVERTISE DORSET</a>  
+            <a href="/advertise" id="titleLink" title="Advertise Dorset homepage">Advertise Dorset</a>  
             <img id="brandImage" src="../assets/images/advertiseLogo.png" alt=""> 
         </div>    
     </div>
@@ -38,6 +38,7 @@
 </script>
 
 <style scoped lang="scss">
+    $titleHover: darken(#5975de, 30%);
     #header {
         width: 100%;
         height: 60px;
@@ -78,6 +79,10 @@
                 &:hover,
                 &:visited {
                     text-decoration: none;
+
+                }
+                &:hover {
+                    color: $titleHover;
                 }
             }
             #brandImage {
@@ -85,77 +90,103 @@
                 top: -50px;
                 right: -35px;
                 width: 125px;
-                z-index:-1;
+                z-index: -1;
             }
         }
     }
 
     @media only screen and (min-width: 365px) {
-        #header{
+        #header {
             height: 80px;
         }
         #titleHolder {
-       
-        #title {
-            a {
-                line-height: 2.5;
-                font-size: 22px;
-              
-            }
-            #brandImage {
-                position: absolute;
-                top: -45px;
-                right: -35px;
-                width: 125px;
+
+            #title {
+                a {
+                    line-height: 2.5;
+                    font-size: 22px;
+
+                }
+                #brandImage {
+                    position: absolute;
+                    top: -45px;
+                    right: -35px;
+                    width: 125px;
+                }
             }
         }
+
     }
-        
+
+    @media only screen and (min-width: 600px) {
+
+        #header {
+            height: 100px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        #titleHolder {
+
+            #title {
+                a {
+                    line-height:2;
+                    font-size: 36px;
+                }
+                 #brandImage {
+                    position: absolute;
+                    top: -80px;
+                    right: -55px;
+                    width: 200px;
+                }
+            }
+        }
     }
     
-      @media only screen and (min-width: 765px) {
-          
-          #header{
-              height:100px;
-          }
-           #titleHolder {
-       
-        #title {
-            a {
-                line-height: 2.5;
-                font-size: 28px;
-              
-            }
-            #brandImage {
-                position: absolute;
-                top: -80px;
-                right: -55px;
-                width: 200px;
+    @media only screen and (min-width: 765px) {
+
+        #header {
+            height: 100px;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+        #titleHolder {
+
+            #title {
+                a {
+                    line-height: 2.5;
+                    font-size: 28px;
+
+                }
+                #brandImage {
+                    position: absolute;
+                    top: -80px;
+                    right: -55px;
+                    width: 200px;
+                }
             }
         }
     }
-    }
-     @media only screen and (min-width: 1100px) {
-          #header{
-              height:130px;
-          }
-           #titleHolder {
-          #title {
-            a {
-                line-height: 2.5;
-                font-size: 36px;
-              
-            }
-            #brandImage {
-                position: absolute;
-                top: -135px;
-                right: -90px;
-                width: 300px;
+
+    @media only screen and (min-width: 1100px) {
+        #header {
+            height: 130px;
+        }
+        #titleHolder {
+            #title {
+                a {
+                    line-height: 2.5;
+                    font-size: 36px;
+
+                }
+                #brandImage {
+                    position: absolute;
+                    top: -135px;
+                    right: -90px;
+                    width: 300px;
+                }
             }
         }
-         }
-       
+
     }
-    
 
 </style>

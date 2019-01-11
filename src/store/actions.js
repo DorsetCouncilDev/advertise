@@ -1,4 +1,3 @@
-
 import Sorting from './utils/sorting.js'
 import SearchService from './../services/SearchService'
 import DocumentTypeService from './../services/DocumentTypeService'
@@ -15,24 +14,21 @@ const POSTCODESEARCH = 'http://vmcrwebapptest1:8080/gazetteer/rest/address/postc
 const mutation_setSearchResults = 'setSearchResults'
 
 export const actions = {
-/*
-    search(context, param) {
-        console.log("searchings")
-        SearchService.search(param, context.state.searchCriteria, context.state.securityToken).then((response) => {
-            context.commit("setSearchResults", response.data);
-            if (context.state.showSearchForm)
-                context.commit("toggleSearchForm");
-        }, (error) => {
-           
-            console.log("error searching caught")
-        });
-    },
-    
-*/
+    /*
+        search(context, param) {
+            console.log("searchings")
+            SearchService.search(param, context.state.searchCriteria, context.state.securityToken).then((response) => {
+                context.commit("setSearchResults", response.data);
+                if (context.state.showSearchForm)
+                    context.commit("toggleSearchForm");
+            }, (error) => {
+               
+                console.log("error searching caught")
+            });
+        },
+        
+    */
     setSearchParamater(context, param) {
-
-        console.log("parameter to set: " + param.reference);
-
         var newParameter = param;
 
         var updated = false
@@ -67,24 +63,24 @@ export const actions = {
         await commit("removeSearchParameter", index)
         dispatch("search");
     },
-    
-    
-    
+
+
+
     sortResultsByProperty(context, param) {
-        console.log("set sort: " + param.sortValue)
+
         context.commit("setSort", param.sortValue);
         var sortedResults = Sorting.sortResultsByProperty(context.state.searchResults, param.sortProperty, param.sortType)
-        
+
         context.commit("setSortResults", sortedResults)
-        
-        
+
+
     },
     sortResultsByBestMatch(context) {
         context.commit("setSort", "bestmatch");
         var sortedResults = Sorting.sortByBestMatch(context.state.searchResults.results)
         context.commit("setSortResults", sortedResults)
     },
-    
+
     /*
     searchPostcode(context) {
         var searchCriteria = {};
@@ -122,137 +118,175 @@ export const actions = {
                 context.commit("removeSearchParameter", index)
         }
     },
- 
-    
+
+
 
 
     /*************************************************************************************************/
 
-    
+
     // Set the search options on the form. based on document types available and those currently selected.
-    async setDocumentTypesSearchOptions({dispatch,state,commit}, param) {
+    async setDocumentTypesSearchOptions({
+        dispatch,
+        state,
+        commit
+    }, param) {
         var documentTypeOptions = [];
         await DocumentTypeService.getTypes(param).then((response) => {
             var types = response.data;
             var typesSelected = state.searchCriteria.documentTypes;
             types.forEach((type) => {
-                if(typesSelected.length )
+                if (typesSelected.length)
                     type.selected = false;
-                if(_.includes(typesSelected,type.reference)){
+                if (_.includes(typesSelected, type.reference)) {
                     type.selected = true;
                 }
             })
-             commit("setDocumentTypes",types)
-        }) 
+            commit("setDocumentTypes", types)
+        })
     },
-    
-    
-     // Set the search options on the form. based on document types available and those currently selected.
-    async setInitialDocumentTypesSearchOptions({dispatch,state,commit}, param) {
+
+
+    // Set the search options on the form. based on document types available and those currently selected.
+    async setInitialDocumentTypesSearchOptions({
+        dispatch,
+        state,
+        commit
+    }, param) {
         var documentTypeOptions = [];
         await DocumentTypeService.getTypes(param).then((response) => {
             var types = response.data;
             var typesSelected = state.searchCriteria.documentTypes;
             types.forEach((type) => {
-                if(type.display){
+                if (type.display) {
                     state.searchCriteria.documentTypes.push(type.reference)
                     type.selected = true;
                 }
             })
             commit("setInitialSearch")
-            commit("setDocumentTypes",types)
-        }) 
+            commit("setDocumentTypes", types)
+        })
     },
-    
+
     // Get the current selected document types selected for search
     getDocumentTypeSearchOptions(context) {
         return context.state.searchCriteria.documentTypes;
     },
-    
+
     // A document type has been selected or deselected. recalculate types selected list.
-    setTypesSearchChange({commit,dispatch},param){
+    setTypesSearchChange({
+        commit,
+        dispatch
+    }, param) {
         var typesSelected = []
-        param.forEach((type)=>{
-            if(type.selected){
+        param.forEach((type) => {
+            if (type.selected) {
                 typesSelected.push(type.reference)
             }
         })
-        commit("setDocumentTypeSearchParameters",typesSelected)
+        commit("setDocumentTypeSearchParameters", typesSelected)
     },
     removeSearchDocumentType(context, param) {
         var typesSelected = context.state.searchForm.documentTypes
-        typesSelected.forEach((type)=>{
-            if(type.reference == param.reference)
+        typesSelected.forEach((type) => {
+            if (type.reference == param.reference)
                 type.selected = false
         })
-     
+
     },
     // new search 
-    aSearch(context){
-          SearchService.search(context.state.indexReference, context.state.searchCriteria).then((response) => {
-                context.commit("setASearchResults",response.data.results)
-        }, (error) => {
-            /* TODO Handle error */
-            console.log("error searching caught")
-        });
-    },
-    
-    async setPostcodeSearchCriteria({state,commit,dispatch}){
-        var postcode = state.searchForm.postcode;   
-        if(postcode != null && postcode != "" )
-        {
-           await GazetteerService.search(postcode).then((response)=>{
-            
+    async aSearch({
+        state,
+        commit,
+        dispatch
+    }) {
+        var postcode = state.searchForm.postcode;
+        if (postcode != null && postcode != "") {
+            await GazetteerService.search(postcode).then((response) => {
                 // Use first address from results - possible better way ?
-                var address = response.data.address[0];  
-            
+                var address = response.data.address[0];
                 var location = {
                     "latitude": address.latitude,
                     "longitude": address.longitude,
                     "unit": "MILE",
                     "range": 10
-                } 
-                commit("setPostcodeSearchCriteria",location);
-            
+                }
+                commit("setPostcodeSearchCriteria", location);
+
             })
-            dispatch("aSearch");           
         }
-        else{
-            var locationNull = null
-            commit("setPostcodeSearchCriteria",locationNull);
+        SearchService.search(state.indexReference, state.searchCriteria).then((response) => {
+            commit("setASearchResults", response.data.results)
+        }, (error) => {
+            /* TODO Handle error */
+            console.log("error searching caught")
+          
+        });
+    },
+
+    async setPostcodeSearchCriteria({
+        state,
+        commit,
+        dispatch
+    }) {
+        var postcode = state.searchForm.postcode;
+
+        if (postcode != null && postcode != "") {
+            await GazetteerService.search(postcode).then((response) => {
+
+                // Use first address from results - possible better way ?
+                var address = response.data.address[0];
+
+                var location = {
+                    "latitude": address.latitude,
+                    "longitude": address.longitude,
+                    "unit": "MILE",
+                    "range": 10
+                }
+                commit("setPostcodeSearchCriteria", location);
+
+            })
             dispatch("aSearch");
-        }    
-    },
-    setAvailableSearch(context,payload){
-       context.commit("setAvailableSearch",payload); 
-       var searchCriteriaParameters = context.state.searchCriteria.parameters;
-       if(searchCriteriaParameters.length > 0 && !payload)
-        {
-            searchCriteriaParameters.splice(0,1)
+        } else {
+
+            var locationNull = null
+            commit("setPostcodeSearchCriteria", locationNull);
+            dispatch("aSearch");
         }
-        else if(searchCriteriaParameters.length == 0 && payload)
-        {
-            searchCriteriaParameters.push({"reference":"available","value":true});
-        }
-        context.commit("setSearchParameters",searchCriteriaParameters);
     },
-    
+    setAvailableSearch(context, payload) {
+        context.commit("setAvailableSearch", payload);
+        var searchCriteriaParameters = context.state.searchCriteria.parameters;
+        if (searchCriteriaParameters.length > 0 && !payload) {
+            searchCriteriaParameters.splice(0, 1)
+        } else if (searchCriteriaParameters.length == 0 && payload) {
+            searchCriteriaParameters.push({
+                "reference": "available",
+                "value": true
+            });
+        }
+        context.commit("setSearchParameters", searchCriteriaParameters);
+    },
+
     // Preperation for postcode only search - from homepage
-    removeAllOtherSearchCriteria({state,dispatch}){
+    removeAllOtherSearchCriteria({
+        state,
+        dispatch
+    }) {
         dispatch("removeAllDocumentTypesFromSearchCriteria");
     },
     // Remove types to search postcode only 
-    removeAllDocumentTypesFromSearchCriteria(context){
+    removeAllDocumentTypesFromSearchCriteria(context) {
         var typesSelected = context.state.searchForm.documentTypes
-        typesSelected.forEach((type)=>type.selected = false);
-        context.commit("setDocumentTypes",typesSelected);
+        typesSelected.forEach((type) => type.selected = false);
+        context.commit("setDocumentTypes", typesSelected);
     },
-    
+
     /*************************************************************************/
-    
-    setAdminCurrentLocation(context,payload){
-        context.commit("setAdminCurrentLocation",payload)
-        
-        
+
+    setAdminCurrentLocation(context, payload) {
+        context.commit("setAdminCurrentLocation", payload)
+
+
     }
 }

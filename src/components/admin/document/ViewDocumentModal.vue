@@ -62,9 +62,9 @@
        
    
         <div id="mfooter" v-bind:class="{'doingStuff':isDoingStuff}">
-            <button  class="btn btn-outline-secondary" @click="closeModal()"> Close </button>
-            <button type="button" class="btn btn-success" data-dismiss="modal" @click="updateDocument">Save</button>
-            <button type="button" class="btn btn-danger" @click="deleteDocument">Delete</button>
+            <button  class="btn btn-outline-secondary" @click="closeModal()" :disabled="isDoingStuff"> Close </button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" @click="updateDocument" :disabled="isDoingStuff">Save</button>
+            <button type="button" class="btn btn-danger" @click="deleteDocument" :disabled="isDoingStuff">Delete</button>
             <ModalErrorMessage :error="error"></ModalErrorMessage>
             <ModalInfoMessage :info="info"></ModalInfoMessage>
     </div>
@@ -287,9 +287,6 @@
                 this.clearErrorMessage()
 
                 this.isDoingStuff = true;
-
-
-
 
                 if (this.document.name == null || this.document.name == "") {
                     this.clearActionMessage();

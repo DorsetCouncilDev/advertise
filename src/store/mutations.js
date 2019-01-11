@@ -10,8 +10,6 @@ export const mutations = {
         state.searchCriteria.parameters.splice(payload);
     },
     updateSearchParameter(state,payload){
-        console.log("update: " + payload.reference + " with " + payload.value)
-        
         state.searchCriteria.parameters.forEach((param) => {
             if(param.reference == payload.reference){
                 

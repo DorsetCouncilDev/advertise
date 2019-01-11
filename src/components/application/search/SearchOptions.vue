@@ -7,18 +7,20 @@
         </div>
     <h2 id="searchOptionsTitle">Search Options</h2>
 
-    <form id="searchForm">
+    <form id="searchForm" >
        
-        <label for="postcode">Postcode search</label>
+        <label id="postcodeLabel" for="postcode">Full postcode search</label>
         <div class="form-group">
             <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcodeSearch"> 
         </div>
+        <hr>
            <div class="form-group">
                 <div class="multiple-choice" title="available assets">
                     <input type="checkbox" class="form-control" id="available" v-model="available">
                     <label for="available"  class="mutliple-choice-label form-legend">Show available only</label>
                 </div>
             </div> 
+        <hr>
         <legend class="form-legend">Types</legend>
         <div v-for="type in documentTypes" v-if="type.display" class="mb-2">
         <div class="type-options" >
@@ -77,19 +79,19 @@
             async search() {
                 if (this.postcodeSearch.length > 0) {
                     this.$store.commit("setPostcode", this.postcodeSearch)
-                    await this.$store.dispatch("setPostcodeSearchCriteria")
+                    await this.$store.dispatch("aSearch")
                 } else {
                     this.$store.commit("setPostcodeSearchCriteria", null)
                     this.$store.commit("setPostcode", "")
                     this.$store.dispatch("aSearch");
                 }
-
                 this.$emit("onChangeShowSearchForm")
             }
         },
         watch: {
             documentTypes: {
                 handler: function() {
+                    console.log("types changes")
                     this.$store.dispatch("setTypesSearchChange", this.documentTypes)
 
                 },
@@ -124,7 +126,6 @@
         },
         created() {
             this.postcodeSearch = this.postcode;
-
         }
     }
 
@@ -132,7 +133,14 @@
 
 
 <style scoped lang="scss">
+    
+    .fullPostcodeMessage{
+        display: block;
+        color:#545454;
+    }
     #menu {
+
+        margin-top: 10px;
         left: 0;
         top: 110px;
         position: absolute;
@@ -151,19 +159,22 @@
     }
 
     #searchOptionsContainer {
+        box-shadow: 3px 3px 5px #2A2A2A;
         background: white;
         z-index: 2;
         padding: 15px;
         max-width: 318px;
-        margin-top:25px;
+        margin-top: 25px;
+        width: 95%;
+        max-width: 400px;
     }
 
     #fadedBackgroundBlock {
         position: absolute;
         width: 100%;
         height: 150vh;
-        background: lightgrey;
-        opacity: .4;
+        background: #090909;
+        opacity: .2;
     }
 
     #closeBtnHolder {
@@ -222,26 +233,34 @@
         #menu {
             top: 175px;
         }
+        
     }
 
     @media only screen and (min-width: 900px) {
+        #postcodeLabel{
+     font-size:19px;   
+    }
         #menu {
+
             display: flex;
             position: relative;
             left: 0;
-            opacity:1;
-            top:0;
-            width:275px;
-            #searchOptionsContainer{
+            opacity: 1;
+            top: 0;
+            width: 275px;
+            #searchOptionsContainer {
                 display: block;
+                box-shadow: none;
+                margin-top: 0;
+                border-right: solid 1px lightgrey;
             }
         }
         #fadedBackgroundBlock {
             display: none;
         }
-        #searchOptionsContainer{
+
+        #closeBtnHolder {
             display: none;
-            margin-top:0;
         }
     }
 
@@ -286,4 +305,16 @@
         margin-bottom: .5rem;
     }
 
+    
+        @media only screen and (min-width: 900px) {
+        #menu {
+            width:450px;
+            }
+    }
+    
+            @media only screen and (min-width: 1400px) {
+        #menu {
+            width:550px;
+            }
+    }
 </style>
