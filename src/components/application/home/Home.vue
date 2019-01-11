@@ -38,11 +38,22 @@
 
 <p class="mb-5">Kath Pumfrey, of Dorset Windows</p>
 </section>
+    
+    <section>
+   <h1 class="third-header">What we offer</h1>
+    
+    
+    <DocumentTypeSection>
+    </DocumentTypeSection>
+    
+    </section>
 </div>
 </template>
 
 <script>
-    import HomeSearch from './HomeSearch'
+    import HomeSearch from './HomeSearch';
+   import DocumentTypeSection from './DocumentTypesSection';
+    
     import AOS from 'aos'
     // import ParkingMap from './../../ParkingMap';
     export default {
@@ -53,7 +64,7 @@
             }
         },
         components: {
-            HomeSearch
+            HomeSearch, DocumentTypeSection
         },
         mounted() {
             /*  var locations = {

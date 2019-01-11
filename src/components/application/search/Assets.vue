@@ -88,6 +88,7 @@
             },
             documents() {
                 var results = this.$store.state.searchResults;
+     
                 if (results != null && results.length > 0){
                      this.searchingMessage = "Sorry, no results found for that search";
                     return results

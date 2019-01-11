@@ -15,7 +15,7 @@
         </form>       
     </section>
     <section class="col-sm-6 col-md-5 offset-md-1" id="browseLinkBlock">
-        <h2 class="home-action-label mb-2">Opportunities available now!</h2>
+        <h2 class="home-action-label mb-2">Choose your advertising space</h2>
         <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search/'}">Start browsing</router-link>
     </section>
 </div>
