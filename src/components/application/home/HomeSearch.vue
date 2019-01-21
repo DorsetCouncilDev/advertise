@@ -87,18 +87,8 @@
         margin-bottom: 20px;
         
     }
-    #browseLink{
-        background-image: linear-gradient(to right, $buttonBrowseDark,$buttonBrowse);
-        &:hover{
-            background-image: linear-gradient(to right, $buttonBrowseHoverDark, $buttonBrowseHover);
-        }
-    }
-    #searchGoBtn{
-         background-image: linear-gradient(to right, $buttonGoDark, $buttonGo);
-        &:hover{
-            background-image: linear-gradient(to right, $buttonGoHoverDark, $buttonGoHover);
-        }
-    }
+
+  
     @media only screen and (min-width: 576px) {
         #postcodeSearchBlock {
             margin-top: 30px;

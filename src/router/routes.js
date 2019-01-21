@@ -127,19 +127,20 @@ const routes = [
         path: '/advertise',
         component: Home,
         meta: {
-            title: 'Advertise Dorset Home'
+            title: 'Advertising in Dorset',
+            description: 'Dorset Council offers advertising opportunities around Dorset. Opportunities include Roundabout and boundary signage sponsorship, as well as car parking, bus shelter, vehicle and bin lid advertising. Here you can find opportunities you are interested in, check their availability, see their costs and contact us about booking them.'
         }
     }, 
     { path: "*",   component: Home,
         meta: {
-            title: 'Advertise Dorset Home'
+            title: 'Advertising in Dorset'
         }
     },
     {
         path:  '/advertise/search',
         component: Search,
         meta: {
-            title: 'Search opportunities'
+            title: 'Advertising opportunities available in Dorset'
         }
     },
     {
@@ -152,7 +153,7 @@ const routes = [
         path: '/advertise/info/mediapack',
         component: Mediapack,
         meta: {
-            title: 'Media Pack'
+            title: 'Download Advertising in Dorset media pack'
         }
     },
       {
@@ -160,7 +161,7 @@ const routes = [
         component: ContactForm,
           props:true,
         meta: {
-            title: 'Contact form'
+            title: 'Contact Advertise Dorset'
         }
     },
     {
@@ -168,14 +169,14 @@ const routes = [
         component: ContactForm,
           props:true,
         meta: {
-            title: 'Contact form'
+            title: 'Contact Advertise Dorset'
         }
     },
     {
         path: '/advertise/info/contact',
         component: ContactForm,
         meta: {
-            title: 'Contact form'
+            title: 'Contact Advertise Dorset'
         }
     }
 ]
