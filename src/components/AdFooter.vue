@@ -1,4 +1,5 @@
-<template>    
+<template> 
+I AM FOOTER   
 <footer>
 
         <div class="footer-block" id="footerLogo">
