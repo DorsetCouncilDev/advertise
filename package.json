@@ -21,6 +21,7 @@
     "node-sass": "^4.9.4",
     "popper.js": "^1.14.1",
     "spectrum-colorpicker": "^1.8.0",
+    "uppload-vue": "^0.9.0",
     "verte": "0.0.5",
     "vue": "^2.5.2",
     "vue-analytics": "^5.14.0",

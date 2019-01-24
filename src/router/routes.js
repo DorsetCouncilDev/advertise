@@ -27,6 +27,7 @@ import AssetsList from '../components/admin/index/AssetsList';
 import AssetsView from '../components/admin/index/AssetView';
 import AssetLocations from '../components/admin/index/AssetLocations';
 import ManageLocations from '../components/admin/document/ManageLocations';
+// import ManageImages from '../components/admin/document/ManageImages';
 import MyMap from '../components/admin/document/MyMap';
 const routes = [
    
@@ -122,7 +123,18 @@ const routes = [
                 next('/advertise/admin')
         }
     },
-    
+   /* {
+        path: '/advertise/admin/indexes/:indexRef/:documentRef/images',
+        component: ManageImages,
+        props: true,
+        beforeEnter: (to, from, next) => {
+            if(store.state.securityToken != null && store.state.securityToken != '')
+                next()
+            else
+                next('/advertise/admin')
+        }
+    },
+    */
     {
         path: '/advertise',
         component: Home,

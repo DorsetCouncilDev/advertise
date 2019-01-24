@@ -20,6 +20,7 @@
                     <th class="sortable-head" @click="sort('name','asc')"><img src="../../../assets/images/order-swap.svg"> Name</th>
                     <th class="sortable-head" @click="sort('documentType','asc')"><img src="../../../assets/images/order-swap.svg"> Type</th>
                     <th>Locations</th>
+                    <th>Images</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -28,6 +29,7 @@
                     <td><span class="view-link" @click="openDocumentViewModal(document)">{{document.name}}</span></td>
                     <td>{{document.documentType}}</td>
                     <td class="locations-column"><router-link v-if="document.publishedVersion != null && document.publishedVersion.published" :to="{path: '/advertise/admin/indexes/' + indexRef + '/' + document.reference + '/locations'}">{{document.publishedVersion.locations.length}}</router-link></td>
+                    <td><router-link :to="{path: '/advertise/admin/indexes/' + indexRef + '/' + document.reference + '/images'}">images</router-link>
                     <td> <span  v-if="document.publishedVersion != null && document.publishedVersion.published" class="text-success">published</span><span v-else> unpublished</span></td>
                 </tr>
             </tbody>

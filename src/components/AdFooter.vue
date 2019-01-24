@@ -1,5 +1,4 @@
 <template> 
-I AM NOT FOOTER   
 <footer>
 
         <div class="footer-block" id="footerLogo">

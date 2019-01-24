@@ -4,7 +4,7 @@ import axios from 'axios'
 // Development
 
 
-/*
+
 var _test_fail = axios.create({
   baseURL: 'http://52.56.188.219/catalogue/v1/indexes',
   timeout: 1
@@ -30,11 +30,11 @@ var _search = axios.create({
     baseURL: 'http://52.56.188.219/catalogue/v1/search/index/',
     timeout: 10000
 });
-*/
+
 
 
 // Production
-
+/*
 var _security = axios.create({
   baseURL: 'https://web.dorsetcc.gov.uk/catalogue/v1/public/users/login',  
   timeout: 10000
@@ -55,7 +55,7 @@ var _gazzeteer = axios.create({
   baseURL: 'https://app.dorsetcc.gov.uk/gazetteer/rest/address/postcode/',
   timeout: 10000
 });
-
+*/
 
 export default {
     get(url){
