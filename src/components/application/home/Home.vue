@@ -21,15 +21,15 @@
             </div>
         </div>
     </div>
-<h1 class="display-4 home-header">Advertise in Dorset to promote your brand.</h1>     
+<h1 class="home-header mt-4">Local advertising solutions in Dorset</h1>     
 <HomeSearch :indexRef="indexRef"></HomeSearch>
 <section data-aos="fade-up">
     <h1 class="mt-3 mb-1 home-second-header">Exposure for your brand</h1>
      <div class="ad-data-collection  mb-5">
-        <div class="ad-data">1 <span class="ad-data-label display-3"> Million plus daily motorists</span></div>
         <div class="ad-data">18 <span class="ad-data-label display-3">Million yearly visitors</span></div>
-        <div class="ad-data">424,670 <span class="ad-data-label display-3">residents</span></div>
-        <div class="ad-data">22,000 <span class="ad-data-label display-3">businesses</span></div>
+        <div class="ad-data">375,050 <span class="ad-data-label display-3">residents</span></div>
+        <div class="ad-data">158,738 <span class="ad-data-label display-3">households</span></div>
+        <div class="ad-data">19,995 <span class="ad-data-label display-3">businesses</span></div>
     </div>
 </section>
 <section data-aos="fade-up">
@@ -37,10 +37,14 @@
 <q>We'd recommend roundabout sponsorship in Dorset as a great way of raising brand awareness, and at Dorset Windows we find it provides good value for money. With the right roundabout, we're able to promote our brand as people travel around and be in the forefront of people's minds.</q>
 
 <p class="mb-5">Kath Pumfrey, of Dorset Windows</p>
+<q>At Blue Pool, we’ve had a very positive experience of roundabout sponsorship; the attraction has benefited from an increase in visitor numbers and word-of-mouth, and we’ve had growing in interest in Wareham Bears. We’re also happy that, through our sponsorship, the community benefits from well-maintained and tidy roundabouts. 
+We’d recommend roundabout sponsorship in Dorset to other businesses and attractions due to the increased number of customers and the greater local awareness that it provides.</q>
+
+<p class="mb-5">Carolyn Snook, of Blue Pool</p>
 </section>
     
     <section>
-   <h1 class="third-header">What we offer</h1>
+   <h1 class="third-header">Advertise your business here</h1>
     
     
     <DocumentTypeSection>

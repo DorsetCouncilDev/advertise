@@ -1,9 +1,7 @@
 <template>
 <section class="document-types-section">
-    <p>Our broad portfolio of sponsorship, advertising sites and promotional opportunities give the
-potential for your message to be widely viewed, whether you’re looking to promote a
-product, service or event.</p>
-    <div class="sub-heading-types"> Current opportunities include</div>
+    <p>Dorset  County Council offers a broad portfolio of sponsorship, advertising sites and promotional opportunities that can help your message gain wide coverage, whether you’re looking to promote a product, service or event. With our local knowledge and options for all sized budgets, we work with organisations across the county to provide unique local advertising solutions in Dorset. Sponsorship and advertising fees are used to support council services which benefit the residents and businesses of Dorset.</p>
+  
     <div class="document-types-list">
       <DocumentTypeDiscovery v-for="type in types" :documentTypeName="type.name" :documentTypeRef="type.ref" :text="type.text" v-bind:key="type.ref">
     </DocumentTypeDiscovery>
@@ -22,12 +20,12 @@ export default {
     data(){
         return {
         types:[
-            {name:"Roundabout Sponsorship", ref:"roundabout-sponsorship",text:'Over 80 roundabouts in high traffic areas.'},
+            {name:"Roundabout Sponsorship", ref:"roundabout-sponsorship",text:'70 roundabouts in high traffic areas.'},
             {name:"Bin Lid Advertising", ref:"bin-lid-advertising", text:'Unique and highly targeted.'},
             {name:"Car Parking Ticket Advertising", ref:"car-parking-ticket-advertising",text:'Directly into the hands of your audience.'},
-            {name:"Residents' Magazine Advertising", ref:"residents-magazine-advertising",text:''},
-             {name:"Timetable Case Posters", ref:"timetable-case-posters",text:'Prime seafront advertising in Weymouth.'},
-              {name:"Boundary Signage Sponsorship", ref:"boundary-signage-sponsorship",text:''}
+            {name:"Vehicle Advertising", ref:"vehicle-advertising",text:'Create a moving billboard'},
+             {name:"Bus Shelter Posters", ref:"bus-shelter-advertising",text:'Prime seafront advertising in Weymouth.'},
+              {name:"Boundary Signage Sponsorship", ref:"boundary-signage-sponsorship",text:'Welcome to Dorset, home of "your business"'}
         ]
       }
     }
