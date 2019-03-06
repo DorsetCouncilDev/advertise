@@ -8,7 +8,7 @@
     <div id="titleHolder">
         <div id="title">
             <a href="/advertise" id="titleLink" title="Advertise Dorset homepage">Advertise Dorset</a>  
-            <img id="brandImage" src="../assets/images/advertiseLogo.png" alt=""> 
+            <img id="brandImage" src="../assets/images/dc-advertise.png" alt=""> 
         </div>    
     </div>
     <div v-if="signedIn != ''"><a @click="logout">logout</a></div>
@@ -41,7 +41,7 @@
     $titleHover: darken(#5975de, 30%);
     #header {
         width: 100%;
-        height: 60px;
+        height: 80px;
         display: flex;
         margin-left: -15px;
         margin-right: -30px;
@@ -87,7 +87,7 @@
             }
             #brandImage {
                 position: absolute;
-                top: -50px;
+                top: -5px;
                 right: -35px;
                 width: 125px;
                 z-index: -1;
@@ -109,7 +109,7 @@
                 }
                 #brandImage {
                     position: absolute;
-                    top: -45px;
+                    top: 0px;
                     right: -35px;
                     width: 125px;
                 }
@@ -134,9 +134,10 @@
                 }
                  #brandImage {
                     position: absolute;
-                    top: -80px;
+                    top: 0;
                     right: -55px;
-                    width: 200px;
+                    width:180px;
+                    left:130px;
                 }
             }
         }
@@ -159,8 +160,8 @@
                 }
                 #brandImage {
                     position: absolute;
-                    top: -80px;
-                    right: -55px;
+                    top: -10px;
+                    left:60px;
                     width: 200px;
                 }
             }
@@ -180,9 +181,9 @@
                 }
                 #brandImage {
                     position: absolute;
-                    top: -135px;
-                    right: -90px;
-                    width: 300px;
+                    top: -5px;
+                    left:80px;
+                    width: 250px;
                 }
             }
         }
