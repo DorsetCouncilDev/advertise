@@ -10,7 +10,7 @@
         {{searchingMessage}}
     </div>
     <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView') && !noResultsFound"> 
-        <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" >
+        <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" v-bind:key="d.document.reference" >
             <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
                 <div class="card-heading">
                     <div class="icon"><img :alt="d.document.documentTypeName"  :src="getIcon(d.document.documentTypeReference)"></div>
@@ -24,10 +24,11 @@
                           
                    </div>
                         <div >
-                    <div class="price-tag" v-for="property in d.document.properties" v-if="property.propertyReference == 'price'">&pound;  {{property.publishedValue | round()}}</div>
+                    <div  v-for="property in d.document.properties"  v-bind:key="property.reference"><span v-if="property.propertyReference == 'price'" class="price-tag">&pound;  {{property.publishedValue | round()}}</span></div>
                   </div>
                        
                 </div>
+                 <router-link :to="{ path: '/advertise/' + d.document.reference}" class="view-asset-link">view this opportunity</router-link>
     </div>
             </router-link>
         </div>
@@ -302,5 +303,8 @@
         font-size: 18px;
         color: grey;
     }
+.view-asset-link{
+    text-decoration: underline;
 
+}
 </style>

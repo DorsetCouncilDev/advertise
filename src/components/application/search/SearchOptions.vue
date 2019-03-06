@@ -8,22 +8,26 @@
     <h2 id="searchOptionsTitle">Search Options</h2>
 
     <form id="searchForm" >
-       
-        <label id="postcodeLabel" for="postcode">Full postcode search</label>
+        <div class="form-group dc-toggle">
+          <span class="toggle-label">Show available only</span>
+       <label class="switch" for="available">
+  <input type="checkbox" id="available" v-model="available">
+  <span class="slider round"></span>
+</label>
+</div>
+        <label id="postcodeLabel"  for="postcode">Full postcode search</label>
         <div class="form-group">
+            <div class="input-group">
             <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcodeSearch"> 
+              <div class="input-group-append">
+    <button class="btn btn-success" type="button" @click.prevent="search" id="button-addon2">Search</button>
+  </div>
+  </div>
         </div>
-        <hr>
-           <div class="form-group">
-                <div class="multiple-choice" title="available assets">
-                    <input type="checkbox" class="form-control" id="available" v-model="available">
-                    <label for="available"  class="mutliple-choice-label form-legend">Show available only</label>
-                </div>
-            </div> 
-        <hr>
+    <div id="typesSelectionGroup">
         <legend class="form-legend">Types</legend>
-        <div v-for="type in documentTypes" v-if="type.display" class="mb-2">
-        <div class="type-options" >
+        <div v-for="type in documentTypes"  class="mb-2" v-bind:key="type.reference">
+        <div class="type-options" v-if="type.display">
             <div class="form-group">
                 <div class="multiple-choice" :title="type.name">
                     <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
@@ -36,6 +40,7 @@
             
         </div>
        
+            </div>
             </div>
         <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
     </form>
@@ -160,7 +165,7 @@
 
     #searchOptionsContainer {
         box-shadow: 3px 3px 5px #2A2A2A;
-        background: white;
+        background:#fafafa;
         z-index: 2;
         padding: 15px;
         max-width: 318px;
@@ -252,7 +257,7 @@
                 display: block;
                 box-shadow: none;
                 margin-top: 0;
-                border-right: solid 1px lightgrey;
+     
             }
         }
         #fadedBackgroundBlock {
@@ -316,5 +321,83 @@
         #menu {
             width:550px;
             }
+    }
+
+    .dc-toggle{
+        display: flex;
+        margin-top:30px;
+        margin-bottom:30px;
+        .toggle-label{
+            display: block;
+            margin-right:20px;
+            font-size:22px;
+        }
+        .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: hsl(203, 85%, 23%);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px hsl(203, 85%, 23%);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+    }
+
+    #typesSelectionGroup{
+        margin-top:30px;
+        margin-bottom:30px;
+    }
+      #postcodeLabel{
+     font-size:22px;   
     }
 </style>

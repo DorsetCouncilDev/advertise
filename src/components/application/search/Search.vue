@@ -120,6 +120,7 @@
       @media only screen and (min-width: 900px) {
            #searchContainer {
        display:flex;
+       align-items: start;
     }
           
          

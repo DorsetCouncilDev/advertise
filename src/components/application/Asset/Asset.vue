@@ -37,9 +37,14 @@
         <p id="assetParagraph" v-if="afterPriceText">{{afterPriceText}} </p>
        <hr>
    <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
-   <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Message us to book</router-link>
+   <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
         <p id="assetParagraph" v-for="p in document.properties"  v-bind:key="p.reference">
-            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">{{p.propertyName}}: {{p.publishedValue | readBoolean}}</span>
+            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">
+                <div class="property-section">
+                <span class="generalPropertyName">{{p.propertyName}}</span>
+                <span class="generalPropertyValue">{{p.publishedValue | readBoolean}}</span>
+                </div>
+                </span>
         </p>
         <hr>
         <div v-if="document.locations.length > 0">
@@ -310,5 +315,12 @@
  
     }
     }
-
+.generalPropertyName{
+    display:block;
+    font-weight:500;
+}
+#generalPropertyName{
+    display:block;
+    color: #3f3f3f;
+}
 </style>
