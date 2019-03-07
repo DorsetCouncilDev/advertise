@@ -11,7 +11,6 @@ export const getters = {
     getParameter: (state) =>  (param) =>{
         var val = "";
         state.searchCriteria.parameters.forEach((parameter)=>{
-            console.log("here " + parameter.value);
             if(parameter.reference == param){
                  val = parameter.value;
             }

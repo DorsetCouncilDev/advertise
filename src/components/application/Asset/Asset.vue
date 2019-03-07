@@ -82,7 +82,6 @@
         methods: {
             getIcon(documentType) {
                 if (typeof documentType !== "undefined") {
-                console.log("get icon: " + document.type);
                 return require("../../../assets/images/icons/" + documentType + ".svg");
                 }
             },
@@ -146,7 +145,6 @@
             assetAvailable() {
                 var available = false
                 this.document.properties.forEach((p) => {
-                    console.log("checking property " + p.propertyReference)
                     if (p.propertyReference == 'available' && p.publishedValue == 'true')
                        available = true;
                 })
@@ -199,7 +197,6 @@
             }
         },
         created: function(){
-            console.log(this.$route.meta.title);
               
         }
     }

@@ -119,14 +119,16 @@
     }
 
     @media only screen and (min-width: 600px) {
-
+        #dfyHolder {
+            position: absolute;
+        }
         #header {
             height: 100px;
             margin-left: 15px;
             margin-right: 15px;
         }
         #titleHolder {
-
+ 
             #title {
                 a {
                     line-height:2;
@@ -173,6 +175,7 @@
             height: 130px;
         }
         #titleHolder {
+               left: -50px;
             #title {
                 a {
                     line-height: 2.5;

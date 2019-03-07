@@ -96,7 +96,7 @@
         watch: {
             documentTypes: {
                 handler: function() {
-                    console.log("types changes")
+
                     this.$store.dispatch("setTypesSearchChange", this.documentTypes)
 
                 },
@@ -126,7 +126,6 @@
            
                 },
                 set: function(value) {
-                    console.log("setting available to: " + value);
                     this.$store.dispatch("setAvailableSearch", value);
                 }
             }

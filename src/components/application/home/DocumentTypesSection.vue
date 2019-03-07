@@ -36,7 +36,7 @@ export default {
 <style scoped lang="scss">
     .document-types-list{
         display: flex;
-        justify-content: flex-start;
+justify-content: space-around;
         flex-wrap: wrap;
     }
     .sub-heading-types{
@@ -44,5 +44,18 @@ export default {
         margin-bottom:15px;
     }
 
+.document-types-section{
+    margin-top:15px;
+    margin-bottom:50px;
+}
 
+
+
+ @media only screen and (min-width: 540px) {
+ .document-types-list{
+
+        justify-content: flex-start;
+
+    }
+ }
 </style>
