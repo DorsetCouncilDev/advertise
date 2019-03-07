@@ -255,7 +255,7 @@ export const actions = {
         }
     },
     setAvailableSearch(context, payload) {
-        context.commit("setAvailableSearch", payload);
+      
         var searchCriteriaParameters = context.state.searchCriteria.parameters;
         if (searchCriteriaParameters.length > 0 && !payload) {
             searchCriteriaParameters.splice(0, 1)
@@ -289,4 +289,6 @@ export const actions = {
 
 
     }
+
+
 }

@@ -122,10 +122,12 @@
             },
             available: {
                 get: function() {
-                    return this.$store.state.searchForm.available;
+                      return this.$store.state.searchForm.parameters.available;
+           
                 },
                 set: function(value) {
-                    this.$store.dispatch("setAvailableSearch", value)
+                    console.log("setting available to: " + value);
+                    this.$store.dispatch("setAvailableSearch", value);
                 }
             }
         },

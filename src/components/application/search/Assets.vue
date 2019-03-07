@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="card-main"><div>{{d.document.longText}}</div>
-                    <div class="info-row">
+                    <div class="info-row mt-2 mb-2">
                          <div  >
                     <div class="distance-tag"  v-if="d.distanceFromCoordinate && postcode != ''">{{d.distanceFromCoordinate | round()}} miles from {{postcode}}</div>
                           
@@ -211,7 +211,7 @@
                 }
                 
                 &:hover {
-                    outline: orange solid 1px;
+                    outline: orange solid 3px;
                 }
 
                 .card-heading {

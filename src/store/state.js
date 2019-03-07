@@ -19,7 +19,6 @@ export const state = {
         parameters: {
             "available": false
         }
-      
     },
     initialSearch: false,
     admin: {

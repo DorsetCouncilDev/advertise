@@ -33,11 +33,12 @@
                 <h2 id="assetLongText">{{document.documentTypeName}} - {{document.longText}}</h2>
             </div>
         </div>
-        <h3>{{assetPrice}}</h3>
+        <h3 id="assetPrice">{{assetPrice}}</h3>
         <p id="assetParagraph" v-if="afterPriceText">{{afterPriceText}} </p>
        <hr>
    <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
    <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
+
         <p id="assetParagraph" v-for="p in document.properties"  v-bind:key="p.reference">
             <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">
                 <div class="property-section">
@@ -46,6 +47,7 @@
                 </div>
                 </span>
         </p>
+ 
         <hr>
         <div v-if="document.locations.length > 0">
             <h3>Location</h3>
@@ -205,36 +207,32 @@
 </script>
 
 <style scoped lang="scss">
+#docRefBreadCrumb{
+      text-overflow: ellipsis;
+}
+#assetLongText {
+    font-weight:400;
+}
     .ad-breadcrumb{
-        width:90%;
+   width:100%;
         white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
     }
-    $buttonAddWaitingListBtn: darken(#5975de,50%);
-    $buttonAddWaitingListBtnDark: darken(#5975de,30%);
-    
-    $buttonAddWaitingListBtnHoverDark: darken(#5975de,40%);
-    $buttonAddWaitingListBtnHover: darken(#5975de,20%);
-    
-    #waitingListBtn{
-         background-image: linear-gradient(to right, $buttonAddWaitingListBtnDark,$buttonAddWaitingListBtn);
-        &:hover{
-            background-image: linear-gradient(to right, $buttonAddWaitingListBtnHoverDark, $buttonAddWaitingListBtnHover);
-        }
-    }
+
     
     .description-text{
         margin:15px 0;
     }
     #assetTitleText {
-        font-size: 1.8rem;
-        margin-bottom: 2px;
+        font-size: 24px;
+        margin-bottom: 15px;
          text-align: left;
+  
     }
 
     #assetLongText {
-        font-size: 1.2rem;
+        font-size: 19px;
         text-align: left;
     }
 
@@ -299,13 +297,13 @@
         .contact {
             float: right;
         }
-        @media only screen and (min-width: 805px) {
+      
+    }
+  @media only screen and (min-width: 805px) {
              #assetTitleText {
                 font-size: 32px;
             }
         }
-    }
-
     
      @media only screen and (min-width: 420px) {
       .ad-breadcrumb{
@@ -322,5 +320,12 @@
 #generalPropertyName{
     display:block;
     color: #3f3f3f;
+}
+
+.property-section{
+    margin-top:15px;
+}
+#assetPrice{
+    font-size:22px;
 }
 </style>
