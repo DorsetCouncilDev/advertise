@@ -23,7 +23,12 @@
             </div>
         </div>
     </div>
-     
+
+ <div v-show="loadingDocument">
+    <h1>Loading asset</h1>
+</div>
+
+     <div v-show="!loadingDocument">
         <div class="document-header">
             <div class="icon-holder">
                 <img :src="getIcon(document.documentTypeReference)" :alt="document.documentTypeReference">
@@ -49,7 +54,7 @@
         </p>
  
         <hr>
-        <div v-if="document.locations.length > 0">
+        <div v-if="document.locations != null && document.locations.length > 0">
             <h3>Location</h3>
             <AssetMaps :locations="document.locations" :streetView="streetViewRequired" :name="document.name"></AssetMaps>
         </div>
@@ -59,6 +64,7 @@
         <p class="assetParagraph"><a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a> </p>
         <p class="assetParagraph"><a href="tel:+441305224125">01305 224125</a></p>
         <p class="assetParagraph">quoting reference <strong>{{document.reference}}</strong></p> 
+    </div>
     </div>
 </template>
 
@@ -73,7 +79,8 @@
                 document: {},
                 indexRef: "advertise",
                 waiting:"waiting",
-                book:"book"
+                book:"book",
+                loadingDocument: true
             }
         },
         components: {
@@ -89,19 +96,26 @@
                 DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
                         document.title = this.document.name;
+                        this.loadingDocument = false;
                 })
             }
         },
         computed: {
+        
+            properties(){
+                if(this.document != null && this.document.properties != null){
+                    return this.document.properties;
+                }
+                return [];
+            },
             description: function(){
                 var desc = "";
-                if(this.document != null){
-                   this.document.properties.forEach((p) => {
+                var assetProperties = this.properties;
+                assetProperties.forEach((p) => {
                     if (p.propertyReference == 'description')
                         desc =  p.publishedValue
                    })
                 return desc;
-                }
             },
             streetViewRequired() {
                if(this.document.locations[0].streetviewLatitude != null)
@@ -113,8 +127,8 @@
                 var price = null
                 var before = null
                 var after = null
-
-                this.document.properties.forEach((p) => {
+                var assetProperties = this.properties;
+                assetProperties.forEach((p) => {
                     if (p.propertyReference == 'price')
                         price = p.publishedValue
                     if (p.propertyReference == 'before-price')
@@ -140,19 +154,20 @@
                     priceDescription += "£" + price
                     return priceDescription
                 }
-
             },
             assetAvailable() {
                 var available = false
-                this.document.properties.forEach((p) => {
+                 var assetProperties = this.properties;
+                assetProperties.forEach((p) => {
                     if (p.propertyReference == 'available' && p.publishedValue == 'true')
                        available = true;
-                })
+                })    
                 return available
             },
             beforePriceText() {
                 var beforePrice = null
-                this.document.properties.forEach((p) => {
+                var assetProperties = this.properties;
+                assetProperties.forEach((p) => {
                     if (p.propertyReference == 'before-price')
                         beforePrice = p.publishedValue
                 })
@@ -160,12 +175,13 @@
             },
             afterPriceText() {
                 var afterPrice = null
-                this.document.properties.forEach((p) => {
+                 var assetProperties = this.properties;
+                assetProperties.forEach((p) => {
                     if (p.propertyReference == 'after-price')
                         afterPrice = p.publishedValue
                 })
                 return afterPrice
-            }
+        }
         },
         beforeMount() {
             this.getDocument();

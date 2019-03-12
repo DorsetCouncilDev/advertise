@@ -127,6 +127,7 @@
                 },
                 set: function(value) {
                     this.$store.dispatch("setAvailableSearch", value);
+        
                 }
             }
         },

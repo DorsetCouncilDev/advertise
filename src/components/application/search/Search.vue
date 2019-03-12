@@ -57,6 +57,7 @@
                 indexRef: "advertise"
             }
         },
+         props: [ 'documentTypeRef'],
         components: {
             Toolbar,
             Assets,
@@ -83,14 +84,13 @@
             }
 
     },
-         created(){
-             
-            if(!this.$store.state.initialSearch)
-                this.$store.dispatch("setInitialDocumentTypesSearchOptions",this.indexRef)
-             
-             
+        beforeMount(){
             this.$store.commit("setIndexReference",this.indexRef);
+           if(!this.$store.state.initialSearch && this.documentTypeRef == null)
+              this.$store.dispatch("setInitialDocumentTypesSearchOptions",this.indexRef)
             
+         if(this.documentTypeRef != null)
+                this.$store.dispatch("searchSingleDocumentType",this.documentTypeRef);
         }
     }
 

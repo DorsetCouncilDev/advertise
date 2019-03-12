@@ -200,6 +200,8 @@ export const actions = {
         commit,
         dispatch
     }) {
+console.log("searching....")
+        commit("setCurrentlySearching",true);
         var postcode = state.searchForm.postcode;
         if (postcode != null && postcode != "") {
             await GazetteerService.search(postcode).then((response) => {
@@ -217,10 +219,11 @@ export const actions = {
         }
         SearchService.search(state.indexReference, state.searchCriteria).then((response) => {
             commit("setASearchResults", response.data.results)
+            commit("setCurrentlySearching",false);
         }, (error) => {
             /* TODO Handle error */
             console.log("error searching caught")
-          
+            commit("setCurrentlySearching",false);
         });
     },
 
@@ -258,6 +261,7 @@ export const actions = {
       
         var searchCriteriaParameters = context.state.searchCriteria.parameters;
         if (searchCriteriaParameters.length > 0 && !payload) {
+            console.log("set available search");
             searchCriteriaParameters.splice(0, 1)
         } else if (searchCriteriaParameters.length == 0 && payload) {
             searchCriteriaParameters.push({
@@ -266,6 +270,7 @@ export const actions = {
             });
         }
         context.commit("setSearchParameters", searchCriteriaParameters);
+        context.commit("setAvailableSearch",payload);
     },
 
     // Preperation for postcode only search - from homepage
@@ -282,12 +287,29 @@ export const actions = {
         context.commit("setDocumentTypes", typesSelected);
     },
 
+
+    async searchSingleDocumentType( {dispatch,state,commit},payload){
+        await DocumentTypeService.getTypes("advertise").then((response) => {
+            var types = response.data;
+            var typesSelected = state.searchCriteria.documentTypes;
+            types.forEach((type) => {
+                if (type.display) {
+                    state.searchCriteria.documentTypes.push(type.reference)
+                    if(type.reference == payload)
+                        type.selected = true;
+                }
+            })
+            commit("setInitialSearch");
+            commit("setDocumentTypes", types);
+    })
+},
+
     /*************************************************************************/
 
     setAdminCurrentLocation(context, payload) {
         context.commit("setAdminCurrentLocation", payload)
 
-
+        
     }
 
 

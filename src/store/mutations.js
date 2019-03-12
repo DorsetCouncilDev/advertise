@@ -1,3 +1,4 @@
+import { stat } from "fs";
 
 export const mutations = {
     setCurrentIndex(state,payload){
@@ -20,7 +21,7 @@ export const mutations = {
     addSearchParameter(state,payload){
          state.searchCriteria.parameters.push(payload);
     },
-    setSearchResults(state,payload){
+    setSearchResultsResults(state,payload){
         state.searchResults = payload;
     },
     setView(state,payload){
@@ -77,7 +78,9 @@ export const mutations = {
         state.searchResults = param;
      
     }, 
-    
+    setASearchResults(state,param){
+        state.currentlySearching = param;
+    },
     
     
     /***************************************/
@@ -107,8 +110,14 @@ export const mutations = {
     setAvailableSearch(state,payload){
         state.searchForm.parameters.available = payload
     },
+    setSearchTypesForm(state,payload){
+        state.searchForm.documentTypes = payload;
+    },
     
-    
+
+    setCurrentlySearching(state,payload){
+        state.currentlySearching = payload;
+    },
     /**********************************************************/
     /******  ADMIN   ******************************************/
     

@@ -30,5 +30,6 @@ export const state = {
             zoom: 1
         },
         status: null
-    }
+    },
+    currentlySearching:true
 }

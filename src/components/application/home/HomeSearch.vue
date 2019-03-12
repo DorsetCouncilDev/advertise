@@ -1,6 +1,6 @@
 <template>
 <div class="row">
-    <section class="col-sm-6 col-md-5" id="postcodeSearchBlock">      
+    <section class="col-md-7 col-lg-5" id="postcodeSearchBlock">      
         <form v-on:submit.prevent="postcodesearch">
             <div class="form-group" aria-labelledBy="search">
                 <h2 class="home-action-label mb-2" id="search">Advertising location finder</h2>
@@ -14,7 +14,7 @@
             </div>
         </form>       
     </section>
-    <section class="col-sm-6 col-md-5 offset-md-1" id="browseLinkBlock">
+    <section class="col-md-7 col-lg-5 offset-lg-1" id="browseLinkBlock">
         <h2 class="home-action-label mb-2">Choose your advertising space</h2>
         <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search/'}">Start browsing</router-link>
     </section>
@@ -70,8 +70,9 @@
 
     
     .home-action-label {
-        font-size: 26px;
+        font-size:19px;
         text-align:left;
+        font-weight:400;
     }
 
     input {
@@ -87,16 +88,23 @@
         margin-bottom: 20px;
         
     }
-
+  @media only screen and (min-width: 400px) {
+        .home-action-label {
+            font-size:24px;
+        }
+  }
   
     @media only screen and (min-width: 576px) {
         #postcodeSearchBlock {
             margin-top: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 0;
         }
         #browseLinkBlock {
             margin-top: 30px;
             margin-bottom: 30px;
+        }
+          .home-action-label {
+            font-size:28px;
         }
  
     }

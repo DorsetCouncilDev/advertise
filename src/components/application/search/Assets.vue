@@ -6,10 +6,11 @@
     <transition name="component-fade" mode="out-in">
         <Map v-show="view == 'mapView'" :assets="documents"></Map>
     </transition>
-    <div class="result-cards" v-show="noResultsFound" id="noResultsMessage">
+    <div class="result-cards" v-show="showSearchingMessage" id="noResultsMessage">
         {{searchingMessage}}
     </div>
-    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView') && !noResultsFound"> 
+ 
+    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView') && !showSearchingMessage"> 
         <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" v-bind:key="d.document.reference" >
             <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
                 <div class="card-heading">
@@ -88,31 +89,38 @@
                 return this.$store.state.view
             },
             documents() {
-                var results = this.$store.state.searchResults;
-     
-                if (results != null && results.length > 0){
-                     this.searchingMessage = "Sorry, no results found for that search";
-                    return results
+
+                if(this.currentlySearching){
+                     this.searchingMessage = "Searching...";
                 }
                 else{
-                    
-                    return this.initialDocuments
+                    var results = this.$store.state.searchResults;
+                    if (results != null)
+                    {
+                        if (results.length == 0){
+                            this.searchingMessage = "Sorry, no results found for that search";
+                   }    
+                
+                    return results;
+               }
                 }
+               return [];
+           
             },
             postcode() {
                 return this.$store.state.searchForm.postcode.toUpperCase()
+            },
+            currentlySearching(){
+                return this.$store.state.currentlySearching;
             },
             documentTypes: {
                 get: function() {
                     return this.$store.state.searchForm.documentTypes;
                 }
             },
-            noResultsFound(){
-               if(this.documents.length == 0){
-                   
+            showSearchingMessage(){
+               if(this.$store.state.currentlySearching || this.$store.state.searchResults.length == 0)     
                    return true;
-               }
-                
                 return false;
             }
         },
@@ -185,7 +193,7 @@
             .result-card {
                 border: solid 1px darkgrey;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-                padding: 10px;
+                padding: 5px;
                 margin-bottom: 15px;
                 width: 100%;
                 position: relative;
@@ -224,21 +232,15 @@
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
-                        font-size: 24px;
-                        line-height: 1.2;
+                        font-size: 19px;
+              
+                        overflow:hidden;
+                        text-overflow: ellipsis;
                     }
 
                     .icon {
-
-                        width: 50px;
-                        height: 50px;
                         margin-right: 10px;
-
-                        display: block;
-                        width: 50px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
+                        display: block;                   
                         img {
                             display: block;
                             width: 50px;
