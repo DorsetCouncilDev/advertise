@@ -17,6 +17,7 @@ import store from '../store';
 
 // application
 import ContactForm from '../components/ContactForm';
+import Faq from '../components/application/faq/Faq';
 import Mediapack from '../components/application/mediapack/Mediapack';
 import Search from '../components/application/search/Search';
 import Asset from '../components/application/Asset/Asset';
@@ -197,6 +198,13 @@ const routes = [
         component: ContactForm,
         meta: {
             title: 'Contact Advertise Dorset'
+        }
+    },
+    {
+        path: '/advertise/info/faq',
+        component: Faq,
+        meta: {
+            title: 'Frequently asked questions - Advertise Dorset'
         }
     }
 ]
