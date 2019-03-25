@@ -68,7 +68,7 @@ module.exports = {
         }
       },
          {
-        test: /\.(pdf)$/i,
+          test: /\.(pdf)(\?.*)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,

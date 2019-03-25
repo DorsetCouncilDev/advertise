@@ -20,7 +20,7 @@ export default {
     data(){
         return {
         types:[
-            {name:"Roundabout Sponsorship", ref:"roundabout-sponsorship",text:'70 roundabouts in high traffic areas'},
+            {name:"Roundabout Sponsorship", ref:"roundabout-sponsorship",text:'Over 80 roundabouts in high traffic areas'},
             {name:"Bin Lid Advertising", ref:"bin-lid-advertising", text:'Unique and highly targeted'},
             {name:"Car Parking Ticket Advertising", ref:"car-parking-ticket-advertising",text:'Directly into the hands of your audience'},
             {name:"Vehicle Advertising", ref:"vehicle-advertising",text:'Create a moving billboard'},

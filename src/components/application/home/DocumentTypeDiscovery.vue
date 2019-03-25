@@ -1,6 +1,6 @@
 <template>
 <div class="document-type-square"  data-aos="fade-up">
-    <router-link :to="{ path: '/advertise/search/' + documentTypeRef}" class="type-search-link">
+    <router-link :to="{ path: '/advertise/search/type/' + documentTypeRef}" class="type-search-link">
     <div class="document-type-icon">
   <img class="type-icon"  :src="getIcon()">
     </div>

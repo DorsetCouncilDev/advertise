@@ -157,7 +157,15 @@ const routes = [
         }
     },
     {
-        path:  '/advertise/search/:documentTypeRef',
+        path:  '/advertise/search/view/:initialView',
+        component: Search,
+        props:true,
+        meta: {
+            title: 'Advertising opportunities available in Dorset'
+        }
+    },
+    {
+        path:  '/advertise/search/type/:documentTypeRef',
         component: Search,
         props:true,
         meta: {

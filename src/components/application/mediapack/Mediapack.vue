@@ -7,6 +7,7 @@
             <div id="menuLinksTwo">
                 <router-link :to="{path: '/advertise/info/contact/' + ''}">Contact us</router-link> 
                 <router-link class="selected" to="/advertise/info/mediapack">Media pack</router-link> 
+                   <router-link to="/advertise/info/faq">FAQs</router-link> 
             </div>
         </div>
         <div id="navRow">
@@ -19,6 +20,7 @@
             <div id="menuLinksOne">
                 <router-link to="/advertise/info/contact">Contact us</router-link> 
                 <router-link class="selected" to="/advertise/info/mediapack">Media pack</router-link> 
+                   <router-link to="/advertise/info/faq">FAQs</router-link> 
             </div>
         </div>
     </div>
@@ -62,7 +64,7 @@
         </div>
     <div v-show="formSent" id="formSentMessage">
         <p>Thank you for signing up, we'll be in touch soon.</p>
-   <button class="btn btn-success" @click="openPDF">View media pack</button>
+   <a href="http://52.56.188.219/advertise/static/pdf/mediapack.pdf" target="_blank">View media pack</a>
     
     </div>
      <div v-show="formError"><p class="text-danger">Sorry something went wrong submitting this form. Please try again.</p></div>
@@ -72,8 +74,10 @@
 <script>
     import VueRecaptcha from 'vue-recaptcha';
     import emailService from '../../../services/EmailService';
+    import pdf from './mediapack.pdf';
 
     export default {
+        name:'Mediapack',
         data() {
             return {
                 keepInTouch: false,
@@ -82,18 +86,14 @@
                 phone: "",
                 sitekey: '6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P',
                 formSent: false,
-                formError: false
+                formError: false,
+                mediapackPdf: pdf
             }
         },
         components: {
             VueRecaptcha
         },
         methods: {
-            openPDF: function() {
-                //window.open("http://ec2-52-56-188-219.eu-west-2.compute.amazonaws.com/advertise/static/pdf/mediapack.pdf", '_blank');
-                window.open("https://web.dorsetcc.gov.uk/advertise/static/pdf/mediapack.pdf", '_blank');
-                window.open(url, '_blank');
-            },
             onSubmit: function() {
                 this.formError = false;
                 this.$refs.invisibleRecaptcha.execute()

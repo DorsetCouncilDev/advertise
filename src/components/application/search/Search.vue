@@ -7,6 +7,7 @@
             <div id="menuLinksTwo">
                 <router-link to="/advertise/info/contact">Contact us</router-link> 
                 <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+                   <router-link to="/advertise/info/faq">FAQs</router-link> 
             </div>
         </div>
         <div id="navRow">
@@ -18,7 +19,8 @@
             </div>
             <div id="menuLinksOne">
                 <router-link to="/advertise/info/contact">Contact us</router-link> 
-                <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+                <router-link to="/advertise/info/mediapack">Media pack</router-link>
+                   <router-link to="/advertise/info/faq">FAQs</router-link>  
             </div>
         </div>
     </div>
@@ -57,7 +59,7 @@
                 indexRef: "advertise"
             }
         },
-         props: [ 'documentTypeRef'],
+         props: [ 'documentTypeRef','initialView'],
         components: {
             Toolbar,
             Assets,
@@ -91,6 +93,10 @@
             
          if(this.documentTypeRef != null)
                 this.$store.dispatch("searchSingleDocumentType",this.documentTypeRef);
+
+          if(this.initialView != null){
+              this.$store.commit("setView",this.initialView)
+          }
         }
     }
 

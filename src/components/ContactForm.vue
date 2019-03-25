@@ -7,6 +7,7 @@
             <div id="menuLinksTwo">
                 <router-link class="selected" to="/advertise/info/contact">Contact us</router-link> 
                 <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+                   <router-link to="/advertise/info/faq">FAQs</router-link> 
             </div>
         </div>
         <div id="navRow">
@@ -19,6 +20,7 @@
             <div id="menuLinksOne">
                 <router-link class="selected" to="/advertise/info/contact">Contact us</router-link> 
                 <router-link to="/advertise/info/mediapack">Media pack</router-link> 
+                   <router-link to="/advertise/info/faq">FAQs</router-link> 
             </div>
         </div>
     </div>
@@ -82,7 +84,9 @@
     import axios from 'axios';
     import emailService from '../services/EmailService';
     export default {
+               name:"ContactForm",
         data() {
+     
             return {
                 formSent: false,
                 keepInTouch: false,
