@@ -76,7 +76,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
 </template>
 
 <script>
-    import HomeSearch from './HomeSearch';
+   import HomeSearch from './HomeSearch';
    import DocumentTypeSection from './DocumentTypesSection';
     
     import AOS from 'aos'
@@ -85,7 +85,15 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
         name: 'Home',
         data() {
             return {
-                indexRef: "advertise"
+                indexRef: "advertise",
+            }
+        },
+        metaInfo () {
+            return {
+                title: "Roundabout sponsorship & advertising | Dorset Council",
+                meta: [ {
+                    name:"description", content:"Promote your business through roundabout sponsorship & local advertising in Dorset. Advertising opportunities benefiting both your local services & brand."
+                } ]
             }
         },
         components: {
@@ -161,20 +169,19 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
             background-color: white;
             color: darkslategrey;
             position: relative;
-      
             margin-bottom: 15px;
-font-weight: 700;
+            font-weight: 700;
             font-size: 26px;
-            margin-right: 20px;
-            padding-bottom:10px;
-       
-    padding-top: 10px;
-    background: #f1f1f1;
-    color: black;
-    padding-left: 15px;
+            margin-right: 0;
+            padding-bottom:10px; 
+            padding-top: 10px;
+            background: #f1f1f1;
+            color: black;
+            padding-left: 5px;
             .ad-data-label {
                 font-size: 19px;
                 font-weight:400;
+                letter-spacing:2px;
             }
         }
     }
@@ -237,14 +244,15 @@ padding:15px;
 }
 
 @media only screen and (min-width: 700px) {
-          .ad-data-collection {
-flex-direction: row;
-
-            .ad-data {
-padding:15px;
-width:45%;
-                font-size: 32px;
-
+    .ad-data-collection {
+        flex-direction: row;
+        .ad-data {
+            padding:15px;
+            width:48%;
+            font-size: 32px;
+            &:nth-child(odd){
+                margin-right:20px;
+            }
                 .ad-data-label {
                     font-size: 22px;
                 }

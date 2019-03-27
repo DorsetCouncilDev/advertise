@@ -103,6 +103,14 @@
                 formHasErrors: false
             }
         },
+        metaInfo () {
+            return {
+                title: "Contact us to advertise in Dorset | Dorset Council",
+                meta: [ {
+                    name:"description", content:"Dorset Council offers prominent roundabout advertising locations in Dorset. Contact us today for details about locations, costs and availability."
+                } ]
+            }
+        },
         props: ['documentRef','action'],
         components: {
             VueRecaptcha

@@ -46,8 +46,8 @@
    <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
    <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
 
-        <p id="assetParagraph" v-for="p in document.properties"  v-bind:key="p.reference">
-            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description'">
+        <p id="assetParagraph" v-for="p in properties"  v-bind:key="p.reference">
+            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description' && p.propertyReference != 'meta-title'">
                 <div class="property-section">
                 <span class="generalPropertyName">{{p.propertyName}}</span>
                 <span class="generalPropertyValue">{{p.publishedValue | readBoolean}}</span>
@@ -71,8 +71,9 @@
 </template>
 
 <script>
-    import AssetMaps from './AssetMaps/AssetMaps'
-    import DocumentService from '../../../services/DocumentService'
+    import Vue from 'vue'
+    import AssetMaps from './AssetMaps/AssetMaps';
+    import DocumentService from '../../../services/DocumentService';
     export default {
         name: 'AssetView',
         props: [ 'documentRef'],
@@ -82,8 +83,19 @@
                 indexRef: "advertise",
                 waiting:"waiting",
                 book:"book",
-                loadingDocument: true
+                loadingDocument: true,
+                pageMetaTitle: "",
+                pageMetaDescription: ""
             }
+        },
+        metaInfo () {
+        return {
+        title: this.pageMetaTitle,
+        meta: [ {
+            name:"description", content:this.pageMetaDescription
+        } ]
+
+      }
         },
         components: {
             AssetMaps
@@ -97,13 +109,39 @@
             getDocument: function() {
                 DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
-                        document.title = this.document.name;
-                        this.loadingDocument = false;
+                    this.pageMetaDescription = this.metaDescription; 
+                    this.pageMetaTitle =  this.metaTitle; 
+                    this.loadingDocument = false;
                 })
             }
         },
         computed: {
-        
+
+        metaDescription(){
+             var descToReturn = null;
+                this.document.properties.forEach((p)=>{
+                   
+                    console.log(p.propertyName);
+                    if(p.propertyName == 'meta-description'){
+                        console.log("value: " + p.publishedValue)
+                        descToReturn = p.publishedValue;
+                }
+                })
+                return descToReturn;
+        },
+
+        metaTitle(){
+             var titleToReturn = null;
+                this.document.properties.forEach((p)=>{
+                   
+                    console.log(p.propertyName);
+                    if(p.propertyName == 'meta-title'){
+                        console.log("value: " + p.publishedValue)
+                        titleToReturn = p.publishedValue;
+                }
+                })
+                return titleToReturn;
+        },
             properties(){
                 if(this.document != null && this.document.properties != null){
                     return this.document.properties;
@@ -186,7 +224,7 @@
         }
         },
         beforeMount() {
-            this.getDocument();
+          this.getDocument();
        
         },
         filters: {

@@ -3,7 +3,7 @@
 <template>
 <header id="header">
     <div id="dfyHolder"><a href="https://www.dorsetforyou.gov.uk" title="DorsetForYou homepage">
-         <img src="../assets/images/dfy.png" id="dfyLogo" alt=""></a>
+         <img src="../assets/images/dorsetcouncil-logo.svg" id="dcLogo" alt=""></a>
     </div>
     <div id="titleHolder">
         <div id="title">
@@ -38,6 +38,9 @@
 </script>
 
 <style scoped lang="scss">
+
+    
+
     $titleHover: darken(#5975de, 30%);
     #header {
         width: 100%;
@@ -49,8 +52,10 @@
 
     #dfyHolder {
         width: 35%;
-        max-width: 150px;
+        max-width: 200px;
         position: relative;
+        padding-top:10px;
+        padding-left:3px;
         a {
             position: absolute;
             display: block;
@@ -65,6 +70,7 @@
 
 
     #titleHolder {
+        margin-top:10px;
         display: flex;
         justify-content: center;
         margin-left: 5px;
@@ -74,7 +80,7 @@
             position: relative;
             a {
                 line-height: 2;
-                font-size: 19px;
+                font-size: 22px;
                 color: black;
                 &:hover,
                 &:visited {
@@ -100,7 +106,7 @@
             height: 80px;
         }
         #titleHolder {
-
+          
             #title {
                 a {
                     line-height: 2.5;
@@ -121,14 +127,16 @@
     @media only screen and (min-width: 600px) {
         #dfyHolder {
             position: absolute;
+            padding-left:0;
+        
         }
         #header {
             height: 100px;
-            margin-left: 15px;
-            margin-right: 15px;
+            margin-left: 0;
+            margin-right: 0;
         }
         #titleHolder {
- 
+       margin-left:150px;
             #title {
                 a {
                     line-height:2;
@@ -149,11 +157,10 @@
 
         #header {
             height: 100px;
-            margin-left: 15px;
-            margin-right: 15px;
+
         }
         #titleHolder {
-
+            margin-left:0;
             #title {
                 a {
                     line-height: 2.5;

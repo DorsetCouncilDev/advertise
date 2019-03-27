@@ -3,15 +3,15 @@ import routes from './routes';
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter);
+import Meta from 'vue-meta'
+ 
 
+Vue.use(Meta)
   const router = new VueRouter({
         mode: 'history',
         routes
     });
 
-router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
-  next()
-})
+
 
 export default router;

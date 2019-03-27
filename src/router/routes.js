@@ -30,6 +30,7 @@ import AssetLocations from '../components/admin/index/AssetLocations';
 import ManageLocations from '../components/admin/document/ManageLocations';
 // import ManageImages from '../components/admin/document/ManageImages';
 import MyMap from '../components/admin/document/MyMap';
+
 const routes = [
    
  
@@ -140,20 +141,16 @@ const routes = [
         path: '/advertise',
         component: Home,
         meta: {
-            title: 'Advertising in Dorset',
-            description: 'Dorset Council offers advertising opportunities around Dorset. Opportunities include Roundabout and boundary signage sponsorship, as well as car parking, bus shelter, vehicle and bin lid advertising. Here you can find opportunities you are interested in, check their availability, see their costs and contact us about booking them.'
+            title: 'Roundabout sponsorship & advertising | Dorset Council',
+            description: 'Promote your business through roundabout sponsorship & local advertising in Dorset. Advertising opportunities benefiting both your local services & brand.'
         }
-    }, 
-    { path: "*",   component: Home,
-        meta: {
-            title: 'Advertising in Dorset'
-        }
-    },
+    },   
     {
         path:  '/advertise/search',
         component: Search,
         meta: {
-            title: 'Advertising opportunities available in Dorset'
+            title: 'Find advertising options in Dorset | Dorset Council',
+            description:'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
         }
     },
     {
@@ -161,7 +158,8 @@ const routes = [
         component: Search,
         props:true,
         meta: {
-            title: 'Advertising opportunities available in Dorset'
+            title: 'Find advertising options in Dorset | Dorset Council',
+            description:'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
         }
     },
     {
@@ -169,7 +167,8 @@ const routes = [
         component: Search,
         props:true,
         meta: {
-            title: 'Advertising opportunities available in Dorset'
+            title: 'Find advertising options in Dorset | Dorset Council',
+            description:'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
         }
     },
     {
@@ -182,7 +181,8 @@ const routes = [
         path: '/advertise/info/mediapack',
         component: Mediapack,
         meta: {
-            title: 'Download Advertising in Dorset media pack'
+            title: 'Sponsorship & advertising media pack | Dorset Council',
+            description: 'Download our media pack and see how your business can benefit from roundabout sponsorship, bus shelter advertising, car parking ticket adverts and more.'
         }
     },
       {
@@ -190,29 +190,24 @@ const routes = [
         component: ContactForm,
           props:true,
         meta: {
-            title: 'Contact Advertise Dorset'
-        }
-    },
-    {
-        path: '/advertise/info/contact/:documentRef/:action',
-        component: ContactForm,
-          props:true,
-        meta: {
-            title: 'Contact Advertise Dorset'
+            title: 'Contact us to advertise in Dorset | Dorset Council',
+            description: 'Dorset Council offers prominent roundabout advertising locations in Dorset. Contact us today for details about locations, costs and availability.'
         }
     },
     {
         path: '/advertise/info/contact',
         component: ContactForm,
         meta: {
-            title: 'Contact Advertise Dorset'
+            title: 'Contact us to advertise in Dorset | Dorset Council',
+            description: 'Dorset Council offers prominent roundabout advertising locations in Dorset. Contact us today for details about locations, costs and availability.'
         }
     },
     {
         path: '/advertise/info/faq',
         component: Faq,
         meta: {
-            title: 'Frequently asked questions - Advertise Dorset'
+            title: 'Roundabout sponsorship FAQs | Dorset Council',
+            description: 'Answers to your questions about roundabout sponsorship and advertising in Dorset, from how much it costs, to how to apply and display your message.'
         }
     }
 ]

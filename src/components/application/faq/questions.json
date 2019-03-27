@@ -67,7 +67,7 @@
     "id": 2,
     "questions": [{
         "question": "What size are the advertising signs?",
-        "answer": " <p>We have two standard sponsorship signs on the roundabouts. Sign size is determined by the planning consent granted for each location. Most signs are 1016mm x 610mm, whilst a limited number are 1219mm x 610mm (including the space for the roundabout name and council logo). Select the following link to <a href='http://52.56.188.219/advertise/static/pdf/examples.pdf' target='_blank' class='faq-link'>view an example</a>.</p>",
+        "answer": " <p>We have two standard sponsorship signs on the roundabouts. Sign size is determined by the planning consent granted for each location. Most signs are 1016mm x 610mm, whilst a limited number are 1219mm x 610mm (including the space for the roundabout name and council logo). Select the following link to <a href='/advertise/static/pdf/examples.pdf' target='_blank' class='faq-link'>view an example</a>.</p>",
         "id": 0,
         "open": false
       },

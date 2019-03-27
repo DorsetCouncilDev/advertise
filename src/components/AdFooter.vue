@@ -1,48 +1,104 @@
 <template> 
-<footer>
+ <footer id="dcFooter">
+                <div class="container">
+                        <div class="footer-items">
+                                <nav class="link-section" aria-labelledby="servicesInfoLinksLabel">
+                                        <h2 id="servicesInfoLinksLabel">Services and information</h2>
 
-        <div class="footer-block" id="footerLogo">
-           
-            <svg xmlns="http://www.w3.org/2000/svg"   viewBox="0 0 138.2 71.3">
-  <path d="M.2 0h44v44H.2V0z" fill="#ffad16"/>
-  <path d="M47.2 0h44v44h-44V0z" fill="#8edd65"/>
-  <path d="M94.2 0h44v44h-44V0z" fill="#4ad4ef"/>
-  <path d="M12.4 66.3H9.8v-1.7c-.4.7-.9 1.2-1.6 1.6a6 6 0 0 1-2.3.5c-1 0-1.8-.2-2.6-.5s-1.3-.8-1.8-1.4C1 64.2.7 63.5.4 62.7S0 60.9 0 59.9c0-1.1.2-2.1.5-2.9.3-.8.7-1.5 1.2-2s1.1-.9 1.7-1.2c.7-.2 1.3-.4 2-.4l1.2.1 1.2.4 1 .6c.3.3.6.5.8.9V49h2.8v17.3zm-9.6-6.1l.2 1.6c.2 1 .8 1.9 1.7 2.4.4.2 1 .4 1.6.4a3 3 0 0 0 1.6-.4l1.1-1c.3-.4.5-.9.6-1.4l.2-1.6c0-1.4-.3-2.5-.9-3.2s-1.5-1.2-2.5-1.2c-.6 0-1.2.1-1.6.4l-1.1 1c-.3.4-.5.9-.6 1.5s-.3.9-.3 1.5zM21 66.6c-1 0-1.9-.2-2.7-.5a5.6 5.6 0 0 1-3.2-3.5c-.2-.8-.4-1.6-.4-2.6 0-1.7.5-3.4 1.6-4.7a6 6 0 0 1 4.7-1.9c1 0 1.9.2 2.7.5 1.5.6 2.7 1.9 3.2 3.5.3.8.4 1.7.4 2.6 0 1-.1 1.9-.4 2.7s-.7 1.5-1.2 2.1c-.6.6-1.2 1.1-2 1.4-.8.3-1.7.4-2.7.4zm0-2.2a3 3 0 0 0 1.6-.4c.9-.5 1.5-1.4 1.7-2.4l.2-1.6-.2-1.6c-.1-.5-.4-1-.6-1.4l-1.1-1c-.5-.3-1-.4-1.6-.4s-1.1.1-1.6.4c-.9.5-1.5 1.4-1.7 2.4l-.2 1.6.2 1.6c.1.5.4 1 .6 1.4.3.4.7.8 1.1 1 .5.3 1 .4 1.6.4zm8.6-10.6h2.6v2.4c.1-.3.2-.7.5-1l.8-.9c.3-.3.7-.5 1.1-.6.4-.2.8-.2 1.2-.2h1.1v2.7l-.6-.1h-.6c-.5 0-.9.1-1.3.3l-1.1.8-.7 1.3c-.2.5-.3 1.1-.3 1.8v6h-2.8l.1-12.5zm11 8.5c.1.8.4 1.4.9 1.7.5.3 1.2.5 1.9.5l.9-.1.9-.2.7-.5c.2-.2.3-.5.3-.9s-.1-.6-.4-.9l-.9-.5-1.3-.4-1.5-.3-1.5-.4-1.3-.7c-.4-.3-.7-.6-.9-1.1-.2-.4-.3-1-.3-1.6 0-.7.2-1.2.5-1.7s.8-.8 1.3-1.1a5 5 0 0 1 1.7-.6l1.8-.2 1.9.2c.6.1 1.1.4 1.6.7s.9.7 1.2 1.2.5 1.1.6 1.8h-2.9c-.1-.7-.4-1.1-.9-1.3s-1-.3-1.6-.3h-.7l-.8.2a2 2 0 0 0-.6.4c-.2.2-.2.4-.2.7s.1.6.4.8c.2.2.5.4.9.5l1.3.4 1.5.3 1.5.4 1.3.7c.4.3.7.6.9 1s.4.9.4 1.6c0 .7-.2 1.4-.5 1.9s-.8.9-1.3 1.3-1.1.6-1.8.7l-2 .2c-.8 0-1.5-.1-2.2-.3-.7-.2-1.3-.4-1.7-.8s-.9-.8-1.2-1.4c-.3-.5-.4-1.2-.4-1.9h2.5zm12.6-1.6l.2 1.4.6 1.2 1 .8c.4.2.9.3 1.5.3.7 0 1.4-.2 2-.5.5-.3.9-.9 1.1-1.6h2.6c-.1.7-.4 1.3-.8 1.8s-.8 1-1.3 1.3c-.5.4-1.1.6-1.7.8-1.5.5-3.1.4-4.6-.2-.8-.3-1.4-.8-1.9-1.4s-.9-1.3-1.2-2.1-.3-1.5-.3-2.5a7 7 0 0 1 1.6-4.6c.5-.6 1.2-1.1 1.9-1.4.7-.4 1.6-.5 2.5-.5 1 0 1.9.2 2.7.6.8.4 1.4 1 2 1.6a7 7 0 0 1 1.1 2.3c.2.9.3 1.8.2 2.7h-9.2zm6.4-1.8c0-.5-.1-.9-.3-1.3l-.6-1.1-1-.7c-.4-.2-.8-.3-1.3-.3s-.9.1-1.3.3l-1 .7-.7 1.1c-.2.4-.3.8-.3 1.3h6.5zm3.5-5.1h2.1V50H68v3.8h2.5v2.1H68v7.5l.2.5c.1.1.2.3.4.3l.7.1h.6l.6-.1v2.1l-.9.1h-.9l-1.8-.2c-.4-.1-.8-.3-1-.6l-.5-1-.2-1.4v-7.4h-2.1v-2zm12.1 1.3v11.2h-1.5V55.1h-2.1v-1.3h2.1v-1.1l.1-1.5c.1-.5.2-.8.5-1.2s.5-.6.9-.8.9-.3 1.5-.3h.6l.7.1v1.3l-.6-.1h-.5l-1 .2-.5.5-.2.8v2h2.5V55h-2.5v.1zM86.5 54c.7.4 1.4.8 1.9 1.4.5.6.9 1.3 1.1 2.1.3.8.4 1.7.4 2.6a8 8 0 0 1-1.5 4.7c-.5.6-1.1 1.1-1.9 1.4s-1.5.4-2.5.4-1.8-.2-2.5-.5a5 5 0 0 1-3-3.5c-.3-.8-.4-1.7-.4-2.6a8 8 0 0 1 1.5-4.7c.5-.6 1.1-1.1 1.9-1.4.7-.4 1.6-.5 2.5-.5 1 0 1.8.2 2.5.6zm-4.4 1.2c-.5.3-1 .7-1.4 1.2s-.6 1.1-.8 1.7-.3 1.3-.3 2a7 7 0 0 0 1.1 3.7c.4.5.8.9 1.4 1.2 1.2.7 2.6.7 3.8 0 .5-.3 1-.7 1.4-1.2.4-.5.6-1.1.8-1.7s.3-1.3.3-2a7 7 0 0 0-1.1-3.7 4 4 0 0 0-1.4-1.2 3.7 3.7 0 0 0-3.8 0zm11.4-1.4v2.9c.4-1 1-1.8 1.8-2.3s1.8-.8 2.9-.8v1.5c-.7 0-1.3.1-1.9.3s-1.1.5-1.5.9l-1 1.4-.3 1.8v6.7H92V53.8h1.5zm5.6 0h3l3.3 9.4 3.2-9.4h2.9L106.6 67l-.7 1.6-.8 1.4c-.3.4-.7.7-1.2.9-.5.2-1.1.4-1.8.4l-1.9-.1v-2.3l.7.1.7.1.8-.1.5-.4.4-.5.3-.7.3-1-4.8-12.6zm19.2 12.8c-1 0-1.9-.2-2.7-.5a5.6 5.6 0 0 1-3.2-3.5c-.2-.8-.4-1.6-.4-2.6 0-1.7.5-3.4 1.6-4.7a6 6 0 0 1 4.7-1.9c1 0 1.9.2 2.7.5 1.5.6 2.7 1.9 3.2 3.5.2.8.4 1.7.4 2.6 0 1-.1 1.9-.4 2.7s-.7 1.5-1.2 2.1c-.6.6-1.2 1.1-2 1.4-.8.3-1.7.4-2.7.4zm0-2.2a3 3 0 0 0 1.6-.4c.9-.5 1.5-1.4 1.7-2.4l.2-1.6-.2-1.6c-.1-.5-.4-1-.6-1.4l-1.1-1c-.5-.3-1-.4-1.6-.4s-1.1.1-1.6.4c-.9.5-1.5 1.4-1.7 2.4l-.2 1.6.2 1.6c.1.5.4 1 .6 1.4.3.4.7.8 1.1 1 .4.3 1 .4 1.6.4zm19.5 1.9H135v-1.7c-.3.6-.8 1.1-1.5 1.5s-1.4.6-2 .6c-1.6 0-2.8-.4-3.6-1.2s-1.1-2-1.1-3.7v-7.9h2.8v7.7c0 1.1.2 1.9.6 2.3s1 .7 1.8.7c.6 0 1.1-.1 1.5-.3s.7-.4.9-.7l.5-1.1.2-1.4v-7.3h2.8v12.5h-.1z" fill="#929292"/>
-    </svg>
-    
-    </div>
+                                        <ul class="services-info-list">
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/bins-recycling-and-litter/bins-recycling-and-litter.aspx"
+                                                                title="Bins and waste">Bins and waste</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/housing/housing.aspx"
+                                                                title="Housing">Housing</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/sport-leisure/sport-and-leisure.aspx?folderIds=2058,10460"
+                                                                title="Leisure Centres">Leisure Centres</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/travel/travel.aspx" title="Travel information">Travel
+                                                                information</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/council-tax/council-tax.aspx"
+                                                                title="Council tax">Council
+                                                                tax</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/roads-highways-maintenance/roads-highways-and-maintenance.aspx"
+                                                                title="Highways">Highways</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/planning-buildings-land/planning-buildings-and-land.aspx"
+                                                                title="Planning">Planning</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/education-and-training/schools-and-learning/schools-and-learning.aspx"
+                                                                title="Schools">Schools</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/libraries-history-culture/libraries/libraries.aspx"
+                                                                title="Libraries">Libraries</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/benefits/benefits.aspx"
+                                                                title="Benefits">Benefits</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/children-families/children-and-families.aspx"
+                                                                title="Children">Children</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/care-and-support-for-adults/care-and-support-for-adults.aspx"
+                                                                title="Adult care">Adult care</a></li>
+                                        </ul>
+                                </nav>
 
-        <div class="footer-block" id="links">
-            <ul class="list-inline" id="textLinks">
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/website">About <span id="dfyLText">'Dorset for you'</span></a></li>
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/accessibility" >Accessibility</a></li>
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/contactus">Contact</a></li>
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/privacypolicy" >Privacy policy</a></li>
-                <li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/termsandconditions">Terms &amp; conditions</a></li><li class="list-inline-item"><a class="link" href="https://www.dorsetforyou.gov.uk/translate">Translate</a></li>
-            </ul>
-        </div>
-        <div class="footer-block" id="socialBlock">
-            <ul class="list-inline" id="socialList">
-                <li class="list-inline-item"><a href="https://www.facebook.com/dorsetforyou/" title="Facebook" target="_blank" class="social-link facebook">
-                        <span class="invisible">Facebook</span></a>
-                </li>
-                <li class="list-inline-item"><a href="https://twitter.com/dorsetforyou" title="Twitter" target="_blank" class="social-link twitter">
-                        <span class="invisible">Twitter</span></a>
-                </li>
-                <li class="list-inline-item"><a href="https://www.instagram.com/dorsetforyou/" title="Instagram" target="_blank" class="social-link instagram">
-                        <span class="invisible">Instagram</span></a>
-                </li>
-                <li class="list-inline-item"><a href="https://www.youtube.com/channel/UCsvVB0izExckoxLqPIYla6Q"  target="_blank" class="social-link youtube">
-                        <span class="invisible">YouTube</span></a>
-                </li>
-                <li class="list-inline-item"><a href="https://www.flickr.com/photos/dorsetforyou/" title="Flickr" target="_blank" class="social-link flickr">
-                        <span class="invisible">Flickr</span></a>
-                </li>
-            </ul>
-
-        </div>
-
-    </footer>
+                                <nav class="link-section" aria-labelledby="councilLinksLabel">
+                                        <h2 id="councilLinksLabel">Your council</h2>
+                                        <ul class="council-links-list">
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/councillors-committees-elections/councillors-committees-and-elections.aspx"
+                                                                title="Councillors and Committees">Councillors and
+                                                                Committees</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/jobs" title="Jobs">Jobs</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/news" title="News">News</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/e-news" title="E-newsletter sign up">E-newsletter
+                                                                sign up</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/mylocal/" title="My Local">My
+                                                                Local</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/your-council/online-payments/online-payments.aspx"
+                                                                title="Pay online">Pay online</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/your-council/about-your-council/data-protection.aspx"
+                                                                title="Data protection">Data protection</a></li>
+                                        </ul>
+                                </nav>
+                        </div>
+                        <div class="footer-common-links">
+                                <img src="../assets/images/dorsetcouncil-logo.svg" class="footer-logo">
+                                <div class="common-links-block">
+                                        <nav>
+                                                <ul class="common-links-list">
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/about-dorsetforyou.aspx"
+                                                                        title="About">About</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/accessibility-statement.aspx"
+                                                                        title="Accessibility">Accessibility</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/contact/contacts.aspx"
+                                                                        title="Contact">Contact</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/downloads.aspx"
+                                                                        title="Downloads">Downloads</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/privacy-and-cookies-policy.aspx"
+                                                                        title="Privacy policy">Privacy
+                                                                        policy</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/terms-and-conditions.aspx"
+                                                                        title="Terms &amp; conditions">Terms
+                                                                        &amp; conditions</a></li>
+                                                        <li><a href="https://translate.google.com/" title="Translate">Translate</a>&nbsp;</li>
+                                                </ul>
+                                        </nav>
+                                        <nav>
+                                                 <ul class="social-links-list">
+                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/facebook" title="Facebook" alt="Dorset council facebook" target="_blank" class="fa fa-facebook-square">
+                                                            <span class="visuallyhidden">Facebook</span></a>
+                                                        </li>
+                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/twitter" title="Twitter" alt="Dorset council twitter" target="_blank" class="fa fa-twitter">
+                                                            <span class="visuallyhidden">Twitter</span></a>
+                                                        </li>
+                                                        <li class="social-list-item">
+                                                                <a href="https://www.dorsetcouncil.gov.uk/instagram" title="Instagram" alt="Dorset council instagram" target="_blank" class="fa fa-instagram">
+                                                            <span class="visuallyhidden">Instagram</span></a>
+                                                        </li>
+                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/youtube" title="YouTube" alt="Dorset council youtube" target="_blank" class="fa fa-youtube-play">
+                                                            <span class="visuallyhidden">YouTube</span></a>
+                                                        </li>
+                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/flickr" title="Flickr" alt="Dorset council flickr" target="_blank" class="fa fa-flickr">
+                                                            <span class="visuallyhidden">Flickr</span></a>
+                                                        </li>
+                                            </ul>
+                                        </nav>
+                                </div>
+                        </div>
+                </div>
+        </footer>
 </template>
 
 <script>
@@ -53,174 +109,155 @@
 </script>
 
 <style scoped lang="scss">
-    @font-face {
-        font-family: 'dorsetforyou';
-        src: url("../assets/fonts/dorsetforyou-eot.eot");
-        src: url("../assets/fonts/dorsetforyou-eot.eot") format("embedded-opentype"), url("../assets/fonts/dorsetforyou-ttf.ttf") format("truetype"), url("../assets/fonts/dorsetforyou-woff.woff") format("woff");
-        font-weight: normal;
-        font-style: normal
+
+
+#dcFooter {
+    margin-top: 60px;
+    padding: 60px 15px 15px 15px;
+    background-color: #f2f2f2;
+
+    .footer-items {
+        display: flex;
     }
 
-    footer {
-        width: 100%;
-        padding: 20px 15px;
-        margin-top: 30px;
-        background-color: #f2f2f2;
+    #servicesInfoLinksLabel,
+    #councilLinksLabel {
+        font-weight: 700;
+        color: rgb(92, 96, 107);
+        font-size: 25px;
+    }
+
+    .services-info-list,
+    .council-links-list,
+    .common-links-list,
+    .social-links-list {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .council-links-list,
+    .common-links-list {
+        li {
+            margin-top: 12px;
+        }
+    }
+
+    .common-links-list,
+    .social-links-list {
         display: flex;
         flex-wrap: wrap;
+        margin-bottom:30px;
+
+        li {
+            margin-right: 30px;
+            .fa{font-size: 24px;
+
+            }
+        }
+    }
+
+    .council-links-list {
+        width: 500px;
+    }
+
+    .services-info-list {
+        column-count: 2;
+        width: 400px;
+        display: block;
+
+        li:not(:first-of-type) {
+            margin-top: 12px;
+        }
+    }
+
+    a {
+        color: #206497;
+        text-decoration: underline;
+        font-size: 15px;
+    }
+
+    .common-links-block {
+        display: flex;
+    }
+
+    .social-list-item {
+        margin-right: 25px;
+        a{
+            color: #cb436a;
+            text-decoration:none;
+        }
+    }
+
+    .visuallyhidden {
+        clip: rect(1px, 1px, 1px, 1px);
+        height: 1px;
+        overflow: hidden;
+        position: absolute !important;
+        width: 1px;
+        left: 0;
+    }
+
+    .footer-common-links {
+        display: flex;
+
+        .footer-logo {
+            margin-right: 50px;
+            height: 70px;
+            margin-top: 10px;
+        }
+    }
+
+    .common-links-list {
+        display: flex;
+        width: 500px;
+        flex-wrap: wrap;
+
+        li {
+            margin-right: 20px;
+        }
+    }
+}
+
+@media only screen and (max-width: 970px) {
+    #dcFooter {
         flex-direction: column;
-        justify-content: center;
-        font-size: 12px;
-        overflow:hidden;
-    }
+        padding: 30px 15px;
 
-    
-        #footerLogo {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            svg {
-                width: 300px;
-                height: 50px;
-            }
+        .footer-items {
+            flex-direction: column;
         }
 
-        #links {
-            display: flex;
-            justify-content: flex-end;
-        }
-        #textLinks {
-            width: 90%;
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        
-            font-size: 12px;
-            justify-content: center;
-
-            li {
-                width: 45%;
-                &.list-inline-item:not(:last-child) {
-                    margin-right: 0;
-                }
-                #dfyLText{
-               
-                    position: absolute;
-                    left:-3000px;
-                }
-
-            }
-        }
-        .link {
-            font-size: 14px;
-
+        #servicesInfoLinksLabel,
+        #councilLinksLabel {
+            font-size: 20px;
         }
 
-        #socialList {
-         margin-top:30px;
-            display: flex;
-            flex-wrap: nowrap;
-            width: 100%;
-            justify-content: center;
-            li {
-                width: 50px;
-            }
-
-            .social-link {
-                color: #CB436A;
-                font-family: dorsetforyou;
-                font-size: 25px;
-                line-height: .6;
-                &:hover {
-                    color: red;
-                }
-
-                &.twitter {
-                    &:before {
-                        content: "";
-                    }
-                }
-                &.facebook {
-                    &:before {
-                        content: "";
-                    }
-                }
-
-                &.instagram {
-                    &:before {
-                        content: "";
-                    }
-                }
-                &.youtube {
-                    &:before {
-                        content: "";
-                    }
-                }
-                &.flickr {
-                    &:before {
-                        content: ""
-                    }
-                }
-            }
+        .services-info-list,
+        .council-links-list,
+        .common-links-list {
+            flex-direction: column;
+            width: auto;
         }
-  
 
-
-    @media only screen and (min-width: 600px) {
-         #footerLogo {
-        
-            svg {
-                height:80px;
-             }
+        .services-info-list {
+            column-count: 1;
+            width: auto;
         }
-        
-        #links {
-            display: flex;
-            justify-content: center;
-        } 
-        #socialList{
-            margin-top:0px;
-        }
-        #textLinks {
-            height:40px;
-                width: 100%;
-            max-width:592px;
-                display: flex;
-                justify-content: space-around;
-                li {
-                    width: auto;
-                    height:  30px;
-                      #dfyLText{
-               
-                    position: relative;
-                    left:0;
-                }
-                }
-            }
-    }
 
-    @media only screen and (min-width: 700px) {
-        #textLinks {
-            width: 80%;
+        .footer-common-links {
+            flex-direction: column;
+            flex-direction: column-reverse;
+        }
+
+        .common-links-block {
+            flex-direction: column;
+        }
+
+        .footer-logo {
+            width: 150px;
+            margin-top: 15px;
         }
     }
-    
-        @media only screen and (min-width: 1000px) {
-        #textLinks {
-            width: 60%;
-        }
-    }
-    
-          @media only screen and (min-width: 1200px) {
-         #links {
-            display: flex;
-            justify-content: center;
-        }
-        #textLinks {
-            width: 50%;
-        }
-    }
-
-
+}
 
 </style>

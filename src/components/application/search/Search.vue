@@ -59,6 +59,15 @@
                 indexRef: "advertise"
             }
         },
+        metaInfo () {
+            return {
+                title: "Find advertising options in Dorset | Dorset Council" ,
+                meta: [ {
+                    name:"description", content:"Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset."
+
+                } ]
+            }
+        },
          props: [ 'documentTypeRef','initialView'],
         components: {
             Toolbar,

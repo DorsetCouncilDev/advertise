@@ -90,6 +90,14 @@
                 mediapackPdf: pdf
             }
         },
+        metaInfo () {
+            return {
+                title: "Sponsorship & advertising media pack | Dorset Council",
+                meta: [ {
+                    name:"description", content:"Download our media pack and see how your business can benefit from roundabout sponsorship, bus shelter advertising, car parking ticket adverts and more."
+                } ]
+            }
+        },
         components: {
             VueRecaptcha
         },

@@ -47,8 +47,17 @@
                questionSections:QuestionsData
             }
         },
-        components:{QuestionSection}
-    }
+        components:{QuestionSection},
+
+    metaInfo () {
+            return {
+                title: "Roundabout sponsorship FAQs | Dorset Council",
+                meta: [ {
+                    name:"description", content:"Answers to your questions about roundabout sponsorship and advertising in Dorset, from how much it costs, to how to apply and display your message."
+                } ]
+            }
+        }
+            }
 
 </script>
 <style scoped lang="scss">
