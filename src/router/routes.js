@@ -209,7 +209,8 @@ const routes = [
             title: 'Roundabout sponsorship FAQs | Dorset Council',
             description: 'Answers to your questions about roundabout sponsorship and advertising in Dorset, from how much it costs, to how to apply and display your message.'
         }
-    }
+    },
+    { path: '*', redirect: '/advertise' }, 
 ]
 
 export default routes;

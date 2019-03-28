@@ -9,7 +9,7 @@
       },
       {
         "question": "Which roundabouts can be sponsored and where are they located?",
-        "answer": "<p>Dorset Council manages the sponsorship of 70 roundabouts across the area. You can view the locations and availability of the roundabouts on our <a href='/advertise/search/view/mapView' class='faq-link'>map</a> or as a <a href='/advertise/search/view/listView' class='faq-link'>list</a>.</p></p>The scheme only covers the roads the council is responsible for, and does not include any of the roundabouts on the trunk roads running through the county (the A31 and the A35 from Bere Regis to the Devon border), which are the responsibility of the Highways Agency, who do not promote advertising on their network.</p>",
+        "answer": "<p>Dorset Council manages the sponsorship of 70 roundabouts across the area. You can view the locations and availability of the roundabouts on our   <router-link to='/advertise/search/view/map' class='faq-link'>map</router-link> or as a <router-link to='/advertise/search/view/list' class='faq-link'>list</router-link>.</p></p>The scheme only covers the roads the council is responsible for, and does not include any of the roundabouts on the trunk roads running through the county (the A31 and the A35 from Bere Regis to the Devon border), which are the responsibility of the Highways Agency, who do not promote advertising on their network.</p>",
         "id": 2,
         "open": false
       },
@@ -44,7 +44,7 @@
       },
       {
         "question": "If we sponsor more than one roundabout or book for a longer period of time can this reduce the fee?",
-        "answer": " <p>The sponsorship fees can be affected by the quantity of locations sponsored and the duration of the agreement, however, it depends on the exact location of each roundabout and the number of roundabouts that you would like to sponsor. <a href='/advertise/contact' class='faq-link'>Contact us</a> with your requirements for advice.</p>",
+        "answer": " <p>The sponsorship fees can be affected by the quantity of locations sponsored and the duration of the agreement, however, it depends on the exact location of each roundabout and the number of roundabouts that you would like to sponsor. <router-link to='/advertise/contact' class='faq-link'>Contact us</router-link> with your requirements for advice.</p>",
         "id": 2,
         "open": false
       },
@@ -126,13 +126,13 @@
     "id": 3,
     "questions": [{
         "question": "How do we apply for sponsorship?",
-        "answer": " <p>To become a sponsor, please <a href='/advertise/contact' class='faq-link'>contact us</a> stating your preferred location. We will let you know the availability of the roundabout and the fee, and if you wish to proceed with your selected roundabout we’ll send you an agreement to read and sign.</p><p>Should you have any queries relating to the roundabout sponsorship process please <a href='/advertise/contact' class='faq-link'>contact us</a>. </p>",
+        "answer": " <p>To become a sponsor, please <router-link to='/advertise/info/contact' class='faq-link'>contact us</router-link> stating your preferred location. We will let you know the availability of the roundabout and the fee, and if you wish to proceed with your selected roundabout we’ll send you an agreement to read and sign.</p><p>Should you have any queries relating to the roundabout sponsorship process please <router-link to='/advertise/info/contact' class='faq-link'>contact us</router-link>. </p>",
         "id": 0,
         "open": false
       },
       {
         "question": "The roundabout we’d like to sponsor is already taken, do you have a waiting list?",
-        "answer": " <p>Although there are 70 roundabouts in the sponsorship scheme across the Dorset Council area, over 80% have a current sponsor. We operate a waiting list for each location and notify potential sponsors when there is availability. Should you like to join the waiting list for a particular town or specific roundabout, please <a href='/advertise/contact'>get in touch</a> with our marketing team. </p>",
+        "answer": " <p>Although there are 70 roundabouts in the sponsorship scheme across the Dorset Council area, over 80% have a current sponsor. We operate a waiting list for each location and notify potential sponsors when there is availability. Should you like to join the waiting list for a particular town or specific roundabout, please <router-link to='/advertise/info/contact'>get in touch</a> with our marketing team.</router-link>",
         "id": 1,
         "open": false
       }

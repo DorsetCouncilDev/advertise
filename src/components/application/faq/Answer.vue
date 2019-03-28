@@ -1,9 +1,6 @@
 <template>
-    <div class="question-block" v-bind:class="{ 'hide': !question.open }">
-        <a class="question" :id="question.id" tabindex="0" @click="toggleAnswer()">{{question.question}}</a>
-        <div class="answer" :aria-labelledby="question.id" v-show="question.open">
-        <component v-bind:is="answerObject" /> 
-        </div>
+    <div>
+   <p>{{answer}}</p>
     </div>
 
 </template>
@@ -12,21 +9,10 @@
 <script>
 export default {
         name: 'Question',
-        props: {
-            question:Object
-        },
-      methods:{
-          toggleAnswer:function(){
-              this.$emit("toggleAnswer",this.question.id)
-          }
-        },
-         computed:{
-            answerObject(){
-                return {
-                    template:"<div>" + this.question.answer + "</div>"
-                }
-            }
-         }
+        props: [
+            'answer'
+        ]
+
  }
 </script>
 

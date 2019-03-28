@@ -23,6 +23,8 @@
             </div>
         </div>
     </div>
+
+      
 <h1 class="home-header">Local advertising solutions in Dorset</h1>     
 <HomeSearch :indexRef="indexRef"></HomeSearch>
 <section data-aos="fade-up">

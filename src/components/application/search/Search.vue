@@ -104,7 +104,10 @@
                 this.$store.dispatch("searchSingleDocumentType",this.documentTypeRef);
 
           if(this.initialView != null){
-              this.$store.commit("setView",this.initialView)
+
+              var view = this.initialView + "View";
+              console.log(view)
+              this.$store.commit("setView",view)
           }
         }
     }
