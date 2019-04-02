@@ -101,6 +101,13 @@
                             this.searchingMessage = "Sorry, no results found for that search";
                    }    
                 
+                    /*  Build sitemap
+                    
+                    results.forEach((result)=>{
+                        console.log("<url><loc>https://web.dorsetcc.gov.uk/advertise/" + result.document.reference + "</loc><lastmod>2019-04-01T16:50:05+00:00</lastmod><changefreq>monthly</changefreq></url>");
+                    })
+                    */
+
                     return results;
                }
                 }

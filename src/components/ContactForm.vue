@@ -2,7 +2,7 @@
 <div>
          <div class="info">
         <div class="contact"> 
-            <span id="emailContact">email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span id="emailContact">email <a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a></span> 
             <span id="telContact">tel. <a href="tel:+441305224125">01305 224125</a></span>
             <div id="menuLinksTwo">
                 <router-link class="selected" to="/advertise/info/contact">Contact us</router-link> 
@@ -33,7 +33,7 @@
     </div>
     <div id="contactSection"  v-show="!formSent">
         <p>Looking to discuss advertising options in the Dorset area?</p> 
-        <p>Give us a call on <a href="tel:+441305224125">01305 224125</a>, email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a> or fill in the form below and we will get back to you shortly.</p>
+        <p>Give us a call on <a href="tel:+441305224125">01305 224125</a>, email <a href="mailto:marketing@dorsetcouncil.gov.uk ">marketing@dorsetcouncil.gov.uk</a> or fill in the form below and we will get back to you shortly.</p>
         <div class="row">
    
             

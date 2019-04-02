@@ -2,7 +2,7 @@
 <div>
           <div class="info">
         <div class="contact"> 
-            <span id="emailContact">email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span id="emailContact">email <a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a></span> 
             <span id="telContact">tel. <a href="tel:+441305224125">01305 224125</a></span>
             <div id="menuLinksTwo">
                 <router-link :to="{path: '/advertise/info/contact/' + ''}">Contact us</router-link> 
@@ -64,7 +64,7 @@
         </div>
     <div v-show="formSent" id="formSentMessage">
         <p>Thank you for signing up, we'll be in touch soon.</p>
-   <a href="http://52.56.188.219/advertise/static/pdf/mediapack.pdf" target="_blank">View media pack</a>
+   <a href="/advertise/static/pdf/mediapack.pdf" target="_blank">View media pack</a>
     
     </div>
      <div v-show="formError"><p class="text-danger">Sorry something went wrong submitting this form. Please try again.</p></div>
@@ -102,6 +102,9 @@
             VueRecaptcha
         },
         methods: {
+            openPDF: function(){
+                this.formSent = true;
+            },
             onSubmit: function() {
                 this.formError = false;
                 this.$refs.invisibleRecaptcha.execute()

@@ -2,7 +2,7 @@
 <div>
              <div class="info">
         <div class="contact"> 
-            <span id="emailContact">email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span id="emailContact">email <a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a></span> 
             <span id="telContact">tel. <a href="tel:+441305224125">01305 224125</a></span>
             <div id="menuLinksTwo">
                 <router-link :to="{path: '/advertise/info/contact/' + ''}">Contact us</router-link> 
@@ -14,7 +14,7 @@
             <div id="navLinks">
                 <ol class="ad-breadcrumb">
                     <li><router-link :to="{path: '/advertise'}">home</router-link></li>
-                <li aria-current="page">FAQ</li>   
+                    <li aria-current="page">FAQ</li>   
                 </ol>
             </div>
             <div id="menuLinksOne">

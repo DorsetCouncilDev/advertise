@@ -2,7 +2,7 @@
    <div>
        <div class="info">
         <div class="contact"> 
-            <span id="emailContact">email <a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a></span> 
+            <span id="emailContact">email <a href="mailto:@marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a></span> 
             <span id="telContact">tel. <a href="tel:+441305224125">01305 224125</a></span>
             <div id="menuLinksTwo">
                 <router-link to="/advertise/info/contact">Contact us</router-link> 
@@ -46,14 +46,14 @@
    <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
    <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
 
-        <p id="assetParagraph" v-for="p in properties"  v-bind:key="p.reference">
+        <section id="propertiesSection" v-for="p in properties"  v-bind:key="p.reference">
             <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description' && p.propertyReference != 'meta-title'">
                 <div class="property-section">
                 <span class="generalPropertyName">{{p.propertyName}}</span>
                 <span class="generalPropertyValue">{{p.publishedValue | readBoolean}}</span>
                 </div>
                 </span>
-        </p>
+        </section>
  
         <hr>
         <div v-if="document.locations != null && document.locations.length > 0">
@@ -63,7 +63,7 @@
         <div class="description-text" v-if="description != ''"><hr><p>{{description}}</p><hr></div>
        
         <p class="assetParagraph">Contact our marketing team</p>
-        <p class="assetParagraph"><a href="mailto:marketing@dorsetcc.gov.uk">marketing@dorsetcc.gov.uk</a> </p>
+        <p class="assetParagraph"><a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a> </p>
         <p class="assetParagraph"><a href="tel:+441305224125">01305 224125</a></p>
         <p class="assetParagraph">quoting reference <strong>{{document.reference}}</strong></p> 
     </div>
@@ -260,6 +260,11 @@
 </script>
 
 <style scoped lang="scss">
+#propertiesSection{
+    display: flex;
+
+}
+
 #docRefBreadCrumb{
       text-overflow: ellipsis;
 }
@@ -376,8 +381,13 @@
 }
 
 .property-section{
-    margin-top:15px;
+    margin-top:30px;
+    padding-left:15px;
+    border-left:5px solid darkgrey;
+    padding:5px 15px;
+    background:#f7f7f7;
 }
+
 #assetPrice{
     font-size:22px;
 }
