@@ -1,6 +1,8 @@
 <template>
 <section class="document-types-section">
-    <p id="documentTypesParagraph">Dorset Council offers a broad portfolio of sponsorship, advertising sites and promotional opportunities that can help your message gain wide coverage, whether you’re looking to promote a product, service or event. With our local knowledge and options for all sized budgets, we work with organisations across the county to provide unique local advertising solutions in Dorset. Sponsorship and advertising fees are used to support council services which benefit the residents and businesses of Dorset.</p>
+    <p id="documentTypesParagraph">Dorset Council offers a broad portfolio of sponsorship, advertising sites and promotional opportunities. Whether you’re looking to promote a product, service or event - we can help your message gain wide coverage.</p> 
+<p>With our local knowledge we can help your marketing message gain wide coverage. Our local advertising solutions in Dorset offer options for all budget sizes. Sponsorship and advertising fees support council services, and benefit Dorset's residents and businesses.</p>
+
   
     <div class="document-types-list">
       <DocumentTypeDiscovery v-for="type in types" :documentTypeName="type.name" :documentTypeRef="type.ref" :text="type.text" v-bind:key="type.ref">

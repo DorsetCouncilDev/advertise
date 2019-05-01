@@ -104,7 +104,7 @@
             margin-bottom: 30px;
         }
           .home-action-label {
-            font-size:28px;
+            font-size:24px;
         }
  
     }

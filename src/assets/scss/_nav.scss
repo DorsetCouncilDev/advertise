@@ -1,158 +1,119 @@
+#navRow {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  overflow: hidden;
+  flex-direction: column-reverse;
+}
+
+#navLinks {
+  overflow: hidden;
+}
+
 .ad-breadcrumb {
-    list-style: none;
-    display: inline-flex;
-    flex-wrap: nowrap;
+  list-style: none;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  padding-left: 0;
+  flex-grow: 2;
+  margin-bottom: 2px;
+  font-size: 19px;
 
-    padding-left: 0;
-    flex-grow: 2;
-    margin-bottom: 2px;
-    li {
-        float: left;
-        margin-right: 5px;
-        &:after {
-            content: ' / ';
-        }
-        &:last-child {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            &:after {
-                content: '';
-            }
-        }
+  li {
+    float: left;
+    margin-right: 5px;
+
+    &:after {
+      content: ' / ';
     }
+
+    &:last-child {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:after {
+        content: '';
+      }
+    }
+  }
 }
 
-.info {
-    
-    background: white;
+#menuLinks {
+  font-size: 16px;
+  padding-bottom: 2px;
+  display: flex;
+  justify-content: center;
 
-    margin-bottom: 10px;
-  //   width:100vw;
- // position:relative;
- // left:calc(-1 * (100vw - 100%)/2);
-
-}
-
-#menuLinksOne,
-#menuLinksTwo {
+  #menuList {
     border-bottom: 3px solid #fca82f;
-    padding-bottom: 2px;
-    a {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+
+    li {
+      margin-right: 15px;
+
+      a {
         padding: 2px;
-        color: black;
+        color: hsl(203, 85%, 23%);
+        font-weight:500;
+
         &:hover,
         &:focus,
         &:visited {
-            text-decoration: none;
-            border-bottom: solid 6px #60d844;
+          text-decoration: none;
+          border-bottom: solid 6px #60d844;
         }
+
         &.selected {
-            border-bottom: solid 4px #4587de;
+          border-bottom: solid 4px #4587de;
         }
+      }
     }
+  }
 }
+@media only screen and (min-width: 600px) {
+    #menuLinks {   
 
-#menuLinksOne {
-    display: none;
-}
-
-
-
-.contact {
-    margin-bottom:10px;
-    width: 100%;
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    #emailContact{
-        display:none;
-    }
-    #telContact{
-        display: none;
-    }
-}
-
-#navRow {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    overflow: hidden;
-}
-#navLinks{
-    overflow: hidden;
-}
-@media only screen and (min-width: 430px) {
-
-    #menuLinksTwo {
-        display: block;
-
-    }
-    #menuLinksOne {
-        display: none;
-    }
-
-}
-
-@media only screen and (min-width: 650px) {
-    .contact {
-        justify-content: space-around;
-        font-size: 16px;
-        #emailContact{
-        display:block;
-    }
-    #telContact{
-        display: block;
-    }
-    }
-    .info {
-        margin-left: 0;
-        margin-right: 0;
-    }
-}
-@media only screen and (min-width: 800px) {
- .info {
-       
-        .contact {
-            font-size:19px;
-     }
-     #navRow {
-            font-size: 19px;
-        }
-    }
-    
-    
-}
-@media only screen and (min-width: 1250px) {
-    .info {
-   
-      
         display: flex;
-        flex-direction: column;
-        .contact {
-            width: auto;
-            padding-top: 2px;
-            z-index: 2;
-            justify-content: flex-end;
-            border-bottom: 1px solid lightgrey;
-          
-            span {
-                margin-right: 15px;
+        justify-content: start;
+
+            #menuList {
+              li {
+                a {
+                  font-size:19px;
+                }
             }
         }
-        #navRow {
-            width: auto;
-       
-        }
-        justify-content: space-between;
-    }
-    #menuLinksTwo {
-        a {
-            margin-right: 10px;
-            margin-left: 10px;
-        }
-    }
+}
+}
+@media only screen and (min-width: 1000px) {
+  #menuLinks {
+    display: flex;
+    justify-content: start;
+  }
+  #navRow {
+    font-size: 19px;
+    flex-direction: row;
+  }
 }
 
+@media only screen and (min-width: 1250px) {
+  #navRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom:30px;
 
+    #menuLinks {
+      a {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

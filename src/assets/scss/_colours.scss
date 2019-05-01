@@ -27,7 +27,7 @@ $alert-border-level: 0;
 $container-max-widths: ( sm: 640px,
 md: 820px,
 lg: 960px,
-xl: 1140px) !default;
+xl: 1140px);
 
 
 @import '~bootstrap/scss/bootstrap.scss';
@@ -52,9 +52,7 @@ $value in $theme-colors {
 @import "multiple-choice";
 @import 'nav';
 
-.container{
-    max-width:1340px;
-}
+
 
 .form-error-message{
     display:block;

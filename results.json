@@ -1,9 +1,31 @@
-
+{
+  "query": {
+    "validQuery": true,
+    "invalidParameters": [],
+    "invalidParameterValues": {},
+    "indexReference": "advertise",
+    "parameters": [],
+    "documentTypeReferences": ["bin-lid-advertising", "boundary-signage-sponsorship", "bus-shelter-advertising", "car-parking-ticket-advertising", "enewsletter-sponsorship", "roundabout-sponsorship", "vehicle-advertising"],
+    "invalidDocumentTypes": [],
+    "location": null
+  },
+  "numberOfResults": 79,
+  "results": [{
+    "numberOfMatchingProperties": 0,
+    "numberOfNonMatchingProperties": 0,
+    "matchingProperties": [],
+    "nonMatchingProperties": [],
+    "matchesDocumentType": true,
+    "distanceFromCoordinate": null,
+    "distanceUnit": null,
+    "document": {
+      "name": "Ashley Heath Roundabout No.103",
+      "longText": "St. Ives, Ringwood",
       "reference": "ashley-heath-roundabout-no-103",
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 9,
+      "publishedVersionNumber": 10,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
@@ -73,7 +95,7 @@
         "propertyName": "Description",
         "propertyReference": "description",
         "propertyType": "TextArea",
-        "publishedValue": "Promote your company in St. Leonards & St. Ives in Dorset by sponsoring Ashley Heath roundabout - display your logo and message on all four signs at this location.\n\nAdvertising on Dorset's roundabouts offers you one of the most cost-effective ways to raise your company's profile and promote your business, whilst making a positive contribution to the County's landscape.",
+        "publishedValue": "Sponsor Ashley Heath roundabout to promote your company in St. Leonards and St. Ives , Dorset.   Display your logo and message on all four signs at this location. \n\nAdvertising on roundabouts offers you a cost-effective way to raise your company's profile. Roundabout sponsorship promotes your brand and makes a positive contribution to Dorset's landscape. ",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -127,7 +149,7 @@
         "streetviewHeading": 123.59136818267218,
         "streetviewPitch": -10.561762664703338,
         "primaryLocation": true,
-        "reference": "4619d3f4-3660-4414-8805-6ab47ce4d452"
+        "reference": "3ca9cb75-6181-4f8f-abe2-a85f597dbe7e"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -774,7 +796,7 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 11,
+      "publishedVersionNumber": 12,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
@@ -788,7 +810,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available from 1st May 2019",
+        "publishedValue": "under offer",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -868,7 +890,7 @@
         "propertyName": "Available",
         "propertyReference": "available",
         "propertyType": "Boolean",
-        "publishedValue": "true",
+        "publishedValue": "false",
         "display": false,
         "listValue": [],
         "unpublishedValue": null
@@ -898,7 +920,7 @@
         "streetviewHeading": 331.8944968249914,
         "streetviewPitch": -3.806322176649431,
         "primaryLocation": true,
-        "reference": "2fec6f7e-5328-4504-9e31-18bbe793a6e5"
+        "reference": "f534ed0a-bbd7-4fea-a9c1-0120656a977a"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -1205,7 +1227,7 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 11,
+      "publishedVersionNumber": 12,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
@@ -1219,7 +1241,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "under offer",
+        "publishedValue": "currently sponsored by Kimcell Ltd / Datacenta",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -1329,11 +1351,126 @@
         "streetviewHeading": 270.0459002811575,
         "streetviewPitch": 0.9853222168268871,
         "primaryLocation": true,
-        "reference": "97b58a06-320f-46c8-8b58-1c66a2a73901"
+        "reference": "fdd4dbca-f68b-499d-b878-0b8dc1fc2dad"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
       "documentTypeName": "Roundabout Sponsorship",
+      "images": [],
+      "files": []
+    }
+  }, {
+    "numberOfMatchingProperties": 0,
+    "numberOfNonMatchingProperties": 0,
+    "matchingProperties": [],
+    "nonMatchingProperties": [],
+    "matchesDocumentType": true,
+    "distanceFromCoordinate": null,
+    "distanceUnit": null,
+    "document": {
+      "name": "Bus Stop Poster Advertising",
+      "longText": "Prime seafront advertising, King's Statue bus shelters, Weymouth",
+      "reference": "bus-stop-poster-advertising",
+      "index": "advertise",
+      "published": true,
+      "unpublishedVersion": false,
+      "publishedVersionNumber": 17,
+      "unpublishedVersionNumber": 0,
+      "properties": [{
+        "propertyName": "Price",
+        "propertyReference": "price",
+        "propertyType": "Number",
+        "publishedValue": "120.0",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Duration of Advertising",
+        "propertyReference": "duration-of-advertising",
+        "propertyType": "Text",
+        "publishedValue": "minimum 3 month bookings",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Availability",
+        "propertyReference": "availability",
+        "propertyType": "Text",
+        "publishedValue": "availability from July 2019",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Overview",
+        "propertyReference": "overview",
+        "propertyType": "Text",
+        "publishedValue": "Prices start from £300 (+VAT) for January - March for 4 posters. £750 (+VAT) for July to September for 4 posters.  Discounts available for 8 posters or more.",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Available",
+        "propertyReference": "available",
+        "propertyType": "Boolean",
+        "publishedValue": "true",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Description",
+        "propertyReference": "description",
+        "propertyType": "TextArea",
+        "publishedValue": "Bus shelter advertising is perfect for a local campaign, providing 24-hour visibility at high-circulation sites,\nto an audience of bus users, vehicular and pedestrian traffic including visitors, residents and shoppers.\nPromote your business to nearly 1 million visitors along Weymouth Esplanade and seafront. Our prime advertising positions are located at eight bus shelters situated in the Kings Statue area of Weymouth, adjacent to the busy seafront and located within an easy short walk to the main shopping areas.",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Before price",
+        "propertyReference": "before-price",
+        "propertyType": "Text",
+        "publishedValue": "From",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "After price",
+        "propertyReference": "after-price",
+        "propertyType": "Text",
+        "publishedValue": "per month (including VAT)",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "meta-title",
+        "propertyReference": "meta-title",
+        "propertyType": "TextArea",
+        "publishedValue": "Bus shelter advertising - Weymouth | Dorset Council",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "meta-description",
+        "propertyReference": "meta-description",
+        "propertyType": "TextArea",
+        "publishedValue": "Bus shelter advertising can help you promote your business in Weymouth at a prime sea front location which commands over 1 million visitors per year.",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }],
+      "locations": [{
+        "name": "",
+        "latitude": 50.61178663928157,
+        "longitude": -2.4533877430963003,
+        "streetviewLatitude": 50.61178663928157,
+        "streetviewLongitude": -2.4533877430963003,
+        "streetviewHeading": 69.19989047037936,
+        "streetviewPitch": -8.975301838288388,
+        "primaryLocation": true,
+        "reference": "8f3bceef-5b9f-4ffe-b4e8-6a684cc189a4"
+      }],
+      "unpublishedLocations": [],
+      "documentTypeReference": "bus-shelter-advertising",
+      "documentTypeName": "Bus Shelter Advertising",
       "images": [],
       "files": []
     }
@@ -1499,13 +1636,13 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 10,
+      "publishedVersionNumber": 11,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
         "propertyReference": "price",
         "propertyType": "Number",
-        "publishedValue": "1800.0",
+        "publishedValue": "1200.0",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -1513,7 +1650,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available from 1st April 2019",
+        "publishedValue": "available from 1st June 2019",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -1529,7 +1666,7 @@
         "propertyName": "Sponsorship Fee Per Month",
         "propertyReference": "sponsorship-fee-per-month",
         "propertyType": "Text",
-        "publishedValue": "business price £125 + VAT@20%",
+        "publishedValue": "business price £83.33 + VAT@20%",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -1623,7 +1760,7 @@
         "streetviewHeading": null,
         "streetviewPitch": null,
         "primaryLocation": true,
-        "reference": "635b33b0-dfee-4295-a12a-04cdf300f11f"
+        "reference": "23256025-f3f0-43af-b935-d993e7ed1cbc"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -1793,7 +1930,7 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 6,
+      "publishedVersionNumber": 7,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
@@ -1807,7 +1944,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "currently sponsored by Window World Weymouth",
+        "publishedValue": "currently sponsored by Waterside Holiday Group",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -1917,7 +2054,7 @@
         "streetviewHeading": 277.19791524246494,
         "streetviewPitch": -6.877311717842559,
         "primaryLocation": true,
-        "reference": "407458b0-7db2-462f-b34a-848b9f924226"
+        "reference": "507d28fb-32cc-45f4-902d-b61bbef9bfd3"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -2229,12 +2366,12 @@
     "distanceUnit": null,
     "document": {
       "name": "Coldharbour Roundabout No.7",
-      "longText": "Sherbourne",
+      "longText": "Sherborne",
       "reference": "coldharbour-roundabout-no-7",
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 8,
+      "publishedVersionNumber": 10,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
@@ -2358,11 +2495,134 @@
         "streetviewHeading": 270.15536435087256,
         "streetviewPitch": -2.9742151009615725,
         "primaryLocation": true,
-        "reference": "c6b4e203-ac5b-4830-9ae9-46a64756f94e"
+        "reference": "1e915ef6-a370-4830-858a-937cea1c419b"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
       "documentTypeName": "Roundabout Sponsorship",
+      "images": [],
+      "files": []
+    }
+  }, {
+    "numberOfMatchingProperties": 0,
+    "numberOfNonMatchingProperties": 0,
+    "matchingProperties": [],
+    "nonMatchingProperties": [],
+    "matchesDocumentType": true,
+    "distanceFromCoordinate": null,
+    "distanceUnit": null,
+    "document": {
+      "name": "Digital - enewsletter sponsorship",
+      "longText": "Enjoying Dorset’s Countryside and Dorset Travel & Transport Sponsored Banner Adverts",
+      "reference": "digital-enewsletter-sponsorship",
+      "index": "advertise",
+      "published": true,
+      "unpublishedVersion": false,
+      "publishedVersionNumber": 14,
+      "unpublishedVersionNumber": 0,
+      "properties": [{
+        "propertyName": "Price",
+        "propertyReference": "price",
+        "propertyType": "Number",
+        "publishedValue": "180.0",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Duration of Advertising",
+        "propertyReference": "duration-of-advertising",
+        "propertyType": "Text",
+        "publishedValue": null,
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Overview",
+        "propertyReference": "overview",
+        "propertyType": "Text",
+        "publishedValue": "Sponsor Enjoying Dorset’s Countryside enews or Dorset Travel & Transport enews - monthly e-newsletters.  Targeted emails providing advertisers with a banner and hyperlink direct to their site.",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Availability",
+        "propertyReference": "availability",
+        "propertyType": "Text",
+        "publishedValue": "currently available",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Fee Per Month",
+        "propertyReference": "fee-per-month",
+        "propertyType": "Text",
+        "publishedValue": "business price £150 +VAT@20%",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Available",
+        "propertyReference": "available",
+        "propertyType": "Boolean",
+        "publishedValue": "true",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Description",
+        "propertyReference": "description",
+        "propertyType": "TextArea",
+        "publishedValue": "Sponsorship options include:\n• Sponsored banner (size 770 pixels x 146 pixels) with hyperlink directing readers to sponsor’s own website.\n• Sponsored article with photo and call to action button.\n• Subscriber numbers: over 19,000 for Enjoying Dorset's Countryside eNews, over 17,700 for Dorset's Travel & Transport eNews\n• Other enewsletter publications, such as Business news, may be available.\nPlease contact the marketing team for availability.",
+        "display": true,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "Before price",
+        "propertyReference": "before-price",
+        "propertyType": "Text",
+        "publishedValue": "From",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "After price",
+        "propertyReference": "after-price",
+        "propertyType": "Text",
+        "publishedValue": "per edition (including VAT)",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "meta-title",
+        "propertyReference": "meta-title",
+        "propertyType": "TextArea",
+        "publishedValue": "Enewsletters sponsorship | Dorset Council",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }, {
+        "propertyName": "meta-description",
+        "propertyReference": "meta-description",
+        "propertyType": "TextArea",
+        "publishedValue": "Want to reach a new audience in Dorset? Sponsoring our email newsletters can help you deliver your message to your audience across the county.",
+        "display": false,
+        "listValue": [],
+        "unpublishedValue": null
+      }],
+      "locations": [{
+        "name": null,
+        "latitude": 50.716689,
+        "longitude": -2.441064,
+        "streetviewLatitude": null,
+        "streetviewLongitude": null,
+        "streetviewHeading": null,
+        "streetviewPitch": null,
+        "primaryLocation": true,
+        "reference": "9a40d203-7484-4d64-853f-104631f6b4f2"
+      }],
+      "unpublishedLocations": [],
+      "documentTypeReference": "enewsletter-sponsorship",
+      "documentTypeName": "eNewsletter Sponsorship",
       "images": [],
       "files": []
     }
@@ -2593,129 +2853,6 @@
       "unpublishedLocations": [],
       "documentTypeReference": "car-parking-ticket-advertising",
       "documentTypeName": "Car Parking Ticket Advertising",
-      "images": [],
-      "files": []
-    }
-  }, {
-    "numberOfMatchingProperties": 0,
-    "numberOfNonMatchingProperties": 0,
-    "matchingProperties": [],
-    "nonMatchingProperties": [],
-    "matchesDocumentType": true,
-    "distanceFromCoordinate": null,
-    "distanceUnit": null,
-    "document": {
-      "name": "Enjoying Dorset's Coast and Countryside Enews",
-      "longText": "- Sponsored Banner Advert",
-      "reference": "enjoying-dorset-s-coast-and-countryside-enews",
-      "index": "advertise",
-      "published": true,
-      "unpublishedVersion": false,
-      "publishedVersionNumber": 11,
-      "unpublishedVersionNumber": 0,
-      "properties": [{
-        "propertyName": "Price",
-        "propertyReference": "price",
-        "propertyType": "Number",
-        "publishedValue": "180.0",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Duration of Advertising",
-        "propertyReference": "duration-of-advertising",
-        "propertyType": "Text",
-        "publishedValue": null,
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Overview",
-        "propertyReference": "overview",
-        "propertyType": "Text",
-        "publishedValue": "Sponsor ‘Enjoying Dorset’s Countryside’ - a monthly e-newsletter including the latest coast and countryside news, local events and more from across the county.",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Availability",
-        "propertyReference": "availability",
-        "propertyType": "Text",
-        "publishedValue": "currently available",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Fee Per Month",
-        "propertyReference": "fee-per-month",
-        "propertyType": "Text",
-        "publishedValue": "business price £150 +VAT@20%",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Available",
-        "propertyReference": "available",
-        "propertyType": "Boolean",
-        "publishedValue": "true",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Description",
-        "propertyReference": "description",
-        "propertyType": "TextArea",
-        "publishedValue": "Sponsorship options include:\n• Sponsored banner (size 770 pixels x 146 pixels) with hyperlink directing readers to sponsor’s own website.\n• Sponsored article with photo and call to action button.\n• Subscriber numbers: approx. 14,000\n• Average open rate: 38%\n• Other enewsletter publications may be available, please ask the Marketing Team for availability.",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Before price",
-        "propertyReference": "before-price",
-        "propertyType": "Text",
-        "publishedValue": "From",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "After price",
-        "propertyReference": "after-price",
-        "propertyType": "Text",
-        "publishedValue": "per edition (including VAT)",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "meta-title",
-        "propertyReference": "meta-title",
-        "propertyType": "TextArea",
-        "publishedValue": "Enewsletters sponsorship | Dorset Council",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "meta-description",
-        "propertyReference": "meta-description",
-        "propertyType": "TextArea",
-        "publishedValue": "Want to reach a new audience in Dorset? Sponsoring our email newsletters can help you deliver your message to your audience across the county.",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }],
-      "locations": [{
-        "name": null,
-        "latitude": 50.716689,
-        "longitude": -2.441064,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": null,
-        "streetviewPitch": null,
-        "primaryLocation": true,
-        "reference": "28940ee5-213b-43ad-b731-e3ebd1c7a5cc"
-      }],
-      "unpublishedLocations": [],
-      "documentTypeReference": "enewsletter-sponsorship",
-      "documentTypeName": "eNewsletter Sponsorship",
       "images": [],
       "files": []
     }
@@ -4180,7 +4317,7 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 14,
+      "publishedVersionNumber": 15,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
@@ -4194,7 +4331,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available from 1st April 2019",
+        "publishedValue": "available from 1st June 2019",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -4304,7 +4441,7 @@
         "streetviewHeading": 49.99203372970148,
         "streetviewPitch": -11.845656433670825,
         "primaryLocation": true,
-        "reference": "c6b382a0-4217-48ef-82d9-9347d15f340e"
+        "reference": "d89232f0-07aa-4d4f-b6ca-f237fad13bf3"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -5034,121 +5171,6 @@
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
       "documentTypeName": "Roundabout Sponsorship",
-      "images": [],
-      "files": []
-    }
-  }, {
-    "numberOfMatchingProperties": 0,
-    "numberOfNonMatchingProperties": 0,
-    "matchingProperties": [],
-    "nonMatchingProperties": [],
-    "matchesDocumentType": true,
-    "distanceFromCoordinate": null,
-    "distanceUnit": null,
-    "document": {
-      "name": "King's Statue Weymouth Bus Shelter Posters",
-      "longText": "- Prime seafront advertising in Weymouth",
-      "reference": "king-s-statue-weymouth-bus-shelter-posters",
-      "index": "advertise",
-      "published": true,
-      "unpublishedVersion": false,
-      "publishedVersionNumber": 11,
-      "unpublishedVersionNumber": 0,
-      "properties": [{
-        "propertyName": "Price",
-        "propertyReference": "price",
-        "propertyType": "Number",
-        "publishedValue": "360.0",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Duration of Advertising",
-        "propertyReference": "duration-of-advertising",
-        "propertyType": "Text",
-        "publishedValue": "minimum 3 months",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Availability",
-        "propertyReference": "availability",
-        "propertyType": "Text",
-        "publishedValue": "limited availability ",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Overview",
-        "propertyReference": "overview",
-        "propertyType": "Text",
-        "publishedValue": "Prices start from £360 for January - March up to £900 for July to September for a minimum 4 posters.",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Available",
-        "propertyReference": "available",
-        "propertyType": "Boolean",
-        "publishedValue": "true",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Description",
-        "propertyReference": "description",
-        "propertyType": "TextArea",
-        "publishedValue": "Bus shelter advertising is perfect for a local campaign, providing 24-hour visibility at high-circulation sites,\nto an audience of bus users, vehicular and pedestrian traffic including visitors, residents and shoppers.\nPromote your business to nearly 1 million visitors along Weymouth Esplanade and seafront. Our prime advertising positions are located at eight bus shelters situated in the Kings Statue area of Weymouth, adjacent to the busy seafront and located within an easy short walk to the main shopping areas.",
-        "display": true,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "Before price",
-        "propertyReference": "before-price",
-        "propertyType": "Text",
-        "publishedValue": "From",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "After price",
-        "propertyReference": "after-price",
-        "propertyType": "Text",
-        "publishedValue": "per 3 month period (including VAT)",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "meta-title",
-        "propertyReference": "meta-title",
-        "propertyType": "TextArea",
-        "publishedValue": "Bus shelter adverts - Weymouth | Dorset Council",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }, {
-        "propertyName": "meta-description",
-        "propertyReference": "meta-description",
-        "propertyType": "TextArea",
-        "publishedValue": "Bus shelter advertising can help you promote your business in Weymouth at a prime sea front location which commands over 1 million visitors per year.",
-        "display": false,
-        "listValue": [],
-        "unpublishedValue": null
-      }],
-      "locations": [{
-        "name": null,
-        "latitude": 50.61183,
-        "longitude": -2.45339,
-        "streetviewLatitude": null,
-        "streetviewLongitude": null,
-        "streetviewHeading": null,
-        "streetviewPitch": null,
-        "primaryLocation": true,
-        "reference": "3732572d-f8af-44b6-8a3a-1f5ed8247b43"
-      }],
-      "unpublishedLocations": [],
-      "documentTypeReference": "bus-shelter-advertising",
-      "documentTypeName": "Bus Shelter Advertising",
       "images": [],
       "files": []
     }
@@ -6393,7 +6415,7 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 15,
+      "publishedVersionNumber": 16,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
@@ -6407,7 +6429,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available from 1st June 2019",
+        "publishedValue": "under offer",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -6487,7 +6509,7 @@
         "propertyName": "Available",
         "propertyReference": "available",
         "propertyType": "Boolean",
-        "publishedValue": "true",
+        "publishedValue": "false",
         "display": false,
         "listValue": [],
         "unpublishedValue": null
@@ -6517,7 +6539,7 @@
         "streetviewHeading": 51.65404417518355,
         "streetviewPitch": -15.356884606996957,
         "primaryLocation": true,
-        "reference": "f671fab7-8e84-48a3-946f-6729944638e1"
+        "reference": "859508a8-2135-4965-8b4b-352ba3b886f7"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -6540,13 +6562,13 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 28,
+      "publishedVersionNumber": 29,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
         "propertyReference": "price",
         "propertyType": "Number",
-        "publishedValue": "3600.0",
+        "publishedValue": "1800.0",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -6554,7 +6576,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available from 1st April 2019",
+        "publishedValue": "available from 1st June 2019",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -6570,7 +6592,7 @@
         "propertyName": "Sponsorship Fee Per Month",
         "propertyReference": "sponsorship-fee-per-month",
         "propertyType": "Text",
-        "publishedValue": "business price £250 + VAT@20%",
+        "publishedValue": "business price £125 + VAT@20%",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -6664,7 +6686,7 @@
         "streetviewHeading": 22.710599722136433,
         "streetviewPitch": -1.8731551975362635,
         "primaryLocation": true,
-        "reference": "796a0f1a-e275-4b59-8137-4cf027662094"
+        "reference": "ad08b344-46fe-4bae-bbf6-17e61649d143"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -7275,13 +7297,13 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 8,
+      "publishedVersionNumber": 13,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
         "propertyReference": "price",
         "propertyType": "Number",
-        "publishedValue": null,
+        "publishedValue": "4020.0",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -7289,7 +7311,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "currently sponsored by Sentinel Data Solutions Ltd",
+        "publishedValue": "under offer",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -7305,7 +7327,7 @@
         "propertyName": "Sponsorship Fee Per Month",
         "propertyReference": "sponsorship-fee-per-month",
         "propertyType": "Text",
-        "publishedValue": null,
+        "publishedValue": "business price £279.17 +VAT@20%",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -7361,7 +7383,7 @@
         "propertyName": "After price",
         "propertyReference": "after-price",
         "propertyType": "Text",
-        "publishedValue": null,
+        "publishedValue": "(including VAT)",
         "display": false,
         "listValue": [],
         "unpublishedValue": null
@@ -7369,7 +7391,7 @@
         "propertyName": "Available",
         "propertyReference": "available",
         "propertyType": "Boolean",
-        "publishedValue": null,
+        "publishedValue": "false",
         "display": false,
         "listValue": [],
         "unpublishedValue": null
@@ -7399,7 +7421,7 @@
         "streetviewHeading": 189.15653341484818,
         "streetviewPitch": -7.251060248364794,
         "primaryLocation": true,
-        "reference": "60aa94d0-8583-4445-b66c-42d4cb38dd3d"
+        "reference": "03d38ea2-cdcf-41aa-9cf1-780287ae4a55"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -8157,13 +8179,13 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 12,
+      "publishedVersionNumber": 13,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
         "propertyReference": "price",
         "propertyType": "Number",
-        "publishedValue": "3000.0",
+        "publishedValue": "1440.0",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -8171,7 +8193,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available from 1st February 2019",
+        "publishedValue": "available from 1st June 2019",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -8187,7 +8209,7 @@
         "propertyName": "Sponsorship Fee Per Month",
         "propertyReference": "sponsorship-fee-per-month",
         "propertyType": "Text",
-        "publishedValue": "business rate £208.33 +VAT@20%",
+        "publishedValue": "business rate £100 +VAT@20%",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -8281,7 +8303,7 @@
         "streetviewHeading": 298.86448268593097,
         "streetviewPitch": -7.649841655274756,
         "primaryLocation": true,
-        "reference": "35ed6718-3646-48a3-88a6-0264eadd9d4b"
+        "reference": "b1bbbc91-5d92-4a62-80c4-b7c559170be9"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -8860,13 +8882,13 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 12,
+      "publishedVersionNumber": 13,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
         "propertyReference": "price",
         "propertyType": "Number",
-        "publishedValue": "2280.0",
+        "publishedValue": "1800.0",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -8874,7 +8896,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available 1st April 2019",
+        "publishedValue": "available 1st June 2019",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -8890,7 +8912,7 @@
         "propertyName": "Sponsorship Fee Per Month",
         "propertyReference": "sponsorship-fee-per-month",
         "propertyType": "Text",
-        "publishedValue": "business price £158.34 + VAT@20%",
+        "publishedValue": "business price £125 + VAT@20%",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -8984,7 +9006,7 @@
         "streetviewHeading": 23.654091554356945,
         "streetviewPitch": -4.089281614194661,
         "primaryLocation": true,
-        "reference": "f8935517-8ddb-42a0-bbd7-08b276094f26"
+        "reference": "fb01f3f7-6689-4210-8c57-924d857a1d2c"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -9154,13 +9176,13 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 10,
+      "publishedVersionNumber": 11,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
         "propertyReference": "price",
         "propertyType": "Number",
-        "publishedValue": "3180.0",
+        "publishedValue": "2700.0",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -9168,7 +9190,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available 1st April 2019",
+        "publishedValue": "available 1st June 2019",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -9184,7 +9206,7 @@
         "propertyName": "Sponsorship Fee Per Month",
         "propertyReference": "sponsorship-fee-per-month",
         "propertyType": "Text",
-        "publishedValue": "business Price £220.84 +VAT@20%",
+        "publishedValue": "business Price £187.50 +VAT@20%",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -9278,7 +9300,7 @@
         "streetviewHeading": 38.039018959295795,
         "streetviewPitch": null,
         "primaryLocation": true,
-        "reference": "3b092208-9296-40a2-a2ab-ae980a7651cc"
+        "reference": "fc0a4a1a-55e6-42b1-82c3-7fdb32466895"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",
@@ -10249,13 +10271,13 @@
       "index": "advertise",
       "published": true,
       "unpublishedVersion": false,
-      "publishedVersionNumber": 11,
+      "publishedVersionNumber": 12,
       "unpublishedVersionNumber": 0,
       "properties": [{
         "propertyName": "Price",
         "propertyReference": "price",
         "propertyType": "Number",
-        "publishedValue": "3720.0",
+        "publishedValue": "3000.0",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -10263,7 +10285,7 @@
         "propertyName": "Availability",
         "propertyReference": "availability",
         "propertyType": "Text",
-        "publishedValue": "available from 1st April 2019",
+        "publishedValue": "available from 1st June 2019",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -10279,7 +10301,7 @@
         "propertyName": "Sponsorship Fee Per Month",
         "propertyReference": "sponsorship-fee-per-month",
         "propertyType": "Text",
-        "publishedValue": "business price £258.33 +VAT@20%",
+        "publishedValue": "business price £208.33 +VAT@20%",
         "display": true,
         "listValue": [],
         "unpublishedValue": null
@@ -10373,7 +10395,7 @@
         "streetviewHeading": 101.63660341149051,
         "streetviewPitch": 1.3595235738646352,
         "primaryLocation": true,
-        "reference": "d47e2f67-eee6-42d8-a1b6-cf92a26f6b89"
+        "reference": "30f62a08-5e48-413b-900f-bf087390ddf4"
       }],
       "unpublishedLocations": [],
       "documentTypeReference": "roundabout-sponsorship",

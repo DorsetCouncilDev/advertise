@@ -1,29 +1,21 @@
 <template>
 <div>
-     <div class="info">
-        <div class="contact"> 
-            <span id="emailContact">email <a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk </a></span> 
-            <span id="telContact">tel. <a href="tel:+441305224125">01305 224125</a></span>
-            <div id="menuLinksTwo">
-                <router-link to="/advertise/info/contact">Contact us</router-link> 
-                <router-link to="/advertise/info/mediapack">Media pack</router-link> 
-                   <router-link to="/advertise/info/faq">FAQs</router-link> 
-            </div>
+    <div id="navRow">
+        <div id="navLinks">
+            <ol class="ad-breadcrumb">
+                <li><router-link :to="{ path: '/advertise'}">home</router-link></li>
+                <li aria-current="page">search</li>     
+            </ol>
         </div>
-        <div id="navRow">
-            <div id="navLinks">
-                <ol class="ad-breadcrumb">
-                      <li><router-link :to="{ path: '/advertise'}">home</router-link></li>
-                    <li aria-current="page">search</li>     
-                </ol>
-            </div>
-            <div id="menuLinksOne">
-                <router-link to="/advertise/info/contact">Contact us</router-link> 
-                <router-link to="/advertise/info/mediapack">Media pack</router-link>
-                   <router-link to="/advertise/info/faq">FAQs</router-link>  
-            </div>
+        <div id="menuLinks">
+            <ul id="menuList">
+                <li><router-link to="/advertise/info/contact">Contact us</router-link></li>
+                <li><router-link to="/advertise/info/mediapack">Media pack</router-link></li>
+                <li><router-link to="/advertise/info/faq">FAQs</router-link></li> 
+            </ul> 
         </div>
     </div>
+ 
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
