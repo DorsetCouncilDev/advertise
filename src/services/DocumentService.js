@@ -3,12 +3,16 @@ import api from './api'
 export default{
     
     getDocuments(indexRef,typeRef){
-        var url = indexRef + '/documenttypes/' + typeRef + '/documents'
-        return api.get(url);
+        //var url = indexRef + '/documenttypes/' + typeRef + '/documents'
+        //return api.get(url);
+        var documentReference = "abbey-rose";
+        return api.catalogueGet("documents/" + documentReference);
     },
     getDocument(indexRef,documentRef){
-        var url = indexRef + '/documents/' + documentRef
-        return api.get(url)
+        //var url = indexRef + '/documents/' + documentRef
+        //return api.get(url)
+        var documentReference = "abbey-rose";
+        return api.catalogueGet("documents/" + documentReference);
     },
     async updateDocument(updatedDocument,token){
         

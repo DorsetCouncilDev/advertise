@@ -24,7 +24,7 @@
      <div v-show="!loadingDocument">
         <div class="document-header">
             <div class="icon-holder">
-                <img :src="getIcon(document.documentTypeReference)" :alt="document.documentTypeReference">
+                <img :src="getIcon(document.documentTypeReference)" alt="">
             </div>   
             <div class="document-headings">
                 <h1 id="assetTitleText">{{document.name}}</h1>
@@ -32,18 +32,17 @@
             </div>
         </div>
         <h3 id="assetPrice">{{assetPrice}}</h3>
-        <p id="assetParagraph" v-if="afterPriceText">{{afterPriceText}} </p>
+       
        <hr>
-   <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
-   <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
+   <router-link class="btn btn-primary"  v-if="!isAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
+   <router-link class="btn btn-success"  v-if="isAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
 
-        <section id="propertiesSection" v-for="p in properties"  v-bind:key="p.reference">
-            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description' && p.propertyReference != 'meta-title'">
+        <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
                 <div class="property-section">
-                <span class="generalPropertyName">{{p.propertyName}}</span>
-                <span class="generalPropertyValue">{{p.publishedValue | readBoolean}}</span>
+                <span class="generalPropertyName">{{p}}</span>
+                <span class="generalPropertyValue">{{getPropertyValue(p)}}</span>
                 </div>
-                </span>
+            </span>
         </section>
  
         <hr>
@@ -92,127 +91,64 @@
             AssetMaps
         },
         methods: {
-            getIcon(documentType) {
-                if (typeof documentType !== "undefined") {
-                return require("../../../assets/images/icons/" + documentType + ".svg");
-                }
-            },
+          
             getDocument: function() {
                 DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
-                    this.pageMetaDescription = this.metaDescription; 
-                    this.pageMetaTitle =  this.metaTitle; 
+                    //this.pageMetaDescription = this.metaDescription; 
+                    //this.pageMetaTitle =  this.metaTitle; 
                     this.loadingDocument = false;
+                      console.log(Object.keys(this.document.properties));
                 })
+            },
+            getPropertyValue(key){
+                var propertyObject =  this.document.properties[key]
+                
+                if (propertyObject.value !== "undefined") 
+                    return propertyObject.value;
+                else if (propertyObject.values !== "undefined") 
+                    return propertyObject.values;
+
+                return "test";
+            },
+            propertyKeys(){ 
+                return Object.keys(this.document.properties);
+            },
+            isAvailable(){
+                return true;
+            },
+        
+            getIcon(){
+                return null;
             }
         },
         computed: {
-
+       
+        
         metaDescription(){
-             var descToReturn = null;
-                this.document.properties.forEach((p)=>{
-                   
-                    console.log(p.propertyName);
-                    if(p.propertyName == 'meta-description'){
-                        console.log("value: " + p.publishedValue)
-                        descToReturn = p.publishedValue;
-                }
-                })
-                return descToReturn;
+       
+                return "meta description";
         },
 
         metaTitle(){
-             var titleToReturn = null;
-                this.document.properties.forEach((p)=>{
-                   
-                    console.log(p.propertyName);
-                    if(p.propertyName == 'meta-title'){
-                        console.log("value: " + p.publishedValue)
-                        titleToReturn = p.publishedValue;
-                }
-                })
-                return titleToReturn;
+            return "title";
+              
         },
-            properties(){
-                if(this.document != null && this.document.properties != null){
-                    return this.document.properties;
-                }
-                return [];
-            },
-            description: function(){
-                var desc = "";
-                var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'description')
-                        desc =  p.publishedValue
-                   })
-                return desc;
-            },
-            streetViewRequired() {
-               if(this.document.locations[0].streetviewLatitude != null)
-                   return true;
-                else
-                    return false;
-            },
+      
+        description: function(){
+       
+            return "test description";
+        },
+        streetViewRequired() {
+         
+            return false;
+        },
             assetPrice() {
-                var price = null
-                var before = null
-                var after = null
-                var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'price')
-                        price = p.publishedValue
-                    if (p.propertyReference == 'before-price')
-                        before = p.publishedValue
-                    if (p.propertyReference == 'after-price')
-                        after = p.publishedValue
-                })
-
-                if (price == null) {
-                    return '£ P.O.A'
-                }
-
-                if (isNaN(price))
-                    return '£ P.O.A'
-                else {
-                    var priceDescription = ""
-
-                    if (before != null)
-                        priceDescription += before + " ";
-
-                    var decimals = 1;
-                    price = Math.round(price * Math.pow(10, decimals)) / Math.pow(10, decimals);
-                    priceDescription += "£" + price
-                    return priceDescription
-                }
+               return "12";
             },
-            assetAvailable() {
-                var available = false
-                 var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'available' && p.publishedValue == 'true')
-                       available = true;
-                })    
-                return available
-            },
-            beforePriceText() {
-                var beforePrice = null
-                var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'before-price')
-                        beforePrice = p.publishedValue
-                })
-                return beforePrice
-            },
-            afterPriceText() {
-                var afterPrice = null
-                 var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'after-price')
-                        afterPrice = p.publishedValue
-                })
-                return afterPrice
-        }
+       
+           
+            
         },
         beforeMount() {
           this.getDocument();
