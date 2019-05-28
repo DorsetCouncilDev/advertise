@@ -34,8 +34,8 @@
         <h3 id="assetPrice">{{assetPrice}}</h3>
        
        <hr>
-   <router-link class="btn btn-primary"  v-if="!isAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
-   <router-link class="btn btn-success"  v-if="isAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
+   <router-link class="btn btn-primary"  v-if="!document.properties.Available" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
+   <router-link class="btn btn-success"  v-if="document.properties.Available" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
 
         <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
                 <div class="property-section">
