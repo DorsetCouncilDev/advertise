@@ -47,7 +47,7 @@
   justify-content: center;
 
   #menuList {
-    border-bottom: 3px solid #fca82f;
+
     list-style: none;
     padding-left: 0;
     margin-bottom: 10px;
@@ -61,17 +61,23 @@
       a {
         padding: 2px;
         color: hsl(203, 85%, 23%);
-        font-weight:500;
-
         &:hover,
         &:focus,
         &:visited {
-          text-decoration: none;
-          border-bottom: solid 6px #60d844;
+          text-decoration: underline;
+          color:hsl(203, 85%, 35%);
+
         }
 
         &.selected {
-          border-bottom: solid 4px #4587de;
+          color:black;
+          font-weight:600;
+          &:hover,
+        &:focus,
+        &:visited{
+            text-decoration: none;
+            cursor:default;
+          }
         }
       }
     }
