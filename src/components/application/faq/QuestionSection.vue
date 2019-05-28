@@ -2,7 +2,7 @@
     <section class="questions-category-section">    
         <h3 class="section-heading">{{title}}</h3>
         <div class="open-section-area">
-        <div class="open-section" v-bind:class="{ 'open': sectionAnswersOpen }" @click="toggleSection"></div>  
+        <div class="open-section" v-bind:class="{ 'open': sectionAnswersOpen }" @click="toggleSection" tabindex="0"></div>  
         </div>
         <Question v-for="q in questions" v-bind:key="q.id" :question="q" v-on:toggleAnswer="toggleQuestionAnswer"></Question>
 

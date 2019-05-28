@@ -54,7 +54,7 @@
                     </div>
                 </div> 
                 <hr>
-                <p id="privacyText">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank">privacy notice</a>. </p>
+                <p id="privacyText">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank" rel="noopener noreferrer" class="faq-link">privacy notice</a>. </p>
                 <hr>
                <vue-recaptcha   ref="invisibleRecaptcha"
                                 @verify="onVerify"
@@ -184,10 +184,7 @@
                 border-color: black;
                 top: 25px;
             }
-
             line-height: 1.5;
-            letter-spacing:1px;
-
         }
     }
 

@@ -22,7 +22,7 @@
 <form class="col-sm-8" id="demo-form"  @submit.prevent="onSubmit" novalidate>
     
         <div class="form-group">
-            <label for="name"><span class="form-label-bold">Name</span></label>
+            <label for="name">Name</label>
             <input class="form-control form-bold-border" id="name" name="name" type="text" required v-model="name">
         </div>
             <div class="form-group">
@@ -55,7 +55,7 @@
         </div>
     <div v-show="formSent" id="formSentMessage">
         <p>Thank you for signing up, we'll be in touch soon.</p>
-   <a href="/advertise/static/pdf/mediapack.pdf" target="_blank">View media pack</a>
+   <a href="/advertise/static/pdf/mediapack.pdf" rel="noopener noreferrer" target="_blank">View media pack</a>
     
     </div>
      <div v-show="formError"><p class="text-danger">Sorry something went wrong submitting this form. Please try again.</p></div>
@@ -145,10 +145,7 @@
                 border-color: black;
                 top: 25px;
             }
-
             line-height: 1.5;
-            letter-spacing:1px;
-
         }
     }
 

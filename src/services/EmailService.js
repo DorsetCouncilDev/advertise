@@ -11,7 +11,7 @@ export default {
             "text": message,
             "token": token
         };
-        emailService.post("https://web.dorsetcc.gov.uk/catalogue/v1/public/mail", formObject).then((response) => {
+        emailService.post("https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/brokerage/mail/contact-form", formObject).then((response) => {
             resolve("worked")
         }).catch((err) => {
             reject("failed")
@@ -24,7 +24,7 @@ export default {
             "text": message,
             "token": token
         };
-        emailService.post("https://web.dorsetcc.gov.uk/catalogue/v1/public/mail", formObject).then((response) => {
+        emailService.post("https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/brokerage/mail/contact-form", formObject).then((response) => {
             return new Promise();
         }).catch((err) => {
             return new Promise();

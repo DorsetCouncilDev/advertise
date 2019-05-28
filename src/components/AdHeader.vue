@@ -7,7 +7,7 @@
     </div>
     <div id="titleHolder">
         <div id="title">
-            <a href="/advertise" id="titleLink" title="Advertise Dorset homepage">Advertise Dorset</a>  
+            <router-link :to="{ path: '/advertise'}" id="titleLink" title="Advertise Dorset homepage">Advertise Dorset</router-link>  
             <img id="brandImage" src="../assets/images/dc-advertise.png" alt=""> 
         </div>    
     </div>
