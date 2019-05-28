@@ -27,7 +27,8 @@
     <div id="typesSelectionGroup">
         <legend class="form-legend">Types</legend>
         <div v-for="type in documentTypes"  class="mb-2" v-bind:key="type.reference">
-        <div class="type-options" v-if="type.display">
+
+        <div class="type-options" >
             <div class="form-group">
                 <div class="multiple-choice" :title="type.name">
                     <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
@@ -80,7 +81,10 @@
             },
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
-            },
+            }
+            /*
+            ,
+
             async search() {
                 if (this.postcodeSearch.length > 0) {
                     this.$store.commit("setPostcode", this.postcodeSearch)
@@ -91,13 +95,15 @@
                     this.$store.dispatch("aSearch");
                 }
                 this.$emit("onChangeShowSearchForm")
-            }
+            }  
+
+            */
         },
         watch: {
             documentTypes: {
                 handler: function() {
-
-                    this.$store.dispatch("setTypesSearchChange", this.documentTypes)
+this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
+                   // this.$store.dispatch("setTypesSearchChange", this.documentTypes)
 
                 },
                 deep: true
@@ -117,7 +123,7 @@
             },
             documentTypes: {
                 get: function() {
-                    return this.$store.state.searchForm.documentTypes;
+                    return this.$store.state.advertiseDocumentTypes;
                 }
             },
             available: {

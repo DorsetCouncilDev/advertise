@@ -31,5 +31,10 @@ export const state = {
         },
         status: null
     },
-    currentlySearching:true
+    currentlySearching:true,
+
+
+    advertiseIndex: null,
+    advertiseDocumentTypes: null,
+    advertiseSearchParams: { documentTypes: []}
 }

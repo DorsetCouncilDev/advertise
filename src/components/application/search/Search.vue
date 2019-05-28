@@ -36,6 +36,7 @@
     import DocumentService from '../../../services/DocumentService';
     import SecurityService from '../../../services/SecurityService'
 
+
     export default {
         name: 'Search',
         data() {
@@ -72,14 +73,7 @@
             }
         },
         methods: {
-            getDocumentTypes: async function() {
-                await DocumentTypeService.getTypes(this.indexRef).then((response) => {
-                    this.documentTypes = response.data;
-                    this.getDocuments();
-                }, (error) => {
-                    console.log("Error getting document types")
-                })
-            },
+         
 
      
             changeShowSearchForm: function() {
@@ -88,12 +82,23 @@
 
     },
         beforeMount(){
-            this.$store.commit("setIndexReference",this.indexRef);
-           if(!this.$store.state.initialSearch && this.documentTypeRef == null)
-              this.$store.dispatch("setInitialDocumentTypesSearchOptions",this.indexRef)
+
+            if(this.$store.state.advertiseIndex == null){
+               this.$store.dispatch("setAdvertiseIndex",this.indexRef)
+                console.log("get index")
+
+            }
+
+
+
+
+
+           // this.$store.commit("setIndexReference",this.indexRef);
+         //  if(!this.$store.state.initialSearch && this.documentTypeRef == null)
+            //  this.$store.dispatch("setInitialDocumentTypesSearchOptions",this.indexRef)
             
-         if(this.documentTypeRef != null)
-                this.$store.dispatch("searchSingleDocumentType",this.documentTypeRef);
+       //  if(this.documentTypeRef != null)
+           //     this.$store.dispatch("searchSingleDocumentType",this.documentTypeRef);
 
           if(this.initialView != null){
 

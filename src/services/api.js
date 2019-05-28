@@ -3,9 +3,13 @@ import axios from 'axios'
 
 // Development
 
-var catalogue = axios.create({
-  baseURL: 'https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/brokerage',
-  timeout: 10000
+
+
+var advertise_axios = axios.create({
+  baseURL: 'https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/advertise',
+  timeout: 10000,
+  headers: { post: {"Content-Type": "application/json",
+  "accept": "application/json"} }
 });
 
 var _test_fail = axios.create({
@@ -19,7 +23,7 @@ var _security = axios.create({
 });
 
 var _ = axios.create({
-  baseURL: 'http://52.56.188.219/catalogue/v1/indexes',
+  baseURL: 'https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/',
   timeout: 10000
 });
 
@@ -30,7 +34,7 @@ var _gazzeteer = axios.create({
 
 
 var _search = axios.create({
-    baseURL: 'http://52.56.188.219/catalogue/v1/search/index/',
+    baseURL: 'https://apptest.dorsetcc.gov.uk/catalogue/api/indexe',
     timeout: 10000
 });
 
@@ -135,6 +139,14 @@ export default {
                       }
                    };
         return _test_fail.put(url,payload,headers)
+    },
+
+    getAdvertiseIndex(){
+      return advertise_axios.get();
+    },
+    advertiseSearch(payload){
+      return advertise_axios.post("documents",payload)
     }
+    
 
 }

@@ -25,6 +25,7 @@ export const mutations = {
         state.searchResults = payload;
     },
     setView(state,payload){
+        console.log("types:: " + payload.documentTypes)
         state.view = payload;
     },
     setSearchParameters(state,payload){
@@ -126,6 +127,23 @@ export const mutations = {
     },
     setAdminCurrentLocation(state,payload){
         state.admin.currentLocation = payload
+    },
+
+
+
+
+
+
+    setAdvertiseIndex(state,payload){
+        console.log("typesssss")
+        console.log(payload.documentTypes);
+        state.advertiseIndex = payload;
+    },
+    setAdvertiseDocumentTypes(state,payload){
+        state.advertiseDocumentTypes = payload;
+    },
+    setAdvertiseSearchDocumentTypesParameters(state,payload){
+        state.advertiseSearchParams.documentTypes = payload;
     }
     
 }

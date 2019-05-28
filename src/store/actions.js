@@ -3,7 +3,7 @@ import SearchService from './../services/SearchService'
 import DocumentTypeService from './../services/DocumentTypeService'
 import DocumentService from './../services/DocumentService'
 import GazetteerService from './../services/GazetteerService'
-
+import AdvertiseService from './../services/AdvertiseService'
 import _ from 'lodash'
 const BASE = 'http://vmcrwebapptest2:18080/catalogue/v1/'
 const SEARCH = 'indexes/advertising/documents'
@@ -310,7 +310,61 @@ console.log("searching....")
         context.commit("setAdminCurrentLocation", payload)
 
         
-    }
+    },
+
+
+
+
+
+
+
+    /* NEW CATALOGUE  */
+
+
+    async setAdvertiseIndex(context,payload){
+        await AdvertiseService.getIndex().then((response)=>{
+            console.log("get types");
+            console.log(response.data.documentTypes)
+
+            response.data.documentTypes.forEach((type)=>{
+                type.selected = false;
+            })
+            context.commit("setAdvertiseIndex", response.data);
+            context.commit("setAdvertiseDocumentTypes",response.data.documentTypes);
+
+        }).catch((err)=>{
+            // EMIT ERROR
+        })
+    },
+
+    setAdvertiseSearchDocumentTypesParameters(context,payload){
+        var documentTypes = context.state.advertiseDocumentTypes;
+        var selectedDocumentTypes = [];
+        documentTypes.forEach((type)=>{
+            if(type.selected)
+                selectedDocumentTypes.push(type.reference);
+        })
+        context.commit("setAdvertiseSearchDocumentTypesParameters",selectedDocumentTypes);
+
+        context.dispatch("advertiseSearch");
+
+    },
+
+    async advertiseSearch(context){
+        console.log("advertise search action")
+        await AdvertiseService.search(context.state.advertiseSearchParams).then((response)=>{
+            console.log(response.data);
+    }).catch((err)=>{
+        console.log(err);
+    })
+}
+
+
+
+
+
+
+
 
 
 }
