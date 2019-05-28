@@ -5,6 +5,9 @@
   font-size: 14px;
   overflow: hidden;
   flex-direction: column-reverse;
+  margin-bottom:30px;
+  margin-top:30px;
+
 }
 
 #navLinks {
@@ -61,6 +64,7 @@
       a {
         padding: 2px;
         color: hsl(203, 85%, 23%);
+        font-weight:500;
         &:hover,
         &:focus,
         &:visited {
@@ -106,6 +110,8 @@
   #navRow {
     font-size: 19px;
     flex-direction: row;
+    margin-bottom:30px;
+    margin-top:30px;
   }
 }
 
@@ -113,7 +119,7 @@
   #navRow {
     display: flex;
     justify-content: space-between;
-    margin-bottom:30px;
+  
 
     #menuLinks {
       a {
