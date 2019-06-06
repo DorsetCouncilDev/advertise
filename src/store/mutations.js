@@ -34,9 +34,7 @@ export const mutations = {
     toggleSearchForm(state){
         state.showSearchForm = !state.showSearchForm
     },
-    setSortResults(state,payload){
-        state.searchResults = payload;
-    },
+    
     setSort(state,payload){
         state.sort = payload
     },
@@ -132,11 +130,9 @@ export const mutations = {
 
 
 
-
+    /* NEW CATALOGUE  */
 
     setAdvertiseIndex(state,payload){
-        console.log("typesssss")
-        console.log(payload.documentTypes);
         state.advertiseIndex = payload;
     },
     setAdvertiseDocumentTypes(state,payload){
@@ -144,6 +140,24 @@ export const mutations = {
     },
     setAdvertiseSearchDocumentTypesParameters(state,payload){
         state.advertiseSearchParams.documentTypes = payload;
-    }
+    },
+    advertiseAddSearchParamAvailable(state){
+        state.advertiseSearchParams.properties["Available"] = "true";
+    },
+    advertiseRemoveSearchParamAvailable(state){
+        delete state.advertiseSearchParams.properties.Available;
+    },
+    setAdvertiseSearchResults(state,payload){
+        state.advertiseSearchResults = payload;
+    },
+    setAdvertiseSearchPostcode(state,payload){
+        state.advertiseSearchPostcode = payload;
+    },
+    setAdvertiseLocationSearchParmeter(state,payload){
+        state.advertiseSearchParams["location"] = payload;
+    },
+    setSortResults(state,payload){
+        state.advertiseSearchResults = payload;
+    },
     
 }

@@ -13,7 +13,7 @@
 <script>
     export default {
         name: 'Map',
-        props: ['assets'],
+        props: ['documents'],
         watch: {
             assets: function(newVal, oldVal) {
                 this.setMarkers();
@@ -31,27 +31,24 @@
 
             // loop through locations adding marker for each
             setMarkers: function() {
-
+                console.log("SET MARKERS")
                 for (var i = 0; i < this.markers.length; i++) {
                     this.markers[i].setMap(null);
                 }
                 this.markers.length = 0;
 
-                if (this.assets != null) {
-                    this.assets.forEach((asset) => {
-                        if (asset.document.locations != null && asset.document.locations.length > 0) {
-                            var price = asset.document.properties.find(function(element) {
-                                return element.propertyReference == 'price'
-                            })
+                if (this.documents != null) {
+                    this.documents.forEach((document) => {
+                        if (document.locations != null && document.locations.length > 0) {
+                            var price = document.properties.Price.value;
                             if (price != null) {
                                 price.publishedValue = parseInt(price.publishedValue, 10);
                             } else
-                                price = {
-                                    puclishedValue: ""
-                                }
-                            var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + asset.document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + this.getPrice(price.publishedValue) + '</p>' +
-                                '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="/advertise/' + asset.document.reference + '">View this opportunity</a></p>';
-                            this.addMarker(asset.document, infoContent)
+                                price = "";
+
+                            var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + this.getPrice(price) + '</p>' +
+                                '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="/advertise/' + document.reference + '">View this opportunity</a></p>';
+                            this.addMarker(document, infoContent)
                         }
                     })
                     this.fitMapToBounds();
@@ -82,7 +79,8 @@
                 }
             },
             addMarker: function(document, infoContent) {
-                var iconFileName = "pin-" + document.documentTypeReference + ".svg";
+                console.log("ADD MARKER");
+                var iconFileName = "pin-" + documentTypeReference + ".svg";
                 var pinImage = {
                     url: require("../../../assets/images/icons/map-pins/" + iconFileName),
                     scaledSize: new google.maps.Size(45, 55)
@@ -91,8 +89,8 @@
                 var position = new google.maps.LatLng(location.latitude, location.longitude);
                 var marker = new google.maps.Marker({
                     position: position,
-                    map: this.map,
-                    icon: pinImage
+                    map: this.map
+                   // icon: pinImage
                 });
 
 
@@ -130,7 +128,7 @@
         },
 
         mounted() {
-
+   console.log("Mounted!! ")
             // Create initial map with no markers
             const element = document.getElementById('map');
             const options = {
@@ -141,8 +139,10 @@
             this.map = new google.maps.Map(element, options);
 
             // set markers if any to set
-            if (this.assets != null && this.assets.length > 0)
+            if (this.documents != null && this.documents.length > 0){
+                console.log("Mount ")
                 this.setMarkers();
+            }
         }
     }
 

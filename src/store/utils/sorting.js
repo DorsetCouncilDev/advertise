@@ -2,32 +2,28 @@ export default {
 
     sortResultsByProperty(results, propertyReq, type) {
         return results.sort(function (a, b) {
-            var aProperty = null;
-            var bProperty = null;
-            a.document.properties.forEach((property) => {
-                if (property.propertyReference == propertyReq)
-                    aProperty = Number(property.publishedValue);                 
-            })
-            b.document.properties.forEach((property) => {
-                if (property.propertyReference == propertyReq)
-                    bProperty = Number(property.publishedValue);                 
-            })
-            
-            if(isNaN(aProperty))
+
+            if(typeof a.properties.Price == 'undefined' || a.properties.Price == null)
                 return 1;
-            else if(isNaN(bProperty))
+            if(typeof b.properties.Price == 'undefined' || b.properties.Price == null)
                 return -1;
-            else if(aProperty == 0)
-                return 1
-            else if(bProperty == 0)
-                return -1
             
-            if (type == 'high'){
-                return bProperty - aProperty;
-            }
-            else{
-                return aProperty - bProperty;
-            }
+            var priceA = Number(a.properties.Price.value);
+            var priceB = Number(b.properties.Price.value);
+
+            if(isNaN(priceA))
+                return 1;
+            if(isNaN(priceB))
+                return -1;
+            if(priceA == 0)
+                return 1
+            if(priceB == 0)
+                return -1
+        
+            if (type == 'high')
+                return priceB - priceA;
+            else
+                return priceA - priceB;
         });
     },
     
@@ -41,9 +37,9 @@ export default {
     // test method
     getLocations(){
         return [ 
-                          {"name" : "Acland Road", "location": { "latitude" : 50.713449, "longitude": -2.435556}},
-                          {"name" : "County Hall", "location": { "latitude" : 50.716136, "longitude": -2.440467}},                   
-                          {"name" : "Glyde Path Road", "location": { "latitude" : 50.716464, "longitude": -2.439470}},
+                          {"location": { "latitude" : 50.713449, "longitude": -2.435556}},
+                          {"location": { "latitude" : 50.716136, "longitude": -2.440467}},                   
+                          {"location": { "latitude" : 50.716464, "longitude": -2.439470}},
                           {"name" : "Great Western Road", "location": { "latitude" : 50.711551, "longitude": -2.437976}},
                           {"name" : "High East Street", "location": { "latitude" : 50.715582, "longitude": -2.434931}},
                           {"name" : "High West Street", "location": { "latitude" : 50.715230, "longitude": -2.439024}},                   

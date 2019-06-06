@@ -1,7 +1,7 @@
 <template>
 <div id="searchCriteria" >
-    <div v-for="documentType in searchForm.documentTypes" class="label label-primary tag-label" v-if="documentType.selected">
-        <span class="tag-item">{{documentType.reference}}</span>
+    <div v-for="documentType in documentTypes" class="label label-primary tag-label" v-bind:key="documentType">
+        <span class="tag-item">{{documentType}}</span>
         <span class="delete show" @click="removeDocumentType(documentType)" tabindex="0" title="Remove search criteria">X</span>     
     </div>
 <!--
@@ -57,9 +57,13 @@
             },
             toggleSearchForm() {
                 this.$emit("onChangeShowSearchFom", !this.showSearchForm)
-            }
+            },
+           
         },
         computed: {
+             documentTypes(){
+                return this.$store.state.advertiseSearchParams.documentTypes;
+            },
             postcode: {
                 get: function() {
                     var p = this.$store.state.searchForm.postcode

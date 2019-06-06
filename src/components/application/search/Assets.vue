@@ -1,35 +1,36 @@
 <template>
 <div id="searchResultsContainer" >
+
     <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
     <SearchCriteria></SearchCriteria>
        
     <transition name="component-fade" mode="out-in">
-        <Map v-show="view == 'mapView'" :assets="documents"></Map>
+       <Map v-show="view == 'mapView'" :documents="documents"></Map>  
     </transition>
     <div class="result-cards" v-show="showSearchingMessage" id="noResultsMessage">
         {{searchingMessage}}
     </div>
  
-    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView') && !showSearchingMessage"> 
-        <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" v-bind:key="d.document.reference" >
-            <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
+    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView')"> 
+        <div class="result-card" v-for="document in documents" v-bind:title="document.name" v-bind:key="document.reference" >
+            <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
                 <div class="card-heading">
-                    <div class="icon"><img :alt="d.document.documentTypeName"  :src="getIcon(d.document.documentTypeReference)"></div>
-                    <div class="heading"><div class="docTypeLabel" v-bind:style="{color: getTypeColor(d.document.documentTypeReference)}">{{d.document.documentTypeName}}</div><div class="heading-text">{{d.document.name}}</div></div>
+                    <div class="icon" v-if="document.documentTypeReference"><img :alt="document.documentTypeName"  :src="getIcon(document.documentTypeReference)"></div>
+                    <div class="heading"><div class="docTypeLabel" v-if="document.documentTypeReference" v-bind:style="{color: getTypeColor(document.documentTypeReference)}">{{document.documentTypeName}}</div><div class="heading-text">{{document.name}}</div></div>
                 </div>
 
-                <div class="card-main"><div>{{d.document.longText}}</div>
+                <div class="card-main"><div>{{document.name}}</div>
                     <div class="info-row mt-2 mb-2">
                          <div  >
-                    <div class="distance-tag"  v-if="d.distanceFromCoordinate && postcode != ''">{{d.distanceFromCoordinate | round()}} miles from {{postcode}}</div>
+                    <div class="distance-tag"  v-if="document.distanceFromCoordinate && postcode != ''">{{document.distanceFromCoordinate | round()}} miles from {{postcode}}</div>
                           
                    </div>
-                        <div >
-                    <div  v-for="property in d.document.properties"  v-bind:key="property.reference"><span v-if="property.propertyReference == 'price'" class="price-tag">&pound;  {{property.publishedValue | round()}}</span></div>
+                        <div>
+                    <div><span class="price-tag" v-if="document.properties && document.properties.Price">&pound;  {{document.properties.Price | round()}}</span></div>
                   </div>
                        
                 </div>
-                 <router-link :to="{ path: '/advertise/' + d.document.reference}" class="view-asset-link">view this opportunity</router-link>
+                 <router-link :to="{ path: '/advertise/' + document.reference}" class="view-asset-link">view this opportunity</router-link>
     </div>
             </router-link>
         </div>
@@ -89,16 +90,15 @@
                 return this.$store.state.view
             },
             documents() {
-
-                if(this.currentlySearching){
-                     this.searchingMessage = "Searching...";
-                }
-                else{
-                    var results = this.$store.state.searchResults;
+                var results = this.$store.state.advertiseSearchResults;
+                console.log("results: " + results.length);
+                    
+                    
                     if (results != null)
                     {
-                        if (results.length == 0){
+                        if (results.length == 0)
                             this.searchingMessage = "Sorry, no results found for that search";
+                   
                    }    
                 
                     /*  Build sitemap
@@ -107,11 +107,10 @@
                         console.log("<url><loc>https://web.dorsetcc.gov.uk/advertise/" + result.document.reference + "</loc><lastmod>2019-04-01T16:50:05+00:00</lastmod><changefreq>monthly</changefreq></url>");
                     })
                     */
-
+                   console.log("results: " + results.length);
                     return results;
-               }
-                }
-               return [];
+             
+          
            
             },
             postcode() {
@@ -126,7 +125,7 @@
                 }
             },
             showSearchingMessage(){
-               if(this.$store.state.currentlySearching || this.$store.state.searchResults.length == 0)     
+               if(this.$store.state.currentlySearching || this.documents.length == 0)     
                    return true;
                 return false;
             }
@@ -139,27 +138,26 @@
             this.started = true;
         },
         mounted() {
-         /*   AOS.init({
+            AOS.init({
                 once: true,
                 offset: 50,
                 duration: 400,
                 easing: 'ease-in-sine',
                 delay: 50
-            });  */
+            });  
         },
         filters: {
-            round: function(value) {
+            round: function(price) {
                 // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
                
-              if (value == null) {
+              if (price == null) {
                     return 'P.O.A'
                 }
 
-                if (isNaN(value))
-                    return 'P.O.A'
+          
                 else 
                     var decimals = 1;
-                    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+                    var value = Math.round(price.value * Math.pow(10, decimals)) / Math.pow(10, decimals);
                     return value;
                // }
             },

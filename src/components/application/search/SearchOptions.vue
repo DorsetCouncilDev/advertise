@@ -18,7 +18,7 @@
         <label id="postcodeLabel"  for="postcode">Full postcode search</label>
         <div class="form-group">
             <div class="input-group">
-            <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcodeSearch"> 
+            <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode"> 
               <div class="input-group-append">
     <button class="btn btn-success" type="button" @click.prevent="search" id="button-addon2">Search</button>
   </div>
@@ -69,24 +69,17 @@
             }
 
         },
-        data() {
-            return {
-                postcodeSearch: "",
-
-            }
-        },
         methods: {
             closeMenu() {
                 this.$emit("onChangeShowSearchForm");
             },
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
-            }
-            /*
-            ,
+            },
+           
 
-            async search() {
-                if (this.postcodeSearch.length > 0) {
+            search() {
+             /*   if (this.postcodeSearch.length > 0) {
                     this.$store.commit("setPostcode", this.postcodeSearch)
                     await this.$store.dispatch("aSearch")
                 } else {
@@ -95,16 +88,20 @@
                     this.$store.dispatch("aSearch");
                 }
                 this.$emit("onChangeShowSearchForm")
+                */
+
+               this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
+                var results = this.$store.state.advertiseSearchResults;
+                console.log("results size:: " + results.length);
             }  
 
-            */
+          
         },
         watch: {
             documentTypes: {
                 handler: function() {
-this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
+                this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
                    // this.$store.dispatch("setTypesSearchChange", this.documentTypes)
-
                 },
                 deep: true
             },
@@ -116,9 +113,10 @@ this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
 
             postcode: {
                 get: function() {
-                    var p = this.$store.state.searchForm.postcode
-                    p = p.toUpperCase()
-                    return p
+                    return this.$store.state.advertiseSearchPostcode
+                },
+                set: function(value) {
+                    this.$store.dispatch("setAdvertiseSearchPostcode",value);
                 }
             },
             documentTypes: {
@@ -128,17 +126,19 @@ this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
             },
             available: {
                 get: function() {
-                      return this.$store.state.searchForm.parameters.available;
-           
+                     if(this.$store.state.advertiseSearchParams.properties.Available)
+                        return true;
+                    return false;
                 },
                 set: function(value) {
-                    this.$store.dispatch("setAvailableSearch", value);
-        
+                    console.log("component set available search param")
+                    this.$store.dispatch("setAdvertiseSearchAvailableParameters");
                 }
             }
         },
         created() {
             this.postcodeSearch = this.postcode;
+            this.$store.dispatch("advertiseSearch");
         }
     }
 

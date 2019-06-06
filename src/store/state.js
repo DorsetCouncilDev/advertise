@@ -36,5 +36,7 @@ export const state = {
 
     advertiseIndex: null,
     advertiseDocumentTypes: null,
-    advertiseSearchParams: { documentTypes: []}
+    advertiseSearchParams: { documentTypes: ["bin-lid-advertising", "roundabout-sponsorship"],properties: {}},
+    advertiseSearchResults: [],
+    advertiseSearchPostcode:""
 }

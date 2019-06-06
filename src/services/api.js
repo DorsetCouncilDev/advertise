@@ -9,7 +9,8 @@ var advertise_axios = axios.create({
   baseURL: 'https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/advertise',
   timeout: 10000,
   headers: { post: {"Content-Type": "application/json",
-  "accept": "application/json","Access-Control-Allow-Origin":"*"} }
+  "accept": "application/json"} 
+  }
 });
 
 var _test_fail = axios.create({
