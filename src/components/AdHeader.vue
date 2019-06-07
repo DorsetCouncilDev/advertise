@@ -1,9 +1,11 @@
 <!-- Common header component  -->
 
 <template>
+
 <header id="header">
-    <div id="dfyHolder"><a href="https://www.dorsetforyou.gov.uk" title="DorsetForYou homepage">
-         <img src="../assets/images/dorsetcouncil-logo.svg" id="dcLogo" alt=""></a>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <div id="dfyHolder"><a href="https://www.dorsetcouncil.gov.uk" title="Dorset Council homepage">
+         <img src="../assets/images/dorsetcouncil-logo.svg" id="dcLogo" alt="Dorset Council homepage"></a>
     </div>
     <div id="titleHolder">
         <div id="title">

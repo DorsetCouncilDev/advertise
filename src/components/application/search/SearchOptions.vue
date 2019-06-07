@@ -13,6 +13,7 @@
        <label class="switch" for="available">
   <input type="checkbox" id="available" v-model="available">
   <span class="slider round"></span>
+  <span class="sr-only sr-only-focusable">Show available only</span>
 </label>
 </div>
         <label id="postcodeLabel"  for="postcode">Full postcode search</label>
@@ -92,7 +93,6 @@
 
                this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
                 var results = this.$store.state.advertiseSearchResults;
-                console.log("results size:: " + results.length);
             }  
 
           
@@ -131,7 +131,6 @@
                     return false;
                 },
                 set: function(value) {
-                    console.log("component set available search param")
                     this.$store.dispatch("setAdvertiseSearchAvailableParameters");
                 }
             }

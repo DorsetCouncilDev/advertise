@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="content">
     <div id="navRow">
         <div id="navLinks">
             <ol class="ad-breadcrumb">

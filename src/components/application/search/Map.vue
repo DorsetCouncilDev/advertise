@@ -15,7 +15,7 @@
         name: 'Map',
         props: ['documents'],
         watch: {
-            assets: function(newVal, oldVal) {
+            documents: function(newVal, oldVal) {
                 this.setMarkers();
             }
         },
@@ -31,20 +31,22 @@
 
             // loop through locations adding marker for each
             setMarkers: function() {
-                console.log("SET MARKERS")
                 for (var i = 0; i < this.markers.length; i++) {
                     this.markers[i].setMap(null);
                 }
                 this.markers.length = 0;
 
-                if (this.documents != null) {
+                if (this.documents != null && this.documents.length > 0) {
                     this.documents.forEach((document) => {
                         if (document.locations != null && document.locations.length > 0) {
-                            var price = document.properties.Price.value;
-                            if (price != null) {
-                                price.publishedValue = parseInt(price.publishedValue, 10);
-                            } else
-                                price = "";
+                            var price = "";
+                            if(document.properties.Price){
+                                var price = document.properties.Price.value;
+                                if (price != null) 
+                                    price = parseInt(price, 10);
+                                else
+                                    price = "";
+                            } 
 
                             var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + this.getPrice(price) + '</p>' +
                                 '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="/advertise/' + document.reference + '">View this opportunity</a></p>';
@@ -79,18 +81,19 @@
                 }
             },
             addMarker: function(document, infoContent) {
-                console.log("ADD MARKER");
-                var iconFileName = "pin-" + documentTypeReference + ".svg";
+                 var iconFileName = "pin-" + document.documentType.reference + ".svg";
                 var pinImage = {
                     url: require("../../../assets/images/icons/map-pins/" + iconFileName),
-                    scaledSize: new google.maps.Size(45, 55)
+                    scaledSize: new google.maps.Size(45, 55),
+                    alt: ""
                 }
+              
                 var location = document.locations[0];
                 var position = new google.maps.LatLng(location.latitude, location.longitude);
                 var marker = new google.maps.Marker({
                     position: position,
-                    map: this.map
-                   // icon: pinImage
+                    map: this.map,
+                    icon: pinImage
                 });
 
 
@@ -100,6 +103,9 @@
                 marker.addListener('click', function() {
                     infowindow.open(this.map, marker);
                 });
+                marker.addListener('tilesloaded',function(){
+
+                })
 
 
                 this.markers.push(marker);
@@ -128,7 +134,7 @@
         },
 
         mounted() {
-   console.log("Mounted!! ")
+   console.log("Mounted!! " + this.documents.length)
             // Create initial map with no markers
             const element = document.getElementById('map');
             const options = {
@@ -140,7 +146,6 @@
 
             // set markers if any to set
             if (this.documents != null && this.documents.length > 0){
-                console.log("Mount ")
                 this.setMarkers();
             }
         }

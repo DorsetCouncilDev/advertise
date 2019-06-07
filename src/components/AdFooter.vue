@@ -6,73 +6,46 @@
                                         <h2 id="servicesInfoLinksLabel">Services and information</h2>
 
                                         <ul class="services-info-list">
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/bins-recycling-and-litter/bins-recycling-and-litter.aspx"
-                                                                title="Bins and waste">Bins and waste</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/housing/housing.aspx"
-                                                                title="Housing">Housing</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/sport-leisure/sport-and-leisure.aspx?folderIds=2058,10460"
-                                                                title="Leisure Centres">Leisure Centres</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/travel/travel.aspx" title="Travel information">Travel
-                                                                information</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/council-tax/council-tax.aspx"
-                                                                title="Council tax">Council
-                                                                tax</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/roads-highways-maintenance/roads-highways-and-maintenance.aspx"
-                                                                title="Highways">Highways</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/planning-buildings-land/planning-buildings-and-land.aspx"
-                                                                title="Planning">Planning</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/education-and-training/schools-and-learning/schools-and-learning.aspx"
-                                                                title="Schools">Schools</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/libraries-history-culture/libraries/libraries.aspx"
-                                                                title="Libraries">Libraries</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/benefits/benefits.aspx"
-                                                                title="Benefits">Benefits</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/children-families/children-and-families.aspx"
-                                                                title="Children">Children</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/care-and-support-for-adults/care-and-support-for-adults.aspx"
-                                                                title="Adult care">Adult care</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/bins-recycling-and-litter/bins-recycling-and-litter.aspx">Bins and waste</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/housing/housing.aspx">Housing</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/sport-leisure/sport-and-leisure.aspx?folderIds=2058,10460">Leisure Centres</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/travel/travel.aspx">Travel information</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/council-tax/council-tax.aspx">Council tax</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/roads-highways-maintenance/roads-highways-and-maintenance.aspx">Highways</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/planning-buildings-land/planning-buildings-and-land.aspx">Planning</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/education-and-training/schools-and-learning/schools-and-learning.aspx">Schools</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/libraries-history-culture/libraries/libraries.aspx">Libraries</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/benefits/benefits.aspx">Benefits</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/children-families/children-and-families.aspx">Children</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/care-and-support-for-adults/care-and-support-for-adults.aspx">Adult care</a></li>
                                         </ul>
                                 </nav>
 
                                 <nav class="link-section" aria-labelledby="councilLinksLabel">
                                         <h2 id="councilLinksLabel">Your council</h2>
                                         <ul class="council-links-list">
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/councillors-committees-elections/councillors-committees-and-elections.aspx"
-                                                                title="Councillors and Committees">Councillors and
-                                                                Committees</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/jobs" title="Jobs">Jobs</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/news" title="News">News</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/e-news" title="E-newsletter sign up">E-newsletter
-                                                                sign up</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/mylocal/" title="My Local">My
-                                                                Local</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/your-council/online-payments/online-payments.aspx"
-                                                                title="Pay online">Pay online</a></li>
-                                                <li><a href="https://www.dorsetcouncil.gov.uk/your-council/about-your-council/data-protection.aspx"
-                                                                title="Data protection">Data protection</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/councillors-committees-elections/councillors-committees-and-elections.aspx">Councillors and Committees</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/jobs">Jobs</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/news">News</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/e-news">E-newsletter sign up</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/mylocal/">My Local</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/your-council/online-payments/online-payments.aspx">Pay online</a></li>
+                                                <li><a href="https://www.dorsetcouncil.gov.uk/your-council/about-your-council/data-protection.aspx">Data protection</a></li>
                                         </ul>
                                 </nav>
                         </div>
                         <div class="footer-common-links">
-                                <img src="../assets/images/dorsetcouncil-logo.svg" class="footer-logo">
+                                <img src="../assets/images/dorsetcouncil-logo.svg" class="footer-logo" alt="Dorset Council Home">
                                 <div class="common-links-block">
                                         <nav>
                                                 <ul class="common-links-list">
-                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/about-dorsetforyou.aspx"
-                                                                        title="About">About</a></li>
-                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/accessibility-statement.aspx"
-                                                                        title="Accessibility">Accessibility</a></li>
-                                                        <li><a href="https://www.dorsetcouncil.gov.uk/contact/contacts.aspx"
-                                                                        title="Contact">Contact</a></li>
-                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/downloads.aspx"
-                                                                        title="Downloads">Downloads</a></li>
-                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/privacy-and-cookies-policy.aspx"
-                                                                        title="Privacy policy">Privacy
-                                                                        policy</a></li>
-                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/terms-and-conditions.aspx"
-                                                                        title="Terms &amp; conditions">Terms
-                                                                        &amp; conditions</a></li>
-                                                        <li><a href="https://translate.google.com/" title="Translate">Translate</a>&nbsp;</li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/about-dorsetforyou.aspx">About</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/accessibility-statement.aspx">Accessibility</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/contact/contacts.aspx">Contact</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/downloads.aspx">Downloads</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/privacy-and-cookies-policy.aspx">Privacy policy</a></li>
+                                                        <li><a href="https://www.dorsetcouncil.gov.uk/footer/terms-and-conditions.aspx">Terms &amp; conditions</a></li>
+                                                        <li><a href="https://translate.google.com/">Translate</a>&nbsp;</li>
                                                 </ul>
                                         </nav>
                                         <nav>

@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div id="content">
     <div id="navRow">
         <div id="navLinks">
             <ol class="ad-breadcrumb">
@@ -24,11 +24,11 @@
      <div v-show="!loadingDocument">
         <div class="document-header">
             <div class="icon-holder">
-                <img :src="getIcon(document.documentTypeReference)" alt="">
+                <img :src="getIcon(document.documentType.reference)" alt="">
             </div>   
             <div class="document-headings">
                 <h1 id="assetTitleText">{{document.name}}</h1>
-                <h2 id="assetLongText">{{document.documentTypeName}} - {{document.longText}}</h2>
+                <h2 id="assetLongText">{{document.documentType.name}} - {{document.longText}}</h2>
             </div>
         </div>
         <h3 id="assetPrice">{{assetPrice}}</h3>
@@ -118,8 +118,8 @@
                 return true;
             },
         
-            getIcon(){
-                return null;
+            getIcon(documentType){
+                 return require("../../../assets/images/icons/" + documentType + ".svg");
             }
         },
         computed: {
@@ -136,16 +136,25 @@
         },
       
         description: function(){
-       
-            return "test description";
+            if(this.document.properties.Description && this.document.properties.Description.value)
+                return this.document.properties.Description.value;
+            return "";
         },
         streetViewRequired() {
          
             return false;
         },
-            assetPrice() {
-               return "12";
-            },
+        assetPrice() {
+            var price = "POA";
+            var priceAsNumber;
+            if(this.document.properties.Price){
+                priceAsNumber = Number(this.document.properties.Price.value);
+                if(NaN(priceAsNumber))
+                    return price;
+                price = priceAsNumber;
+            }
+            return price;
+        }
        
            
             

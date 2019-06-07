@@ -67,11 +67,7 @@ export const actions = {
 
 
     
-    sortResultsByBestMatch(context) {
-        context.commit("setSort", "bestmatch");
-        var sortedResults = Sorting.sortByBestMatch(context.state.searchResults.results)
-        context.commit("setSortResults", sortedResults)
-    },
+   
 
     /*
     searchPostcode(context) {
@@ -304,11 +300,6 @@ console.log("searching....")
         
     },
 
-    
-
-
-
-
 
 
 
@@ -317,9 +308,6 @@ console.log("searching....")
 
     async setAdvertiseIndex(context,payload){
         await AdvertiseService.getIndex().then((response)=>{
-            console.log("get types");
-            console.log(response.data.documentTypes)
-
             response.data.documentTypes.forEach((type)=>{
                 type.selected = false;
             })
@@ -345,7 +333,6 @@ console.log("searching....")
     },
 
     setAdvertiseSearchAvailableParameters(context){
-        console.log("setting available param ACTION");
 
         if(!context.state.advertiseSearchParams.properties.Available)
             context.commit("advertiseAddSearchParamAvailable");
@@ -356,7 +343,7 @@ console.log("searching....")
     },
 
     async advertiseSearch(context){
-        console.log("advertise search action")
+
         context.commit("setCurrentlySearching",true);
 
         if(context.state.advertiseSearchPostcode != null && context.state.advertiseSearchPostcode != "")       
@@ -365,14 +352,20 @@ console.log("searching....")
         await AdvertiseService.search(context.state.advertiseSearchParams).then((response)=>{
             var documents = response.data;
            
+            // TEST LOCATIONS AT THE MOMENT
+            /*
             var testLocations = Sorting.getLocations();
-            console.log("locations size: " + testLocations.length);
+ 
             for(var i=0;i<testLocations.length;i++){
                 if(i<documents.length)
                     documents[i].locations.push(testLocations[i])
             }
-        
-            context.commit("setAdvertiseSearchResults",response.data);
+            */
+      var params = {};
+      params.documents = documents;
+      params.sortSetting = null;
+
+            context.dispatch("sortDocumentsFromSearch",params)
             context.commit("setCurrentlySearching",false);
         }).catch((err)=>{
             console.log(err);
@@ -381,7 +374,6 @@ console.log("searching....")
 
     setAdvertiseSearchPostcode(context,payload){
         context.commit("setAdvertiseSearchPostcode",payload);
-  
 
     },
 
@@ -400,24 +392,23 @@ console.log("searching....")
             "latitude": address.latitude,
             "longitude": address.longitude,
             "unit": "MILE",
-            "range": 100
+            "range": 10
         }
         context.commit("setAdvertiseLocationSearchParmeter",location);
     },
 
-    sortResultsByProperty(context, param) {
-
-        context.commit("setSort", param.sortValue);
-        var sortedResults = Sorting.sortResultsByProperty(context.state.advertiseSearchResults, param.sortProperty, param.sortType)
-
-        context.commit("setSortResults", sortedResults)
-
-
+    
+    sortDocumentsFromSearch(context,params){
+        var sortSetting = context.state.advertiseSort;
+        var sortedDocuments =  Sorting.sortAdvertiseDocuments(params.documents,sortSetting);
+        context.commit("setAdvertiseSearchResults",sortedDocuments);
     },
-
-
-
-
-
-
+    sortDocumentsFromSortChange(context,params){
+        var documents = context.state.advertiseSearchResults;
+        var sortedDocuments = Sorting.sortAdvertiseDocuments(documents,params);
+        context.commit("setAdvertiseSearchResults",sortedDocuments);
+        context.commit("setAdvertiseSort",params);
+    },
+    
+  
 }

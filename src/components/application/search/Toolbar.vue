@@ -5,7 +5,7 @@
     </div> 
         <div class="stv-radio-tabs-wrapper">
                 <label id="sortSelectLabel" for="sortSelect">Sort</label>
-                <select class="stv-radio-tab form-control" id="sortSelect" v-model="sort" >
+                <select class="stv-radio-tab form-control" id="sortSelect" v-model="advertiseSort" >
                     <option value="best-match" selected="selected">Best match</option>
                     <option value="price-high">Cost high</option>
                     <option value="price-low">Cost low</option>
@@ -46,25 +46,12 @@
         },
 
         computed: {
-            sort: {
+            advertiseSort: {
                 get() {
-                    return this.$store.state.sort
+                    return this.$store.state.advertiseSort
                 },
                 set(value) {
-                    var sortValue = value;
-                    if (sortValue == 'bestmatch')
-                        this.$store.dispatch("sortResultsByBestMatch")
-                    else {
-                        var sortValueArray = value.split("-");
-                        var sortProperty = sortValueArray[0];
-                        var sortType = sortValueArray[1];
-                        var sortObj = {
-                            'sortProperty': sortProperty,
-                            'sortType': sortType,
-                            'sortValue': sortValue
-                        }
-                        this.$store.dispatch("sortResultsByProperty", sortObj);
-                    }
+                    this.$store.dispatch("sortDocumentsFromSortChange",value);
                 }
             },
             view: {
@@ -72,7 +59,7 @@
                     return this.$store.state.view
                 },
                 set(value) {
-                    this.$store.commit("setView", value);
+                    this.$store.commit("setDocumentsView", value);
 
                 }
             }

@@ -24,10 +24,7 @@ export const mutations = {
     setSearchResultsResults(state,payload){
         state.searchResults = payload;
     },
-    setView(state,payload){
-        console.log("types:: " + payload.documentTypes)
-        state.view = payload;
-    },
+ 
     setSearchParameters(state,payload){
         state.searchCriteria.parameters = payload;
     },
@@ -35,9 +32,7 @@ export const mutations = {
         state.showSearchForm = !state.showSearchForm
     },
     
-    setSort(state,payload){
-        state.sort = payload
-    },
+   
     setSearchLocation(state,payload){
         state.searchCriteria.location.latitude = payload.latitude;
         state.searchCriteria.location.longitude = payload.longitude;
@@ -117,18 +112,13 @@ export const mutations = {
     setCurrentlySearching(state,payload){
         state.currentlySearching = payload;
     },
-    /**********************************************************/
-    /******  ADMIN   ******************************************/
-    
-    setAdminLocations(state,payload){
-        state.admin.locations = payload
-    },
-    setAdminCurrentLocation(state,payload){
-        state.admin.currentLocation = payload
-    },
 
 
 
+
+/************************************************************************************************************ */
+/************************************************************************************************************ */
+/************************************************************************************************************ */
 
     /* NEW CATALOGUE  */
 
@@ -138,6 +128,12 @@ export const mutations = {
     setAdvertiseDocumentTypes(state,payload){
         state.advertiseDocumentTypes = payload;
     },
+
+
+
+    /********************************************************/
+    // Searching 
+
     setAdvertiseSearchDocumentTypesParameters(state,payload){
         state.advertiseSearchParams.documentTypes = payload;
     },
@@ -150,14 +146,28 @@ export const mutations = {
     setAdvertiseSearchResults(state,payload){
         state.advertiseSearchResults = payload;
     },
+
+
+    /*****************************************/
+    // Location search state
+
     setAdvertiseSearchPostcode(state,payload){
         state.advertiseSearchPostcode = payload;
     },
     setAdvertiseLocationSearchParmeter(state,payload){
         state.advertiseSearchParams["location"] = payload;
     },
-    setSortResults(state,payload){
-        state.advertiseSearchResults = payload;
+
+
+
+    /*******************************/
+    // Sorting and View Display state
+
+    setAdvertiseSort(state,payload){
+        state.advertiseSort = payload;
+    },
+    setDocumentsView(state,payload){
+        state.advertiseView = payload;
     },
     
 }

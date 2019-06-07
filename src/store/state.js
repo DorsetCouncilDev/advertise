@@ -1,6 +1,6 @@
 export const state = {
-    view: "listView",
-    sort: "bestmatch",
+  
+
     searchCriteria: {
         parameters: [],
         // Hard coded temp solution to pre populate browse list
@@ -38,5 +38,7 @@ export const state = {
     advertiseDocumentTypes: null,
     advertiseSearchParams: { documentTypes: ["bin-lid-advertising", "roundabout-sponsorship"],properties: {}},
     advertiseSearchResults: [],
-    advertiseSearchPostcode:""
+    advertiseSearchPostcode:"",
+    advertiseSort:"bestmatch",
+    advertiseView: "listView"
 }

@@ -15,11 +15,11 @@
         <div class="result-card" v-for="document in documents" v-bind:title="document.name" v-bind:key="document.reference" >
             <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
                 <div class="card-heading">
-                    <div class="icon" v-if="document.documentTypeReference"><img :alt="document.documentTypeName"  :src="getIcon(document.documentTypeReference)"></div>
-                    <div class="heading"><div class="docTypeLabel" v-if="document.documentTypeReference" v-bind:style="{color: getTypeColor(document.documentTypeReference)}">{{document.documentTypeName}}</div><div class="heading-text">{{document.name}}</div></div>
+                    <div class="icon" v-if="document.documentType.reference"><img :alt="document.documentType.name"  :src="getIcon(document.documentType.reference)" ></div>
+                    <div class="heading"><div class="docTypeLabel" v-if="document.documentType.reference">{{document.documentType.name}}</div><div class="heading-text">{{document.name}}</div></div>
                 </div>
 
-                <div class="card-main"><div>{{document.name}}</div>
+                <div class="card-main"><div>{{document.longText}}</div>
                     <div class="info-row mt-2 mb-2">
                          <div  >
                     <div class="distance-tag"  v-if="document.distanceFromCoordinate && postcode != ''">{{document.distanceFromCoordinate | round()}} miles from {{postcode}}</div>
@@ -30,7 +30,7 @@
                   </div>
                        
                 </div>
-                 <router-link :to="{ path: '/advertise/' + document.reference}" class="view-asset-link">view this opportunity</router-link>
+                 <span class="view-asset-link">view this opportunity</span>
     </div>
             </router-link>
         </div>
@@ -87,13 +87,11 @@
         },
         computed: {
             view() {
-                return this.$store.state.view
+                return this.$store.state.advertiseView
             },
             documents() {
                 var results = this.$store.state.advertiseSearchResults;
                 console.log("results: " + results.length);
-                    
-                    
                     if (results != null)
                     {
                         if (results.length == 0)
@@ -107,11 +105,7 @@
                         console.log("<url><loc>https://web.dorsetcc.gov.uk/advertise/" + result.document.reference + "</loc><lastmod>2019-04-01T16:50:05+00:00</lastmod><changefreq>monthly</changefreq></url>");
                     })
                     */
-                   console.log("results: " + results.length);
-                    return results;
-             
-          
-           
+                    return results;  
             },
             postcode() {
                 return this.$store.state.searchForm.postcode.toUpperCase()
@@ -238,9 +232,12 @@
                         flex-direction: column;
                         justify-content: center;
                         font-size: 19px;
-              
+               
                         overflow:hidden;
                         text-overflow: ellipsis;
+                        .heading-text{
+ font-weight:600;
+                        }
                     }
 
                     .icon {
@@ -308,7 +305,8 @@
 
     .docTypeLabel {
         font-size: 18px;
-        color: grey;
+        color: #2A2A2A;
+        font-weight:400;
     }
 .view-asset-link{
     text-decoration: underline;

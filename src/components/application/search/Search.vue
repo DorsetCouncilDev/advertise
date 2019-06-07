@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="content">
     <div id="navRow">
         <div id="navLinks">
             <ol class="ad-breadcrumb">
@@ -85,28 +85,13 @@
 
             if(this.$store.state.advertiseIndex == null){
                this.$store.dispatch("setAdvertiseIndex",this.indexRef)
-                console.log("get index")
 
-            }
-
-
-
-
-
-           // this.$store.commit("setIndexReference",this.indexRef);
-         //  if(!this.$store.state.initialSearch && this.documentTypeRef == null)
-            //  this.$store.dispatch("setInitialDocumentTypesSearchOptions",this.indexRef)
-            
-       //  if(this.documentTypeRef != null)
-           //     this.$store.dispatch("searchSingleDocumentType",this.documentTypeRef);
-
-          if(this.initialView != null){
-
+            if(this.initialView != null){
               var view = this.initialView + "View";
-              console.log(view)
               this.$store.commit("setView",view)
           }
         }
+    }
     }
 
 </script>
