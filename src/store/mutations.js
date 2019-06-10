@@ -146,16 +146,35 @@ export const mutations = {
     setAdvertiseSearchResults(state,payload){
         state.advertiseSearchResults = payload;
     },
-
+    setSingleDocumentTypeSearch(state,payload){
+        state.advertiseSearchParams = { "documentTypes": [],properties: {}}
+        state.advertiseSearchParams.documentTypes.push(payload);
+        state.setAdvertiseSearchPostcode = "";
+        state.advertiseDocumentTypes.forEach((type)=>{
+            type.selected = false;
+            if(type.reference == payload)
+            type.selected = true;
+        })
+ 
+        
+    },
 
     /*****************************************/
     // Location search state
 
     setAdvertiseSearchPostcode(state,payload){
         state.advertiseSearchPostcode = payload;
+        console.log("SET ADVERTISE SEARCH POSTCODE")
     },
     setAdvertiseLocationSearchParmeter(state,payload){
         state.advertiseSearchParams["location"] = payload;
+    },
+    removeAdvertiseLocationSearchParameter(state){
+        console.log("remove location param")
+        if(state.advertiseSearchParams.location){
+            console.log("delete location param")
+            delete state.advertiseSearchParams.location;
+        }
     },
 
 
@@ -168,6 +187,6 @@ export const mutations = {
     },
     setDocumentsView(state,payload){
         state.advertiseView = payload;
-    },
+    }
     
 }

@@ -63,12 +63,18 @@
     export default {
         name: 'SearchOptions',
         props: {
-
             showSearchForm: {
                 type: Boolean,
                 required: true
+            },
+            searchPostcode:{
+                type:String
             }
-
+        },
+        data(){
+            return {
+                postcode:""
+            }
         },
         methods: {
             closeMenu() {
@@ -77,48 +83,26 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
-           
-
             search() {
-             /*   if (this.postcodeSearch.length > 0) {
-                    this.$store.commit("setPostcode", this.postcodeSearch)
-                    await this.$store.dispatch("aSearch")
-                } else {
-                    this.$store.commit("setPostcodeSearchCriteria", null)
-                    this.$store.commit("setPostcode", "")
-                    this.$store.dispatch("aSearch");
-                }
-                this.$emit("onChangeShowSearchForm")
-                */
-
-               this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
-                var results = this.$store.state.advertiseSearchResults;
+               var searchPostcode = this.postcode;
+               searchPostcode = searchPostcode.trim();
+               if(this.postcode.trim().length < 4)
+                   this.postcode = "";
+               this.$store.commit("setAdvertiseSearchPostcode",this.postcode)
+               this.$store.dispatch("advertiseSearch",this.postcode);
             }  
-
-          
         },
         watch: {
             documentTypes: {
                 handler: function() {
                 this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
+                console.log("doc type change")
                    // this.$store.dispatch("setTypesSearchChange", this.documentTypes)
                 },
                 deep: true
-            },
-            postcode: function() {
-                this.postcodeSearch = this.postcode;
             }
         },
         computed: {
-
-            postcode: {
-                get: function() {
-                    return this.$store.state.advertiseSearchPostcode
-                },
-                set: function(value) {
-                    this.$store.dispatch("setAdvertiseSearchPostcode",value);
-                }
-            },
             documentTypes: {
                 get: function() {
                     return this.$store.state.advertiseDocumentTypes;
@@ -136,8 +120,8 @@
             }
         },
         created() {
-            this.postcodeSearch = this.postcode;
-            this.$store.dispatch("advertiseSearch");
+            this.postcode = this.searchPostcode;
+           
         }
     }
 

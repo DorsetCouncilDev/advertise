@@ -5,7 +5,7 @@
             <ol class="ad-breadcrumb">
                 <li><router-link :to="{path: '/advertise'}">home</router-link></li>
                 <li><router-link :to="{ path: '/advertise/search'}">search results</router-link></li>
-                <li id="docRefBreadCrumb" aria-current="page">{{document.reference}}</li>     
+                <li id="docRefBreadCrumb" aria-current="page">{{documentRef}}</li>     
             </ol>
         </div>
         <div id="menuLinks">
@@ -21,28 +21,27 @@
     <h1>Loading asset</h1>
 </div>
 
-     <div v-show="!loadingDocument">
+     <div>
         <div class="document-header">
             <div class="icon-holder">
-                <img :src="getIcon(document.documentType.reference)" alt="">
+                <img  :src="getIcon(document.documentType.reference)" alt="">
             </div>   
             <div class="document-headings">
                 <h1 id="assetTitleText">{{document.name}}</h1>
                 <h2 id="assetLongText">{{document.documentType.name}} - {{document.longText}}</h2>
             </div>
         </div>
-        <h3 id="assetPrice">{{assetPrice}}</h3>
+        <h3 id="assetPrice">&pound; {{assetPrice}}</h3>
        
        <hr>
-   <router-link class="btn btn-primary"  v-if="!document.properties.Available" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
-   <router-link class="btn btn-success"  v-if="document.properties.Available" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
+   <router-link class="btn btn-primary"  v-if="!documentAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
+   <router-link class="btn btn-success"  v-if="documentAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
 
         <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
                 <div class="property-section">
                 <span class="generalPropertyName">{{p}}</span>
                 <span class="generalPropertyValue">{{getPropertyValue(p)}}</span>
                 </div>
-            </span>
         </section>
  
         <hr>
@@ -55,7 +54,7 @@
         <p class="assetParagraph">Contact our marketing team</p>
         <p class="assetParagraph"><a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a> </p>
         <p class="assetParagraph"><a href="tel:+441305224125">01305 224125</a></p>
-        <p class="assetParagraph">quoting reference <strong>{{document.reference}}</strong></p> 
+        <p class="assetParagraph">quoting reference <strong>{{documentRef}}</strong></p> 
     </div>
     </div>
 </template>
@@ -69,7 +68,7 @@
         props: [ 'documentRef'],
         data() {
             return {
-                document: {},
+                document: {documentType:{reference:""}},
                 indexRef: "advertise",
                 waiting:"waiting",
                 book:"book",
@@ -92,38 +91,52 @@
         },
         methods: {
           
-            getDocument: function() {
-                DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
+          getDocument:    async function() {
+                await DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
-                    //this.pageMetaDescription = this.metaDescription; 
-                    //this.pageMetaTitle =  this.metaTitle; 
+                    this.pageMetaDescription = this.metaDescription; 
+                    this.pageMetaTitle =  this.metaTitle; 
                     this.loadingDocument = false;
-                      console.log(Object.keys(this.document.properties));
                 })
             },
             getPropertyValue(key){
+
+                 if( this.document.properties){
                 var propertyObject =  this.document.properties[key]
                 
                 if (propertyObject.value !== "undefined") 
                     return propertyObject.value;
                 else if (propertyObject.values !== "undefined") 
                     return propertyObject.values;
-
+                 }
                 return "test";
             },
             propertyKeys(){ 
-                return Object.keys(this.document.properties);
+                if( this.document.properties)
+                    return Object.keys(this.document.properties);
+                return [];
+
             },
-            isAvailable(){
-                return true;
-            },
+
         
             getIcon(documentType){
+                if(documentType == "")
+                    return null;
                  return require("../../../assets/images/icons/" + documentType + ".svg");
             }
         },
         computed: {
-       
+
+             isDocumentLoaded: function() {
+                if(document != null)
+                    return true;
+                return false;
+             },
+       documentAvailable(){
+            if(this.isDocumentLoaded && this.document.properties && this.document.properties.Available)
+                return this.document.properties.Available.value;
+            return false;
+       },
         
         metaDescription(){
        
@@ -136,7 +149,7 @@
         },
       
         description: function(){
-            if(this.document.properties.Description && this.document.properties.Description.value)
+            if(this.isDocumentLoaded && this.document.properties && this.document.properties.Description)
                 return this.document.properties.Description.value;
             return "";
         },
@@ -145,22 +158,25 @@
             return false;
         },
         assetPrice() {
+            if(this.isDocumentLoaded){
             var price = "POA";
             var priceAsNumber;
-            if(this.document.properties.Price){
+            if(this.document.properties && this.document.properties.Price){
                 priceAsNumber = Number(this.document.properties.Price.value);
-                if(NaN(priceAsNumber))
+                if(isNaN(priceAsNumber))
                     return price;
                 price = priceAsNumber;
             }
             return price;
         }
+        return "";
+        }
        
            
             
         },
-        beforeMount() {
-          this.getDocument();
+        async beforeMount() {
+           await this.getDocument();
        
         },
         filters: {
@@ -187,9 +203,6 @@
                 return value.replace(new RegExp('-', 'g'), " ");
 
             }
-        },
-        created: function(){
-              
         }
     }
 

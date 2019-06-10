@@ -79,8 +79,10 @@
             getTypeColor(ref) {
                 var colour = "grey";
                 this.documentTypes.forEach((type) => {
+                    if(type != null){
                     if (type.reference == ref)
                         colour = type.colour
+                    }
                 })
                 return colour;
             }
@@ -216,9 +218,15 @@
                     padding:5px;
                 }
                 }
-                
-                &:hover {
+                a{
+                    display: flex;
+                    flex-direction: column;
+                }
+                a:focus {
                     outline: orange solid 3px;
+                }
+                &:hover{
+                    border:black solid 1px;
                 }
 
                 .card-heading {

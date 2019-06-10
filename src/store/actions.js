@@ -231,7 +231,7 @@ console.log("searching....")
                 var location = {
                     "latitude": address.latitude,
                     "longitude": address.longitude,
-                    "unit": "MILE",
+                    "distanceUnit": "MILE",
                     "range": 10
                 }
                 commit("setPostcodeSearchCriteria", location);
@@ -319,7 +319,9 @@ console.log("searching....")
         })
     },
 
-    setAdvertiseSearchDocumentTypesParameters(context,payload){
+    setAdvertiseSearchDocumentTypesParameters(context,params){
+     
+
         var documentTypes = context.state.advertiseDocumentTypes;
         var selectedDocumentTypes = [];
         documentTypes.forEach((type)=>{
@@ -342,31 +344,34 @@ console.log("searching....")
         context.dispatch("advertiseSearch");
     },
 
-    async advertiseSearch(context){
+    async advertiseSearch(context,params){
 
         context.commit("setCurrentlySearching",true);
+        context.commit("removeAdvertiseLocationSearchParameter");
+        var postcode;
+ 
+        postcode = params;
 
-        if(context.state.advertiseSearchPostcode != null && context.state.advertiseSearchPostcode != "")       
-            context.dispatch("addressGetPostcodeSearchCoordinates");
+        if(postcode == null || postcode == "")
+            postcode = context.state.advertiseSearchPostcode;
+        if(postcode != null && postcode != "" && postcode.length > 4){
+            var locationSearchParmeter = await GazetteerService.setLocationSearch(context.state.advertiseSearchPostcode);
+            if(locationSearchParmeter != null)
+                context.commit("setAdvertiseLocationSearchParmeter",locationSearchParmeter);
+        }
+
+
 
         await AdvertiseService.search(context.state.advertiseSearchParams).then((response)=>{
             var documents = response.data;
-           
-            // TEST LOCATIONS AT THE MOMENT
-            /*
-            var testLocations = Sorting.getLocations();
- 
-            for(var i=0;i<testLocations.length;i++){
-                if(i<documents.length)
-                    documents[i].locations.push(testLocations[i])
-            }
-            */
-      var params = {};
-      params.documents = documents;
-      params.sortSetting = null;
-
+            var params = {};
+            params.documents = documents;
+            params.sortSetting = null;
             context.dispatch("sortDocumentsFromSearch",params)
             context.commit("setCurrentlySearching",false);
+            
+
+            
         }).catch((err)=>{
             console.log(err);
         })
@@ -374,10 +379,9 @@ console.log("searching....")
 
     setAdvertiseSearchPostcode(context,payload){
         context.commit("setAdvertiseSearchPostcode",payload);
-
     },
 
-    async addressGetPostcodeSearchCoordinates(context){
+    async getAdvertisePostcodeSearchCoordinates(context){
 
         var postcode = context.state.advertiseSearchPostcode;
         await GazetteerService.search(postcode).then((response) => {
@@ -386,18 +390,6 @@ console.log("searching....")
             context.dispatch("createAdvertiseLocationSearchParameter",address);
         })
     },
-
-    createAdvertiseLocationSearchParameter(context,address){
-        var location = {
-            "latitude": address.latitude,
-            "longitude": address.longitude,
-            "unit": "MILE",
-            "range": 10
-        }
-        context.commit("setAdvertiseLocationSearchParmeter",location);
-    },
-
-    
     sortDocumentsFromSearch(context,params){
         var sortSetting = context.state.advertiseSort;
         var sortedDocuments =  Sorting.sortAdvertiseDocuments(params.documents,sortSetting);
@@ -408,7 +400,7 @@ console.log("searching....")
         var sortedDocuments = Sorting.sortAdvertiseDocuments(documents,params);
         context.commit("setAdvertiseSearchResults",sortedDocuments);
         context.commit("setAdvertiseSort",params);
-    },
+    }
     
   
 }

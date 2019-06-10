@@ -1,0 +1,129 @@
+{
+  "name": "Vehicle Advertising",
+  "reference": "vehicle-advertising",
+  "index": {
+    "name": "Advertise",
+    "reference": "advertise"
+  },
+  "documentType": {
+    "name": "Vehicle Advertising",
+    "reference": "vehicle-advertising"
+  },
+  "longText": "All areas of Dorset",
+  "properties": {
+    "Availability": {
+      "value": "currently available"
+    },
+    "Available": {
+      "value": "true"
+    },
+    "Description": {
+      "value": "Advertising on recycling and garden waste collection vehicles is an eye-catching way to reach a wide audience across the county ? effectively turning the fleet into a moving billboard. The vehicles circulate through town centres, residential areas, main and side roads, and cul-de-sacs ensuring maximum visibility. Vehicles circulate from depots across the county."
+    },
+    "Duration of Advertising": {
+      "value": "minimum 6 months"
+    }
+  },
+  "locations": [{
+    "reference": "351cc6cd-2978-492e-b456-6a4e6ce9e15a",
+    "formattedAddress": "Location",
+    "primaryLocation": true,
+    "latitude": 50.71115612,
+    "longitude": -2.441208401,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "9fbb2d94-e70a-4bb8-af43-245b5e7718a7",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.61436345,
+    "longitude": -2.457839882,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "65b83d90-2058-4f14-9c12-ae79628b0cf4",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.54628144,
+    "longitude": -2.436022042,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "4a7c22a1-ab18-49c6-a028-52413e206b31",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.68765428,
+    "longitude": -2.110121802,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "e7c6720d-89e0-4198-be62-c2e45513798a",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.60805012,
+    "longitude": -1.956969833,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "56c9a2e9-1f7c-4cab-a7bf-0e9ce3a6dbc4",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.80716642,
+    "longitude": -1.901027489,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "84e76a46-e606-4bc9-9992-e435e3a703df",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.85934907,
+    "longitude": -2.163259379,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "9793dd23-f74f-48dd-bc20-54c4af396fc6",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 51.00309624,
+    "longitude": -2.186605326,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "e91645d8-19d1-4c80-9f97-71ebf52c99fb",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.94692582,
+    "longitude": -2.51619517,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "d264b80b-68dc-4631-8c2c-82a9ab65da54",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.73533047,
+    "longitude": -2.751366466,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }],
+  "images": []
+}

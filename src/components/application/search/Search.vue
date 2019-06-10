@@ -19,7 +19,7 @@
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions  :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
+        <SearchOptions :searchPostcode="postcode" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
         <Assets :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
     </div>
 </div>
@@ -49,7 +49,8 @@
                 },
                 documents: [],
                 showSearchForm: false,
-                indexRef: "advertise"
+                indexRef: "advertise",
+                postcode:""
             }
         },
         metaInfo () {
@@ -81,17 +82,28 @@
             }
 
     },
-        beforeMount(){
-
+        async beforeMount(){
+            var searchSingleType;
             if(this.$store.state.advertiseIndex == null){
-               this.$store.dispatch("setAdvertiseIndex",this.indexRef)
+                await this.$store.dispatch("setAdvertiseIndex",this.indexRef)
+            }
+            
+   
+            if(this.documentTypeRef != null)
+                this.$store.commit("setSingleDocumentTypeSearch",this.documentTypeRef);
+
+            this.postcode = this.$store.state.advertiseSearchPostcode;
+           
 
             if(this.initialView != null){
-              var view = this.initialView + "View";
-              this.$store.commit("setView",view)
-          }
+                var view = this.initialView + "View";
+                this.$store.commit("setView",view)
+            }
+   
+                
+            this.$store.dispatch("advertiseSearch");
+
         }
-    }
     }
 
 </script>
