@@ -83,19 +83,26 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
-            search() {
+            async search() {
+               this.$emit("onStartingSearch");
                var searchPostcode = this.postcode;
                searchPostcode = searchPostcode.trim();
                if(this.postcode.trim().length < 4)
                    this.postcode = "";
-               this.$store.commit("setAdvertiseSearchPostcode",this.postcode)
-               this.$store.dispatch("advertiseSearch",this.postcode);
+               await this.$store.commit("setAdvertiseSearchPostcode",this.postcode)
+               await this.$store.dispatch("advertiseSearch",this.postcode);
+               this.$emit("onfinishedSearching");
+
             }  
         },
         watch: {
             documentTypes: {
-                handler: function() {
-                this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
+                handler:  async function() {
+                    this.$emit("onStartingSearch");
+                    this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
+                    await this.$store.dispatch("advertiseSearch");
+                    this.$emit("onfinishedSearching");
+
                 console.log("doc type change")
                    // this.$store.dispatch("setTypesSearchChange", this.documentTypes)
                 },

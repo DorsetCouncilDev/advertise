@@ -1,5 +1,5 @@
 <template>
-<div id="content">
+<div>
     <div id="navRow">
         <div id="navLinks">
             <ol class="ad-breadcrumb">
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-            
+      <section id="content">      
         <h1 id="contactHeading">Get in touch</h1>
     <div v-show="formSent" id="formSentMessage">
     Thank you, we'll be in touch soon.
@@ -56,16 +56,19 @@
                 <hr>
                 <p id="privacyText">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank" rel="noopener noreferrer" class="faq-link">privacy notice</a>. </p>
                 <hr>
-               <vue-recaptcha   ref="invisibleRecaptcha"
+              <!-- <vue-recaptcha   ref="invisibleRecaptcha"
                                 @verify="onVerify"
                                 size="invisible"
                                 :sitekey="sitekey">
                     <button class="btn btn-success">Submit</button>
-                </vue-recaptcha>
+                </vue-recaptcha>  -->
+
+                    <button class="btn btn-success" @click.prevent="contactTest">Submit</button>
             </form>
      </div>
     </div>
     <div v-show="formSendError"><p class="text-danger">Sorry something went wrong submitting this form. Please try again.</p></div>
+    </section>
     </div>
 </template>
 
@@ -107,6 +110,20 @@
             VueRecaptcha
         },
         methods: {
+            async contactTest(){
+
+                console.log("test send method")
+                var formObject = {
+                    "subject": "TEST From advertise site",
+                    "body": this.message,
+                };
+                 await emailService.sending(formObject).then((resp) => {
+                        this.formSent = true;
+                    }).catch((err) => {
+                     console.log(err)
+                    })
+
+            },
             onSubmit: function() {
 
                 this.$refs.invisibleRecaptcha.execute()

@@ -330,7 +330,7 @@ console.log("searching....")
         })
         context.commit("setAdvertiseSearchDocumentTypesParameters",selectedDocumentTypes);
 
-        context.dispatch("advertiseSearch");
+      
 
     },
 

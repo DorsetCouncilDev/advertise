@@ -1,20 +1,20 @@
 import axios from 'axios';
-var emailService = axios.create({
+var _axios = axios.create({
     timeout: 10000
 });
 export default {
     
-    sending(message, token) {
+    sending(message) {
         return new Promise(function (resolve, reject) {
              var formObject = {
             "subject": "Advertise Mail Form",
             "text": message,
-            "token": token
+            // "token": token
         };
-        emailService.post("https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/brokerage/mail/contact-form", formObject).then((response) => {
+        _axios.post("https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/advertise/mail/contact-form", message).then((response) => {
             resolve("worked")
         }).catch((err) => {
-            reject("failed")
+            reject("failed " +  err)
         });
         })
     },
@@ -24,7 +24,7 @@ export default {
             "text": message,
             "token": token
         };
-        emailService.post("https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/brokerage/mail/contact-form", formObject).then((response) => {
+        _axios.post("https://apptest.dorsetcc.gov.uk/catalogue/indexes/advertise/mail/contact-form", formObject).then((response) => {
             return new Promise();
         }).catch((err) => {
             return new Promise();

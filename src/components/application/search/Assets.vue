@@ -7,10 +7,10 @@
     <transition name="component-fade" mode="out-in">
        <Map v-show="view == 'mapView'" :documents="documents"></Map>  
     </transition>
-    <div class="result-cards" v-show="showSearchingMessage" id="noResultsMessage">
-        {{searchingMessage}}
+    <div class="result-cards"  id="noResultsMessage">
+       
     </div>
- 
+  {{searchMessage}}
     <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView')"> 
         <div class="result-card" v-for="document in documents" v-bind:title="document.name" v-bind:key="document.reference" >
             <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
@@ -59,13 +59,17 @@
             showSearchForm: {
                 type: Boolean,
                 required: true
+            },
+            searchMessage:{
+                type:String,
+                required: true
+    
             }
         },
         data() {
             return {
                 initialDocuments: [],
                 started: false,
-                searchingMessage:"Loading assets..."
             }
         },
 
@@ -112,18 +116,13 @@
             postcode() {
                 return this.$store.state.searchForm.postcode.toUpperCase()
             },
-            currentlySearching(){
-                return this.$store.state.currentlySearching;
-            },
             documentTypes: {
                 get: function() {
                     return this.$store.state.searchForm.documentTypes;
                 }
             },
             showSearchingMessage(){
-               if(this.$store.state.currentlySearching || this.documents.length == 0)     
-                   return true;
-                return false;
+           
             }
         },
         created() {

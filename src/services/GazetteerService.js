@@ -18,7 +18,7 @@ export default{
         var location = {
             "latitude": address.latitude,
             "longitude": address.longitude,
-            "unit": "MILE",
+            "distanceUnit": "MILE",
             "range": 10
         }
         return location;

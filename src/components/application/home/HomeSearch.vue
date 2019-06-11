@@ -8,7 +8,7 @@
                 <div class="input-group">
                     <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Enter full postcode" v-model="postcode">
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="button" id="searchGoBtn" @click="postcodesearch"> GO </button>
+                        <button class="btn btn-success" type="button" id="searchGoBtn" @click="postcodesearch" aria-label="Search postcode"> GO </button>
                     </div>
                 </div>
             </div>

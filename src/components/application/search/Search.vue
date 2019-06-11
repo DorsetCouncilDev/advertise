@@ -19,8 +19,8 @@
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions :searchPostcode="postcode" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
-        <Assets :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
+        <SearchOptions :searchPostcode="postcode" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching"></SearchOptions>
+        <Assets  :searchMessage="searchMessage" :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
     </div>
 </div>
 </template>
@@ -50,7 +50,8 @@
                 documents: [],
                 showSearchForm: false,
                 indexRef: "advertise",
-                postcode:""
+                postcode:"",
+                searchMessage: ""
             }
         },
         metaInfo () {
@@ -75,8 +76,12 @@
         },
         methods: {
          
-
-     
+            setSearchingMessage:function(){
+                this.searchMessage = "Searching opportunities"
+            },
+            setFinishedSearching:function(){
+                this.searchMessage = "Finished searching";
+            },
             changeShowSearchForm: function() {
                 this.showSearchForm = !this.showSearchForm
             }
