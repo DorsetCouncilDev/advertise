@@ -5,57 +5,50 @@
          <div id="closeBtnHolder" v-show="showSearchForm" >
             <button class="btn btn-light" id="closeBtn" @click="closeMenu">hide</button>
         </div>
-    <h2 id="searchOptionsTitle">Search Options</h2>
 
-    <form id="searchForm" >
-        <div class="form-group dc-toggle">
-          <span class="toggle-label">Show available only</span>
-       <label class="switch" for="available">
-  <input type="checkbox" id="available" v-model="available">
-  <span class="slider round"></span>
-  <span class="sr-only sr-only-focusable">Show available only</span>
-</label>
-</div>
-        <label id="postcodeLabel"  for="postcode">Full postcode search</label>
-        <div class="form-group">
-            <div class="input-group">
-            <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode"> 
-              <div class="input-group-append">
-    <button class="btn btn-success" type="button" @click.prevent="search" id="button-addon2">Search</button>
-  </div>
-  </div>
-        </div>
-    <div id="typesSelectionGroup">
-        <legend class="form-legend">Types</legend>
-        <div v-for="type in documentTypes"  class="mb-2" v-bind:key="type.reference">
 
-        <div class="type-options" >
+        <form id="searchForm" >
+            <div class="form-group dc-toggle">
+                <span class="toggle-label search-option-title">Show available only</span>
+                <label class="switch" for="available">
+                    <input type="checkbox" id="available" v-model="available">
+                    <span class="slider round"></span>
+                    <span class="sr-only sr-only-focusable">Show available only</span>
+                </label>
+            </div>
+            <label id="postcodeLabel" class="search-option-title"  for="postcode">Full postcode search</label>
             <div class="form-group">
-                <div class="multiple-choice" :title="type.name">
-                    <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
-                    <label :for="type.reference"  class="mutliple-choice-label">{{type.name}} </label>
+                <div class="input-group">
+                    <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode"> 
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="button" @click.prevent="search" id="button-addon2">Search</button>
+                    </div>
                 </div>
             </div>
-            <div class="type-icon">
-                <img class="type-icon" :src="getIcon(type.reference)" alt="">
+            <div id="typesSelectionGroup">
+                <legend class="form-legend search-option-title">Types of opportunities</legend>
+                <div v-for="type in documentTypes" v-bind:key="type.reference">
+                    <div class="type-options" >
+                        <div class="form-group" style="margin-bottom:0">
+                            <div class="multiple-choice" :title="type.name">
+                                <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
+                                <label :for="type.reference"  class="mutliple-choice-label multiple-choice-small">{{type.name}} </label>
+                            </div>
+                        </div>
+                        <div class="type-icon"><img class="type-icon" :src="getIcon(type.reference)" alt=""></div>
+                    </div>
+                </div>
             </div>
-            
-        </div>
-       
-            </div>
-            </div>
-        <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
-    </form>
-        </div>
+            <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
+        </form>
+    </div>
 </section>
 </template>
 
 <script>
-    import _ from 'lodash'
-    import Vue from 'vue'
-    import Vuex from 'vuex'
-
-
+    import _ from 'lodash';
+    import Vue from 'vue';
+    import Vuex from 'vuex';
     import DocumentTypeService from '../../../services/DocumentTypeService';
     import DocumentService from '../../../services/DocumentService';
     import GazetteerService from '../../../services/GazetteerService';
@@ -66,14 +59,6 @@
             showSearchForm: {
                 type: Boolean,
                 required: true
-            },
-            searchPostcode:{
-                type:String
-            }
-        },
-        data(){
-            return {
-                postcode:""
             }
         },
         methods: {
@@ -85,29 +70,19 @@
             },
             async search() {
                this.$emit("onStartingSearch");
-               var searchPostcode = this.postcode;
-               searchPostcode = searchPostcode.trim();
-               if(this.postcode.trim().length < 4)
-                   this.postcode = "";
-               await this.$store.commit("setAdvertiseSearchPostcode",this.postcode)
-               await this.$store.dispatch("advertiseSearch",this.postcode);
+               await this.$store.dispatch("advertiseSearch");
                this.$emit("onfinishedSearching");
-
             }  
         },
         watch: {
             documentTypes: {
                 handler:  async function() {
-                    this.$emit("onStartingSearch");
                     this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
-                    await this.$store.dispatch("advertiseSearch");
-                    this.$emit("onfinishedSearching");
-
-                console.log("doc type change")
-                   // this.$store.dispatch("setTypesSearchChange", this.documentTypes)
+                    this.search();
                 },
                 deep: true
             }
+           
         },
         computed: {
             documentTypes: {
@@ -117,18 +92,23 @@
             },
             available: {
                 get: function() {
-                     if(this.$store.state.advertiseSearchParams.properties.Available)
+                     if(this.$store.state.advertiseSearchAvailable)
                         return true;
                     return false;
                 },
-                set: function(value) {
-                    this.$store.dispatch("setAdvertiseSearchAvailableParameters");
+                set: async function(value) {
+                    this.$store.commit("setAdvertiseSearchAvailable",value);
+                    this.search();
+                }
+            },
+             postcode: {
+                get: function(){
+                    return this.$store.state.advertiseSearchPostcode;
+                },
+                set: function(value){
+                    this.$store.commit("setAdvertiseSearchPostcode",value);
                 }
             }
-        },
-        created() {
-            this.postcode = this.searchPostcode;
-           
         }
     }
 
@@ -136,7 +116,10 @@
 
 
 <style scoped lang="scss">
-    
+    .search-option-title
+    {
+        font-weight:600;
+    }
     .fullPostcodeMessage{
         display: block;
         color:#545454;
@@ -206,7 +189,7 @@
     }
 
     #searchForm {
-        font-size: 16px;
+        font-size: 19px;
     }
 
     .form-group {
@@ -300,8 +283,8 @@
 
     .type-icon {
 
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
     }
 
     #collapsePrice {

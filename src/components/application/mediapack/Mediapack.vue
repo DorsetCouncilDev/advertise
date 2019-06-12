@@ -1,20 +1,7 @@
 <template>
 <div id="content">
-    <div id="navRow">
-        <div id="navLinks">
-            <ol class="ad-breadcrumb">
-                    <li><router-link :to="{path: '/advertise'}">home</router-link></li>
-                  <li aria-current="page">media pack</li>     
-            </ol>
-        </div>
-        <div id="menuLinks">
-            <ul id="menuList">
-                <li><router-link to="/advertise/info/contact">Contact us</router-link></li>
-                <li><router-link to="/advertise/info/mediapack" class="selected">Media pack</router-link></li>
-                <li><router-link to="/advertise/info/faq">FAQs</router-link></li> 
-            </ul> 
-        </div>
-    </div>
+<SiteTopNav currentPage="mediapackPage"></SiteTopNav>
+
 <h1 id="mediapackHeading">Media pack</h1>
     <p>We can offer your organisation unique promotional opportunities to reach your target audience in Dorset.   Advertising offers in Dorset include outdoor, digital and print. For further details download our current Media Pack and sign up for latest updates below</p>
   
@@ -106,11 +93,7 @@
                     if (this.keepInTouch)
                         text += "Add to mailing list.\n";
                     text += "Has viewed mediapack";
-                    var formObject = {
-                        "subject": "Advertise Mail Form",
-                        "text": text,
-                        "token": securityToken
-                    };
+           
 
                     emailService.sending(text, securityToken).then((resp) => {
                         this.formSent = true;

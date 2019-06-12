@@ -16,13 +16,13 @@
 <script>
     import AdHeader from './components/AdHeader';
     import AdFooter from './components/AdFooter';
-    
+     import SiteTopNav from './components/SiteTopNav';
     import store from './store'
     import router from './router'
     
     import Vue from 'vue';
     import { sync } from 'vuex-router-sync'
-
+Vue.component('SiteTopNav',SiteTopNav);
     sync(store, router)
 
     import SearchService from './services/SearchService'

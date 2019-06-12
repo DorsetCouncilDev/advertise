@@ -32,185 +32,104 @@ import ManageLocations from '../components/admin/document/ManageLocations';
 import MyMap from '../components/admin/document/MyMap';
 
 const routes = [
+
+  // Homepage
+  {
+    path: '/advertise',
+    component: Home,
+    meta: {
+      title: 'Roundabout sponsorship & advertising | Dorset Council',
+      description: 'Promote your business through roundabout sponsorship & local advertising in Dorset. Advertising opportunities benefiting both your local services & brand.'
+    }
+  },
+
+  // Contact page
+  {
+    path: '/advertise/contact',
+    component: ContactForm,
+    meta: {
+      title: 'Contact us to advertise in Dorset | Dorset Council',
+      description: 'Dorset Council offers prominent roundabout advertising locations in Dorset. Contact us today for details about locations, costs and availability.'
+    }
+  },
+
+  // Mediapack page
+  {
+    path: '/advertise/mediapack',
+    component: Mediapack,
+    meta: {
+      title: 'Sponsorship & advertising media pack | Dorset Council',
+      description: 'Download our media pack and see how your business can benefit from roundabout sponsorship, bus shelter advertising, car parking ticket adverts and more.'
+    }
+  },
+
+  // FAQ Page
+  {
+    path: '/advertise/faq',
+    component: Faq,
+    meta: {
+      title: 'Roundabout sponsorship FAQs | Dorset Council',
+      description: 'Answers to your questions about roundabout sponsorship and advertising in Dorset, from how much it costs, to how to apply and display your message.'
+    }
+  },
+
+  // Search page
+  {
+    path: '/advertise/search',
+    component: Search,
+    meta: {
+      title: 'Find advertising options in Dorset | Dorset Council',
+      description: 'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
+    }
+  },
+
+  // Search document type
+  {
+    path: '/advertise/search/:documentTypeRef',
+    component: Search,
+    props: true,
+    meta: {
+      title: 'Find advertising options in Dorset | Dorset Council',
+      description: 'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
+    }
+  },
    
+  // Asset page
+{
+    path: '/advertise/:documentRef',
+    component: Asset,
+    props: true
+
+},
+
+
+  {
+    path: '/advertise/search/view/:initialView',
+    component: Search,
+    props: true,
+    meta: {
+      title: 'Find advertising options in Dorset | Dorset Council',
+      description: 'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
+    }
+  },
+  
  
-    {
-        path:  '/advertise/admin',
-         component: AdminLogin,
-           beforeEnter: (to, from, next) => {
-            if(store.state.securityToken != null && store.state.securityToken != '')
-                next('/advertise/admin/indexes')
-               else
-                next()
-            
-      }
-    },
-    {
-        // List of all indexes
-        path:  '/advertise/admin/indexes',
-        component: Indexes,
-        beforeEnter: (to, from, next) => {
-            if(store.state.securityToken != null && store.state.securityToken != '')
-                next()
-            else
-                next('/advertise/admin')
-      }
-    },
-    
-       {
 
-        // View index with ref
-        path: '/advertise/admin/indexes/:indexRef/assets',
-        component: AssetsList,
-        props: true,
-        beforeEnter: (to, from, next) => {
-            if(store.state.securityToken != null && store.state.securityToken != '')
-                next()
-            else
-                next('/advertise/admin')
-      }
-    },
-   {
+  {
+    path: '/advertise/contact/:documentRef/:action',
+    component: ContactForm,
+    props: true,
+    meta: {
+      title: 'Contact us to advertise in Dorset | Dorset Council',
+      description: 'Dorset Council offers prominent roundabout advertising locations in Dorset. Contact us today for details about locations, costs and availability.'
+    }
+  },
 
-        // View index with ref
-        path: '/advertise/admin/indexes/:indexRef/assets/:documentRef',
-        component: AssetsView,
-        props: true,
-        beforeEnter: (to, from, next) => {
-            if(store.state.securityToken != null && store.state.securityToken != '')
-                next()
-            else
-                next('/advertise/admin')
-      }
-    },
-    
-    
- /*    
-    {
-        // View index with ref
-        path: '/advertise/admin/indexes/:indexRef/assets/:documentRef/locations',
-        component: AssetLocations,
-        props: true,
-        beforeEnter: (to, from, next) => {
-            if(store.state.securityToken != null && store.state.securityToken != '')
-                next()
-            else
-                next('/advertise/admin')
-      }
-    },
-*/
-    
-    {
-
-        // View index with ref
-        path: '/advertise/admin/indexes/:indexRef/:documentRef/locations',
-        component: ManageLocations,
-        props: true,
-        beforeEnter: (to, from, next) => {
-            if(store.state.securityToken != null && store.state.securityToken != '')
-                next()
-            else
-                next('/advertise/admin')
-        }
-    },
-    
-    {
-        path: '/advertise/admin/indexes/:indexRef',
-        component: Index,
-        props: true,
-        beforeEnter: (to, from, next) => {
-            if(store.state.securityToken != null && store.state.securityToken != '')
-                next()
-            else
-                next('/advertise/admin')
-        }
-    },
-   /* {
-        path: '/advertise/admin/indexes/:indexRef/:documentRef/images',
-        component: ManageImages,
-        props: true,
-        beforeEnter: (to, from, next) => {
-            if(store.state.securityToken != null && store.state.securityToken != '')
-                next()
-            else
-                next('/advertise/admin')
-        }
-    },
-    */
-    {
-        path: '/advertise',
-        component: Home,
-        meta: {
-            title: 'Roundabout sponsorship & advertising | Dorset Council',
-            description: 'Promote your business through roundabout sponsorship & local advertising in Dorset. Advertising opportunities benefiting both your local services & brand.'
-        }
-    },   
-    {
-        path:  '/advertise/search',
-        component: Search,
-        meta: {
-            title: 'Find advertising options in Dorset | Dorset Council',
-            description:'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
-        }
-    },
-    {
-        path:  '/advertise/search/view/:initialView',
-        component: Search,
-        props:true,
-        meta: {
-            title: 'Find advertising options in Dorset | Dorset Council',
-            description:'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
-        }
-    },
-    {
-        path:  '/advertise/search/type/:documentTypeRef',
-        component: Search,
-        props:true,
-        meta: {
-            title: 'Find advertising options in Dorset | Dorset Council',
-            description:'Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset.'
-        }
-    },
-    {
-        path: '/advertise/:documentRef',
-        component: Asset,
-        props: true
-    
-    },
-    {
-        path: '/advertise/info/mediapack',
-        component: Mediapack,
-        meta: {
-            title: 'Sponsorship & advertising media pack | Dorset Council',
-            description: 'Download our media pack and see how your business can benefit from roundabout sponsorship, bus shelter advertising, car parking ticket adverts and more.'
-        }
-    },
-      {
-        path: '/advertise/info/contact/:documentRef/:action',
-        component: ContactForm,
-          props:true,
-        meta: {
-            title: 'Contact us to advertise in Dorset | Dorset Council',
-            description: 'Dorset Council offers prominent roundabout advertising locations in Dorset. Contact us today for details about locations, costs and availability.'
-        }
-    },
-    {
-        path: '/advertise/info/contact',
-        component: ContactForm,
-        meta: {
-            title: 'Contact us to advertise in Dorset | Dorset Council',
-            description: 'Dorset Council offers prominent roundabout advertising locations in Dorset. Contact us today for details about locations, costs and availability.'
-        }
-    },
-    {
-        path: '/advertise/info/faq',
-        component: Faq,
-        meta: {
-            title: 'Roundabout sponsorship FAQs | Dorset Council',
-            description: 'Answers to your questions about roundabout sponsorship and advertising in Dorset, from how much it costs, to how to apply and display your message.'
-        }
-    },
-    { path: '*', redirect: '/advertise' }, 
+ 
+  {
+    path: '*',
+    redirect: '/advertise'
+  },
 ]
 
 export default routes;

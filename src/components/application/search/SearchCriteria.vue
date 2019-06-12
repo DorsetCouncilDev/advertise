@@ -11,15 +11,15 @@
            </span>
             <span class="delete show" @click="removeProperty(property.reference)" tabindex="0" title="Remove search criteria">X</span>
         </div>  
--->
-    <div v-if="searchForm.parameters.available" class="label label-primary tag-label">
+
+    <div  class="label label-primary tag-label">
            <span class="tag-item">Available</span>
            <span class="delete show" @click="removePostcodeSearch" tabindex="0" title="Remove search criteria">X</span>
     </div>  
-       <div v-if="postcode != ''" class="label label-primary tag-label">
+       <div class="label label-primary tag-label">
            <span class="tag-item">Postcode: {{postcode}}</span>
            <span class="delete show" @click="removePostcodeSearch" tabindex="0" title="Remove search criteria">X</span>
-    </div>  
+    </div>  -->
 </div>
 </template>
 
@@ -46,14 +46,14 @@
             removeProperty: function(propertyToRemove) {
                 // remove hyphens
                 propertyToRemove = propertyToRemove.replace(/-/g, "")
-                this.$store.dispatch("removeSearchCriteriaProperty", propertyToRemove)
+                //this.$store.dispatch("removeSearchCriteriaProperty", propertyToRemove)
             },
             removeDocumentType: function(type) {
-                this.$store.dispatch("removeSearchDocumentType", type)
+                //this.$store.dispatch("removeSearchDocumentType", type)
             },
             removePostcodeSearch: function() {
-                this.postcode = ""
-                this.$store.dispatch("aSearch")
+               // this.postcode = ""
+                //this.$store.dispatch("aSearch")
             },
             toggleSearchForm() {
                 this.$emit("onChangeShowSearchFom", !this.showSearchForm)
@@ -66,18 +66,15 @@
             },
             postcode: {
                 get: function() {
-                    var p = this.$store.state.searchForm.postcode
-                    p = p.toUpperCase()
-                    return p
+            
                 },
                 set: function(newValue) {
-                    this.$store.commit("setPostcode", newValue);
-                    this.$store.dispatch("setPostcodeSearchCriteria");
+       
                 }
             },
             searchForm() {
 
-                return this.$store.state.searchForm;
+              
 
             }
 
@@ -94,21 +91,25 @@
 
 
         .label {
-            font-size: 14px;
-            float: left;
-            position: relative;
-            display: inline-block;
-            margin-left: 20px;
-            font-weight: normal;
+            display:flex;
+            justify-content: space-between;
+            
+            border: solid 1px lightgrey;
+            border-radius: 0;
+            width: 80px;
+            height: 40px;
+            overflow: hidden;
+
+            margin-bottom:5px;
             padding: 1px;
             padding-right: 25px;
-            border-radius: 0;
-            transition: all 1s;
-            border-bottom: solid 1px lightgrey;
-            width: 80px;
-            overflow: hidden;
+
+            font-size: 14px;
+            font-weight: normal;
             text-overflow: ellipsis;
-            height: 40px;
+
+            transition: all 1s;
+
             .tag-item {
                 padding-right: 5px;
                 &:focus {
@@ -125,10 +126,8 @@
             }
 
             .delete {
-                position: absolute;
                 top: 0;
                 right: 0;
-                display: inline-block;
                 margin-left: 0;
                 padding: 5px;
                 font-size: 14px;

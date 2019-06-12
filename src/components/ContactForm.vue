@@ -1,20 +1,6 @@
 <template>
 <div>
-    <div id="navRow">
-        <div id="navLinks">
-            <ol class="ad-breadcrumb">
-                    <li><router-link :to="{path: '/advertise'}">home</router-link></li>
-                <li aria-current="page">contact</li>   
-            </ol>
-        </div>
-        <div id="menuLinks">
-            <ul id="menuList">
-                <li><router-link to="/advertise/info/contact" class="selected">Contact us</router-link></li>
-                <li><router-link to="/advertise/info/mediapack">Media pack</router-link></li>
-                <li><router-link to="/advertise/info/faq">FAQs</router-link></li> 
-            </ul> 
-        </div>
-    </div>
+    <SiteTopNav currentPage="contactPage"></SiteTopNav>
 
       <section id="content">      
         <h1 id="contactHeading">Get in touch</h1>
@@ -56,14 +42,14 @@
                 <hr>
                 <p id="privacyText">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank" rel="noopener noreferrer" class="faq-link">privacy notice</a>. </p>
                 <hr>
-              <!-- <vue-recaptcha   ref="invisibleRecaptcha"
+            <vue-recaptcha   ref="invisibleRecaptcha"
                                 @verify="onVerify"
                                 size="invisible"
                                 :sitekey="sitekey">
-                    <button class="btn btn-success">Submit</button>
-                </vue-recaptcha>  -->
+                    <button class="btn btn-success">Submit rtgr</button>
+                </vue-recaptcha>  
 
-                    <button class="btn btn-success" @click.prevent="contactTest">Submit</button>
+                   <!-- <button class="btn btn-success" @click.prevent="contactTest">Submit</button> -->
             </form>
      </div>
     </div>
@@ -74,6 +60,7 @@
 
 <script>
     // Secret Key  6LfEWXgUAAAAAMONIvKr8aDqCWZ00iUn6a73ipZf
+   
     import VueRecaptcha from 'vue-recaptcha';
     import axios from 'axios';
     import emailService from '../services/EmailService';
@@ -129,6 +116,8 @@
                 this.$refs.invisibleRecaptcha.execute()
             },
             onVerify: async function(securityToken) {
+
+                console.log("onVerify")
                 this.formError = false;
                 this.formHasErrors = false;
                 if (this.name == null || this.name == "") {
@@ -147,12 +136,8 @@
                     else
                         text += "User did not opt to be added to the mailing list\n";
                     text += this.message;
-                    var formObject = {
-                        "subject": "Advertise Mail Form",
-                        "text": text,
-                        "token": securityToken
-                    };
-
+            
+                    console.log("send email")
                     await emailService.sending(text, securityToken).then((resp) => {
                         this.formSent = true;
                     }).catch((err) => {
@@ -167,11 +152,11 @@
             }
         },
         mounted() {
-            if (this.documentRef != null && this.documentRef != '') {
-                if(this.action == "waiting")
-                    this.message = "Add me to the waiting list for " + this.documentRef;
-                else if(this.action == "book")
-                    this.message = "I would like to book " + this.documentRef;
+            if (this.$route.query.documentRef != null && this.$route.query.documentRef != '') {
+                if(this.$route.query.action == "waiting")
+                    this.message = "Add me to the waiting list for " + this.$route.query.documentRef;
+                else if(this.$route.query.action == "book")
+                    this.message = "I would like to book " + this.$route.query.documentRef;
             }
       
         }

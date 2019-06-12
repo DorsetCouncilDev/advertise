@@ -1,19 +1,6 @@
 <template>
 <div class="mb-3" id="content">
-    <div id="navRow">
-        <div id="navLinks">
-            <ol class="ad-breadcrumb">
-                <li aria-current="page">home</li>    
-            </ol>
-        </div>
-        <div id="menuLinks">
-            <ul id="menuList">
-                <li><router-link to="/advertise/info/contact">Contact us</router-link></li>
-                <li><router-link to="/advertise/info/mediapack">Media pack</router-link></li>
-                <li><router-link to="/advertise/info/faq">FAQs</router-link></li> 
-            </ul> 
-        </div>
-    </div>
+ <SiteTopNav currentPage="homePage"></SiteTopNav>
 
       
 <h1 class="home-header">Local advertising solutions in Dorset</h1>     
@@ -109,6 +96,8 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
                 easing: 'ease-in-sine',
                 delay: 100
             });
+
+            console.log(this.$route.query.name);
         }
     }
 

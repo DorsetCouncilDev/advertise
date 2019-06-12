@@ -1,21 +1,6 @@
 <template>
    <div id="content">
-    <div id="navRow">
-        <div id="navLinks">
-            <ol class="ad-breadcrumb">
-                <li><router-link :to="{path: '/advertise'}">home</router-link></li>
-                <li><router-link :to="{ path: '/advertise/search'}">search results</router-link></li>
-                <li id="docRefBreadCrumb" aria-current="page">{{documentRef}}</li>     
-            </ol>
-        </div>
-        <div id="menuLinks">
-            <ul id="menuList">
-                <li><router-link to="/advertise/info/contact">Contact us</router-link></li>
-                <li><router-link to="/advertise/info/mediapack">Media pack</router-link></li>
-                <li><router-link to="/advertise/info/faq">FAQs</router-link></li> 
-            </ul> 
-        </div>
-    </div>
+<SiteTopNav currentPage="assetPage" :assetRef="documentRef"></SiteTopNav>
 
  <div v-show="loadingDocument">
     <h1>Loading asset</h1>
@@ -34,8 +19,8 @@
         <h3 id="assetPrice">&pound; {{assetPrice}}</h3>
        
        <hr>
-   <router-link class="btn btn-primary"  v-if="!documentAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
-   <router-link class="btn btn-success"  v-if="documentAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
+   <router-link class="btn btn-primary"  v-if="!documentAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=waiting' }">Add to waiting list</router-link>
+   <router-link class="btn btn-success"  v-if="documentAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=book' }">Check availablity &amp; book</router-link>
 
         <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
                 <div class="property-section">

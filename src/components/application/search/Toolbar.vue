@@ -3,25 +3,23 @@
     <div id="menuIcon">
         <button v-on:click="toggleSearchForm" type="button" aria-label="Search" class="btn btn-light" aria-describedby="descriptionSearch" id="searchOptionsBtn"><img src="../../../assets/images/search-black.svg" alt="Open search menu" id="searchButtonIcon"></button>
     </div> 
-        <div class="stv-radio-tabs-wrapper">
-                <label id="sortSelectLabel" for="sortSelect">Sort</label>
-                <select class="stv-radio-tab form-control" id="sortSelect" v-model="advertiseSort" >
-                    <option value="best-match" selected="selected">Best match</option>
-                    <option value="price-high">Cost high</option>
-                    <option value="price-low">Cost low</option>
-                </select>
+    <div class="stv-radio-tabs-wrapper">
+        <label id="sortSelectLabel" for="sortSelect">Sort</label>
+        <select class="stv-radio-tab form-control" id="sortSelect" v-model="advertiseSort" >
+            <option value="best-match" selected="selected">Best match</option>
+            <option value="price-high">Cost high</option>
+            <option value="price-low">Cost low</option>
+        </select>
             
-                <input  type="radio" class="stv-radio-tab" id="one" name="tickme" value="mapView" v-model="view">
-                <label for="one" id="mapViewLabel">Map</label>
-                      
-                <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="gridView" v-model="view">
-                <label for="two" id="gridViewLabel">Grid</label>
-
-                <input type="radio" class="stv-radio-tab" id="three" name="tickme" value="listView" v-model="view">
-                <label for="three" id="listViewLabel">List</label>
-        </div>
-    <div id="descriptionSearch">Open the search options, when hidden on a small screen. Selecting again shall close the search options.</div>
+        <input  type="radio" class="stv-radio-tab" id="one" name="tickme" value="mapView" v-model="view">
+        <label for="one" id="mapViewLabel">Map</label>            
+        <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="gridView" v-model="view">
+        <label for="two" id="gridViewLabel">Grid</label>
+        <input type="radio" class="stv-radio-tab" id="three" name="tickme" value="listView" v-model="view">
+        <label for="three" id="listViewLabel">List</label>
     </div>
+    <div id="descriptionSearch">Open the search options, when hidden on a small screen. Selecting again shall close the search options.</div>
+</div>
 </template>
 
 <script>
@@ -42,9 +40,7 @@
             toggleSearchForm: function() {
                 this.$emit("onChangeShowSearchForm")
             }
-
         },
-
         computed: {
             advertiseSort: {
                 get() {
@@ -59,13 +55,12 @@
                     return this.$store.state.view
                 },
                 set(value) {
-                    this.$store.commit("setDocumentsView", value);
+                    this.$store.commit("SET_DOCUMENTS_VIEW", value);
 
                 }
             }
         }
     }
-
 </script>
 
 <style scoped lang="scss">
@@ -136,7 +131,9 @@
                     display: none;
                     &:before {
                         content: url(../../../assets/images/grid.svg);
+ 
                     }
+     
                     &:focus {
                         border: orange solid 1px;
                     }
@@ -163,8 +160,18 @@
             }
 
             &:checked+label {
-                background-color: #EDEDED;
+                background-color: hsl(203, 85%, 23%);
+                color:white;
                 z-index: 1;
+                &#gridViewLabel:before{
+                    content: url(../../../assets/images/grid-white.svg);
+                }
+                 &#listViewLabel:before{
+                    content: url(../../../assets/images/list-white.svg);
+                }
+                 &#mapViewLabel:before{
+                    content: url(../../../assets/images/map-white.svg);
+                }
             }
         }
         select {

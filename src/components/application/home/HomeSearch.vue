@@ -40,13 +40,11 @@
         },
         computed: {
             postcode: {
-                get: function() {
-                    var p = this.$store.state.searchForm.postcode
-                    p = p.toUpperCase()
-                    return p
+               get: function(){
+                    return this.$store.state.advertiseSearchPostcode;
                 },
-                set: function(newValue) {
-                    this.$store.commit("setPostcode", newValue)
+                set: function(value){
+                    this.$store.commit("setAdvertiseSearchPostcode",value);
                 }
             }
         }

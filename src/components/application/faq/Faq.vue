@@ -1,20 +1,6 @@
 <template>
 <div id="content">
-    <div id="navRow">
-        <div id="navLinks">
-            <ol class="ad-breadcrumb">
-                    <li><router-link :to="{path: '/advertise'}">home</router-link></li>
-                  <li aria-current="page">FAQ</li>     
-            </ol>
-        </div>
-        <div id="menuLinks">
-            <ul id="menuList">
-                <li><router-link to="/advertise/info/contact">Contact us</router-link></li>
-                <li><router-link to="/advertise/info/mediapack">Media pack</router-link></li>
-                <li><router-link to="/advertise/info/faq" class="selected">FAQs</router-link></li> 
-            </ul> 
-        </div>
-    </div>
+<SiteTopNav currentPage="faqPage"></SiteTopNav>
 
 <h1 id="faqHeading">Frequently asked questions about Roundabout Sponsorship</h1>
 

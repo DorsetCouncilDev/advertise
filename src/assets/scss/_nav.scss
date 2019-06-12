@@ -21,7 +21,7 @@
   padding-left: 0;
   flex-grow: 2;
   margin-bottom: 2px;
-  font-size: 19px;
+  font-size: 16px;
 
   li {
     float: left;
@@ -88,7 +88,11 @@
   }
 }
 @media only screen and (min-width: 600px) {
-    #menuLinks {   
+  .ad-breadcrumb {
+    font-size:19px; 
+  }
+  
+  #menuLinks {   
 
         display: flex;
         justify-content: start;

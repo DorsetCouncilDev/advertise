@@ -2,16 +2,18 @@
 <div id="searchResultsContainer" >
 
     <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
-    <SearchCriteria></SearchCriteria>
+    <SearchCriteria v-show="false"></SearchCriteria>
        
     <transition name="component-fade" mode="out-in">
        <Map v-show="view == 'mapView'" :documents="documents"></Map>  
     </transition>
-    <div class="result-cards"  id="noResultsMessage">
-       
+    <div class="result-cards"  id="noResultsMessage" v-show="searchMessage == 'Searching opportunities'">
+          {{searchMessage}}
+      
+        <div class="result-card mock"  v-for="index in 10" :key="index"></div>
     </div>
-  {{searchMessage}}
-    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView')"> 
+
+    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView') && searchMessage == 'Finished searching'"> 
         <div class="result-card" v-for="document in documents" v-bind:title="document.name" v-bind:key="document.reference" >
             <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
                 <div class="card-heading">
@@ -113,16 +115,8 @@
                     */
                     return results;  
             },
-            postcode() {
-                return this.$store.state.searchForm.postcode.toUpperCase()
-            },
-            documentTypes: {
-                get: function() {
-                    return this.$store.state.searchForm.documentTypes;
-                }
-            },
-            showSearchingMessage(){
-           
+            postcode(){
+                return this.$store.state.advertiseSearchPostcode;
             }
         },
         created() {
@@ -189,7 +183,7 @@
         .result-cards {
             margin-top: 15px;
             width: 100%;
-            transition: background 1s;
+            transition: all 1s;
             .result-card {
                 border: solid 1px darkgrey;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -198,6 +192,14 @@
                 width: 100%;
                 position: relative;
                 overflow: hidden;
+
+                &.mock{
+                    background-color:#f5f5f5;
+                    height:100px;
+                    border:none;
+                    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    opacity:.6;
+                }
                 .info-row{
                     position: relative;
                     display: flex;

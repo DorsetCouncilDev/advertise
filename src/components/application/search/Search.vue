@@ -1,25 +1,11 @@
 <template>
 <div id="content">
-    <div id="navRow">
-        <div id="navLinks">
-            <ol class="ad-breadcrumb">
-                <li><router-link :to="{ path: '/advertise'}">home</router-link></li>
-                <li aria-current="page">search</li>     
-            </ol>
-        </div>
-        <div id="menuLinks">
-            <ul id="menuList">
-                <li><router-link to="/advertise/info/contact">Contact us</router-link></li>
-                <li><router-link to="/advertise/info/mediapack">Media pack</router-link></li>
-                <li><router-link to="/advertise/info/faq">FAQs</router-link></li> 
-            </ul> 
-        </div>
-    </div>
+  <SiteTopNav currentPage="searchPage"></SiteTopNav>
  
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions :searchPostcode="postcode" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching"></SearchOptions>
+        <SearchOptions :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching"></SearchOptions>
         <Assets  :searchMessage="searchMessage" :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
     </div>
 </div>
@@ -50,7 +36,6 @@
                 documents: [],
                 showSearchForm: false,
                 indexRef: "advertise",
-                postcode:"",
                 searchMessage: ""
             }
         },
@@ -88,9 +73,11 @@
 
     },
         async beforeMount(){
-            var searchSingleType;
             if(this.$store.state.advertiseIndex == null){
                 await this.$store.dispatch("setAdvertiseIndex",this.indexRef)
+                this.setSearchingMessage(); 
+            await this.$store.dispatch("advertiseSearch");
+            this.setFinishedSearching();
             }
             
    
@@ -105,9 +92,8 @@
                 this.$store.commit("setView",view)
             }
    
-                
-            this.$store.dispatch("advertiseSearch");
-
+            
+this.setFinishedSearching();
         }
     }
 
