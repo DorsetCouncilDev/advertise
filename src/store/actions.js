@@ -1,17 +1,7 @@
 import Sorting from './utils/sorting.js'
-import SearchService from './../services/SearchService'
-import DocumentTypeService from './../services/DocumentTypeService'
-import DocumentService from './../services/DocumentService'
 import GazetteerService from './../services/GazetteerService'
 import AdvertiseService from './../services/AdvertiseService'
 import _ from 'lodash'
-const BASE = 'http://vmcrwebapptest2:18080/catalogue/v1/'
-const SEARCH = 'indexes/advertising/documents'
-const TYPES = 'indexes/advertising/documenttypes?'
-
-const POSTCODESEARCH = 'http://vmcrwebapptest1:8080/gazetteer/rest/address/postcode/'
-
-const mutation_setSearchResults = 'setSearchResults'
 
 export const actions = {
  
@@ -19,13 +9,13 @@ export const actions = {
     /* NEW CATALOGUE  */
 
 
-    async setAdvertiseIndex(context,payload){
+    async setIndex(context,payload){
         await AdvertiseService.getIndex().then((response)=>{
             response.data.documentTypes.forEach((type)=>{
                 type.selected = false;
             })
-            context.commit("setAdvertiseIndex", response.data);
-            context.commit("setAdvertiseDocumentTypes",response.data.documentTypes);
+            context.commit("SET_INDEX", response.data);
+            context.commit("SET_DOCUMENT_TYPES",response.data.documentTypes);
 
         }).catch((err)=>{
             // EMIT ERROR
@@ -41,7 +31,7 @@ export const actions = {
             if(type.selected)
                 selectedDocumentTypes.push(type.reference);
         })
-        context.commit("setAdvertiseSearchDocumentTypesParameters",selectedDocumentTypes);
+        context.commit("SET_DOCUMENT_TYPE_SEARCH_PARAMETERS",selectedDocumentTypes);
 
       
 
@@ -49,35 +39,35 @@ export const actions = {
 
     setAdvertiseSearchAvailableParameters(context){
 
-        if(!context.state.advertiseSearchParams.properties.Available)
-            context.commit("advertiseAddSearchParamAvailable");
+        if(context.state.available)
+            context.commit("SET_AVAILABLE_SEARCH_PARAMETER");
         else
-            context.commit("advertiseRemoveSearchParamAvailable");
+            context.commit("REMOVE_AVAILABLE_SEARCH_PARAMETER");
     },
 
     async advertiseSearch(context,params){
-
-        context.commit("removeAdvertiseLocationSearchParameter");
+     
+        context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
  
-        var postcode = context.state.advertiseSearchPostcode;
+        var postcode = context.state.searchPostcode;
         if(postcode != null && postcode != "" && postcode.length > 4){
-            var locationSearchParmeter = await GazetteerService.setLocationSearch(context.state.advertiseSearchPostcode);
+            var locationSearchParmeter = await GazetteerService.setLocationSearch(postcode);
             if(locationSearchParmeter != null)
-                context.commit("setAdvertiseLocationSearchParmeter",locationSearchParmeter);
+                context.commit("SET_LOCATION_SEARCH_PARAMETER",locationSearchParmeter);
         }
 
-        var searchAvailable = context.state.advertiseSearchAvailable;
+        var searchAvailable = context.state.searchAvailable;
         if(searchAvailable)
-            context.commit("advertiseAddSearchParamAvailable");
+            context.commit("SET_AVAILABLE_SEARCH_PARAMETER");
         else
-            context.commit("advertiseRemoveSearchParamAvailable");
+            context.commit("REMOVE_AVAILABLE_SEARCH_PARAMETER");
 
         await AdvertiseService.search(context.state.advertiseSearchParams).then((response)=>{
             var documents = response.data;
             var params = {};
             params.documents = documents;
             params.sortSetting = null;
-            context.dispatch("sortDocumentsFromSearch",params)
+            context.dispatch("sortSearchResults",params)
         }).catch((err)=>{
             console.log(err);
         })
@@ -92,16 +82,25 @@ export const actions = {
             context.dispatch("createAdvertiseLocationSearchParameter",address);
         })
     },
-    sortDocumentsFromSearch(context,params){
-        var sortSetting = context.state.advertiseSort;
+    sortSearchResults(context,params){
+        var sortSetting = context.state.sort;
         var sortedDocuments =  Sorting.sortAdvertiseDocuments(params.documents,sortSetting);
-        context.commit("setAdvertiseSearchResults",sortedDocuments);
+        context.commit("SET_SEARCH_RESULTS",sortedDocuments);
     },
-    sortDocumentsFromSortChange(context,params){
-        var documents = context.state.advertiseSearchResults;
+    sortCurrentSearchResults(context,params){
+        var documents = context.state.searchResults;
         var sortedDocuments = Sorting.sortAdvertiseDocuments(documents,params);
-        context.commit("setAdvertiseSearchResults",sortedDocuments);
-        context.commit("setAdvertiseSort",params);
+        context.commit("SET_SEARCH_RESULTS",sortedDocuments);
+        context.commit("SET_SORT",params);
+    },
+
+    removeAllAdvertiseSearchParams(context){
+        context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
+        context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
+    },
+    setLocationSearchOnly(context){
+        this.removeAllAdvertiseSearchParams();
+        context.commit("SET_AVAILABLE",false);
     }
     
   

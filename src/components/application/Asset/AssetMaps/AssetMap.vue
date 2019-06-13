@@ -65,15 +65,14 @@
 <style scoped lang="scss">
    
 
-    #map {
-        min-width: 300px;
+  #map {
+       width: 90%;
         height: 50vh;
-
     }
     
     @media only screen and (min-width: 700px) {
         #map{
-            width:90%;
+            width:45%;
         }   
     }
 

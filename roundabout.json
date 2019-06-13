@@ -36,16 +36,8 @@
       "value": "business price œ250 +VAT@20%"
     }
   },
-  "locations": [{
-    "reference": "524791de-fc5d-46c1-b0e6-4d492f22f57c",
-    "formattedAddress": "Bincombe Bumps",
-    "primaryLocation": true,
-    "latitude": 50.65157614,
-    "longitude": -2.457317163,
-    "streetviewLatitude": 50.65157614,
-    "streetviewLongitude": -2.457317163,
-    "streetviewHeading": 331.8944968,
-    "streetviewPitch": -3.806322177
-  }],
-  "images": []
+  "locations": [],
+  "images": [],
+  "metadataTitle": "Roundabout sponsorship - Bincombe Bumps | Dorset Council",
+  "metadataDescription": "Located on the A353 close to Weymouth Relief Road and Littlemoor, the Bincombe Bumps roundabout offers excellent opportunities for sponsorship and advertising signage."
 }

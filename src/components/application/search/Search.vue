@@ -73,16 +73,23 @@
 
     },
         async beforeMount(){
-            if(this.$store.state.advertiseIndex == null){
-                await this.$store.dispatch("setAdvertiseIndex",this.indexRef)
+
+
+
+            if(this.$store.state.index == null){
+                await this.$store.dispatch("setIndex",this.indexRef)
                 this.setSearchingMessage(); 
-            await this.$store.dispatch("advertiseSearch");
-            this.setFinishedSearching();
+
+                if(this.$route.query.postcode){
+                    this.$store.dispatch("setLocationSearchOnly");
+                }
+                await this.$store.dispatch("advertiseSearch");
+                this.setFinishedSearching();
             }
             
    
             if(this.documentTypeRef != null)
-                this.$store.commit("setSingleDocumentTypeSearch",this.documentTypeRef);
+                this.$store.commit("SET_SINGLE_DOCUMENT_TYPE_SEARCH_PARAMETER",this.documentTypeRef);
 
             this.postcode = this.$store.state.advertiseSearchPostcode;
            

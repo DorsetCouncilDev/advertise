@@ -24,11 +24,11 @@
                 <div class="card-main"><div>{{document.longText}}</div>
                     <div class="info-row mt-2 mb-2">
                          <div  >
-                    <div class="distance-tag"  v-if="document.distanceFromCoordinate && postcode != ''">{{document.distanceFromCoordinate | round()}} miles from {{postcode}}</div>
+                    <div class="distance-tag"  v-if="document.distanceFromCoordinate && postcode != ''">{{document.distanceFromCoordinate | roundMilesFromCoordinate()}} miles from {{postcode}}</div>
                           
                    </div>
                         <div>
-                    <div><span class="price-tag" v-if="document.properties && document.properties.Price">&pound;  {{document.properties.Price | round()}}</span></div>
+                    <div><span class="price-tag" v-if="document.properties && document.properties.Price">&pound;  {{getPrice(document.properties.Price.value)}}</span></div>
                   </div>
                        
                 </div>
@@ -91,15 +91,23 @@
                     }
                 })
                 return colour;
+            },
+            getPrice(value){
+                if(value != null && value != ""){
+                    var price = Number(value);
+                    if(isNaN(price))
+                        return "POA";
+                    return price;
+                }
+                return "POA"
             }
         },
         computed: {
             view() {
-                return this.$store.state.advertiseView
+                return this.$store.state.view
             },
             documents() {
-                var results = this.$store.state.advertiseSearchResults;
-                console.log("results: " + results.length);
+                var results = this.$store.state.searchResults;
                     if (results != null)
                     {
                         if (results.length == 0)
@@ -116,14 +124,11 @@
                     return results;  
             },
             postcode(){
-                return this.$store.state.advertiseSearchPostcode;
+                return this.$store.state.searchPostcode;
             }
         },
         created() {
-            if (this.$store.state.postcodeSearch == ""){
-                this.initialDocuments = this.docs
     
-            }
             this.started = true;
         },
         mounted() {
@@ -136,29 +141,12 @@
             });  
         },
         filters: {
-            round: function(price) {
-                // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
-               
-              if (price == null) {
-                    return 'P.O.A'
-                }
-
-          
-                else 
-                    var decimals = 1;
-                    var value = Math.round(price.value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-                    return value;
-               // }
+            roundMilesFromCoordinate: function(value) {
+                var property = Number(value);
+                var decimals = 1;   
+                return  Math.round(property * Math.pow(10, decimals)) / Math.pow(10, decimals);
             },
-            uppercase: function(value) {
-                return value.toUpperCase()
-            },
-            removeHyphens: function(value) {
-                if (value != null && value != "")
-                    return value.replace(new RegExp('-', 'g'), " ");
-                else
-                    return null;
-            }
+   
         }
     }
 

@@ -1,8 +1,8 @@
 <template>
 <section id="navRow">
-    <div id="navLinks">
-        <ol class="ad-breadcrumb">
-            <li v-if="!isHomePage()"><router-link :to="{path: '/advertise'}">home</router-link></li>
+    <div id="navLinks" >
+        <ol class="ad-breadcrumb" v-if="!isHomePage()">
+            <li><router-link :to="{path: '/advertise'}">home</router-link></li>
             <li aria-current="page" v-if="isHomePage()">home</li>
             <li aria-current="page" v-if="isSearchPage()">search</li>
             <li v-if="isAssetPage()"><router-link :to="{ path: '/advertise/search'}">search</router-link></li>

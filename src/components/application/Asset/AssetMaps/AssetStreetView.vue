@@ -43,12 +43,11 @@
 <style scoped lang="scss">
   
 
-    #streetView {
-        min-width: 400px;
+       #streetView {
+        width: 90%;
         height: 50vh;
-        margin-right:15px;
-
     }
+
      @media only screen and (min-width: 700px) {
          #streetView{  width:45%;  }
     }

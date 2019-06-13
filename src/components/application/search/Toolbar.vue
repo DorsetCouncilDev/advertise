@@ -44,10 +44,10 @@
         computed: {
             advertiseSort: {
                 get() {
-                    return this.$store.state.advertiseSort
+                    return this.$store.state.sort
                 },
                 set(value) {
-                    this.$store.dispatch("sortDocumentsFromSortChange",value);
+                    this.$store.dispatch("sortCurrentSearchResults",value);
                 }
             },
             view: {
@@ -55,7 +55,7 @@
                     return this.$store.state.view
                 },
                 set(value) {
-                    this.$store.commit("SET_DOCUMENTS_VIEW", value);
+                    this.$store.commit("SET_VIEW", value);
 
                 }
             }

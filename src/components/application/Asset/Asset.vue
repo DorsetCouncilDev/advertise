@@ -23,9 +23,9 @@
    <router-link class="btn btn-success"  v-if="documentAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=book' }">Check availablity &amp; book</router-link>
 
         <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
-                <div class="property-section">
-                <span class="generalPropertyName">{{p}}</span>
-                <span class="generalPropertyValue">{{getPropertyValue(p)}}</span>
+                <div class="property-section" v-if="p != 'Description'">
+                    <span class="generalPropertyName">{{p}}</span>
+                    <span class="generalPropertyValue">{{getPropertyValue(p)}}</span>
                 </div>
         </section>
  
@@ -64,9 +64,9 @@
         },
         metaInfo () {
         return {
-        title: this.pageMetaTitle,
+        title: this.document.metadataTitle,
         meta: [ {
-            name:"description", content:this.pageMetaDescription
+            name:"description", content:this.document.metadataDescription
         } ]
 
       }
@@ -123,23 +123,19 @@
             return false;
        },
         
-        metaDescription(){
-       
-                return "meta description";
-        },
-
-        metaTitle(){
-            return "title";
-              
-        },
-      
         description: function(){
             if(this.isDocumentLoaded && this.document.properties && this.document.properties.Description)
                 return this.document.properties.Description.value;
             return "";
         },
         streetViewRequired() {
-         
+            var primaryLocation;
+            this.document.locations.forEach((location)=>{
+                if(location.primaryLocation)
+                    primaryLocation = location;
+            })
+            if(primaryLocation.streetviewLatitude != null)
+                return true;
             return false;
         },
         assetPrice() {

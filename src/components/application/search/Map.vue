@@ -134,7 +134,6 @@
         },
 
         mounted() {
-   console.log("Mounted!! " + this.documents.length)
             // Create initial map with no markers
             const element = document.getElementById('map');
             const options = {

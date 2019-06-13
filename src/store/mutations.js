@@ -1,85 +1,68 @@
-import { stat } from "fs";
-
 export const mutations = {
-  
 
-
-
-/************************************************************************************************************ */
-/************************************************************************************************************ */
-/************************************************************************************************************ */
-
-    /* NEW CATALOGUE  */
-
-    setAdvertiseIndex(state,payload){
-        state.advertiseIndex = payload;
+    SET_INDEX(state,payload){
+        state.index = payload;
     },
-    setAdvertiseDocumentTypes(state,payload){
+    
+
+
+    // Search options form
+    SET_DOCUMENT_TYPES(state,payload){
         state.advertiseDocumentTypes = payload;
     },
-
-
-
-    /********************************************************/
-    // Searching 
-
-    setAdvertiseSearchAvailable(state,payload){
-        state.advertiseSearchAvailable = payload;
+    SET_AVAILABLE(state,payload){
+        state.searchAvailable = payload;
     },
-    setAdvertiseSearchDocumentTypesParameters(state,payload){
+    SET_POSTCODE(state,payload){
+        state.searchPostcode = payload;
+    },
+
+
+    // Search parameters
+    SET_DOCUMENT_TYPE_SEARCH_PARAMETERS(state,payload){
         state.advertiseSearchParams.documentTypes = payload;
     },
-    advertiseAddSearchParamAvailable(state){
+    SET_AVAILABLE_SEARCH_PARAMETER(state){
         state.advertiseSearchParams.properties["Available"] = "true";
     },
-    advertiseRemoveSearchParamAvailable(state){
+    REMOVE_AVAILABLE_SEARCH_PARAMETER(state){
         delete state.advertiseSearchParams.properties.Available;
     },
-    setAdvertiseSearchResults(state,payload){
-        state.advertiseSearchResults = payload;
-    },
-    setSingleDocumentTypeSearch(state,payload){
+  
+    SET_SINGLE_DOCUMENT_TYPE_SEARCH_PARAMETER(state,payload){
         state.advertiseSearchParams = { "documentTypes": [],properties: {}}
         state.advertiseSearchParams.documentTypes.push(payload);
-        state.setAdvertiseSearchPostcode = "";
-        state.setAdvertiseSearchAvailable = "";
+        state.searchPostcode = "";
+        state.searchAvailable = "";
         state.advertiseDocumentTypes.forEach((type)=>{
             type.selected = false;
             if(type.reference == payload)
             type.selected = true;
-        })
- 
-        
+        })   
+    },
+    REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS(){
+        state.asvertiseadvertiseSearchParams.documentTypes = [];
     },
 
-    /*****************************************/
-    // Location search state
-
-    setAdvertiseSearchPostcode(state,payload){
-        state.advertiseSearchPostcode = payload;
-        console.log("SET ADVERTISE SEARCH POSTCODE")
-    },
-    setAdvertiseLocationSearchParmeter(state,payload){
+    SET_LOCATION_SEARCH_PARAMETER(state,payload){
         state.advertiseSearchParams["location"] = payload;
     },
-    removeAdvertiseLocationSearchParameter(state){
-        console.log("remove location param")
+    REMOVE_LOCATION_SEARCH_PARAMETER(state){
         if(state.advertiseSearchParams.location){
-            console.log("delete location param")
             delete state.advertiseSearchParams.location;
         }
     },
 
+    SET_SEARCH_RESULTS(state,payload){
+        state.searchResults = payload;
+    },
 
-
-    /*******************************/
-    // Sorting and View Display state
 
     SET_SORT(state,payload){
-        state.advertiseSort = payload;
+        state.sort = payload;
     },
-    SET_DOCUMENTS_VIEW(state,payload){
-        state.advertiseView = payload;
+    SET_VIEW(state,payload){
+        state.view = payload;
     }
     
 }

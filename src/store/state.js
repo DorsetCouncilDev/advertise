@@ -7,12 +7,12 @@ export const state = {
     securityToken: "",
     initialSearch: false,
 
-    advertiseIndex: null,
+    index: null,
     advertiseDocumentTypes: null,
     advertiseSearchParams: { documentTypes: ["bin-lid-advertising", "roundabout-sponsorship"],properties: {}},
-    advertiseSearchResults: [],
-    advertiseSearchPostcode:"",
-    advertiseSearchAvailable:true,
-    advertiseSort:"bestmatch",
-    advertiseView: "listView"
+    searchResults: [],
+    searchPostcode:"",
+    searchAvailable:false,
+    sort:"bestmatch",
+    view: "listView"
 }

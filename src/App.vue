@@ -25,6 +25,8 @@
 Vue.component('SiteTopNav',SiteTopNav);
     sync(store, router)
 
+
+  
     import SearchService from './services/SearchService'
     
     export default {

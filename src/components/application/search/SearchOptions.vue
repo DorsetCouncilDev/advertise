@@ -92,21 +92,21 @@
             },
             available: {
                 get: function() {
-                     if(this.$store.state.advertiseSearchAvailable)
+                     if(this.$store.state.searchAvailable)
                         return true;
                     return false;
                 },
                 set: async function(value) {
-                    this.$store.commit("setAdvertiseSearchAvailable",value);
+                    this.$store.commit("SET_AVAILABLE",value);
                     this.search();
                 }
             },
              postcode: {
                 get: function(){
-                    return this.$store.state.advertiseSearchPostcode;
+                    return this.$store.state.searchPostcode;
                 },
                 set: function(value){
-                    this.$store.commit("setAdvertiseSearchPostcode",value);
+                    this.$store.commit("SET_POSTCODE",value);
                 }
             }
         }

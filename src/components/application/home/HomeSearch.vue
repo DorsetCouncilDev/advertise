@@ -28,26 +28,17 @@
         name: 'HomeSearch',
         data() {
             return {
-                indexRef: "advertise"
+                indexRef: "advertise",
+                postcode:""
             }
         },
         methods: {
             postcodesearch: async function() {
-                this.$store.dispatch("removeAllOtherSearchCriteria");
-                await this.$store.dispatch("setPostcodeSearchCriteria")
-                this.$router.push("/advertise/search")
-            }
-        },
-        computed: {
-            postcode: {
-               get: function(){
-                    return this.$store.state.advertiseSearchPostcode;
-                },
-                set: function(value){
-                    this.$store.commit("setAdvertiseSearchPostcode",value);
-                }
+                this.$store.commit("SET_POSTCODE",this.postcode)
+                this.$router.push("/advertise/search?postcode=true")
             }
         }
+
     }
 </script>
 
