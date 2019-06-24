@@ -5,7 +5,7 @@
       
 <h1 class="home-header">Local advertising solutions in Dorset</h1>     
 <HomeSearch :indexRef="indexRef"></HomeSearch>
-<section data-aos="fade-up">
+<section>
     <h1 class="home-second-header">Advertise in Dorset to reach:</h1>
      <div class="ad-data-collection  mb-5">
         <div class="ad-data">18 <span class="ad-data-label">Million yearly visitors</span></div>
@@ -14,7 +14,7 @@
         <div class="ad-data">19,995 <span class="ad-data-label">businesses</span></div>
     </div>
 </section>
-  <section data-aos="fade-up">
+  <section>
    <h1 class="home-second-header">Advertise your business here</h1>
     
     
@@ -22,7 +22,7 @@
     </DocumentTypeSection>
     
     </section>
-<section data-aos="fade-up">
+<section>
 <h1 class="home-second-header" id="testimonialsHeader">What others say</h1>
 
 <div class="quote-container">
@@ -37,7 +37,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
 <p class="quote-source">Carolyn Snook, of Blue Pool</p>
 </div>
 </section>
-    <section id="contact-container" data-aos="fade-up">
+    <section id="contact-container">
 <h1 class="third-header">Contact us</h1>
 
  <span class="contact-link-name">email</span>
@@ -46,9 +46,11 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
 <span class="contact-link-name">telephone</span>
 <span class="contact-link-value"><a href="tel:+441305224125">01305 224125</a></span>
         
-        
-<p>Send your message or questions at our <router-link class="contact-bold-link" to="/advertise/info/contact">Contact us</router-link> page</p>
-<p>Download and view our <router-link class="contact-bold-link" to="/advertise/info/mediapack">Media pack</router-link> </p>
+        <div v-show="test = 'test'">
+            {{test}}    
+        </div>
+<p>Send your message or questions at our <router-link class="contact-bold-link" to="/advertise/contact">Contact us</router-link> page</p>
+<p>Download and view our <router-link class="contact-bold-link" to="/advertise/mediapack">Media pack</router-link> </p>
 
         </section>
   
@@ -56,16 +58,15 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
 </template>
 
 <script>
-   import HomeSearch from './HomeSearch';
-   import DocumentTypeSection from './DocumentTypesSection';
-    
-    import AOS from 'aos'
-    // import ParkingMap from './../../ParkingMap';
+    import HomeSearch from './HomeSearch';
+    import DocumentTypeSection from './DocumentTypesSection';  
+
     export default {
         name: 'Home',
         data() {
             return {
                 indexRef: "advertise",
+                test: "test"
             }
         },
         metaInfo () {
@@ -78,26 +79,6 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
         },
         components: {
             HomeSearch, DocumentTypeSection
-        },
-   
-        mounted() {
-            /*  var locations = {
-                  "latitude": 50.711145,
-                  "longitude":-2.441108
-              }
-               this.$http.put('http://vmcrwebapptest2:18080/catalogue/v1/indexes/advertising/documents/dorchester-car-park-tickets/publish').then(response => {
-                      console.log(response);
-                  })
-                  */
-            AOS.init({
-                once: true,
-                offset: 50,
-                duration: 300,
-                easing: 'ease-in-sine',
-                delay: 100
-            });
-
-            console.log(this.$route.query.name);
         }
     }
 
@@ -148,8 +129,6 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
         flex-direction: column;
         .ad-data {
             line-height: 1;
-            background-color: white;
-            color: darkslategrey;
             position: relative;
             margin-bottom: 15px;
             font-weight: 700;
@@ -157,13 +136,11 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
             margin-right: 0;
             padding-bottom:10px; 
             padding-top: 10px;
-            background: #f1f1f1;
             color: black;
             padding-left: 5px;
             .ad-data-label {
                 font-size: 19px;
                 font-weight:400;
-                letter-spacing:2px;
             }
         }
     }

@@ -1,18 +1,15 @@
 export const state = {
-  
-    showSearchForm: false,
-
-
-    indexReference: "",
-    securityToken: "",
-    initialSearch: false,
-
     index: null,
-    advertiseDocumentTypes: null,
-    advertiseSearchParams: { documentTypes: ["bin-lid-advertising", "roundabout-sponsorship"],properties: {}},
+    documentTypes: null,
+    indexReference: "",
+    showSearchForm: false,
+    searchParameters: { documentTypes: [],properties: {}},
     searchResults: [],
     searchPostcode:"",
     searchAvailable:false,
+    searchedPostcode:"",
+    isLocationSearched: false,
     sort:"bestmatch",
-    view: "listView"
+    view: "list",
+    noAddressesFound: false
 }

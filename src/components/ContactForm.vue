@@ -9,8 +9,8 @@
     
     </div>
     <div id="contactSection"  v-show="!formSent">
-        <p>Looking to discuss advertising options in the Dorset area?</p> 
-        <p>Give us a call on <a href="tel:+441305224125" class="faq-link">01305 224125</a>, email <a href="mailto:marketing@dorsetcouncil.gov.uk" class="faq-link">marketing@dorsetcouncil.gov.uk</a> or fill in the form below and we will get back to you shortly.</p>
+        <p class="contact-text">Looking to discuss advertising options in the Dorset area?</p> 
+        <p class="contact-text">Give us a call on <a href="tel:+441305224125" class="faq-link">01305 224125</a>, email <a href="mailto:marketing@dorsetcouncil.gov.uk" class="faq-link">marketing@dorsetcouncil.gov.uk</a> or fill in the form below and we will get back to you shortly.</p>
         <div class="row">
    
             
@@ -36,11 +36,11 @@
                 <div class="form-group">
                     <div class="multiple-choice" title="available assets">
                         <input type="checkbox" id="keepInTouchBox" class="form-control"  v-model="keepInTouch" required>
-                        <label for="keepInTouchBox"  class="mutliple-choice-label form-ck">Tick to confirm you are happy for us to keep in touch with you regarding advertising and sponsorship opportunities. </label>
+                        <label for="keepInTouchBox"  class="mutliple-choice-label form-ck contact-text">Tick to confirm you are happy for us to keep in touch with you regarding advertising and sponsorship opportunities. </label>
                     </div>
                 </div> 
                 <hr>
-                <p id="privacyText">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank" rel="noopener noreferrer" class="faq-link">privacy notice</a>. </p>
+                <p id="privacyText" class="contact-text">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank" rel="noopener noreferrer" class="faq-link">privacy notice</a>. </p>
                 <hr>
             <vue-recaptcha   ref="invisibleRecaptcha"
                                 @verify="onVerify"
@@ -165,6 +165,11 @@
 </script>
 
 <style scoped lang="scss">
+
+.contact-text{
+font-size:16px;
+}
+
     #privacyText{
         font-size:16px;
     }
@@ -205,6 +210,9 @@
           #privacyText{
         font-size:18px;
     }
+    .contact-text{
+font-size:19px;
+}
     
 
     #contactHeading{

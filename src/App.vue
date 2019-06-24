@@ -22,9 +22,11 @@
     
     import Vue from 'vue';
     import { sync } from 'vuex-router-sync'
-Vue.component('SiteTopNav',SiteTopNav);
+    Vue.component('SiteTopNav',SiteTopNav);
     sync(store, router)
 
+    store.dispatch("setIndex");
+    
 
   
     import SearchService from './services/SearchService'
@@ -37,6 +39,8 @@ Vue.component('SiteTopNav',SiteTopNav);
             AdHeader,AdFooter
         }
     }
+
+
 
 </script>
 

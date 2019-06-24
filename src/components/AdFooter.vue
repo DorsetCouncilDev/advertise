@@ -50,20 +50,20 @@
                                         </nav>
                                         <nav>
                                                  <ul class="social-links-list">
-                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/facebook" title="Facebook" alt="Dorset council facebook" target="_blank" class="fa fa-facebook-square">
+                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/facebook" aria-label="Facebook"  target="_blank" class="fa fa-facebook-square">
                                                             <span class="visuallyhidden">Facebook</span></a>
                                                         </li>
-                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/twitter" title="Twitter" alt="Dorset council twitter" target="_blank" class="fa fa-twitter">
+                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/twitter" aria-label="Twitter"  target="_blank" class="fa fa-twitter">
                                                             <span class="visuallyhidden">Twitter</span></a>
                                                         </li>
                                                         <li class="social-list-item">
-                                                                <a href="https://www.dorsetcouncil.gov.uk/instagram" title="Instagram" alt="Dorset council instagram" target="_blank" class="fa fa-instagram">
+                                                                <a href="https://www.dorsetcouncil.gov.uk/instagram" aria-label="Dorset council instagram" target="_blank" class="fa fa-instagram">
                                                             <span class="visuallyhidden">Instagram</span></a>
                                                         </li>
-                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/youtube" title="YouTube" alt="Dorset council youtube" target="_blank" class="fa fa-youtube-play">
+                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/youtube" aria-label="YouTube" target="_blank" class="fa fa-youtube-play">
                                                             <span class="visuallyhidden">YouTube</span></a>
                                                         </li>
-                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/flickr" title="Flickr" alt="Dorset council flickr" target="_blank" class="fa fa-flickr">
+                                                        <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/flickr" aria-label="Flickr" target="_blank" class="fa fa-flickr">
                                                             <span class="visuallyhidden">Flickr</span></a>
                                                         </li>
                                             </ul>

@@ -103,11 +103,11 @@ $gutter-one-third: 5px;
 
   // Focused state
   [type=radio]:focus + label::before {
-    box-shadow: 0 0 0 1px $orange;
+    box-shadow: 0 0 0 1px orange;
   }
 
   [type=checkbox]:focus + label::before {
-    box-shadow: 0 0 0 1px $orange;
+    box-shadow: 0 0 0 1px orange;
   }
 
   // Selected state

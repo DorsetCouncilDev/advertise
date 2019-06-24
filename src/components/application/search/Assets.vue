@@ -1,40 +1,45 @@
 <template>
 <div id="searchResultsContainer" >
-
     <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
-    <SearchCriteria v-show="false"></SearchCriteria>
-       
-    <transition name="component-fade" mode="out-in">
-       <Map v-show="view == 'mapView'" :documents="documents"></Map>  
-    </transition>
-    <div class="result-cards"  id="noResultsMessage" v-show="searchMessage == 'Searching opportunities'">
-          {{searchMessage}}
-      
-        <div class="result-card mock"  v-for="index in 10" :key="index"></div>
+    <SearchCriteria  :numberOfResults="numberOfResults" :searchMessage="searchMessage" @onSearch="search"></SearchCriteria>
+
+    <div v-show="isSearching">
+        <h2 id="searchingMessage">{{searchMessage}}</h2>
+        <div class="result-cards"  id="noResultsMessage">
+            <div class="result-card mock"  v-for="index in 10" :key="index"></div>
+        </div>
     </div>
 
-    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView') && searchMessage == 'Finished searching'"> 
-        <div class="result-card" v-for="document in documents" v-bind:title="document.name" v-bind:key="document.reference" >
-            <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
-                <div class="card-heading">
-                    <div class="icon" v-if="document.documentType.reference"><img :alt="document.documentType.name"  :src="getIcon(document.documentType.reference)" ></div>
-                    <div class="heading"><div class="docTypeLabel" v-if="document.documentType.reference">{{document.documentType.name}}</div><div class="heading-text">{{document.name}}</div></div>
-                </div>
+    <div v-show="showResults">
+        <Map v-show="view == 'map'" :documents="documents" :class="{'loading-map-assets' : isSearching}"></Map>  
+        <div class="result-cards" v-bind:class="{'grid-view':showGridView}" v-show="showListOrGridView"> 
+            <div class="result-card" v-for="document in documents" v-bind:key="document.reference">
+                <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
+                    <div class="card-heading">
+                        <div class="icon" v-if="document.documentType.reference"><img alt="" :src="getIcon(document.documentType.reference)" ></div>
+                        <div class="heading"><div class="docTypeLabel" v-if="document.documentType.reference">{{document.documentType.name}}</div><div class="heading-text">{{document.name}}</div></div>
+                    </div>
 
-                <div class="card-main"><div>{{document.longText}}</div>
-                    <div class="info-row mt-2 mb-2">
-                         <div  >
-                    <div class="distance-tag"  v-if="document.distanceFromCoordinate && postcode != ''">{{document.distanceFromCoordinate | roundMilesFromCoordinate()}} miles from {{postcode}}</div>
-                          
-                   </div>
-                        <div>
-                    <div><span class="price-tag" v-if="document.properties && document.properties.Price">&pound;  {{getPrice(document.properties.Price.value)}}</span></div>
-                  </div>
-                       
-                </div>
-                 <span class="view-asset-link">view this opportunity</span>
-    </div>
-            </router-link>
+                    <div class="card-main">
+                        <div class="asset-detail">
+                            <div class="top-row">
+                                <div>
+                                    <p class="asset-long-text mb-1">{{document.longText}}</p>
+                                    <p v-if="getAvailability(document.properties) != null" class="mb-1">{{getAvailability(document.properties)}}</p>
+                                </div>
+                                <div class="price-tag" v-if="document.properties && document.properties.Price">&pound;  {{getPrice(document.properties.Price.value)}}</div>
+                            </div>
+                            <div class="info-row mt-2 mb-2">
+                               
+                                    <div class="distance-tag"  v-if="document.distanceFromCoordinate && postcode != ''">{{document.distanceFromCoordinate | roundMilesFromCoordinate()}} miles from {{postcode}}</div>
+                            </div>
+                        </div>
+                        <div class="view-button-holder">
+                            <button class="btn btn-sm btn-outline-primary">view this opportunity</button>
+                        </div>
+                    </div>
+                </router-link>
+            </div>
         </div>
     </div>
 </div>
@@ -44,7 +49,6 @@
     import Map from './Map.vue'
     import Toolbar from './Toolbar'
     import SearchCriteria from './SearchCriteria'
-    import AOS from 'aos'
 
     export default {
         name: 'Assets',
@@ -54,10 +58,6 @@
             SearchCriteria
         },
         props: {
-            docs: {
-                type: Array,
-                required: true
-            },
             showSearchForm: {
                 type: Boolean,
                 required: true
@@ -65,17 +65,10 @@
             searchMessage:{
                 type:String,
                 required: true
-    
             }
         },
-        data() {
-            return {
-                initialDocuments: [],
-                started: false,
-            }
-        },
-
         methods: {
+
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
@@ -97,67 +90,131 @@
                     var price = Number(value);
                     if(isNaN(price))
                         return "POA";
+                       price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', {
+                    minimumFractionDigits: 0
+                    });
                     return price;
                 }
                 return "POA"
+            },
+            search(){
+                this.$emit('onSearch')
+            },
+            getAvailability(properties){
+                if(properties.Availability != null)
+                    return properties.Availability.value
+                return null;
             }
         },
         computed: {
+            documents(){
+                return this.$store.state.searchResults;
+            },
             view() {
                 return this.$store.state.view
             },
-            documents() {
-                var results = this.$store.state.searchResults;
-                    if (results != null)
-                    {
-                        if (results.length == 0)
-                            this.searchingMessage = "Sorry, no results found for that search";
-                   
-                   }    
-                
-                    /*  Build sitemap
-                    
-                    results.forEach((result)=>{
-                        console.log("<url><loc>https://web.dorsetcc.gov.uk/advertise/" + result.document.reference + "</loc><lastmod>2019-04-01T16:50:05+00:00</lastmod><changefreq>monthly</changefreq></url>");
-                    })
-                    */
-                    return results;  
-            },
             postcode(){
-                return this.$store.state.searchPostcode;
+                return this.$store.state.searchedPostcode;
+            },
+            numberOfResults(){
+                   return this.documents.length
+            },
+            isSearching(){
+                return this.searchMessage == 'Searching opportunities';
+            },
+            showResults(){
+                return this.numberOfResults > 0 && !this.isSearching;
+            },
+            showListOrGridView(){
+                return this.view == 'list' || this.view == 'grid';
+            },
+            showGridView(){
+                return this.view == 'grid';
             }
-        },
-        created() {
-    
-            this.started = true;
-        },
-        mounted() {
-            AOS.init({
-                once: true,
-                offset: 50,
-                duration: 400,
-                easing: 'ease-in-sine',
-                delay: 50
-            });  
         },
         filters: {
             roundMilesFromCoordinate: function(value) {
                 var property = Number(value);
                 var decimals = 1;   
                 return  Math.round(property * Math.pow(10, decimals)) / Math.pow(10, decimals);
-            },
-   
+            }
         }
     }
 
 </script>
 
 <style scoped lang="scss">
-    $noResultsMessageColor: darken(#60d844,40%);
+$mobile-font-size: 16px;
+$desktop-font-size:19px;
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    color: #545454;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+      .25em 0 0 #545454,
+      .5em 0 0 rgba(0,0,0,0);
+   }
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 #545454,
+      .5em 0 0 #545454;
+    }
+}
+#searchingMessage{
+    color:#545454;
+    text-align:center;
+    font-size: 22px;
+    &:after {
+        content: ' .';
+        animation: dots 1s steps(5, end) infinite;
+    }
+}
+
+
+.top-row{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    .price-tag{
+        min-width:70px;
+        margin-top:15px;
+        background:#f1f1f1;
+        font-weight:500;
+        padding:5px;
+        margin-left:20px;
+        font-size:$mobile-font-size;
+    }
+}
+
+.asset-detail{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    font-size:$mobile-font-size;
+}
+
+.card-link{
+    height: 100%;
+}
+    
+            .view-button-holder{
+                margin-top: 10px;
+                display: flex;
+                justify-content: center;
+                margin-bottom:5px;
+
+            }
     #noResultsMessage{
         padding:30px;
         font-size:24px;
-        color:$noResultsMessageColor;
         text-align: center;
     }
     .greyed-search-area {
@@ -192,13 +249,7 @@
                     position: relative;
                     display: flex;
                     justify-content: space-between;
-                .price-tag{
-                    
-                   
-                    background:#f1f1f1;
-                    font-weight:500;
-                    padding:5px;
-                }
+               
                 .distance-tag{
                    
                 
@@ -233,7 +284,7 @@
                         overflow:hidden;
                         text-overflow: ellipsis;
                         .heading-text{
- font-weight:600;
+                            font-weight:600;
                         }
                     }
 
@@ -252,6 +303,10 @@
                     padding-top: 5px;
                     padding-left: 10px;
                     padding-right: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height:100%;
                     .price {
                         text-align: right;
                     }
@@ -259,7 +314,6 @@
             }
         }
     }
-
 
     .icon {
         &.parking-tickets-icon:before {
@@ -270,38 +324,10 @@
         }
     }
 
-
-
-    @media only screen and (min-width: 900px) {
-        #searchResultsContainer {
-            margin-left: 20px;
-        }
-    }
-
-    @media only screen and (min-width: 767px) {
-        #searchResultsContainer {
-            .result-cards {
-                margin-top: 10px;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                .result-card {
-                    width: 90%;
-                }
-            }
-            .grid-view {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                .result-card {
-                    width: 48%;
-                }
-            }
-        }
-    }
+    
 
     .docTypeLabel {
-        font-size: 18px;
+        font-size: $mobile-font-size;
         color: #2A2A2A;
         font-weight:400;
     }
@@ -309,4 +335,57 @@
     text-decoration: underline;
 
 }
+.loading-map-assets{
+    opacity: .5;
+}
+
+
+
+
+@media only screen and (min-width: 767px) {
+    .docTypeLabel {
+        font-size: $desktop-font-size;
+        color: #2A2A2A;
+        font-weight:400;
+    }
+    .view-button-holder{
+        justify-content: flex-end;
+    }
+    .asset-detail{
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        font-size:$desktop-font-size;
+    }
+    #searchResultsContainer {
+        .result-cards {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            .result-card {
+                width: 60%;
+            }
+        }
+        .grid-view {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .result-card {
+                width: 48%;
+            }
+        }
+    }
+    .top-row{
+        .price-tag{
+            font-size:$desktop-font-size;
+        }
+    }
+}
+
+@media only screen and (min-width: 900px) {
+        #searchResultsContainer {
+            margin-left: 20px;
+        }
+    }
 </style>

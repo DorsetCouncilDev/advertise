@@ -5,8 +5,10 @@ export default {
 
         var sortedDocuments = [];
 
-        if (sortSetting == 'bestmatch')
-            sortedDocuments = this.sortByBestMatch(documents);
+        if (sortSetting == 'name-az')
+            sortedDocuments = this.sortByAZ(documents);
+        else if (sortSetting == 'name-za')
+            sortedDocuments = this.sortByZA(documents);
         else {
             var sortValueArray = sortSetting.split("-");
             var sortType = sortValueArray[1];
@@ -42,17 +44,23 @@ export default {
                 return priceA - priceB;
         });
     },
-    
-    sortByBestMatch(documents){
 
-        return documents;
-
-
-       // return results.slice().sort(function (a, b) {
-        //    return a.numberOfMatchingParameters < b.numberOfMatchingParameters 
-        // });
+    sortByAZ(documents){
+        console.log("sorting A-Z");
+        return documents.sort(function (a, b) {
+            if(a.name < b.name) { return -1; }
+            if(a.name > b.name) { return 1; }
+            return 0;
+        })
     },
-
+    sortByZA(documents){
+        console.log("sorting Z-A");
+        return documents.sort(function (a, b) {
+            if(a.name < b.name) { return 1; }
+            if(a.name > b.name) { return -1; }
+            return 0;
+        })
+    },
     
     
     // test method

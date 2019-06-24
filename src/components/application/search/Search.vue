@@ -5,9 +5,10 @@
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching"></SearchOptions>
-        <Assets  :searchMessage="searchMessage" :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
+        <SearchOptions :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching" @onSearch="search"></SearchOptions>
+        <Assets  :searchMessage="searchMessage" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onSearch="search"></Assets>
     </div>
+    {{test}}
 </div>
 </template>
 
@@ -17,7 +18,6 @@
     import Toolbar from './Toolbar';
     import Assets from './Assets';
     import SearchOptions from './SearchOptions';
-
     import DocumentTypeService from '../../../services/DocumentTypeService';
     import DocumentService from '../../../services/DocumentService';
     import SecurityService from '../../../services/SecurityService'
@@ -29,14 +29,11 @@
             return {
                 map: null,
                 documentTypes: [],
-                searchResults: {
-                    results: [],
-                    numberOfResults: 0
-                },
                 documents: [],
                 showSearchForm: false,
                 indexRef: "advertise",
-                searchMessage: ""
+                searchMessage: "",
+                test:""
             }
         },
         metaInfo () {
@@ -48,7 +45,6 @@
                 } ]
             }
         },
-         props: [ 'documentTypeRef','initialView'],
         components: {
             Toolbar,
             Assets,
@@ -56,11 +52,16 @@
         },
         computed: {
             view() {
-                return this.$store.state.view
+                return this.$store.state.view;
             }
+        
         },
         methods: {
-         
+            async search() {
+                this.setSearchingMessage();
+                await this.$store.dispatch("search");
+                this.setFinishedSearching();
+            },  
             setSearchingMessage:function(){
                 this.searchMessage = "Searching opportunities"
             },
@@ -73,34 +74,22 @@
 
     },
         async beforeMount(){
-
-
-
-            if(this.$store.state.index == null){
-                await this.$store.dispatch("setIndex",this.indexRef)
-                this.setSearchingMessage(); 
-
-                if(this.$route.query.postcode){
-                    this.$store.dispatch("setLocationSearchOnly");
-                }
-                await this.$store.dispatch("advertiseSearch");
+            
+            if(this.$route.query.postcode)
+                await this.$store.dispatch("setLocationSearchOnly");
+            
+            else if(this.$route.query.documentType != null)
+                await this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
+            
+            await this.search();
                 this.setFinishedSearching();
-            }
-            
-   
-            if(this.documentTypeRef != null)
-                this.$store.commit("SET_SINGLE_DOCUMENT_TYPE_SEARCH_PARAMETER",this.documentTypeRef);
 
-            this.postcode = this.$store.state.advertiseSearchPostcode;
-           
-
-            if(this.initialView != null){
-                var view = this.initialView + "View";
-                this.$store.commit("setView",view)
-            }
-   
-            
-this.setFinishedSearching();
+             if(this.$route.query.view)
+                this.$store.commit("SET_VIEW",this.$route.query.view);
+        },
+        mounted(){
+           this.test = "done";
+           this.test = "";
         }
     }
 

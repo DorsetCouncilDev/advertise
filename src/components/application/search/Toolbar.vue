@@ -6,17 +6,21 @@
     <div class="stv-radio-tabs-wrapper">
         <label id="sortSelectLabel" for="sortSelect">Sort</label>
         <select class="stv-radio-tab form-control" id="sortSelect" v-model="advertiseSort" >
-            <option value="best-match" selected="selected">Best match</option>
-            <option value="price-high">Cost high</option>
-            <option value="price-low">Cost low</option>
+            <option value="price-high">Cost highest</option>
+            <option value="price-low">Cost lowest</option>
+             <option value="name-az">Name A-Z</option>
+            <option value="name-za">Name Z-A</option>
         </select>
-            
-        <input  type="radio" class="stv-radio-tab" id="one" name="tickme" value="mapView" v-model="view">
-        <label for="one" id="mapViewLabel">Map</label>            
-        <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="gridView" v-model="view">
-        <label for="two" id="gridViewLabel">Grid</label>
-        <input type="radio" class="stv-radio-tab" id="three" name="tickme" value="listView" v-model="view">
-        <label for="three" id="listViewLabel">List</label>
+        
+         <fieldset>
+            <legend id="viewLegend">View documents options</legend>   
+            <input  type="radio" class="stv-radio-tab" id="one" name="tickme" value="map" v-model="view">
+            <label for="one" id="mapViewLabel">Map</label>            
+            <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="grid" v-model="view">
+            <label for="two" id="gridViewLabel">Grid</label>
+            <input type="radio" class="stv-radio-tab" id="three" name="tickme" value="list" v-model="view">   
+            <label for="three" id="listViewLabel">List</label>
+        </fieldset>
     </div>
     <div id="descriptionSearch">Open the search options, when hidden on a small screen. Selecting again shall close the search options.</div>
 </div>
@@ -69,6 +73,11 @@
     $sortSelectHeight:35px;
     $sortSelectWidth:100px;
 
+    #viewLegend{
+        opacity:0;
+        position:absolute;
+    }
+
     #descriptionSearch {
         position: absolute;
         left: -1000px;
@@ -82,6 +91,7 @@
         justify-content: space-between;
         font-size: 14px;
         background: none;
+        margin-bottom:15px;
 
         #sortSelectLabel {
             float: left;
@@ -112,12 +122,12 @@
             &+label {
                 cursor: pointer;
                 float: left;
-                border: solid 1px #ced4da;
+                border: solid 1px black;
                 background-color: #fff;
                 margin-right: -1px;
                 padding-left: 30px;
                 padding-top: 10px;
-                padding-right: 5px;
+                padding-right: 7px;
                 padding-bottom: 10px;
                 position: relative;
                 &:before {
@@ -131,6 +141,7 @@
                     display: none;
                     &:before {
                         content: url(../../../assets/images/grid.svg);
+                        border-color:black;
  
                     }
      
@@ -178,7 +189,7 @@
             margin-right: 5px;
             font-size: 14px;
             float: left;
-            border: solid 1px #ced4da;
+            border: solid 1px black;
             width: 105px;
             padding-left: 0;
             color: rgb(33, 37, 41);
@@ -218,6 +229,10 @@
         #searchToolbar {
             font-size: 19px;
             justify-content: center;
+
+
+
+
             #menuIcon {
                 display: none;
             }

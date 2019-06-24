@@ -10,6 +10,11 @@ export default{
                     var address = response.data.address[0];
                     locationSearchParameters = this.createLocationSearchParameter(address);
                 }
+                else {
+                    console.log("no addresses found GAZZ SERVICE")
+                    locationSearchParameters  = { "noAddress":true }
+                    return locationSearchParameters;
+                }
              })
         }
         return locationSearchParameters;

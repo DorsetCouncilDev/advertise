@@ -7,7 +7,7 @@
         </div>
 
 
-        <form id="searchForm" >
+        <form id="searchForm" v-on:submit.prevent="$emit('onSearch')">
             <div class="form-group dc-toggle">
                 <span class="toggle-label search-option-title">Show available only</span>
                 <label class="switch" for="available">
@@ -21,7 +21,7 @@
                 <div class="input-group">
                     <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode"> 
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="button" @click.prevent="search" id="button-addon2">Search</button>
+                        <button class="btn btn-success" type="button" id="button-addon2" v-on:click.prevent="$emit('onSearch')">Search</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
+            <button class="btn btn-success mt-2" type="button" v-on:click.prevent="$emit('onSearch')">Search</button>
         </form>
     </div>
 </section>
@@ -68,17 +68,13 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
-            async search() {
-               this.$emit("onStartingSearch");
-               await this.$store.dispatch("advertiseSearch");
-               this.$emit("onfinishedSearching");
-            }  
+      
         },
         watch: {
             documentTypes: {
                 handler:  async function() {
-                    this.$store.dispatch("setAdvertiseSearchDocumentTypesParameters");
-                    this.search();
+                   // this.$store.dispatch("setDocumentTypesParameters");
+                    this.$emit("onSearch");
                 },
                 deep: true
             }
@@ -87,7 +83,11 @@
         computed: {
             documentTypes: {
                 get: function() {
-                    return this.$store.state.advertiseDocumentTypes;
+                    return this.$store.state.documentTypes;
+                },
+                set: function(value) {
+                    this.$store.commit("SET_DOUCMENT_TYPES",value)
+                     this.$emit("onSearch");
                 }
             },
             available: {
@@ -98,7 +98,7 @@
                 },
                 set: async function(value) {
                     this.$store.commit("SET_AVAILABLE",value);
-                    this.search();
+                     this.$emit("onSearch");
                 }
             },
              postcode: {
@@ -225,6 +225,9 @@
     @media only screen and (min-width: 900px) {
         #postcodeLabel{
      font-size:19px;   
+    }
+    #postcode{
+        border-color:black;
     }
         #menu {
 

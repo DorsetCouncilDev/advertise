@@ -3,7 +3,7 @@
 <SiteTopNav currentPage="mediapackPage"></SiteTopNav>
 
 <h1 id="mediapackHeading">Media pack</h1>
-    <p>We can offer your organisation unique promotional opportunities to reach your target audience in Dorset.   Advertising offers in Dorset include outdoor, digital and print. For further details download our current Media Pack and sign up for latest updates below</p>
+    <p class="mediapck-text">We can offer your organisation unique promotional opportunities to reach your target audience in Dorset.   Advertising offers in Dorset include outdoor, digital and print. For further details download our current Media Pack and sign up for latest updates below</p>
   
     <div class="row" v-show="!formSent">
 <form class="col-sm-8" id="demo-form"  @submit.prevent="onSubmit" novalidate>
@@ -24,7 +24,7 @@
           <div class="form-group">
                 <div class="multiple-choice" title="available assets">
                     <input type="checkbox" id="keepInTouchBox" class="form-control"  v-model="keepInTouch" required>
-                    <label for="keepInTouchBox"  class="mutliple-choice-label form-ck">Tick to confirm you are happy for us to keep in touch with you regarding advertising and sponsorship opportunities. </label>
+                    <label for="keepInTouchBox"  class="mutliple-choice-label form-ck mediapck-text">Tick to confirm you are happy for us to keep in touch with you regarding advertising and sponsorship opportunities. </label>
                 </div>
             </div> 
         <hr>
@@ -111,7 +111,9 @@
 
 </script>
 <style scoped lang="scss">
-    
+    .mediapck-text{
+        font-size:16px;
+    }
     #mediapackHeading{
        font-size:26px; 
     }
@@ -140,12 +142,14 @@
     }
 
     @media only screen and (min-width: 600px) {
-    
+        .mediapck-text{
+        font-size:19px;
+    }
       #mediapackHeading{
        font-size:42px; 
     }
     #privacyStatement{
-        font-size:18px;
+        font-size:19px;
     }
         
     }
