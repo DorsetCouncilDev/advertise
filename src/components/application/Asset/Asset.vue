@@ -23,7 +23,7 @@
    <router-link class="btn btn-success"  v-if="documentAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=book' }">Check availablity &amp; book</router-link>
 
         <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
-                <div class="property-section" v-if="p != 'Description'">
+                <div class="property-section" v-if="p != 'Description' && p != 'Available'">
                     <span class="generalPropertyName">{{p}}</span>
                     <span class="generalPropertyValue">{{getPropertyValue(p)}}</span>
                 </div>
@@ -86,15 +86,15 @@
             },
             getPropertyValue(key){
 
-                 if( this.document.properties){
-                var propertyObject =  this.document.properties[key]
+                if( this.document.properties){
+                    var propertyObject =  this.document.properties[key]
                 
-                if (propertyObject.value !== "undefined") 
+                if (propertyObject.value !== "undefined")
                     return propertyObject.value;
                 else if (propertyObject.values !== "undefined") 
                     return propertyObject.values;
                  }
-                return "test";
+                return null;
             },
             propertyKeys(){ 
                 if( this.document.properties)

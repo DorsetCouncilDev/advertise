@@ -290,7 +290,9 @@ $desktop-font-size:19px;
 
                     .icon {
                         margin-right: 10px;
-                        display: block;                   
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;                 
                         img {
                             display: block;
                             width: 50px;

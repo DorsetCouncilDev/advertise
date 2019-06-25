@@ -46,10 +46,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
 <span class="contact-link-name">telephone</span>
 <span class="contact-link-value"><a href="tel:+441305224125">01305 224125</a></span>
         
-        <div v-show="test = 'test'">
-            {{test}}    
-        </div>
-<p>Send your message or questions at our <router-link class="contact-bold-link" to="/advertise/contact">Contact us</router-link> page</p>
+<p>Send your message or questions via our <router-link class="contact-bold-link" to="/advertise/contact">Contact us</router-link> page</p>
 <p>Download and view our <router-link class="contact-bold-link" to="/advertise/mediapack">Media pack</router-link> </p>
 
         </section>
@@ -137,7 +134,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
             padding-bottom:10px; 
             padding-top: 10px;
             color: black;
-            padding-left: 5px;
+           
             .ad-data-label {
                 font-size: 19px;
                 font-weight:400;
@@ -174,7 +171,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
    
 
             .ad-data {
-padding:15px;
+
 
                 font-size: 32px;
 
@@ -186,7 +183,7 @@ padding:15px;
     }
 #contact-container{
     margin-top:50px;
- 
+    font-size:16px;
     .contact-link-name{
         font-weight:500;
         display: block;
@@ -206,7 +203,7 @@ padding:15px;
     .ad-data-collection {
         flex-direction: row;
         .ad-data {
-            padding:15px;
+     
             width:48%;
             font-size: 32px;
             &:nth-child(odd){
@@ -219,6 +216,10 @@ padding:15px;
         }
     .home-second-header{
         font-size:32px;
+    }
+    #contact-container{
+    margin-top:50px;
+    font-size:19px;
     }
 }
 

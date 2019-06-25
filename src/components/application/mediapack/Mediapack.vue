@@ -9,15 +9,15 @@
 <form class="col-sm-8" id="demo-form"  @submit.prevent="onSubmit" novalidate>
     
         <div class="form-group">
-            <label for="name">Name</label>
+             <label for="name"><span class="form-label-bold">Name</span><span v-if="errors.name != null && errors.name != '' " class="form-error-message">{{errors.name}}</span></label>
             <input class="form-control form-bold-border" id="name" name="name" type="text" required v-model="name">
         </div>
             <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email"><span class="form-label-bold">Email</span><span v-if="errors.email != null && errors.email != '' " class="form-error-message">{{errors.email}}</span></label>
             <input class="form-control form-bold-border" id="email" name="email" type="email" v-model="email" required>
         </div>
         <div class="form-group">
-            <label for="tel">Phone <span>(optional)</span></label>
+            <label for="tel"><span class="form-label-bold">Phone (optional)</span></label>
             <input class="form-control form-bold-border" id="tel" name="tel" type="tel" v-model="phone">
         </div>
     <hr>
@@ -35,7 +35,7 @@
             size="invisible"
             :sitekey="sitekey">
     
-     <button @click="openPDF" type="submit" class="btn btn-success">View media pack</button>
+     <button type="submit" class="btn btn-success">View media pack</button>
     </vue-recaptcha>
        
     </form>
@@ -62,6 +62,13 @@
                 name: "",
                 email: "",
                 phone: "",
+                formError:false,
+                formHasErrors:false,
+                    errors: {
+                    name:null,
+                    email:null,
+                    phone:null
+                },
                 sitekey: '6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P',
                 formSent: false,
                 formError: false,
@@ -88,7 +95,18 @@
                 this.$refs.invisibleRecaptcha.execute()
             },
             onVerify: function(securityToken) {
-                if (this.name != null || this.name != "" || this.email != null || this.email != "" || this.phone != null || this.phone != "") {
+               
+                this.formError = false;
+                this.formHasErrors = false;
+                if (this.name == null || this.name.trim() == "") {
+                    this.errors.name = "Name is required";
+                    this.formHasErrors = true;
+                }
+                if (this.email == null || this.email.trim() == "") {
+                    this.errors.email = "email is required";
+                    this.formHasErrors = true;
+                }
+                if (!this.formHasErrors) {
                     var text = this.name + "\n" + this.email + "\n" + this.phone + "\n";
                     if (this.keepInTouch)
                         text += "Add to mailing list.\n";
@@ -102,6 +120,7 @@
                         this.$refs.recaptcha.reset();
                     })
                 }
+
             },
             onCaptchaExpired: function() {
                 this.$refs.recaptcha.reset();

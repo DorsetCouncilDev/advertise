@@ -112,8 +112,14 @@
 
         input.stv-radio-tab {
             position: absolute;
-            left: -99999em;
-            top: -99999em;
+            cursor: pointer;
+            left: 0;
+            top: 0;
+            width: 38px;
+            height: 38px;
+            z-index: 1;
+            margin: 0;
+            opacity: 0;
             &:focus {
                 &+label {
                     border: orange solid 1px;

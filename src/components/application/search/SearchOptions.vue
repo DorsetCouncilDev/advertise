@@ -3,7 +3,8 @@
     <div id="fadedBackgroundBlock" @click="closeMenu" ></div>
     <div id="searchOptionsContainer">
          <div id="closeBtnHolder" v-show="showSearchForm" >
-            <button class="btn btn-light" id="closeBtn" @click="closeMenu">hide</button>
+             <div>Search options</div>
+            <button class="btn btn-dark" id="closeBtn" @click="closeMenu">close</button>
         </div>
 
 
@@ -116,13 +117,21 @@
 
 
 <style scoped lang="scss">
+
+   #postcodeLabel{
+     font-size:19px;   
+    
+    }
+    
     .search-option-title
     {
         font-weight:600;
+        font-size:19px;
     }
     .fullPostcodeMessage{
         display: block;
         color:#545454;
+      
     }
     #menu {
 
@@ -166,10 +175,11 @@
     #closeBtnHolder {
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         margin-bottom: 5px;
         #closeBtn {
             border: solid 1px grey;
+            font-size:16px;
             &:before {
                 content: 'X ';
             }
@@ -181,12 +191,7 @@
         font-size: 19px;
     }
 
-    @media only screen and (min-width: 767px) {
-        #searchOptionsContainer {
-            margin-top: 25px;
-        }
-
-    }
+  
 
     #searchForm {
         font-size: 19px;
@@ -219,39 +224,20 @@
         #menu {
             top: 175px;
         }
+         .dc-toggle{
+    
+        .toggle-label{
+    
+            font-size:22px;
+        }
+           #postcodeLabel{
+     font-size:22px;   
+    }
         
     }
-
-    @media only screen and (min-width: 900px) {
-        #postcodeLabel{
-     font-size:19px;   
     }
-    #postcode{
-        border-color:black;
-    }
-        #menu {
 
-            display: flex;
-            position: relative;
-            left: 0;
-            opacity: 1;
-            top: 0;
-            width: 275px;
-            #searchOptionsContainer {
-                display: block;
-                box-shadow: none;
-                margin-top: 0;
-     
-            }
-        }
-        #fadedBackgroundBlock {
-            display: none;
-        }
-
-        #closeBtnHolder {
-            display: none;
-        }
-    }
+  
 
     .multiple-choice .mutliple-choice-label {
         white-space: nowrap;
@@ -295,17 +281,7 @@
     }
 
     
-        @media only screen and (min-width: 900px) {
-        #menu {
-            width:450px;
-            }
-    }
-    
-            @media only screen and (min-width: 1400px) {
-        #menu {
-            width:550px;
-            }
-    }
+      
 
     .dc-toggle{
         display: flex;
@@ -314,7 +290,7 @@
         .toggle-label{
             display: block;
             margin-right:20px;
-            font-size:22px;
+            font-size:19px;
         }
         .switch {
   position: relative;
@@ -381,7 +357,53 @@ input:checked + .slider:before {
         margin-top:30px;
         margin-bottom:30px;
     }
-      #postcodeLabel{
-     font-size:22px;   
+
+
+     @media only screen and (min-width: 767px) {
+        #searchOptionsContainer {
+            margin-top: 25px;
+        }
     }
+
+    @media only screen and (min-width: 900px) {
+        #menu {
+            width:450px;
+        }
+    }
+    
+ 
+
+    @media only screen and (min-width: 900px) {
+        #postcodeLabel{
+            font-size:19px;   
+        }
+
+        #postcode{
+            border-color:black;
+        }
+
+        #menu {
+            display: flex;
+            position: relative;
+            left: 0;
+            opacity: 1;
+            top: 0;
+            width: 40%;
+            #searchOptionsContainer {
+                display: block;
+                box-shadow: none;
+                margin-top: 0;
+     
+            }
+        }
+        #fadedBackgroundBlock {
+            display: none;
+        }
+
+        #closeBtnHolder {
+            display: none;
+        }
+    }
+
+  
 </style>

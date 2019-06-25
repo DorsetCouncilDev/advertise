@@ -25,11 +25,11 @@
                     <input class="form-control form-bold-border" id="email" name="email" type="email" v-model="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="tel"><span class="form-label-bold">Phone <span>(optional)</span></span></label>
+                    <label for="tel"><span class="form-label-bold">Phone (optional)</span></label>
                     <input class="form-control form-bold-border" id="tel" name="tel" type="tel" v-model="phone">
                 </div>
                 <div class="form-group">
-                    <label for="message"><span class="form-label-bold">Message</span></label>
+                    <label for="message"><span class="form-label-bold">Message</span><span v-if="errors.message != null && errors.message != '' " class="form-error-message">{{errors.message}}</span></label>
                     <textarea rows="12" class="form-control form-bold-border" id="message" v-model="message" required></textarea>
                 </div>
                 <hr>
@@ -46,7 +46,7 @@
                                 @verify="onVerify"
                                 size="invisible"
                                 :sitekey="sitekey">
-                    <button class="btn btn-success">Submit rtgr</button>
+                    <button class="btn btn-success">Submit</button>
                 </vue-recaptcha>  
 
                    <!-- <button class="btn btn-success" @click.prevent="contactTest">Submit</button> -->
@@ -79,7 +79,8 @@
                 formSendError: false,
                 errors: {
                     name:null,
-                    email:null
+                    email:null,
+                    phone:null
                 },
                 formHasErrors: false
             }
@@ -120,12 +121,16 @@
                 console.log("onVerify")
                 this.formError = false;
                 this.formHasErrors = false;
-                if (this.name == null || this.name == "") {
+                if (this.name == null || this.name.trim() == "") {
                     this.errors.name = "Name is required";
                     this.formHasErrors = true;
                 }
-                if (this.email == null || this.email == "") {
+                if (this.email == null || this.email.trim() == "") {
                     this.errors.email = "email is required";
+                    this.formHasErrors = true;
+                }
+                if (this.message == null || this.message.trim() == "") {
+                    this.errors.message= "message is required";
                     this.formHasErrors = true;
                 }
                 if (!this.formHasErrors) {
@@ -174,9 +179,7 @@ font-size:16px;
         font-size:16px;
     }
     
-    .form-label-bold{
-        font-weight:400;
-    }
+
     #contactHeading{
         font-size:26px;
     }
