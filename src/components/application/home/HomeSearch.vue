@@ -1,16 +1,19 @@
 <template>
+<div>
 <div class="row">
-    <section class="col-md-7 col-lg-5" id="postcodeSearchBlock">      
+    <section class="col-md-7 col-lg-5">      
         <form v-on:submit.prevent="postcodesearch">
             <div class="form-group" aria-labelledBy="search">
                 <h2 class="home-action-label mb-2" id="search">Advertising location finder</h2>
                 <label class="invisible" for="postcode" id="postcodeLabel">Postcode</label>
-                <div class="input-group">
+               
+                <div class="input-group" v-bind:class="{ 'postcode-input-group-error' : isPostcodeError }" id="postcode-input-group">
                     <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Enter full postcode" v-model="postcode">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button" id="searchGoBtn" @click="postcodesearch" aria-label="Search postcode"> GO </button>
                     </div>
                 </div>
+           <div class="postcode-error-message">{{postcodeErrorMessage}}</div>
             </div>
         </form>       
     </section>
@@ -19,23 +22,38 @@
         <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search/'}">Start browsing</router-link>
     </section>
 </div>
+
+      
+</div>
 </template>
 
 <script>
-    import GazetteerService from '../../../services/GazetteerService'
 
     export default {
         name: 'HomeSearch',
         data() {
             return {
                 indexRef: "advertise",
-                postcode:""
+                postcode:"",
+                postcodeErrorMessage: ""
             }
         },
         methods: {
             postcodesearch: async function() {
-                this.$store.commit("SET_POSTCODE",this.postcode)
-                this.$router.push("/advertise/search?postcode=true")
+                await this.$store.commit("SET_POSTCODE",this.postcode);
+                await this.$store.dispatch("setLocationSearchParameter");
+                if(!this.$store.state.noAddressesFound) 
+                    this.$router.push("/advertise/search?postcode=true");
+                else{
+                    this.postcodeErrorMessage = "This postcode was not recognised"
+                }
+            }
+        },
+        computed:{
+            isPostcodeError(){
+                if(this.postcodeErrorMessage != "")
+                    return true;
+                return false;
             }
         }
 
@@ -44,20 +62,16 @@
 
 
 <style scoped lang="scss">
-    
-    $buttonBrowseDark: darken(#5975de,50%);
-    $buttonBrowse: darken(#5975de,30%);
-    
-    $buttonBrowseHoverDark: darken(#5975de,40%);
-    $buttonBrowseHover: darken(#5975de,20%);
-    
-    $buttonGoDark: darken(#60d844,50%);
-    $buttonGo:darken(#60d844,30%);
-    
-     $buttonGoHoverDark: darken(#60d844,40%);
-    $buttonGoHover:darken(#60d844,20%);
 
-    
+.postcode-input-group-error{
+  border:darkred solid 2px;
+}
+    .postcode-error-message{
+        color:darkred;
+        transition: display .5s;
+        font-weight: 600;
+        font-size:22px;
+    }
     .home-action-label {
         font-size:19px;
         text-align:left;
@@ -75,6 +89,7 @@
 
     #browseLinkBlock {
         margin-bottom: 20px;
+
         
     }
   @media only screen and (min-width: 400px) {
@@ -89,7 +104,7 @@
             margin-bottom: 0;
         }
         #browseLinkBlock {
-            margin-top: 30px;
+
             margin-bottom: 30px;
         }
           .home-action-label {

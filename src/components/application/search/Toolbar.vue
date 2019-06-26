@@ -10,6 +10,8 @@
             <option value="price-low">Cost lowest</option>
              <option value="name-az">Name A-Z</option>
             <option value="name-za">Name Z-A</option>
+            <option v-show="isLocationSearch" value="nearest">Nearest</option>
+            <option v-show="isLocationSearch" value="furthest">Furthest</option>
         </select>
         
          <fieldset>
@@ -62,7 +64,10 @@
                     this.$store.commit("SET_VIEW", value);
 
                 }
-            }
+            },
+            isLocationSearch() {
+                return this.$store.state.isLocationSearched;
+            },
         }
     }
 </script>

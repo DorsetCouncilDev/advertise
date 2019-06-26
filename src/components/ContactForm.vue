@@ -61,7 +61,9 @@
 <script>
     // Secret Key  6LfEWXgUAAAAAMONIvKr8aDqCWZ00iUn6a73ipZf
    
-    import VueRecaptcha from 'vue-recaptcha';
+    import Vue from 'vue'
+    import { VueReCaptcha } from 'vue-recaptcha-v3'
+    Vue.use(VueReCaptcha, { siteKey: '6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P'})
     import axios from 'axios';
     import emailService from '../services/EmailService';
     export default {
@@ -93,30 +95,8 @@
                 } ]
             }
         },
-        props: ['documentRef','action'],
-        components: {
-            VueRecaptcha
-        },
         methods: {
-            async contactTest(){
-
-                console.log("test send method")
-                var formObject = {
-                    "subject": "TEST From advertise site",
-                    "body": this.message,
-                };
-                 await emailService.sending(formObject).then((resp) => {
-                        this.formSent = true;
-                    }).catch((err) => {
-                     console.log(err)
-                    })
-
-            },
-            onSubmit: function() {
-
-                this.$refs.invisibleRecaptcha.execute()
-            },
-            onVerify: async function(securityToken) {
+            recaptcha() {
 
                 console.log("onVerify")
                 this.formError = false;
@@ -142,19 +122,19 @@
                         text += "User did not opt to be added to the mailing list\n";
                     text += this.message;
             
-                    console.log("send email")
-                    await emailService.sending(text, securityToken).then((resp) => {
-                        this.formSent = true;
-                    }).catch((err) => {
-                        this.formSendError = true;
-                        this.$refs.recaptcha.reset();
+                    this.$recaptcha('login').then((token) => {
+                        emailService.sending(text,token).then((resp) => {
+                            this.formSent = true;
+                        }).catch((err) => {
+                            this.formSendError = true;
+                            this.$refs.recaptcha.reset();
+                        })
+                    }).catch((err)=>{
+                        console.log("error: " + err)
                     })
                 }
 
             },
-            onCaptchaExpired: function() {
-                this.$refs.recaptcha.reset();
-            }
         },
         mounted() {
             if (this.$route.query.documentRef != null && this.$route.query.documentRef != '') {

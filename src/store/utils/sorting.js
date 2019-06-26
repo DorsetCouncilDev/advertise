@@ -9,16 +9,20 @@ export default {
             sortedDocuments = this.sortByAZ(documents);
         else if (sortSetting == 'name-za')
             sortedDocuments = this.sortByZA(documents);
+        else if(sortSetting == 'furthest')
+            sortedDocuments = this.sortByFurthest(documents);
+        else if(sortSetting == 'nearest')
+            sortedDocuments = this.sortByNearest(documents);
         else {
             var sortValueArray = sortSetting.split("-");
             var sortType = sortValueArray[1];
-            sortedDocuments = this.sortResultsByProperty(documents,sortType);
+            sortedDocuments = this.sortByPrice(documents,sortType);
         }
 
         return sortedDocuments;
     },
 
-    sortResultsByProperty(documents, type) {
+    sortByPrice(documents, type) {
         return documents.sort(function (a, b) {
 
             if(typeof a.properties.Price == 'undefined' || a.properties.Price == null)
@@ -46,7 +50,6 @@ export default {
     },
 
     sortByAZ(documents){
-        console.log("sorting A-Z");
         return documents.sort(function (a, b) {
             if(a.name < b.name) { return -1; }
             if(a.name > b.name) { return 1; }
@@ -54,10 +57,33 @@ export default {
         })
     },
     sortByZA(documents){
-        console.log("sorting Z-A");
         return documents.sort(function (a, b) {
             if(a.name < b.name) { return 1; }
             if(a.name > b.name) { return -1; }
+            return 0;
+        })
+    },
+    sortByFurthest(documents){
+        return documents.sort(function(a,b){
+
+            const aDistance = new Number(a.distanceFromCoordinate)
+            const bDistance = new Number(b.distanceFromCoordinate)
+
+            if(aDistance < bDistance) {return 1; }
+            if(aDistance > bDistance) {return -1; }
+            
+            return 0;
+        })
+    },
+    sortByNearest(documents){
+        return documents.sort(function(a,b){
+
+            const aDistance = new Number(a.distanceFromCoordinate)
+            const bDistance = new Number(b.distanceFromCoordinate)
+            
+            if(aDistance < bDistance) {return -1; }
+            if(aDistance > bDistance) {return 1; }
+
             return 0;
         })
     },

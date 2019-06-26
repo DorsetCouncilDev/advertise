@@ -33,11 +33,9 @@ export const actions = {
         var postcode = context.state.searchPostcode;
         if(postcode != null && postcode != "" && postcode.length > 4){
             var locationSearchParmeter = await GazetteerService.setLocationSearch(postcode);
-            console.log("search param: " + locationSearchParmeter)
             context.commit("SET_IS_LOCATION_SEARCHED", true);
             if(locationSearchParmeter != null){
                 if(locationSearchParmeter.noAddress){
-                    console.log("no addresses found")
                     context.commit("SET_NO_ADDRESS",true);
                     context.commit("SET_SEARCHED_POSTCODE", postcode);
                 }
@@ -49,8 +47,6 @@ export const actions = {
                 }
             }
         }
-        //else
-          //  context.commit("CLEAR_SEARCHED_POSTCODE", postcode);
     },
 
     async setAvailableSearchParameter(context){

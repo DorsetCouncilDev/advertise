@@ -11,7 +11,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const { WebpackWarPlugin } = require('webpack-war-plugin');
-var PrerenderSpaPlugin = require('prerender-spa-plugin');
+
 
 const env = require('../config/prod.env')
 
@@ -77,12 +77,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
       
-      new PrerenderSpaPlugin({
-            staticDir: path.join(__dirname, 'dist'),
-       //     indexPath: path.join(__dirname, 'dist', 'index.html'),
-            routes: ['/','/advertise','/advertise/search']
-      }
-    ),
+ 
       new WebpackWarPlugin({
         archiveName: 'advertise'
       }),

@@ -41,10 +41,10 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
 <h1 class="third-header">Contact us</h1>
 
  <span class="contact-link-name">email</span>
- <span class="contact-link-value"><a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a></span> 
+ <span class="contact-link-value contact-bold-link"><a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a></span> 
             
 <span class="contact-link-name">telephone</span>
-<span class="contact-link-value"><a href="tel:+441305224125">01305 224125</a></span>
+<span class="contact-link-value  contact-bold-link"><a href="tel:+441305224125">01305 224125</a></span>
         
 <p>Send your message or questions via our <router-link class="contact-bold-link" to="/advertise/contact">Contact us</router-link> page</p>
 <p>Download and view our <router-link class="contact-bold-link" to="/advertise/mediapack">Media pack</router-link> </p>
@@ -62,8 +62,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
         name: 'Home',
         data() {
             return {
-                indexRef: "advertise",
-                test: "test"
+                indexRef: "advertise"
             }
         },
         metaInfo () {

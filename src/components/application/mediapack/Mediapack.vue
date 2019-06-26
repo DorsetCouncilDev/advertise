@@ -30,13 +30,10 @@
         <hr>
         <p id="privacyStatement">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank">privacy notice</a>. </p>
     <hr>
-    <vue-recaptcha ref="invisibleRecaptcha"
-            @verify="onVerify"
-            size="invisible"
-            :sitekey="sitekey">
+
     
-     <button type="submit" class="btn btn-success">View media pack</button>
-    </vue-recaptcha>
+     <button class="btn btn-success" @click.prevent="recaptcha">View media pack</button>
+  
        
     </form>
         </div>
@@ -50,7 +47,9 @@
 </template>
 
 <script>
-    import VueRecaptcha from 'vue-recaptcha';
+    import Vue from 'vue'
+    import { VueReCaptcha } from 'vue-recaptcha-v3'
+    Vue.use(VueReCaptcha, { siteKey: '6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P'})
     import emailService from '../../../services/EmailService';
     import pdf from './mediapack.pdf';
 
@@ -69,7 +68,6 @@
                     email:null,
                     phone:null
                 },
-                sitekey: '6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P',
                 formSent: false,
                 formError: false,
                 mediapackPdf: pdf
@@ -83,18 +81,11 @@
                 } ]
             }
         },
-        components: {
-            VueRecaptcha
-        },
         methods: {
             openPDF: function(){
                 this.formSent = true;
             },
-            onSubmit: function() {
-                this.formError = false;
-                this.$refs.invisibleRecaptcha.execute()
-            },
-            onVerify: function(securityToken) {
+            recaptcha() {
                
                 this.formError = false;
                 this.formHasErrors = false;
@@ -111,19 +102,18 @@
                     if (this.keepInTouch)
                         text += "Add to mailing list.\n";
                     text += "Has viewed mediapack";
-           
-
-                    emailService.sending(text, securityToken).then((resp) => {
-                        this.formSent = true;
-                    }).catch((err) => {
-                        this.formError = true;
-                        this.$refs.recaptcha.reset();
+                    
+                    this.$recaptcha('login').then((token) => {
+                        emailService.sending(text,token).then((resp) => {
+                            this.formSent = true;
+                        }).catch((err) => {
+                            this.formError = true;
+                            this.$refs.recaptcha.reset();
+                        })
+                    }).catch((err)=>{
+                        console.log("error: " + err)
                     })
                 }
-
-            },
-            onCaptchaExpired: function() {
-                this.$refs.recaptcha.reset();
             }
         }
     }
