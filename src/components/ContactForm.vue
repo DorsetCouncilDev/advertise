@@ -2,20 +2,20 @@
 <div>
     <SiteTopNav currentPage="contactPage"></SiteTopNav>
 
-      <section id="content">      
+      <section id="content">
         <h1 id="contactHeading">Get in touch</h1>
     <div v-show="formSent" id="formSentMessage">
     Thank you, we'll be in touch soon.
-    
+
     </div>
     <div id="contactSection"  v-show="!formSent">
-        <p class="contact-text">Looking to discuss advertising options in the Dorset area?</p> 
+        <p class="contact-text">Looking to discuss advertising options in the Dorset area?</p>
         <p class="contact-text">Give us a call on <a href="tel:+441305224125" class="faq-link">01305 224125</a>, email <a href="mailto:marketing@dorsetcouncil.gov.uk" class="faq-link">marketing@dorsetcouncil.gov.uk</a> or fill in the form below and we will get back to you shortly.</p>
         <div class="row">
-   
-            
+
+
             <form class="col-sm-8" id="demo-form" action="homepage" method="POST"  @submit.prevent="onSubmit" novalidate>
-    
+
                 <div class="form-group">
                     <label for="name"><span class="form-label-bold">Name</span><span v-if="errors.name != null && errors.name != '' " class="form-error-message">{{errors.name}}</span></label>
                     <input class="form-control form-bold-border" id="name" name="name" type="text" required v-model="name">
@@ -38,16 +38,12 @@
                         <input type="checkbox" id="keepInTouchBox" class="form-control"  v-model="keepInTouch" required>
                         <label for="keepInTouchBox"  class="mutliple-choice-label form-ck contact-text">Tick to confirm you are happy for us to keep in touch with you regarding advertising and sponsorship opportunities. </label>
                     </div>
-                </div> 
+                </div>
                 <hr>
                 <p id="privacyText" class="contact-text">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank" rel="noopener noreferrer" class="faq-link">privacy notice</a>. </p>
                 <hr>
-            <vue-recaptcha   ref="invisibleRecaptcha"
-                                @verify="onVerify"
-                                size="invisible"
-                                :sitekey="sitekey">
-                    <button class="btn btn-success">Submit</button>
-                </vue-recaptcha>  
+
+                 <button class="btn btn-success" @click.prevent="recaptcha">Send</button>
 
                    <!-- <button class="btn btn-success" @click.prevent="contactTest">Submit</button> -->
             </form>
@@ -60,7 +56,7 @@
 
 <script>
     // Secret Key  6LfEWXgUAAAAAMONIvKr8aDqCWZ00iUn6a73ipZf
-   
+
     import Vue from 'vue'
     import { VueReCaptcha } from 'vue-recaptcha-v3'
     Vue.use(VueReCaptcha, { siteKey: '6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P'})
@@ -69,7 +65,7 @@
     export default {
                name:"ContactForm",
         data() {
-     
+
             return {
                 formSent: false,
                 keepInTouch: false,
@@ -98,7 +94,7 @@
         methods: {
             recaptcha() {
 
-                console.log("onVerify")
+
                 this.formError = false;
                 this.formHasErrors = false;
                 if (this.name == null || this.name.trim() == "") {
@@ -121,7 +117,7 @@
                     else
                         text += "User did not opt to be added to the mailing list\n";
                     text += this.message;
-            
+
                     this.$recaptcha('login').then((token) => {
                         emailService.sending(text,token).then((resp) => {
                             this.formSent = true;
@@ -143,7 +139,7 @@
                 else if(this.$route.query.action == "book")
                     this.message = "I would like to book " + this.$route.query.documentRef;
             }
-      
+
         }
     }
 
@@ -158,12 +154,12 @@ font-size:16px;
     #privacyText{
         font-size:16px;
     }
-    
+
 
     #contactHeading{
         font-size:26px;
     }
-    
+
     .multiple-choice {
         .form-ck {
             &:before {
@@ -188,7 +184,7 @@ font-size:16px;
     .subHeading {
         font-size: 18px;
     }
-    
+
      @media only screen and (min-width: 600px) {
           #privacyText{
         font-size:18px;
@@ -196,7 +192,7 @@ font-size:16px;
     .contact-text{
 font-size:19px;
 }
-    
+
 
     #contactHeading{
         font-size:42px;

@@ -4,18 +4,18 @@
         <div id="criteriaTagContainer">
             <div v-for="documentType in documentTypes" class="criteria-tag" v-bind:key="documentType">
                 <span class="criteria-name">{{documentType}}</span>
-                <span role="button" class="remove-criteria" @click="removeDocumentType(documentType)" tabindex="0" title="'Remove'">X</span>     
+                <span role="button" class="remove-criteria" @click="removeDocumentType(documentType)" tabindex="0" title="'Remove'">X</span>
             </div>
             <div v-show="isLocationSearch" class="criteria-tag">
                 <span class="criteria-name">Postcode: <span :class="{'no-postcode-found' : noAddressesFound}">{{postcodeSearched}}</span></span>
-                <span role="button" class="remove-criteria" tabindex="0" @click="removeLocationSearch()" title="'Remove'">X</span>     
+                <span role="button" class="remove-criteria" tabindex="0" @click="removeLocationSearch()" title="'Remove'">X</span>
             </div>
                <div v-show="$store.state.searchAvailable" class="criteria-tag">
                 <span class="criteria-name">Available only</span>
-                <span role="button" class="remove-criteria" tabindex="0" @click="removeAvailableSearch()" title="'Remove'">X</span>     
+                <span role="button" class="remove-criteria" tabindex="0" @click="removeAvailableSearch()" title="'Remove'">X</span>
             </div>
         </div>
-        <h2 v-show="noAddressesFound" id="noAddressFound">We can not find that postcode</h2>
+        <h2 v-show="noAddressesFound" id="noAddressFound">We cannot find that postcode</h2>
 </div>
 </template>
 
@@ -47,6 +47,7 @@
                 this.$emit("onChangeShowSearchFom", !this.showSearchForm)
             },
             removeLocationSearch(){
+                this.$store.commit("SET_NO_ADDRESS",false);
                 this.$store.commit("SET_POSTCODE","")
                 this.$emit("onSearch")
             },
@@ -54,8 +55,8 @@
                 this.$store.commit("SET_AVAILABLE",false);
                 this.$emit("onSearch");
             }
-            
-           
+
+
         },
         computed: {
              documentTypes(){
@@ -64,7 +65,7 @@
             isLocationSearch() {
                 return this.$store.state.isLocationSearched;
             },
-    
+
             numberOfResultsMessage(){
                 if(this.numberOfResults == 1)
                     return "1 Opportunity found";
@@ -133,10 +134,10 @@
             }
             .remove-criteria{
                 color:#545454;
-            }          
+            }
        }
    }
-  
+
   @media only screen and (max-width: 1000px) {
         #searchCriteria{
             #criteriaTagContainer{

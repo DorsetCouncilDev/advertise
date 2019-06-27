@@ -11,8 +11,8 @@
     </div>
 
     <div v-show="showResults">
-        <Map v-show="view == 'map'" :documents="documents" :class="{'loading-map-assets' : isSearching}"></Map>  
-        <div class="result-cards" v-bind:class="{'grid-view':showGridView}" v-show="showListOrGridView"> 
+        <Map v-show="view == 'map'" :documents="documents" :class="{'loading-map-assets' : isSearching}"></Map>
+        <div class="result-cards" v-bind:class="{'grid-view':showGridView}" v-show="showListOrGridView">
             <div class="result-card" v-for="document in documents" v-bind:key="document.reference">
                 <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
                     <div class="card-heading">
@@ -25,12 +25,12 @@
                             <div class="top-row">
                                 <div>
                                     <p class="asset-long-text mb-1">{{document.longText}}</p>
-                                    <p v-if="getAvailability(document.properties) != null" class="mb-1">{{getAvailability(document.properties)}}</p>
+                                    <p class="availability-text mb-1" v-if="getAvailability(document.properties) != null">{{getAvailability(document.properties)}}</p>
                                 </div>
                                 <div class="price-tag" v-if="document.properties && document.properties.Price">&pound;  {{getPrice(document.properties.Price.value)}}</div>
                             </div>
                             <div class="info-row mt-2 mb-2">
-                               
+
                                     <div class="distance-tag"  v-if="document.distanceFromCoordinate && postcode != ''">{{document.distanceFromCoordinate | roundMilesFromCoordinate()}} miles from {{postcode}}</div>
                             </div>
                         </div>
@@ -135,9 +135,12 @@
         filters: {
             roundMilesFromCoordinate: function(value) {
                 var property = Number(value);
-                var decimals = 1;   
+                var decimals = 1;
                 return  Math.round(property * Math.pow(10, decimals)) / Math.pow(10, decimals);
             }
+
+
+
         }
     }
 
@@ -178,7 +181,9 @@ $desktop-font-size:19px;
     }
 }
 
-
+.asset-long-text::first-letter, .availability-text::first-letter{
+text-transform: uppercase;
+}
 .top-row{
     display:flex;
     justify-content: space-between;
@@ -204,7 +209,7 @@ $desktop-font-size:19px;
 .card-link{
     height: 100%;
 }
-    
+
             .view-button-holder{
                 margin-top: 10px;
                 display: flex;
@@ -249,10 +254,10 @@ $desktop-font-size:19px;
                     position: relative;
                     display: flex;
                     justify-content: space-between;
-               
+
                 .distance-tag{
-                   
-                
+
+
                     background:#f1f1f1;
                     font-weight:500;
                     padding:5px;
@@ -280,7 +285,7 @@ $desktop-font-size:19px;
                         flex-direction: column;
                         justify-content: center;
                         font-size: 19px;
-               
+
                         overflow:hidden;
                         text-overflow: ellipsis;
                         .heading-text{
@@ -292,7 +297,7 @@ $desktop-font-size:19px;
                         margin-right: 10px;
                         display: flex;
                         justify-content: center;
-                        flex-direction: column;                 
+                        flex-direction: column;
                         img {
                             display: block;
                             width: 50px;
@@ -326,7 +331,7 @@ $desktop-font-size:19px;
         }
     }
 
-    
+
 
     .docTypeLabel {
         font-size: $mobile-font-size;

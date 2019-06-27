@@ -19,8 +19,8 @@
             </div>
             <label id="postcodeLabel" class="search-option-title"  for="postcode">Full postcode search</label>
             <div class="form-group">
-                <div class="input-group">
-                    <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode"> 
+                <div class="input-group" :class="{'error-postcode' : noAddressesFound}">
+                    <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode">
                     <div class="input-group-append">
                         <button class="btn btn-success" type="button" id="button-addon2" v-on:click.prevent="$emit('onSearch')">Search</button>
                     </div>
@@ -69,7 +69,7 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
-      
+
         },
         watch: {
             documentTypes: {
@@ -79,7 +79,7 @@
                 },
                 deep: true
             }
-           
+
         },
         computed: {
             documentTypes: {
@@ -109,6 +109,9 @@
                 set: function(value){
                     this.$store.commit("SET_POSTCODE",value);
                 }
+            },
+            noAddressesFound() {
+              return this.$store.state.noAddressesFound;
             }
         }
     }
@@ -117,12 +120,14 @@
 
 
 <style scoped lang="scss">
-
+.error-postcode{
+  border:solid 2px darkred;
+}
    #postcodeLabel{
-     font-size:19px;   
-    
+     font-size:19px;
+
     }
-    
+
     .search-option-title
     {
         font-weight:600;
@@ -131,7 +136,7 @@
     .fullPostcodeMessage{
         display: block;
         color:#545454;
-      
+
     }
     #menu {
 
@@ -191,7 +196,7 @@
         font-size: 19px;
     }
 
-  
+
 
     #searchForm {
         font-size: 19px;
@@ -225,19 +230,19 @@
             top: 175px;
         }
          .dc-toggle{
-    
+
         .toggle-label{
-    
+
             font-size:22px;
         }
            #postcodeLabel{
-     font-size:22px;   
+     font-size:22px;
     }
-        
+
     }
     }
 
-  
+
 
     .multiple-choice .mutliple-choice-label {
         white-space: nowrap;
@@ -280,8 +285,8 @@
         margin-bottom: .5rem;
     }
 
-    
-      
+
+
 
     .dc-toggle{
         display: flex;
@@ -299,7 +304,7 @@
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -370,12 +375,12 @@ input:checked + .slider:before {
             width:450px;
         }
     }
-    
- 
+
+
 
     @media only screen and (min-width: 900px) {
         #postcodeLabel{
-            font-size:19px;   
+            font-size:19px;
         }
 
         #postcode{
@@ -393,7 +398,7 @@ input:checked + .slider:before {
                 display: block;
                 box-shadow: none;
                 margin-top: 0;
-     
+
             }
         }
         #fadedBackgroundBlock {
@@ -405,5 +410,5 @@ input:checked + .slider:before {
         }
     }
 
-  
+
 </style>

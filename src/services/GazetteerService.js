@@ -27,5 +27,18 @@ export default{
             "range": 10
         }
         return location;
+    },
+
+
+    async checkValidPostcode(postcode){
+
+      var validPostcode = null;
+      await api.postcodeSearch(postcode).then((response)=>{
+        validPostcode = response.data.address && response.data.address.length > 0;
+
+      }).catch((err)=>{
+
+      })
+      return validPostcode;
     }
 }

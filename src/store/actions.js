@@ -16,6 +16,14 @@ export const actions = {
             // EMIT ERROR
         })
     },
+    selectAllDocumentTypes(context){
+          const documentTypes = context.state.index.documentTypes;
+          documentTypes.forEach((type)=>{
+            type.selected = true;
+        })
+        context.commit("SET_DOCUMENT_TYPES",documentTypes);
+
+    },
     setDocumentTypesSearchParameter(context){
         var documentTypesSelected = [];
         var documentTypes = context.state.documentTypes;
@@ -43,9 +51,14 @@ export const actions = {
                     context.commit("SET_NO_ADDRESS",false);
                     context.commit("SET_LOCATION_SEARCH_PARAMETER",locationSearchParmeter);
                     context.commit("SET_SEARCHED_POSTCODE", postcode);
-                  
+                    context.commit("SET_SORT","nearest");
+
+
                 }
             }
+        }else{
+          if(context.state.sort == "nearest" || context.state.sort == "furthest")
+                context.commit("SET_SORT","");
         }
     },
 
@@ -58,17 +71,17 @@ export const actions = {
     },
 
     async search(context){
-     
-        context.commit("REMOVE_LOCATION_SEARCH_PARAMETER"); 
+
+        context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
         await context.dispatch("setLocationSearchParameter");
         await context.dispatch("setAvailableSearchParameter");
         await context.dispatch("setDocumentTypesSearchParameter");
 
         await AdvertiseService.search(context.state.searchParameters).then((response)=>{
             var documents = response.data;
-            
+
             context.commit("SET_SEARCH_RESULTS",documents);
-            
+
             context.dispatch("sortSearchResults")
         }).catch((err)=>{
             console.log(err);
@@ -79,7 +92,7 @@ export const actions = {
 
         var postcode = context.state.searchPostcode;
         await GazetteerService.search(postcode).then((response) => {
-            
+
             var address = response.data.address[0];
             context.dispatch("createAdvertiseLocationSearchParameter",address);
         })
@@ -102,12 +115,15 @@ export const actions = {
         context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
     },
 
-    setLocationSearchOnly(context){
-        context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
-        context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
-        context.commit("SET_AVAILABLE",false);
+    async setLocationSearchOnly(context){
+        await context.commit("SET_SORT","nearest");
+        await context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
+        await context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
+        await context.dispatch("selectAllDocumentTypes");
+        await context.commit("SET_AVAILABLE",false);
+
     },
-    
+
     async setSingleDocumentTypeOnlySearch(context,param){
         context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
         context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
@@ -124,7 +140,7 @@ export const actions = {
             if(param == type.reference)
                 type.selected = true;
         })
-        
+
         await context.commit("SET_DOCUMENT_TYPES",documentTypes);
     }
 }

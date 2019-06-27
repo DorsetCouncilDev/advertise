@@ -1,7 +1,7 @@
 <template>
 <div id="content">
   <SiteTopNav currentPage="searchPage"></SiteTopNav>
- 
+
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
@@ -54,14 +54,14 @@
             view() {
                 return this.$store.state.view;
             }
-        
+
         },
         methods: {
             async search() {
                 this.setSearchingMessage();
                 await this.$store.dispatch("search");
                 this.setFinishedSearching();
-            },  
+            },
             setSearchingMessage:function(){
                 this.searchMessage = "Searching opportunities"
             },
@@ -74,22 +74,28 @@
 
     },
         async beforeMount(){
-            
-            if(this.$route.query.postcode)
+
+            if(this.$route.query.postcode){
+
                 await this.$store.dispatch("setLocationSearchOnly");
-            
-            else if(this.$route.query.documentType != null)
-                await this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
-            
-            await this.search();
+                    await this.search();
                 this.setFinishedSearching();
+            }
+            else{
+              context.commit("SET_NO_ADDRESS",false);
+            }
+
+            if(this.$route.query.documentType != null){
+
+               await this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
+                await this.search();
+                this.setFinishedSearching();
+            }
+
+
 
              if(this.$route.query.view)
                 this.$store.commit("SET_VIEW",this.$route.query.view);
-        },
-        mounted(){
-           this.test = "done";
-           this.test = "";
         }
     }
 
@@ -115,14 +121,14 @@
         h1{font-size:32px;
          margin-bottom: 20px;}
     }
-    
+
       @media only screen and (min-width: 900px) {
            #searchContainer {
        display:flex;
        align-items: start;
     }
-          
-         
+
+
     }
 
 </style>

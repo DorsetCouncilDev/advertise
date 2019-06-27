@@ -2,7 +2,7 @@
 <div id="searchToolbar">
     <div id="menuIcon">
         <button v-on:click="toggleSearchForm" type="button" aria-label="Search" class="btn btn-light" aria-describedby="descriptionSearch" id="searchOptionsBtn"><img src="../../../assets/images/search-black.svg" alt="Open search menu" id="searchButtonIcon"></button>
-    </div> 
+    </div>
     <div class="stv-radio-tabs-wrapper">
         <label id="sortSelectLabel" for="sortSelect">Sort</label>
         <select class="stv-radio-tab form-control" id="sortSelect" v-model="advertiseSort" >
@@ -13,14 +13,14 @@
             <option v-show="isLocationSearch" value="nearest">Nearest</option>
             <option v-show="isLocationSearch" value="furthest">Furthest</option>
         </select>
-        
+
          <fieldset>
-            <legend id="viewLegend">View documents options</legend>   
+            <legend id="viewLegend">View documents options</legend>
             <input  type="radio" class="stv-radio-tab" id="one" name="tickme" value="map" v-model="view">
-            <label for="one" id="mapViewLabel">Map</label>            
+            <label for="one" id="mapViewLabel">Map</label>
             <input type="radio" class="stv-radio-tab" id="two" name="tickme" value="grid" v-model="view">
             <label for="two" id="gridViewLabel">Grid</label>
-            <input type="radio" class="stv-radio-tab" id="three" name="tickme" value="list" v-model="view">   
+            <input type="radio" class="stv-radio-tab" id="three" name="tickme" value="list" v-model="view">
             <label for="three" id="listViewLabel">List</label>
         </fieldset>
     </div>
@@ -67,7 +67,8 @@
             },
             isLocationSearch() {
                 return this.$store.state.isLocationSearched;
-            },
+            }
+
         }
     }
 </script>
@@ -153,9 +154,9 @@
                     &:before {
                         content: url(../../../assets/images/grid.svg);
                         border-color:black;
- 
+
                     }
-     
+
                     &:focus {
                         border: orange solid 1px;
                     }
@@ -215,10 +216,10 @@
          #searchOptionsBtn{
              &:after{
                  content:' Search options'
-             } 
+             }
          }
     }
-    
+
     @media only screen and (min-width: 767px) {
         #searchToolbar {
             font-size: 19px;
