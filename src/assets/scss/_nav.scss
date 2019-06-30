@@ -89,6 +89,15 @@
     }
   }
 }
+@media only screen and (min-width: 380px) {
+  #menuLinks{font-size: 15px;}
+}
+@media only screen and (min-width: 470px) {
+  #menuLinks{font-size: 19px;}
+  .ad-breadcrumb {
+    font-size:19px;
+  }
+}
 @media only screen and (min-width: 600px) {
   .ad-breadcrumb {
     font-size:19px;

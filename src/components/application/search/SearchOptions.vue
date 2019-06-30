@@ -32,7 +32,7 @@
                     <div class="type-options" >
                         <div class="form-group" style="margin-bottom:0">
                             <div class="multiple-choice" :title="type.name">
-                                <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
+                                <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected" >
                                 <label :for="type.reference"  class="mutliple-choice-label multiple-choice-small">{{type.name}} </label>
                             </div>
                         </div>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success mt-2" type="button" v-on:click.prevent="$emit('onSearch')">Search</button>
+            <button class="btn btn-success mt-2" type="button" v-on:click.prevent="search">Search</button>
         </form>
     </div>
 </section>
@@ -54,7 +54,7 @@
     import DocumentService from '../../../services/DocumentService';
     import GazetteerService from '../../../services/GazetteerService';
 
-    export default {
+   export default {
         name: 'SearchOptions',
         props: {
             showSearchForm: {
@@ -69,7 +69,6 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
-
         },
         watch: {
             documentTypes: {
@@ -79,7 +78,6 @@
                 },
                 deep: true
             }
-
         },
         computed: {
             documentTypes: {

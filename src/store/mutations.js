@@ -3,11 +3,12 @@ export const mutations = {
     SET_INDEX(state,payload){
         state.index = payload;
     },
-    
+
 
 
     // Search options form
     SET_DOCUMENT_TYPES(state,payload){
+      console.log("SET_DOCUMENT_TYPES ")
         state.documentTypes = payload;
     },
     SET_AVAILABLE(state,payload){
@@ -28,7 +29,7 @@ export const mutations = {
     REMOVE_AVAILABLE_SEARCH_PARAMETER(state){
         delete state.searchParameters.properties.Available;
     },
- 
+
     REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS(state){
         state.searchParameters.documentTypes = [];
     },

@@ -1,7 +1,7 @@
 <template>
    <div>
-        
-        
+
+
         <div class="container">
         <AdHeader></AdHeader>
        <transition name="component-fade" mode="out-in">
@@ -19,18 +19,25 @@
      import SiteTopNav from './components/SiteTopNav';
     import store from './store'
     import router from './router'
-    
+
     import Vue from 'vue';
     import { sync } from 'vuex-router-sync'
     Vue.component('SiteTopNav',SiteTopNav);
     sync(store, router)
 
-    store.dispatch("setIndex");
-    
 
-  
+setIndex();
+
+async function setIndex(){
+  console.log("set index")
+await store.dispatch("setIndex");
+}
+
+
+
+
     import SearchService from './services/SearchService'
-    
+
     export default {
         name: 'App',
         store,

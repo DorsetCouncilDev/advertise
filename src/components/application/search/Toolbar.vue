@@ -5,7 +5,7 @@
     </div>
     <div class="stv-radio-tabs-wrapper">
         <label id="sortSelectLabel" for="sortSelect">Sort</label>
-        <select class="stv-radio-tab form-control" id="sortSelect" v-model="advertiseSort" >
+        <select class="form-control" id="sortSelect" v-model="advertiseSort" >
             <option value="price-high">Cost highest</option>
             <option value="price-low">Cost lowest</option>
              <option value="name-az">Name A-Z</option>
@@ -101,12 +101,15 @@
 
         #sortSelectLabel {
             float: left;
-            height: 50px;
+            height: 40px;
             line-height: 2.5;
             margin-right: 10px;
             font-weight: 400;
             position: absolute;
             left: -9000px;
+        }
+        #sortSelect{
+          height:40px;
         }
 
         .stv-radio-tabs-wrapper {
@@ -129,6 +132,7 @@
             &:focus {
                 &+label {
                     border: orange solid 1px;
+
                 }
             }
             &+label {
@@ -142,6 +146,7 @@
                 padding-right: 7px;
                 padding-bottom: 10px;
                 position: relative;
+                height: 40px;
                 &:before {
                     position: absolute;
                     left: -1px;
@@ -212,12 +217,23 @@
 
     }
 
-     @media only screen and (min-width: 440px) {
+     @media only screen and (min-width: 445px) {
          #searchOptionsBtn{
              &:after{
                  content:' Search options'
              }
          }
+ #searchToolbar {
+          #sortSelect{
+          height:50px;
+          }
+           input.stv-radio-tab {
+                &+label {
+                    height:50px;
+                }
+        }
+ }
+
     }
 
     @media only screen and (min-width: 767px) {
@@ -227,13 +243,13 @@
 
             input.stv-radio-tab {
                 &+label {
-
                     &#gridViewLabel {
                         display: block;
                     }
                 }
             }
         }
+
     }
 
 

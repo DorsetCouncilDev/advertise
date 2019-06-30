@@ -5,10 +5,9 @@
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching" @onSearch="search"></SearchOptions>
+        <SearchOptions :showSearchForm="showSearchForm"  @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching" @onSearch="search"  @onCloseSearchOptions="closeSearchOptions"></SearchOptions>
         <Assets  :searchMessage="searchMessage" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onSearch="search"></Assets>
     </div>
-    {{test}}
 </div>
 </template>
 
@@ -23,7 +22,7 @@
     import SecurityService from '../../../services/SecurityService'
 
 
-    export default {
+      export default {
         name: 'Search',
         data() {
             return {
@@ -41,7 +40,6 @@
                 title: "Find advertising options in Dorset | Dorset Council" ,
                 meta: [ {
                     name:"description", content:"Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset."
-
                 } ]
             }
         },
@@ -54,7 +52,6 @@
             view() {
                 return this.$store.state.view;
             }
-
         },
         methods: {
             async search() {
@@ -71,12 +68,9 @@
             changeShowSearchForm: function() {
                 this.showSearchForm = !this.showSearchForm
             }
-
     },
         async beforeMount(){
-
             if(this.$route.query.postcode){
-
                 await this.$store.dispatch("setLocationSearchOnly");
                     await this.search();
                 this.setFinishedSearching();
@@ -84,16 +78,11 @@
             else{
               context.commit("SET_NO_ADDRESS",false);
             }
-
             if(this.$route.query.documentType != null){
-
                await this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
                 await this.search();
                 this.setFinishedSearching();
             }
-
-
-
              if(this.$route.query.view)
                 this.$store.commit("SET_VIEW",this.$route.query.view);
         }
