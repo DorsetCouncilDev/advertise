@@ -1,7 +1,7 @@
 <template>
 <div>
 <div class="row">
-    <section class="col-md-7 col-lg-5">
+    <section class="col-md-7 col-lg-5" id="homeLocationSearch">
         <form v-on:submit.prevent="postcodesearch">
             <div class="form-group" aria-labelledBy="search">
                 <h2 class="home-action-label mb-2" id="search">Advertising location finder</h2>
@@ -99,6 +99,11 @@ console.log("valid postcode: " + validPostcode)
 
 
     }
+
+#homeLocationSearch{
+  margin-bottom:20px;
+}
+
   @media only screen and (min-width: 400px) {
         .home-action-label {
             font-size:24px;
@@ -123,4 +128,10 @@ console.log("valid postcode: " + validPostcode)
         position:absolute;
     }
 
+
+ @media only screen and (min-width: 576px) {
+    #homeLocationSearch{
+      margin-bottom:0;
+  }
+ }
 </style>

@@ -5,7 +5,7 @@
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions :showSearchForm="showSearchForm"  @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching" @onSearch="search"  @onCloseSearchOptions="closeSearchOptions"></SearchOptions>
+        <SearchOptions :showSearchForm="showSearchForm"  @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching" @onSearch="search"  ></SearchOptions>
         <Assets  :searchMessage="searchMessage" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onSearch="search"></Assets>
     </div>
 </div>
@@ -76,7 +76,7 @@
                 this.setFinishedSearching();
             }
             else{
-              context.commit("SET_NO_ADDRESS",false);
+              this.$store.commit("SET_NO_ADDRESS",false);
             }
             if(this.$route.query.documentType != null){
                await this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);

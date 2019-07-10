@@ -3,7 +3,7 @@
  <SiteTopNav currentPage="homePage"></SiteTopNav>
 
 
-<h1 class="home-header">Local advertising solutions in Dorset</h1>
+<h1 class="home-header mb-4">Local advertising solutions in Dorset</h1>
 <HomeSearch :indexRef="indexRef"></HomeSearch>
 <section>
     <h1 class="home-second-header">Advertise in Dorset to reach:</h1>

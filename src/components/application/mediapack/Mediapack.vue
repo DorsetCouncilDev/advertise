@@ -3,11 +3,13 @@
 <SiteTopNav currentPage="mediapackPage"></SiteTopNav>
 
 <h1 id="mediapackHeading">Media pack</h1>
+ <div class="row" v-show="!formSent">
+   <form class="col-sm-8" id="demo-form"  @submit.prevent="onSubmit" novalidate>
     <p class="mediapck-text">We can offer your organisation unique promotional opportunities to reach your target audience in Dorset.   Advertising offers in Dorset include outdoor, digital and print. For further details download our current Media Pack and sign up for latest updates below</p>
-  
-    <div class="row" v-show="!formSent">
-<form class="col-sm-8" id="demo-form"  @submit.prevent="onSubmit" novalidate>
-    
+
+
+
+
         <div class="form-group">
              <label for="name"><span class="form-label-bold">Name</span><span v-if="errors.name != null && errors.name != '' " class="form-error-message">{{errors.name}}</span></label>
             <input class="form-control form-bold-border" id="name" name="name" type="text" required v-model="name">
@@ -26,21 +28,25 @@
                     <input type="checkbox" id="keepInTouchBox" class="form-control"  v-model="keepInTouch" required>
                     <label for="keepInTouchBox"  class="mutliple-choice-label form-ck mediapck-text">Tick to confirm you are happy for us to keep in touch with you regarding advertising and sponsorship opportunities. </label>
                 </div>
-            </div> 
+            </div>
         <hr>
         <p id="privacyStatement">The details you provide in this form will not be used for any other purpose and will not be shared with third parties unless required to by law. Under the General Data Protection Regulations (GDPR) you have the right to ask that your details are removed. More information about how we process your data under GDPR is available in our <a href="https://www.dorsetforyou.gov.uk/your-council/about-your-council/data-protection/privacy-policy/dorset-county-council/dorset-county-council-privacy-notice.aspx" target="_blank">privacy notice</a>. </p>
     <hr>
 
-    
+
      <button class="btn btn-success" @click.prevent="recaptcha">View media pack</button>
-  
-       
+
+
     </form>
         </div>
     <div v-show="formSent" id="formSentMessage">
+      <p>Thank you for leaving your details with us. Dorset Council can offer your organisation unique promotional opportunities, helping you reach your target audience in Dorset.</p>
         <p>Thank you for signing up, we'll be in touch soon.</p>
-   <a href="/advertise/static/pdf/mediapack.pdf" rel="noopener noreferrer" target="_blank">View media pack</a>
-    
+   <a href="/advertise/static/pdf/mediapack.pdf" rel="noopener noreferrer" target="_blank" style="font-size:24px">View media pack</a>
+<h2 class="mt-5">Contact us</h2>
+<p>Call: <a href="tel:+441305224125">01305 224125</a></p>
+<p>Email: <a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a></p>
+
     </div>
      <div v-show="formError"><p class="text-danger">Sorry something went wrong submitting this form. Please try again.</p></div>
 </div>
@@ -86,7 +92,7 @@
                 this.formSent = true;
             },
             recaptcha() {
-               
+
                 this.formError = false;
                 this.formHasErrors = false;
                 if (this.name == null || this.name.trim() == "") {
@@ -102,7 +108,7 @@
                     if (this.keepInTouch)
                         text += "Add to mailing list.\n";
                     text += "Has viewed mediapack";
-                    
+
                     this.$recaptcha('login').then((token) => {
                         emailService.sending(text,token).then((resp) => {
                             this.formSent = true;
@@ -124,7 +130,7 @@
         font-size:16px;
     }
     #mediapackHeading{
-       font-size:26px; 
+       font-size:26px;
     }
     #privacyStatement{
         font-size:16px;
@@ -155,11 +161,11 @@
         font-size:19px;
     }
       #mediapackHeading{
-       font-size:42px; 
+       font-size:42px;
     }
     #privacyStatement{
         font-size:19px;
     }
-        
+
     }
 </style>

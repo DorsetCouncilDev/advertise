@@ -6,10 +6,11 @@ import axios from 'axios'
 
 
 var advertise_axios = axios.create({
-  baseURL: 'https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/advertise',
+  baseURL:  'https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/advertise',
+ // 'https://app.dorsetcc.gov.uk/catalogue/api/indexes/advertise',
   timeout: 10000,
   headers: { post: {"Content-Type": "application/json",
-  "accept": "application/json"} 
+  "accept": "application/json"}
   }
 });
 
@@ -19,7 +20,7 @@ var _test_fail = axios.create({
 });
 
 var _security = axios.create({
-  baseURL: 'http://52.56.188.219/catalogue/v1/public/users/login',  
+  baseURL: 'http://52.56.188.219/catalogue/v1/public/users/login',
   timeout: 10000
 });
 
@@ -35,36 +36,11 @@ var _gazzeteer = axios.create({
 
 
 var _search = axios.create({
-    baseURL: 'https://apptest.dorsetcc.gov.uk/catalogue/api/indexe',
+    baseURL: 'https://apptest.dorsetcc.gov.uk/catalogue/api/index',
     timeout: 10000
 });
 
 
-
-// Production
-/*
-var _security = axios.create({
-  baseURL: 'https://web.dorsetcc.gov.uk/catalogue/v1/public/users/login',  
-  timeout: 10000
-});
-
-var _ = axios.create({
-  baseURL: 'https://web.dorsetcc.gov.uk/catalogue/v1/indexes',
-  timeout: 10000
-});
-
-var _search = axios.create({
-    baseURL: 'https://web.dorsetcc.gov.uk/catalogue/v1/search/index/',
-    timeout: 20000
-});
-
-
-var _gazzeteer = axios.create({
-  baseURL: 'https://app.dorsetcc.gov.uk/gazetteer/rest/address/postcode/',
-  timeout: 10000
-});
-
-*/
 export default {
 
   catalogueGet(url){
@@ -74,7 +50,7 @@ export default {
     get(url){
         return _.get(url)
     },
-    
+
     post(url,payload,authToken){
            var headers = {
                       headers: {
@@ -90,10 +66,10 @@ export default {
                       }
                    };
         */
-        
+
         return _search.post(url,payload)
     },
-     put(url,payload,authToken){ 
+     put(url,payload,authToken){
          var headers = {
                       headers: {
                             Authorization:  'Bearer ' + authToken
@@ -101,7 +77,7 @@ export default {
                    };
         return _.put(url,payload,headers)
     },
-    
+
     delete(url,authToken){
         var headers = {
                       headers: {
@@ -110,11 +86,11 @@ export default {
                    };
         return _.delete(url,headers)
     },
-    
+
     postSecurityCredentials(credentials){
         return _security.post("",credentials)
     },
-    
+
     // temp solution
     postInitialSearch(){
         var headers = {
@@ -124,15 +100,15 @@ export default {
                    };
         return _search.post(url,payload,headers)
     },
-    
+
     // get location from postcode - first step in postcode asset search
     postcodeSearch(url){
         return _gazzeteer.get(url)
     },
-    
-    
+
+
     // test publish fail
- 
+
     publishFailTest(url,payload,authToken){
          var headers = {
                       headers: {
@@ -148,6 +124,6 @@ export default {
     advertiseSearch(payload){
       return advertise_axios.post("documents",payload)
     }
-    
+
 
 }
