@@ -1,6 +1,6 @@
 <template>
     <section class="document-types-section">
-        <p class="documentTypesParagraph">Dorset Council offers a broad portfolio of sponsorship, advertising sites and promotional opportunities. Whether you’re looking to promote a product, service or event - we can help your message gain wide coverage.</p> 
+        <p class="documentTypesParagraph">Dorset Council offers a broad portfolio of sponsorship, advertising sites and promotional opportunities. Whether you’re looking to promote a product, service or event - we can help your message gain wide coverage.</p>
         <p class="documentTypesParagraph">With our local knowledge we can help your marketing message gain wide coverage. Our local advertising solutions in Dorset offer options for all budget sizes. Sponsorship and advertising fees support council services, and benefit Dorset's residents and businesses.</p>
         <div class="document-types-list">
             <DocumentTypeDiscovery v-for="type in types" :documentTypeName="type.name" :documentTypeRef="type.ref" :text="type.text" v-bind:key="type.ref"></DocumentTypeDiscovery>
@@ -12,13 +12,13 @@
 
 import DocumentTypeDiscovery from './DocumentTypeDiscovery';
 export default {
-    name: 'DocumentTypeSection',  
+    name: 'DocumentTypeSection',
     components: { DocumentTypeDiscovery },
     data(){
         return {
         types:[
             {name:"Roundabout Sponsorship", ref:"roundabout-sponsorship",text:'Over 80 roundabouts in high traffic areas'},
-            {name:"Bin Lid Advertising", ref:"bin-lid-advertising", text:'Unique and highly targeted'},
+            {name:"Digital – eNewsletter Sponsorship", ref:"enewsletter-sponsorship", text:'Reach up to 27,000 subscribers with a banner advert linked directly to your website'},
             {name:"Car Parking Ticket Advertising", ref:"car-parking-ticket-advertising",text:'Directly into the hands of your audience'},
             {name:"Vehicle Advertising", ref:"vehicle-advertising",text:'Create a moving billboard'},
             {name:"Bus Shelter Posters", ref:"bus-shelter-advertising",text:'Prime seafront advertising in Weymouth'},

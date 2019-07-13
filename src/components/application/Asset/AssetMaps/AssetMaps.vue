@@ -1,16 +1,16 @@
 <template>
     <div id="mapHolder">
-       
+ <AssetMap :wide="wideMap" :locations="locations" :name="name"></AssetMap>
         <AssetStreetView v-if="streetView" :location="streetViewLocation"></AssetStreetView>
 
-        <AssetMap :locations="locations" :name="name"></AssetMap>
+
     </div>
 </template>
 
 <script>
     import AssetMap from './AssetMap'
     import AssetStreetView from './AssetStreetView'
-    
+
     export default {
         name: 'AssetMaps',
         props:{ locations: {
@@ -29,9 +29,14 @@
         computed: {
             streetViewLocation(){
                 return this.locations[0];
+            },
+            wideMap(){
+              if(this.streetView)
+              return false;
+              return true;
             }
         }
-     
+
     }
 
 </script>
@@ -42,10 +47,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        position: relative;  
+        position: relative;
         width: 100%;
+        margin-bottom:60px;
+        margin-top:30px;
     }
-    
+
     @media only screen and (min-width: 700px) {
         #mapHolder{
             flex-direction: row;
@@ -53,6 +60,6 @@
         }
     }
 
-    
+
 
 </style>

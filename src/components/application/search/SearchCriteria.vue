@@ -1,5 +1,5 @@
 <template>
-<div id="searchCriteria" :class="{'hide-search-criteria': isSearching}" >
+<div id="searchCriteria" >
         <h2 id="numberOfResultsMessage">{{numberOfResultsMessage}}</h2>
         <div id="criteriaTagContainer">
             <div v-for="documentType in documentTypes" class="criteria-tag" v-bind:key="documentType">

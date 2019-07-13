@@ -1,4 +1,4 @@
-<template> 
+<template>
  <footer id="dcFooter">
                 <div class="container">
                         <div class="footer-items">

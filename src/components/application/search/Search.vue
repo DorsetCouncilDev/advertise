@@ -69,18 +69,18 @@
                 this.showSearchForm = !this.showSearchForm
             }
     },
-        async beforeMount(){
+        beforeMount(){
             if(this.$route.query.postcode){
-                await this.$store.dispatch("setLocationSearchOnly");
-                    await this.search();
+                this.$store.dispatch("setLocationSearchOnly");
+                     this.search();
                 this.setFinishedSearching();
             }
             else{
               this.$store.commit("SET_NO_ADDRESS",false);
             }
             if(this.$route.query.documentType != null){
-               await this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
-                await this.search();
+               this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
+                 this.search();
                 this.setFinishedSearching();
             }
              if(this.$route.query.view)

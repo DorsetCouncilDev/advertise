@@ -28,7 +28,20 @@
             }
         },
         methods: {
+          getPrice(priceProperty){
+                if(priceProperty && priceProperty.value){
+                  var price = Number(priceProperty.value);
 
+                if(isNaN(price)){
+                  return "POA";
+                }
+                price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 0 });
+                price = "£ " + price;
+console.log("returning price: " + price)
+                return price;
+            }
+            return "POA";
+            },
             // loop through locations adding marker for each
             setMarkers: function() {
                 for (var i = 0; i < this.markers.length; i++) {
@@ -39,16 +52,13 @@
                 if (this.documents != null && this.documents.length > 0) {
                     this.documents.forEach((document) => {
                         if (document.locations != null && document.locations.length > 0) {
-                            var price = "";
-                            if(document.properties.Price){
-                                var price = document.properties.Price.value;
-                                if (price != null) 
-                                    price = parseInt(price, 10);
-                                else
-                                    price = "";
-                            } 
 
-                            var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">£' + this.getPrice(price) + '</p>' +
+
+                                var price = this.getPrice(document.properties.Price);
+                                            console.log("PRICE: " + price)
+
+
+                            var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">' + price + '</p>' +
                                 '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="/advertise/' + document.reference + '">View this opportunity</a></p>';
                             this.addMarker(document, infoContent)
                         }
@@ -58,21 +68,7 @@
                 }
 
             },
-            getPrice: function(value) {
-                // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
 
-                if (value == null) {
-                    return 'P.O.A'
-                }
-
-                if (isNaN(value))
-                    return 'P.O.A'
-                else {
-                    var decimals = 1;
-                    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-                    return value;
-                }
-            },
             // Sets the map on all markers in the array.
             setMapOnAll: function(map) {
                 for (var i = 0; i < this.markers.length; i++) {
@@ -87,7 +83,7 @@
                     scaledSize: new google.maps.Size(45, 55),
                     alt: ""
                 }
-              
+
                 var location = document.locations[0];
                 var position = new google.maps.LatLng(location.latitude, location.longitude);
                 var marker = new google.maps.Marker({

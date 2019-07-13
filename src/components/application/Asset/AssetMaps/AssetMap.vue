@@ -1,6 +1,6 @@
 <template>
-  
-        <div id="map">
+
+        <div :class="{'wide-map': wide}" id="map">
 
         </div>
 
@@ -9,26 +9,29 @@
 <script>
     import AssetMap from './AssetMap'
     import AssetStreetView from './AssetStreetView'
-    
+
     export default {
         name: 'AssetMap',
         data(){
-            return { 
+            return {
                 map:{}
             }
         },
         props: {
                 locations:{
                     type: Array
-             
+
                 },
             name: {
                 type:String
+            },
+            wide:{
+              type:Boolean
             }
-        
+
         },
         mounted: function() {
-            
+
             const element = document.getElementById('map');
             const options = {
                 zoom: 15,
@@ -37,11 +40,11 @@
                 streetViewControl: true
             };
 
-            
-            
+
+
           this.map = new google.maps.Map(element, options);
 
-            
+
           this.locations.forEach((location) => {
                 var position = new google.maps.LatLng(location.latitude, location.longitude);
                 var infoContent = '' + this.name;
@@ -54,8 +57,8 @@
                 });
                 marker.addListener('click', function() {
                     infowindow.open(this.map, marker);
-                });  
-            })         
+                });
+            })
         }
     }
 
@@ -63,17 +66,21 @@
 
 
 <style scoped lang="scss">
-   
+
 
   #map {
        width: 90%;
         height: 50vh;
+        margin-bottom:30px;
     }
-    
+
     @media only screen and (min-width: 700px) {
         #map{
             width:45%;
-        }   
+            &.wide-map{
+              width:85%;
+            }
+        }
     }
 
 </style>

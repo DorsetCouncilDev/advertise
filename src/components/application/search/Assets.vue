@@ -27,7 +27,7 @@
                                     <p class="asset-long-text mb-1">{{document.longText}}</p>
                                     <p class="availability-text mb-1" v-if="getAvailability(document.properties) != null">{{getAvailability(document.properties)}}</p>
                                 </div>
-                                <div class="price-tag" v-if="document.properties && document.properties.Price">&pound;  {{getPrice(document.properties.Price.value)}}</div>
+                                <div class="price-tag" v-if="document.properties">{{ getPrice(document.properties.Price) }}</div>
                             </div>
                             <div class="info-row mt-2 mb-2">
 
@@ -85,17 +85,21 @@
                 })
                 return colour;
             },
-            getPrice(value){
-                if(value != null && value != ""){
-                    var price = Number(value);
-                    if(isNaN(price))
-                        return "POA";
-                       price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', {
-                    minimumFractionDigits: 0
-                    });
-                    return price;
-                }
-                return "POA"
+            getPrice(priceProperty){
+                if(priceProperty && priceProperty.value){
+
+                var price = Number(priceProperty.value);
+
+                if(isNaN(price))
+                  return "POA";
+                price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 0 });
+                price = "£ " + price;
+                if(priceProperty.label)
+                  price = priceProperty.label + " " + price;
+
+                return price;
+            }
+            return "POA";
             },
             search(){
                 this.$emit('onSearch')
@@ -224,7 +228,7 @@ text-transform: uppercase;
     }
     .greyed-search-area {
         background: grey;
-        opacity: .5;
+        //opacity: .5;
     }
 
     #searchResultsContainer {
@@ -371,7 +375,7 @@ text-transform: uppercase;
             flex-wrap: wrap;
             justify-content: center;
             .result-card {
-                width: 60%;
+                width: 90%;
             }
         }
         .grid-view {

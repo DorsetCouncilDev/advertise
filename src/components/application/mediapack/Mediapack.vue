@@ -14,7 +14,7 @@
              <label for="name"><span class="form-label-bold">Name</span><span v-if="errors.name != null && errors.name != '' " class="form-error-message">{{errors.name}}</span></label>
             <input class="form-control form-bold-border" id="name" name="name" type="text" required v-model="name">
         </div>
-            <div class="form-group">
+        <div class="form-group">
             <label for="email"><span class="form-label-bold">Email</span><span v-if="errors.email != null && errors.email != '' " class="form-error-message">{{errors.email}}</span></label>
             <input class="form-control form-bold-border" id="email" name="email" type="email" v-model="email" required>
         </div>
@@ -112,6 +112,7 @@
                     this.$recaptcha('login').then((token) => {
                         emailService.sending(text,token).then((resp) => {
                             this.formSent = true;
+                            window.scrollTo(0, 0);
                         }).catch((err) => {
                             this.formError = true;
                             this.$refs.recaptcha.reset();

@@ -5,19 +5,18 @@
  <div v-show="loadingDocument">
     <h1>Loading asset</h1>
 </div>
-
-     <div>
         <div class="document-header">
-            <div class="icon-holder">
-                <img  :src="getIcon(document.documentType.reference)" alt="">
-            </div>   
-            <div class="document-headings">
+          <div class="d-flex flex-column justify-content-center">
                 <h1 id="assetTitleText">{{document.name}}</h1>
-                <h2 id="assetLongText">{{document.documentType.name}} - {{document.longText}}</h2>
-            </div>
-        </div>
-        <h3 id="assetPrice">&pound; {{assetPrice}}</h3>
-       
+</div>
+                <img :src="getIcon(document.documentType.reference)" alt="">
+
+              </div>
+             <h2 id="assetLongText">{{document.documentType.name}} - {{document.longText}}</h2>
+
+        <h3 id="assetPrice">{{assetPrice}}</h3>
+        <p>{{assetPriceHelpText}}</p>
+
        <hr>
    <router-link class="btn btn-primary"  v-if="!documentAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=waiting' }">Add to waiting list</router-link>
    <router-link class="btn btn-success"  v-if="documentAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=book' }">Check availablity &amp; book</router-link>
@@ -28,19 +27,19 @@
                     <span class="generalPropertyValue">{{getPropertyValue(p)}}</span>
                 </div>
         </section>
- 
-        <hr>
-        <div v-if="document.locations != null && document.locations.length > 0">
+
+
+        <section id="locationSection" v-if="document.locations != null && document.locations.length > 0">
             <h3>Location</h3>
             <AssetMaps :locations="document.locations" :streetView="streetViewRequired" :name="document.name"></AssetMaps>
-        </div>
-        <div class="description-text" v-if="description != ''"><hr><p>{{description}}</p><hr></div>
-       
+        </section>
+        <div class="description-text" v-if="description != ''"><p>{{description}}</p></div>
+
         <p class="assetParagraph">Contact our marketing team</p>
         <p class="assetParagraph"><a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a> </p>
         <p class="assetParagraph"><a href="tel:+441305224125">01305 224125</a></p>
-        <p class="assetParagraph">quoting reference <strong>{{documentRef}}</strong></p> 
-    </div>
+        <p class="assetParagraph">quoting reference <strong>{{documentRef}}</strong></p>
+
     </div>
 </template>
 
@@ -75,12 +74,12 @@
             AssetMaps
         },
         methods: {
-          
-          getDocument:    async function() {
-                await DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
+
+          getDocument: async function() {
+               await DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
-                    this.pageMetaDescription = this.metaDescription; 
-                    this.pageMetaTitle =  this.metaTitle; 
+                    this.pageMetaDescription = this.metaDescription;
+                    this.pageMetaTitle =  this.metaTitle;
                     this.loadingDocument = false;
                 })
             },
@@ -88,22 +87,22 @@
 
                 if( this.document.properties){
                     var propertyObject =  this.document.properties[key]
-                
+
                 if (propertyObject.value !== "undefined")
                     return propertyObject.value;
-                else if (propertyObject.values !== "undefined") 
+                else if (propertyObject.values !== "undefined")
                     return propertyObject.values;
                  }
                 return null;
             },
-            propertyKeys(){ 
+            propertyKeys(){
                 if( this.document.properties)
                     return Object.keys(this.document.properties);
                 return [];
 
             },
 
-        
+
             getIcon(documentType){
                 if(documentType == "")
                     return null;
@@ -111,7 +110,10 @@
             }
         },
         computed: {
-
+assetPriceHelpText: function(){
+  if(this.document.properties && this.document.properties.Price && this.document.properties.Price.helpText)
+  return this.document.properties.Price.helpText;
+},
              isDocumentLoaded: function() {
                 if(document != null)
                     return true;
@@ -122,7 +124,7 @@
                 return this.document.properties.Available.value;
             return false;
        },
-        
+
         description: function(){
             if(this.isDocumentLoaded && this.document.properties && this.document.properties.Description)
                 return this.document.properties.Description.value;
@@ -139,39 +141,30 @@
             return false;
         },
         assetPrice() {
-            if(this.isDocumentLoaded){
-            var price = "POA";
-            var priceAsNumber;
             if(this.document.properties && this.document.properties.Price){
-                priceAsNumber = Number(this.document.properties.Price.value);
-                if(isNaN(priceAsNumber))
-                    return price;
-                price = priceAsNumber;
+                var priceProperty = this.document.properties.Price;
+                var price = Number(priceProperty.value);
+
+                if(isNaN(price))
+                  return "Price on application";
+                price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 0 });
+                price = "£ " + price;
+                if(priceProperty.label)
+                  price = priceProperty.label + " " + price;
+
+                return price;
             }
-            return price;
+            return "Price on application";
         }
-        return "";
-        }
-       
-           
-            
+
+
+
         },
         async beforeMount() {
            await this.getDocument();
-       
+
         },
         filters: {
-            round: function(value) {
-                if (typeof Number(value) === 'number') {
-                    if (!value) {
-                        value = 0;
-                    }
-                    var decimals = 0;
-                    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-                }
-                return 'P.O.'
-
-            },
             readBoolean: function(value) {
                 if (value == 'true')
                     return 'Yes'
@@ -190,17 +183,26 @@
 </script>
 
 <style scoped lang="scss">
+
+#locationSection{
+  margin-bottom:60px;
+  margin-top:60px;
+}
 #propertiesSection{
     display: flex;
 
+ .property-section{
+    margin-top:30px;
+       background: #f7f7f7;
+    padding:5px 15px;
+    border-left:grey 5px solid;
+}
 }
 
 #docRefBreadCrumb{
       text-overflow: ellipsis;
 }
-#assetLongText {
-    font-weight:400;
-}
+
     .ad-breadcrumb{
    width:100%;
         white-space: nowrap;
@@ -208,20 +210,17 @@
   text-overflow: ellipsis;
     }
 
-    
+
     .description-text{
-        margin:15px 0;
+        margin:60px 0;
     }
-    #assetTitleText {
-        font-size: 24px;
-        margin-bottom: 15px;
-         text-align: left;
-  
-    }
+
 
     #assetLongText {
         font-size: 19px;
         text-align: left;
+         font-weight:400;
+         margin-bottom:20px;
     }
 
     .assetParagraph {
@@ -233,19 +232,23 @@
     .document-header {
         display: flex;
         width: 100%;
-        flex-direction: row-reverse;
         justify-content: space-between;
-        .icon-holder {
-            height: 100px;
-            margin-right: 20px;
-            width: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            img {
-                width: 75px;
-            }
+        margin-bottom:5px;
+
+        #assetTitleText {
+          font-size: 19px;
+          margin-bottom: 15px;
+          text-align: left;
+          margin-bottom:0;
         }
+
+
+            img {
+              display:inline-block;
+         vertical-align:top;
+         width:50px;
+            }
+
     }
 
     .available-tag {
@@ -253,17 +256,34 @@
         #assetParagraph {
             margin-bottom: 2px;
         }
-       
+
     }
 
-    @media only screen and (min-width: 700px) {
+     @media only screen and (min-width: 400px) {
 
         .document-header {
-            .icon-holder {
-                width: 100px;
-                height: 100px;
+            #assetTitleText {
+              font-size: 24px;
             }
+            img {
+              width:75px;
+            }
+          }
         }
+
+  @media only screen and (min-width: 500px) {
+
+        .document-header {
+            #assetTitleText {
+              font-size: 28px;
+            }
+            img {
+              width:100px;
+            }
+          }
+        }
+    @media only screen and (min-width: 700px) {
+
         #assetTitleText {
             font-size: 1.8rem;
             margin-bottom: 5px;
@@ -285,20 +305,20 @@
         .contact {
             float: right;
         }
-      
+
     }
   @media only screen and (min-width: 805px) {
              #assetTitleText {
                 font-size: 32px;
             }
         }
-    
+
      @media only screen and (min-width: 420px) {
       .ad-breadcrumb{
         width:auto;
         white-space: nowrap;
   overflow: hidden;
- 
+
     }
     }
 .generalPropertyName{
@@ -310,13 +330,7 @@
     color: #3f3f3f;
 }
 
-.property-section{
-    margin-top:30px;
-    padding-left:15px;
-    border-left:5px solid darkgrey;
-    padding:5px 15px;
-    background:#f7f7f7;
-}
+
 
 #assetPrice{
     font-size:22px;

@@ -8,7 +8,6 @@ export const mutations = {
 
     // Search options form
     SET_DOCUMENT_TYPES(state,payload){
-      console.log("SET_DOCUMENT_TYPES ")
         state.documentTypes = payload;
     },
     SET_AVAILABLE(state,payload){

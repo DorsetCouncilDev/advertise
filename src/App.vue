@@ -29,7 +29,6 @@
 setIndex();
 
 async function setIndex(){
-  console.log("set index")
 await store.dispatch("setIndex");
 }
 
