@@ -1,6 +1,7 @@
 <template>
 <section id="menu"  v-bind:class="{'show-search-form': showSearchForm}">
     <div id="fadedBackgroundBlock" @click="closeMenu" ></div>
+    <div  v-bind:class="{'disabled-form': isSearching}"></div>
     <div id="searchOptionsContainer">
          <div id="closeBtnHolder" v-show="showSearchForm" >
              <div>Search options</div>
@@ -19,7 +20,7 @@
             </div>
             <label id="postcodeLabel" class="search-option-title"  for="postcode">Full postcode search</label>
             <div class="form-group">
-                <div class="input-group" :class="{'error-postcode' : noAddressesFound}">
+                <div class="input-group" :class="{'error-postcode' : isPostcodeError}">
                     <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode">
                     <div class="input-group-append">
                         <button class="btn btn-success" type="button" id="button-addon2" v-on:click.prevent="$emit('onSearch')">Search</button>
@@ -28,11 +29,20 @@
             </div>
             <div id="typesSelectionGroup">
                 <legend class="form-legend search-option-title">Types of opportunities</legend>
+                      <div class="type-options" >
+                        <div class="form-group" style="margin-bottom:0">
+                            <div class="multiple-choice">
+                                <input type="checkbox" class="form-control" id="allTypes"  v-model="allDocumentTypesSelected">
+                                <label for="allTypes"  class="mutliple-choice-label multiple-choice-small">All</label>
+                            </div>
+                        </div>
+                        <div class="type-icon"></div>
+                    </div>
                 <div v-for="type in documentTypes" v-bind:key="type.reference">
                     <div class="type-options" >
                         <div class="form-group" style="margin-bottom:0">
                             <div class="multiple-choice" :title="type.name">
-                                <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected" >
+                                <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
                                 <label :for="type.reference"  class="mutliple-choice-label multiple-choice-small">{{type.name}} </label>
                             </div>
                         </div>
@@ -69,24 +79,38 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
+            toggleAllSelected(){
+              console.log(this.allSelectedCheckBoxValue)
+            }
         },
         watch: {
             documentTypes: {
                 handler:  async function() {
-                   // this.$store.dispatch("setDocumentTypesParameters");
                     this.$emit("onSearch");
                 },
                 deep: true
             }
+
+
         },
         computed: {
+          allDocumentTypesSelected:{
+                get:function(){
+                    return this.$store.state.allDocumentTypesSelected;
+                },
+                set:function(value){
+                    this.$store.dispatch("setAllSelectedCheckbox",value);
+                }
+          },
             documentTypes: {
                 get: function() {
+
                     return this.$store.state.documentTypes;
                 },
                 set: function(value) {
-                    this.$store.commit("SET_DOUCMENT_TYPES",value)
+                    this.$store.commit("SET_DOCUMENT_TYPES",value)
                      this.$emit("onSearch");
+
                 }
             },
             available: {
@@ -108,8 +132,11 @@
                     this.$store.commit("SET_POSTCODE",value);
                 }
             },
-            noAddressesFound() {
+            isPostcodeError() {
               return this.$store.state.noAddressesFound;
+            },
+            isSearching(){
+                return this.$store.state.isSearching;
             }
         }
     }
@@ -118,6 +145,18 @@
 
 
 <style scoped lang="scss">
+
+.disabled-form{
+  width:100%;
+  height:100%;
+  background:#f5f5f5;
+  opacity:.6;
+  position:absolute;
+  left: 0;
+  top:0;
+  z-index: 4;
+}
+
 .error-postcode{
   border:solid 2px darkred;
 }

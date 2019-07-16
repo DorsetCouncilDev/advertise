@@ -1,9 +1,9 @@
 <template>
-
+<div class="map-container" :class="{'wide-map': wide}">
         <div :class="{'wide-map': wide}" id="map">
 
         </div>
-
+</div>
 </template>
 
 <script>
@@ -67,20 +67,43 @@
 
 <style scoped lang="scss">
 
-
+.map-container{
+  display:flex;
+  justify-content: center;
+     width: 150px;
+        height: 150px;
+}
   #map {
-       width: 90%;
-        height: 50vh;
+      width:100%;
+            height: 100%;
         margin-bottom:30px;
     }
 
     @media only screen and (min-width: 700px) {
-        #map{
-            width:45%;
-            &.wide-map{
-              width:85%;
+
+        .map-container{
+  display:block;
+  width:275px; height:275px;
+  &.wide-map{
+              width:600px;
+              height:600px
             }
-        }
+}
+    }
+  @media only screen and (min-width: 700px) {
+    .map-container{
+      margin-right:30px;
+    }
+  }
+
+  @media only screen and (min-width: 900px) {
+    .map-container{
+      display:block;
+      width:420px; height:420px;
+      &.wide-map{
+              width:600px;
+            }
+}
     }
 
 </style>

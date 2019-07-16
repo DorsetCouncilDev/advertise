@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group">
                     <label for="message"><span class="form-label-bold">Message</span><span v-if="errors.message != null && errors.message != '' " class="form-error-message">{{errors.message}}</span></label>
-                    <textarea rows="12" class="form-control form-bold-border" id="message" v-model="message" required></textarea>
+                    <textarea rows="6" class="form-control form-bold-border" id="message" v-model="message" required></textarea>
                 </div>
                 <hr>
                 <div class="form-group">

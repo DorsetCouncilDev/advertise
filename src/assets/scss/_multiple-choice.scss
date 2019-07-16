@@ -114,7 +114,7 @@ $gutter-one-third: 5px;
   input:checked + label::after {
     opacity: 1;
   }
-    
+
 
 
   // Disabled state
@@ -130,14 +130,14 @@ $gutter-one-third: 5px;
   &:last-child,
   &:last-of-type {
     margin-bottom: 0;
-  } 
+  }
     label.multiple-choice-small{
-        padding: 0 5px 1px 2px;
+        padding: 2px 5px 1px 2px;
         margin-bottom: 1px;
             margin-top: 10px;
-            font-size:19px; 
+            font-size:16px;
             line-height:1.2;
-            
+
     }
     [type=radio] + label.multiple-choice-small:before {
         width: 24px;
@@ -175,6 +175,6 @@ $gutter-one-third: 5px;
   }
     */
 }
-    
- 
+
+
 

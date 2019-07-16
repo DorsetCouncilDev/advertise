@@ -11,5 +11,7 @@ export const state = {
     isLocationSearched: false,
     sort:"bestmatch",
     view: "list",
-    noAddressesFound: false
+    noAddressesFound: false,
+    isSearching:false,
+    allDocumentTypesSelected:true
 }

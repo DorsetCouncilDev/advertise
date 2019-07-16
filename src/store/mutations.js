@@ -69,5 +69,11 @@ export const mutations = {
     },
     SET_NO_ADDRESS(state,payload){
         state.noAddressesFound = payload;
+    },
+    SET_IS_SEARCHING(state,payload){
+      state.isSearching = payload;
+    },
+    SET_ALL_DOCUMENT_TYPES_SELECTED(state,payload){
+      state.allDocumentTypesSelected = payload
     }
 }

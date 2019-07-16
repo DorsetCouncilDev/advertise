@@ -1,9 +1,9 @@
 <template>
 <div>
 <div class="row">
-    <section class="col-md-7 col-lg-5" id="homeLocationSearch">
+    <section class="col-sm-6 col-lg-5" id="homeLocationSearch">
         <form v-on:submit.prevent="postcodesearch">
-            <div class="form-group" aria-labelledBy="search">
+            <div class="form-group" id="postcodeSearchFormGroup" aria-labelledBy="search">
                 <h2 class="home-action-label mb-2" id="search">Advertising location finder</h2>
                 <label class="invisible" for="postcode" id="postcodeLabel">Postcode</label>
 
@@ -17,9 +17,9 @@
             </div>
         </form>
     </section>
-    <section class="col-md-7 col-lg-5 offset-lg-1" id="browseLinkBlock">
+    <section class="col-sm-6 col-lg-5 offset-lg-1" id="browseLinkBlock">
         <h2 class="home-action-label mb-2">Choose your advertising space</h2>
-        <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search/'}">Start browsing</router-link>
+        <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search?new=true'}">Start browsing</router-link>
     </section>
 </div>
 
@@ -70,6 +70,9 @@ console.log("valid postcode: " + validPostcode)
 
 <style scoped lang="scss">
 
+
+
+
 .postcode-input-group-error{
   border:darkred solid 2px;
 }
@@ -94,15 +97,9 @@ console.log("valid postcode: " + validPostcode)
         margin-bottom: 10px;
     }
 
-    #browseLinkBlock {
-        margin-bottom: 20px;
 
 
-    }
 
-#homeLocationSearch{
-  margin-bottom:20px;
-}
 
   @media only screen and (min-width: 400px) {
         .home-action-label {
@@ -123,6 +120,8 @@ console.log("valid postcode: " + validPostcode)
             font-size:24px;
         }
 
+
+
     }
     #postcodeLabel{
         position:absolute;
@@ -134,4 +133,7 @@ console.log("valid postcode: " + validPostcode)
       margin-bottom:0;
   }
  }
+
+
+
 </style>

@@ -5,8 +5,8 @@
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions :showSearchForm="showSearchForm"  @onChangeShowSearchForm="changeShowSearchForm" @onStartingSearch="setSearchingMessage" @onfinishedSearching="setFinishedSearching" @onSearch="search"  ></SearchOptions>
-        <Assets  :searchMessage="searchMessage" :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onSearch="search"></Assets>
+        <SearchOptions :showSearchForm="showSearchForm"  @onChangeShowSearchForm="changeShowSearchForm"  @onSearch="search"  ></SearchOptions>
+        <Assets :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onSearch="search"></Assets>
     </div>
 </div>
 </template>
@@ -31,7 +31,6 @@
                 documents: [],
                 showSearchForm: false,
                 indexRef: "advertise",
-                searchMessage: "",
                 test:""
             }
         },
@@ -55,35 +54,34 @@
         },
         methods: {
             async search() {
-                this.setSearchingMessage();
                 await this.$store.dispatch("search");
-                this.setFinishedSearching();
             },
-            setSearchingMessage:function(){
-                this.searchMessage = "Searching opportunities"
-            },
-            setFinishedSearching:function(){
-                this.searchMessage = "Finished searching";
-            },
+
             changeShowSearchForm: function() {
                 this.showSearchForm = !this.showSearchForm
             }
     },
         beforeMount(){
+            if(this.$route.query.new){
+                this.$store.dispatch("removeAllAdvertiseSearchParams");
+                this.$store.dispatch("selectAllDocumentTypes",true);
+                this.$store.commit("SET_POSTCODE","");
+                  this.$store.commit("SET_AVAILABLE",false);
+                this.search();
+            }
+            else if(this.$route.query.documentType != null){
+               this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
+                 this.search();
+            }
             if(this.$route.query.postcode){
                 this.$store.dispatch("setLocationSearchOnly");
                      this.search();
-                this.setFinishedSearching();
             }
             else{
               this.$store.commit("SET_NO_ADDRESS",false);
             }
-            if(this.$route.query.documentType != null){
-               this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
-                 this.search();
-                this.setFinishedSearching();
-            }
-             if(this.$route.query.view)
+
+            if(this.$route.query.view)
                 this.$store.commit("SET_VIEW",this.$route.query.view);
         }
     }

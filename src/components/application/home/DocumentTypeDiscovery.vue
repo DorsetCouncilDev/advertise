@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  
+
     export default {
         name: 'DocumentTypeDiscovery',
         props: [ 'documentTypeName','documentTypeRef','text'],
@@ -30,7 +30,7 @@
 </script>
 
 <style scoped lang="scss">
-    
+
     .document-type-square{
         width:46%;
         margin-right:5px;
@@ -69,7 +69,7 @@
     }
     .type-text{
         font-size:14px;
-        font-style: italic; 
+        font-style: italic;
         text-align:center;
         color: black;
     }
@@ -81,7 +81,7 @@
 
         .type-text{
             font-size:19px;
-            font-style: italic; 
+            font-style: italic;
             text-align:center;
         }
     }
@@ -107,11 +107,17 @@
         }
         .type-text{
             font-size:19px;
-            font-style: italic; 
+            font-style: italic;
             text-align:center;
         }
     }
     @media only screen and (min-width: 800px) {
+        .document-type-square{
+            width:45%;
+        }
+    }
+
+      @media only screen and (min-width: 1000px) {
         .document-type-square{
             width:30%;
         }

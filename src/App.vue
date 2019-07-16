@@ -4,9 +4,9 @@
 
         <div class="container">
         <AdHeader></AdHeader>
-       <transition name="component-fade" mode="out-in">
+
              <router-view></router-view>
-    </transition>
+
         </div>
        <AdFooter>
     </AdFooter>

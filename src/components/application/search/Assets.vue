@@ -1,7 +1,7 @@
 <template>
 <div id="searchResultsContainer" >
     <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
-    <SearchCriteria  :numberOfResults="numberOfResults" :searchMessage="searchMessage" @onSearch="search"></SearchCriteria>
+    <SearchCriteria  @onSearch="search"></SearchCriteria>
 
     <div v-show="isSearching">
         <h2 id="searchingMessage">{{searchMessage}}</h2>
@@ -13,6 +13,8 @@
     <div v-show="showResults">
         <Map v-show="view == 'map'" :documents="documents" :class="{'loading-map-assets' : isSearching}"></Map>
         <div class="result-cards" v-bind:class="{'grid-view':showGridView}" v-show="showListOrGridView">
+
+
             <div class="result-card" v-for="document in documents" v-bind:key="document.reference">
                 <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
                     <div class="card-heading">
@@ -23,7 +25,7 @@
                     <div class="card-main">
                         <div class="asset-detail">
                             <div class="top-row">
-                                <div>
+                                <div class="asset-text">
                                     <p class="asset-long-text mb-1">{{document.longText}}</p>
                                     <p class="availability-text mb-1" v-if="getAvailability(document.properties) != null">{{getAvailability(document.properties)}}</p>
                                 </div>
@@ -52,6 +54,11 @@
 
     export default {
         name: 'Assets',
+        data(){
+            return {
+              searchMessage: "Searching opportunities"
+            }
+        },
         components: {
             Map,
             Toolbar,
@@ -60,10 +67,6 @@
         props: {
             showSearchForm: {
                 type: Boolean,
-                required: true
-            },
-            searchMessage:{
-                type:String,
                 required: true
             }
         },
@@ -108,7 +111,8 @@
                 if(properties.Availability != null)
                     return properties.Availability.value
                 return null;
-            }
+            },
+
         },
         computed: {
             documents(){
@@ -124,7 +128,7 @@
                    return this.documents.length
             },
             isSearching(){
-                return this.searchMessage == 'Searching opportunities';
+                return this.$store.state.isSearching;
             },
             showResults(){
                 return this.numberOfResults > 0 && !this.isSearching;
@@ -134,7 +138,13 @@
             },
             showGridView(){
                 return this.view == 'grid';
+            },
+            noResultsFound(){
+              if(!this.isSearching && this.numberOfResults == 0)
+                return true;
+              return false;
             }
+
         },
         filters: {
             roundMilesFromCoordinate: function(value) {
@@ -175,6 +185,7 @@ $desktop-font-size:19px;
       .5em 0 0 #545454;
     }
 }
+
 #searchingMessage{
     color:#545454;
     text-align:center;
@@ -188,8 +199,17 @@ $desktop-font-size:19px;
 .asset-long-text::first-letter, .availability-text::first-letter{
 text-transform: uppercase;
 }
+.asset-long-text, .availability-text{
+  font-size:16px;
+}
+
 .top-row{
-    display:flex;
+  display:-webkit-flexbox;
+  display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
     justify-content: space-between;
     align-items:flex-start;
     .price-tag{
@@ -204,10 +224,12 @@ text-transform: uppercase;
 }
 
 .asset-detail{
+   display:-webkit-flexbox;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
     font-size:$mobile-font-size;
+    flex-shrink: 0;
 }
 
 .card-link{
@@ -255,8 +277,10 @@ text-transform: uppercase;
                     opacity:.6;
                 }
                 .info-row{
+                   display:-webkit-flexbox;
                     position: relative;
                     display: flex;
+                    flex-shrink: 0;
                     justify-content: space-between;
 
                 .distance-tag{
@@ -285,7 +309,11 @@ text-transform: uppercase;
                     padding-bottom: 5px;
                     border-bottom: 1px #E9E9E9 solid;
                     .heading {
-                        display: flex;
+                        display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
                         flex-direction: column;
                         justify-content: center;
                         font-size: 19px;
@@ -314,10 +342,14 @@ text-transform: uppercase;
                     padding-top: 5px;
                     padding-left: 10px;
                     padding-right: 10px;
-                    display: flex;
+                    display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
                     flex-direction: column;
                     justify-content: space-between;
-                    height:100%;
+
                     .price {
                         text-align: right;
                     }
@@ -346,16 +378,14 @@ text-transform: uppercase;
     text-decoration: underline;
 
 }
-.loading-map-assets{
-    opacity: .5;
-}
+
 
 
 
 
 @media only screen and (min-width: 767px) {
     .docTypeLabel {
-        font-size: $desktop-font-size;
+        font-size: 16px;
         color: #2A2A2A;
         font-weight:400;
     }
@@ -363,15 +393,24 @@ text-transform: uppercase;
         justify-content: flex-end;
     }
     .asset-detail{
-        display: flex;
+        display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
         justify-content: flex-start;
         flex-direction: column;
         font-size:$desktop-font-size;
+        flex-shrink: 0;
     }
     #searchResultsContainer {
         .result-cards {
             margin-top: 10px;
-            display: flex;
+            display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
             flex-wrap: wrap;
             justify-content: center;
             .result-card {
@@ -379,7 +418,11 @@ text-transform: uppercase;
             }
         }
         .grid-view {
-            display: flex;
+            display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             .result-card {

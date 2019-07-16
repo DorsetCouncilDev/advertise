@@ -11,7 +11,6 @@ export default{
                     locationSearchParameters = this.createLocationSearchParameter(address);
                 }
                 else {
-                    console.log("no addresses found GAZZ SERVICE")
                     locationSearchParameters  = { "noAddress":true }
                     return locationSearchParameters;
                 }

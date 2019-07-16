@@ -2,6 +2,7 @@ import Sorting from './utils/sorting.js'
 import GazetteerService from './../services/GazetteerService'
 import AdvertiseService from './../services/AdvertiseService'
 
+
 export const actions = {
 
     async setIndex(context,payload){
@@ -16,10 +17,10 @@ export const actions = {
             // EMIT ERROR
         })
     },
-    selectAllDocumentTypes(context){
+    selectAllDocumentTypes(context,param){
           const documentTypes = context.state.index.documentTypes;
           documentTypes.forEach((type)=>{
-            type.selected = true;
+            type.selected = param;
         })
         context.commit("SET_DOCUMENT_TYPES",documentTypes);
 
@@ -72,19 +73,32 @@ export const actions = {
 
     async search(context){
 
+        var allSelected = true;
+
+        var types = context.state.documentTypes;
+        types.forEach((type)=>{
+            if(!type.selected)
+              allSelected = false;
+        })
+
+        context.commit("SET_ALL_DOCUMENT_TYPES_SELECTED",allSelected);
+
+        context.commit("SET_IS_SEARCHING",true)
         context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
         await context.dispatch("setLocationSearchParameter");
         await context.dispatch("setAvailableSearchParameter");
         await context.dispatch("setDocumentTypesSearchParameter");
 
-        await AdvertiseService.search(context.state.searchParameters).then((response)=>{
+        AdvertiseService.search(context.state.searchParameters).then((response)=>{
             var documents = response.data;
 
             context.commit("SET_SEARCH_RESULTS",documents);
 
             context.dispatch("sortSearchResults")
+            context.commit("SET_IS_SEARCHING",false)
         }).catch((err)=>{
             console.log(err);
+            context.commit("SET_IS_SEARCHING",false)
         })
     },
 
@@ -119,15 +133,15 @@ export const actions = {
         await context.commit("SET_SORT","nearest");
         await context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
         await context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
-        await context.dispatch("selectAllDocumentTypes");
+        await context.dispatch("selectAllDocumentTypes",true);
         await context.commit("SET_AVAILABLE",false);
 
     },
 
     async setSingleDocumentTypeOnlySearch(context,param){
-        context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
-        context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
-        context.commit("SET_AVAILABLE",false);
+        await context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
+        await context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
+        await context.commit("SET_AVAILABLE",false);
         context.commit("SET_POSTCODE","");
         var documentTypes = context.state.documentTypes;
         if(documentTypes == null){
@@ -142,5 +156,9 @@ export const actions = {
         })
 
         await context.commit("SET_DOCUMENT_TYPES",documentTypes);
+    },
+    setAllSelectedCheckbox(context,param){
+        context.dispatch("selectAllDocumentTypes",param);
+        context.commit("SET_ALL_DOCUMENT_TYPES_SELECTED",param);
     }
 }

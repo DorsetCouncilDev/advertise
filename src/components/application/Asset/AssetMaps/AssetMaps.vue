@@ -56,7 +56,7 @@
     @media only screen and (min-width: 700px) {
         #mapHolder{
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: start;
         }
     }
 

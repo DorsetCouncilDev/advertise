@@ -14,7 +14,7 @@
     </div>
     <nav role="navigation" id="menuLinks">
         <ul id="menuList">
-            <li id="searchMenuItem"><router-link to="/advertise/search" :class="{selected:isSearchPage()}"><span id="searchDesktopLabel">Advertising </span>opportunities</router-link></li>
+            <li id="searchMenuItem"><router-link to="/advertise/search?new=true" :class="{selected:isSearchPage()}"><span id="searchDesktopLabel">Advertising </span>opportunities</router-link></li>
             <li><router-link to="/advertise/contact" :class="{selected:isContactPage()}">Contact us</router-link></li>
             <li><router-link to="/advertise/mediapack" :class="{selected:isMediapackPage()}">Media pack</router-link></li>
             <li><router-link to="/advertise/faq" :class="{selected:isFAQPage()}">FAQs</router-link></li>

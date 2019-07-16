@@ -33,14 +33,14 @@
                   var price = Number(priceProperty.value);
 
                 if(isNaN(price)){
-                  return "POA";
+                  return "Price on application";
                 }
                 price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 0 });
                 price = "£ " + price;
-console.log("returning price: " + price)
+
                 return price;
             }
-            return "POA";
+            return "Price on application";
             },
             // loop through locations adding marker for each
             setMarkers: function() {
@@ -55,11 +55,11 @@ console.log("returning price: " + price)
 
 
                                 var price = this.getPrice(document.properties.Price);
-                                            console.log("PRICE: " + price)
 
 
-                            var infoContent = '<p style="font-size:16px; margin-bottom:5px">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">' + price + '</p>' +
-                                '<p><a style="font-size:14px; text-decoration: underline; margin-bottom:5px" href="/advertise/' + document.reference + '">View this opportunity</a></p>';
+
+                            var infoContent = '<p style="font-size:16px; margin-bottom:5px; font-weight:600">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">' + price + '</p>' +
+                                '<p><a class="btn btn-outline-primary" style="margin-top:10px; font-size:16px; margin-bottom:5px" href="/advertise/' + document.reference + '">View this opportunity</a></p>';
                             this.addMarker(document, infoContent)
                         }
                     })
@@ -153,7 +153,7 @@ console.log("returning price: " + price)
     #map {
         margin-top: 15px;
         width: 100%;
-        height: 60vh;
+        height: 70vh;
         box-shadow: 12px 12px 12px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
 

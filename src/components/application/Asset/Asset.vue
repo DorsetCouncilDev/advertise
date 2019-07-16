@@ -18,8 +18,8 @@
         <p>{{assetPriceHelpText}}</p>
 
        <hr>
-   <router-link class="btn btn-primary"  v-if="!documentAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=waiting' }">Add to waiting list</router-link>
-   <router-link class="btn btn-success"  v-if="documentAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=book' }">Check availablity &amp; book</router-link>
+   <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=waiting' }">Add to waiting list</router-link>
+   <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=book' }">Check availablity &amp; book</router-link>
 
         <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
                 <div class="property-section" v-if="p != 'Description' && p != 'Available'">
@@ -34,12 +34,12 @@
             <AssetMaps :locations="document.locations" :streetView="streetViewRequired" :name="document.name"></AssetMaps>
         </section>
         <div class="description-text" v-if="description != ''"><p>{{description}}</p></div>
-
+<section id="contactSection">
         <p class="assetParagraph">Contact our marketing team</p>
         <p class="assetParagraph"><a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a> </p>
         <p class="assetParagraph"><a href="tel:+441305224125">01305 224125</a></p>
         <p class="assetParagraph">quoting reference <strong>{{documentRef}}</strong></p>
-
+</section>
     </div>
 </template>
 
@@ -74,7 +74,6 @@
             AssetMaps
         },
         methods: {
-
           getDocument: async function() {
                await DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
@@ -99,10 +98,7 @@
                 if( this.document.properties)
                     return Object.keys(this.document.properties);
                 return [];
-
             },
-
-
             getIcon(documentType){
                 if(documentType == "")
                     return null;
@@ -110,52 +106,53 @@
             }
         },
         computed: {
-assetPriceHelpText: function(){
-  if(this.document.properties && this.document.properties.Price && this.document.properties.Price.helpText)
-  return this.document.properties.Price.helpText;
-},
-             isDocumentLoaded: function() {
-                if(document != null)
-                    return true;
-                return false;
-             },
-       documentAvailable(){
-            if(this.isDocumentLoaded && this.document.properties && this.document.properties.Available)
-                return this.document.properties.Available.value;
+          assetPriceHelpText: function(){
+            if(this.document.properties && this.document.properties.Price && this.document.properties.Price.helpText)
+              return this.document.properties.Price.helpText;
+          },
+          isDocumentLoaded: function() {
+            if(document != null)
+              return true;
             return false;
-       },
-
-        description: function(){
+          },
+          assetAvailable(){
+            var available = false
+            if( this.isDocumentLoaded && this.document.properties && this.document.properties.Available && this.document.properties.Available.value == "true")
+                available = true;
+            return available;
+          },
+          description: function(){
             if(this.isDocumentLoaded && this.document.properties && this.document.properties.Description)
                 return this.document.properties.Description.value;
             return "";
-        },
-        streetViewRequired() {
+          },
+          streetViewRequired() {
             var primaryLocation;
             this.document.locations.forEach((location)=>{
-                if(location.primaryLocation)
-                    primaryLocation = location;
-            })
-            if(primaryLocation.streetviewLatitude != null)
+              if(location.primaryLocation)
+                primaryLocation = location;
+              })
+              if(primaryLocation.streetviewLatitude != null)
                 return true;
-            return false;
-        },
-        assetPrice() {
+              return false;
+          },
+          assetPrice() {
             if(this.document.properties && this.document.properties.Price){
-                var priceProperty = this.document.properties.Price;
-                var price = Number(priceProperty.value);
+              var priceProperty = this.document.properties.Price;
+              var price = Number(priceProperty.value);
 
-                if(isNaN(price))
-                  return "Price on application";
-                price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 0 });
-                price = "£ " + price;
-                if(priceProperty.label)
-                  price = priceProperty.label + " " + price;
+              if(isNaN(price))
+                return "Price on application";
+              price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 0 });
+              price = "£ " + price;
 
-                return price;
+              if(priceProperty.label)
+                price = priceProperty.label + " " + price;
+
+              return price;
             }
             return "Price on application";
-        }
+          }
 
 
 
@@ -183,7 +180,6 @@ assetPriceHelpText: function(){
 </script>
 
 <style scoped lang="scss">
-
 #locationSection{
   margin-bottom:60px;
   margin-top:60px;
@@ -193,7 +189,7 @@ assetPriceHelpText: function(){
 
  .property-section{
     margin-top:30px;
-       background: #f7f7f7;
+    background: #f7f7f7;
     padding:5px 15px;
     border-left:grey 5px solid;
 }
@@ -203,20 +199,16 @@ assetPriceHelpText: function(){
       text-overflow: ellipsis;
 }
 
-    .ad-breadcrumb{
-   width:100%;
-        white-space: nowrap;
+.ad-breadcrumb{
+  width:100%;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-    }
-
-
-    .description-text{
-        margin:60px 0;
-    }
-
-
-    #assetLongText {
+}
+ .description-text{
+    margin:60px 0;
+}
+#assetLongText {
         font-size: 19px;
         text-align: left;
          font-weight:400;
@@ -241,8 +233,6 @@ assetPriceHelpText: function(){
           text-align: left;
           margin-bottom:0;
         }
-
-
             img {
               display:inline-block;
          vertical-align:top;
@@ -307,21 +297,7 @@ assetPriceHelpText: function(){
         }
 
     }
-  @media only screen and (min-width: 805px) {
-             #assetTitleText {
-                font-size: 32px;
-            }
-        }
-
-     @media only screen and (min-width: 420px) {
-      .ad-breadcrumb{
-        width:auto;
-        white-space: nowrap;
-  overflow: hidden;
-
-    }
-    }
-.generalPropertyName{
+    .generalPropertyName{
     display:block;
     font-weight:500;
 }
@@ -329,10 +305,22 @@ assetPriceHelpText: function(){
     display:block;
     color: #3f3f3f;
 }
-
-
-
 #assetPrice{
     font-size:22px;
 }
+     @media only screen and (min-width: 420px) {
+      .ad-breadcrumb{
+        width:auto;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+    @media only screen and (min-width: 805px) {
+      #assetTitleText {
+        font-size: 32px;
+      }
+    }
+
+
+
 </style>

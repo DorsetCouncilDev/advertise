@@ -27,10 +27,7 @@
         props: [
             "parameters",
             "documnetTypes",
-            "location",
-            "numberOfResults",
-            "searchMessage"
-
+            "location"
         ],
         methods: {
             removeProperty: function(propertyToRemove) {
@@ -54,11 +51,14 @@
             removeAvailableSearch(){
                 this.$store.commit("SET_AVAILABLE",false);
                 this.$emit("onSearch");
+            },
+            isSearching(){
+              return this.$store.state.isSearching;
             }
-
 
         },
         computed: {
+
              documentTypes(){
                 return this.$store.state.searchParameters.documentTypes;
             },
@@ -67,16 +67,18 @@
             },
 
             numberOfResultsMessage(){
-                if(this.numberOfResults == 1)
+
+              if(!this.isSearching())
+                var numberOfResults = this.$store.state.searchResults.length;
+                if(numberOfResults == 0)
+                  return "No opportunities found";
+                else if(numberOfResults == 1)
                     return "1 Opportunity found";
-                if(this.numberOfResults > 1)
-                    return this.numberOfResults + " Opportunities found";
+                else if(numberOfResults > 1)
+                    return numberOfResults + " Opportunities found";
             },
             postcodeSearched(){
                 return this.$store.state.searchedPostcode;
-            },
-            isSearching(){
-                return this.searchMessage == 'Searching opportunities';
             },
             isSearchedAvailable(){
                 return this.$store.state.searchAvailable;
@@ -84,6 +86,7 @@
             noAddressesFound(){
                 return this.$store.state.noAddressesFound;
             }
+
         }
     }
 
@@ -101,10 +104,8 @@
    #searchCriteria{
        background:#fafafa;
        padding:15px;
-       transition:opacity .8s;
-       &.hide-search-criteria{
-           opacity:.4;
-       }
+      // transition:opacity .8s;
+
        #numberOfResultsMessage{
            font-size:19px;
            text-align: center;
