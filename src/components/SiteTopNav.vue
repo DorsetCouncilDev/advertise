@@ -5,7 +5,11 @@
             <li><router-link :to="{path: '/advertise'}">home</router-link></li>
             <li aria-current="page" v-if="isHomePage()">home</li>
             <li aria-current="page" v-if="isSearchPage()">search</li>
-            <li v-if="isAssetPage()"><router-link :to="{ path: '/advertise/search'}">search</router-link></li>
+            <li v-if="isAssetPage() ">
+
+              <router-link v-if="backToSearchResults"  :to="{ path: 'search?backtoresults=true'}">search results</router-link>
+                <router-link v-else :to="{ path: 'search'}">search</router-link>
+            </li>
             <li aria-current="page" v-if="isAssetPage()">{{assetRef}}</li>
             <li aria-current="page" v-if="isContactPage()">contact</li>
             <li aria-current="page" v-if="isMediapackPage()">mediapack</li>
@@ -27,6 +31,11 @@
 
     export default {
                name:"SiteTopNav",
+               data(){
+                 return{
+                  pathToSearch: "advertise/search"
+                 }
+               },
           props: ["currentPage","assetRef"],
           methods:{
             isContactPage(){
@@ -47,6 +56,18 @@
             isAssetPage(){
                 return this.currentPage == "assetPage";
             }
+          },
+          computed:{
+            backToSearchResults(){
+                if(this.$route.query.fromsearch)
+                  return true;
+                  return false;
+            }
+          },
+          beforeMount(){
+            if(this.$route.query.fromsearch)
+                this.pathToSearch = "search?backtoresults=true"
+
           }
     }
 

@@ -12,7 +12,8 @@ export const actions = {
             })
             context.commit("SET_INDEX", response.data);
             context.commit("SET_DOCUMENT_TYPES",response.data.documentTypes);
-            context.dispatch("search");
+
+
         }).catch((err)=>{
             // EMIT ERROR
         })
@@ -25,6 +26,7 @@ export const actions = {
         context.commit("SET_DOCUMENT_TYPES",documentTypes);
 
     },
+    /*
     setDocumentTypesSearchParameter(context){
         var documentTypesSelected = [];
         var documentTypes = context.state.documentTypes;
@@ -80,7 +82,7 @@ export const actions = {
             if(!type.selected)
               allSelected = false;
         })
-
+        console.log("all Selected: " + allSelected)
         context.commit("SET_ALL_DOCUMENT_TYPES_SELECTED",allSelected);
 
         context.commit("SET_IS_SEARCHING",true)
@@ -111,12 +113,7 @@ export const actions = {
             context.dispatch("createAdvertiseLocationSearchParameter",address);
         })
     },
-    sortSearchResults(context,params){
-        var documents = context.state.searchResults;
-        var sortSetting = context.state.sort;
-        var sortedDocuments =  Sorting.sortAdvertiseDocuments(documents,sortSetting);
-        context.commit("SET_SEARCH_RESULTS",sortedDocuments);
-    },
+
     sortCurrentSearchResults(context,params){
         var documents = context.state.searchResults;
         var sortedDocuments = Sorting.sortAdvertiseDocuments(documents,params);
@@ -160,5 +157,33 @@ export const actions = {
     setAllSelectedCheckbox(context,param){
         context.dispatch("selectAllDocumentTypes",param);
         context.commit("SET_ALL_DOCUMENT_TYPES_SELECTED",param);
+    },
+
+    searchAdvertise(context,params){
+      AdvertiseService.search(params).then((response)=>{
+      var documents = response.data;
+
+        context.commit("SET_SEARCH_RESULTS",documents);
+
+        context.dispatch("sortSearchResults")
+        context.commit("SET_IS_SEARCHING",false)
+    }).catch((err)=>{
+        console.log(err);
+        context.commit("SET_IS_SEARCHING",false)
+    })
     }
+}*/
+
+sortSearchResults(context,params){
+  var documents = context.state.searchResults;
+  var sortedDocuments = Sorting.sortAdvertiseDocuments(documents,params);
+  context.commit("SET_SEARCH_RESULTS",sortedDocuments);
+  context.commit("SET_SORT",params);
+},
+removePostcodeSearch(context){
+    context.commit("RESET_POSTCODE_ERRORS");
+    context.commit("REMOVE_POSTCODE");
+    context.commit("REMOVE_LOCATION_PARAMETER");
+
+}
 }

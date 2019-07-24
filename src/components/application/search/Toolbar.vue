@@ -53,7 +53,7 @@
                     return this.$store.state.sort
                 },
                 set(value) {
-                    this.$store.dispatch("sortCurrentSearchResults",value);
+                    this.$store.dispatch("sortSearchResults",value);
                 }
             },
             view: {
@@ -66,7 +66,9 @@
                 }
             },
             isLocationSearch() {
-                return this.$store.state.isLocationSearched;
+                if(this.$store.state.searchParams.location && this.$store.state.searchParams.location.latitude)
+                  return true;
+                return false;
             }
 
         }

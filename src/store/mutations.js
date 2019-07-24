@@ -18,29 +18,8 @@ export const mutations = {
     },
 
 
-    // Search parameters
-    SET_DOCUMENT_TYPE_SEARCH_PARAMETERS(state,payload){
-        state.searchParameters.documentTypes = payload;
-    },
-    SET_AVAILABLE_SEARCH_PARAMETER(state){
-        state.searchParameters.properties["Available"] = "true";
-    },
-    REMOVE_AVAILABLE_SEARCH_PARAMETER(state){
-        delete state.searchParameters.properties.Available;
-    },
 
-    REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS(state){
-        state.searchParameters.documentTypes = [];
-    },
 
-    SET_LOCATION_SEARCH_PARAMETER(state,payload){
-        state.searchParameters["location"] = payload;
-    },
-    REMOVE_LOCATION_SEARCH_PARAMETER(state){
-        if(state.searchParameters.location){
-            delete state.searchParameters.location;
-        }
-    },
 
     SET_SEARCH_RESULTS(state,payload){
         state.searchResults = payload;
@@ -75,5 +54,33 @@ export const mutations = {
     },
     SET_ALL_DOCUMENT_TYPES_SELECTED(state,payload){
       state.allDocumentTypesSelected = payload
+    },
+
+
+
+    SET_SEARCH_PARAMS(state,payload){
+      state.searchParams = payload;
+    },
+
+    SET_NO_ADDRESS_FOUND(state,payload){
+      state.postcodeSearchErrors.noAddressFound = payload;
+    },
+    SET_NO_INVALID_POSTCODE(state,payload){
+      state.postcodeSearchErrors.invalidPostscode = payload;
+    },
+    REMOVE_SEARCH_PARAMETER(state){
+      delete state.searchParams.location;
+    },
+    RESET_POSTCODE_ERRORS(state){
+       state.postcodeSearchErrors.invalidPostscode = false;
+       state.postcodeSearchErrors.noAddressFound = false;
+    },
+    REMOVE_POSTCODE(state){
+      state.lastPostcodeSearched = "",
+      state.postcodeSearch = false;
+    },
+    REMOVE_LOCATION_PARAMETER(state){
+      delete state.searchParams.location;
+
     }
 }

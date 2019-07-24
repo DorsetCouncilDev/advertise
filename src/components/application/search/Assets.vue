@@ -1,7 +1,7 @@
 <template>
 <div id="searchResultsContainer" >
-    <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
-    <SearchCriteria  @onSearch="search"></SearchCriteria>
+    <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="$emit('onChangeShowSearchForm')"></Toolbar>
+    <SearchCriteria :isSearching="isSearching" @search="$emit('search')"></SearchCriteria>
 
     <div v-show="isSearching">
         <h2 id="searchingMessage">{{searchMessage}}</h2>
@@ -16,7 +16,7 @@
 
 
             <div class="result-card" v-for="document in documents" v-bind:key="document.reference">
-                <router-link :to="{ path: '/advertise/' + document.reference}" class="card-link">
+                <router-link :to="{ path: '/advertise/' + document.reference + '?fromsearch=true'}" class="card-link">
                     <div class="card-heading">
                         <div class="icon" v-if="document.documentType.reference"><img alt="" :src="getIcon(document.documentType.reference)" ></div>
                         <div class="heading"><div class="docTypeLabel" v-if="document.documentType.reference">{{document.documentType.name}}</div><div class="heading-text">{{document.name}}</div></div>
@@ -33,7 +33,7 @@
                             </div>
                             <div class="info-row mt-2 mb-2">
 
-                                    <div class="distance-tag"  v-if="document.distanceFromCoordinate && postcode != ''">{{document.distanceFromCoordinate | roundMilesFromCoordinate()}} miles from {{postcode}}</div>
+                                    <div class="distance-tag"  v-if="document.distanceFromCoordinate">{{document.distanceFromCoordinate | roundMilesFromCoordinate()}} miles from {{postcode}}</div>
                             </div>
                         </div>
                         <div class="view-button-holder">
@@ -68,25 +68,16 @@
             showSearchForm: {
                 type: Boolean,
                 required: true
+            },
+            isSearching:{
+              type:Boolean,
+              required:true
             }
         },
         methods: {
 
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
-            },
-            changeShowSearchForm() {
-                this.$emit("onChangeShowSearchForm")
-            },
-            getTypeColor(ref) {
-                var colour = "grey";
-                this.documentTypes.forEach((type) => {
-                    if(type != null){
-                    if (type.reference == ref)
-                        colour = type.colour
-                    }
-                })
-                return colour;
             },
             getPrice(priceProperty){
                 if(priceProperty && priceProperty.value){
@@ -105,7 +96,7 @@
             return "POA";
             },
             search(){
-                this.$emit('onSearch')
+              //  this.$emit('onSearch')
             },
             getAvailability(properties){
                 if(properties.Availability != null)
@@ -115,6 +106,7 @@
 
         },
         computed: {
+
             documents(){
                 return this.$store.state.searchResults;
             },
@@ -122,13 +114,11 @@
                 return this.$store.state.view
             },
             postcode(){
-                return this.$store.state.searchedPostcode;
+              if(this.$store.state.searchParams && this.$store.state.searchParams.location && this.$store.state.searchParams.location.postcode)
+                return this.$store.state.searchParams.location.postcode;
             },
             numberOfResults(){
                    return this.documents.length
-            },
-            isSearching(){
-                return this.$store.state.isSearching;
             },
             showResults(){
                 return this.numberOfResults > 0 && !this.isSearching;
@@ -213,7 +203,7 @@ display: flex;
     justify-content: space-between;
     align-items:flex-start;
     .price-tag{
-        min-width:70px;
+        min-width:90px;
         margin-top:15px;
         background:#f1f1f1;
         font-weight:500;

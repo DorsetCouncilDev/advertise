@@ -9,7 +9,7 @@
         </div>
 
 
-        <form id="searchForm" v-on:submit.prevent="$emit('onSearch')">
+        <form id="searchForm">
             <div class="form-group dc-toggle">
                 <span class="toggle-label search-option-title">Show available only</span>
                 <label class="switch" for="available">
@@ -20,10 +20,10 @@
             </div>
             <label id="postcodeLabel" class="search-option-title"  for="postcode">Full postcode search</label>
             <div class="form-group">
-                <div class="input-group" :class="{'error-postcode' : isPostcodeError}">
+                <div class="input-group" :class="{'error-postcode' : isInvalidPostcode || isNoAddressFound}">
                     <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode">
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="button" id="button-addon2" v-on:click.prevent="$emit('onSearch')">Search</button>
+                        <button class="btn btn-success" type="button" id="button-addon2" @click.prevent="search">Search</button>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                       <div class="type-options" >
                         <div class="form-group" style="margin-bottom:0">
                             <div class="multiple-choice">
-                                <input type="checkbox" class="form-control" id="allTypes"  v-model="allDocumentTypesSelected">
+                                <input type="checkbox" class="form-control" id="allTypes" @change="toggleAllDocumentTypes" v-model="allDocumentTypes">
                                 <label for="allTypes"  class="mutliple-choice-label multiple-choice-small">All</label>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                     <div class="type-options" >
                         <div class="form-group" style="margin-bottom:0">
                             <div class="multiple-choice" :title="type.name">
-                                <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
+                                <input type="checkbox" class="form-control" :id="type.reference" @change="checkIfAllDocuemntTypes" v-model="type.selected">
                                 <label :for="type.reference"  class="mutliple-choice-label multiple-choice-small">{{type.name}} </label>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success mt-2" type="button" v-on:click.prevent="search">Search</button>
+            <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
         </form>
     </div>
 </section>
@@ -62,14 +62,28 @@
     import Vuex from 'vuex';
     import DocumentTypeService from '../../../services/DocumentTypeService';
     import DocumentService from '../../../services/DocumentService';
-    import GazetteerService from '../../../services/GazetteerService';
+     import indexService from '../../../services/IndexService';
+     import advertiseService from '../../../services/AdvertiseService';
+    import gazetteerService from '../../../services/GazetteerService';
 
    export default {
         name: 'SearchOptions',
+        data(){
+          return {
+            documentTypes: [],
+            postcode:"",
+            available:"",
+            allDocumentTypes:true
+          }
+        },
         props: {
             showSearchForm: {
                 type: Boolean,
                 required: true
+            },
+            isSearching:{
+              type:Boolean,
+              required:true
             }
         },
         methods: {
@@ -79,40 +93,61 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
-            toggleAllSelected(){
-              console.log(this.allSelectedCheckBoxValue)
-            }
-        },
-        watch: {
-            documentTypes: {
-                handler:  async function() {
-                    this.$emit("onSearch");
-                },
-                deep: true
-            }
+            async search(){
+              this.postcodeError = false;
+              this.noAddressFound = false;
+              var params = {};
+              params.documentTypes = this.documentTypes.filter(type => type.selected == true)
+                                                       .map(t => t.reference);
 
+              if(this.available){
+                params.properties = {};
+                params.properties.Available = "true";
+              }
 
-        },
-        computed: {
-          allDocumentTypesSelected:{
-                get:function(){
-                    return this.$store.state.allDocumentTypesSelected;
-                },
-                set:function(value){
-                    this.$store.dispatch("setAllSelectedCheckbox",value);
-                }
-          },
-            documentTypes: {
-                get: function() {
+              if(this.postcode.trim().length > 0){
+                params.location = await gazetteerService.getLocationSearchParameter(this.postcode);
 
-                    return this.$store.state.documentTypes;
-                },
-                set: function(value) {
-                    this.$store.commit("SET_DOCUMENT_TYPES",value)
-                     this.$emit("onSearch");
+                this.$store.commit("SET_NO_ADDRESS_FOUND",params.location.noAddressFound);
+                this.$store.commit("SET_NO_INVALID_POSTCODE", params.location.invalidPostscode);
 
-                }
+              }
+
+              this.$emit("onSearch",params)
+
             },
+
+            checkIfAllDocuemntTypes(){
+                var allSelected = true;
+                this.documentTypes.forEach((type)=>{
+                    console.log("type: " + type.reference + " - " + type.selected)
+                  if(!type.selected)
+                    allSelected = false;
+                })
+                this.allDocumentTypes = allSelected;
+            },
+              toggleAllDocumentTypes(){
+                this.documentTypes.forEach((type=>{
+                    type.selected = this.allDocumentTypes;
+                }))
+
+            }
+        },
+        watch:{
+            available(){
+               this.search();
+            }
+
+        },
+
+        computed: {
+            isInvalidPostcode(){
+              return this.$store.state.postcodeSearchErrors.invalidPostscode;
+            },
+            isNoAddressFound(){
+              return this.$store.state.postcodeSearchErrors.noAddressFound;
+            }
+/*
             available: {
                 get: function() {
                      if(this.$store.state.searchAvailable)
@@ -121,7 +156,7 @@
                 },
                 set: async function(value) {
                     this.$store.commit("SET_AVAILABLE",value);
-                     this.$emit("onSearch");
+
                 }
             },
              postcode: {
@@ -129,6 +164,7 @@
                     return this.$store.state.searchPostcode;
                 },
                 set: function(value){
+
                     this.$store.commit("SET_POSTCODE",value);
                 }
             },
@@ -138,6 +174,47 @@
             isSearching(){
                 return this.$store.state.isSearching;
             }
+            */
+        },
+        async beforeMount(){
+           await this.$store.dispatch("setIndex");
+           this.documentTypes = _.cloneDeep(this.$store.state.documentTypes);
+
+           if(this.$route.query.backtoresults){
+
+               if(this.$store.state.searchParams.location && this.$store.state.searchParams.location.postcode)
+                  this.postcode = this.$store.state.searchParams.location.postcode
+
+                   if(this.$store.state.searchParams.properties && this.$store.state.searchParams.properties.Available)
+                      this.available = this.$store.state.searchParams.properties.Available;
+
+               this.documentTypes.forEach((type=>{
+                 console.log("current type- " + type.reference)
+                 console.log("params- " + this.$store.state.searchParams.documentTypes.size)
+                 if(!this.$store.state.searchParams.documentTypes.includes(type.reference)){
+                    type.selected = false;
+                 }
+               }))
+
+           }
+           else if(this.$route.query.documentType){
+              var typeReference = this.$route.query.documentType;
+              this.documentTypes.forEach((type)=>{
+                 type.selected = false;
+                 if(type.reference == typeReference)
+                    type.selected = true;
+              })
+              this.allDocumentTypes = false;
+           }
+           else if(this.$route.query.postcode){
+             this.postcode = this.$route.query.postcode;
+             this.$store.commit("SET_SORT","nearest")
+           }
+
+            this.search();
+
+
+
         }
     }
 

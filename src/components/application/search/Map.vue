@@ -59,7 +59,7 @@
 
 
                             var infoContent = '<p style="font-size:16px; margin-bottom:5px; font-weight:600">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">' + price + '</p>' +
-                                '<p><a class="btn btn-outline-primary" style="margin-top:10px; font-size:16px; margin-bottom:5px" href="/advertise/' + document.reference + '">View this opportunity</a></p>';
+                                '<p><a class="btn btn-outline-primary" style="margin-top:10px; font-size:16px; margin-bottom:5px" href="/advertise/' + document.reference + '?fromsearch=true">View this opportunity</a></p>';
                             this.addMarker(document, infoContent)
                         }
                     })

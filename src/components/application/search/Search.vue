@@ -5,8 +5,8 @@
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions :showSearchForm="showSearchForm"  @onChangeShowSearchForm="changeShowSearchForm"  @onSearch="search"  ></SearchOptions>
-        <Assets :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm" @onSearch="search"></Assets>
+        <SearchOptions :showSearchForm="showSearchForm" :isSearching="isSearching"  @onSearch="search" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
+        <Assets :showSearchForm="showSearchForm" :isSearching="isSearching" @search="search" @onChangeShowSearchForm="changeShowSearchForm"></Assets>
     </div>
 </div>
 </template>
@@ -20,18 +20,15 @@
     import DocumentTypeService from '../../../services/DocumentTypeService';
     import DocumentService from '../../../services/DocumentService';
     import SecurityService from '../../../services/SecurityService'
-
+ import advertiseService from '../../../services/AdvertiseService';
 
       export default {
         name: 'Search',
         data() {
             return {
                 map: null,
-                documentTypes: [],
-                documents: [],
                 showSearchForm: false,
-                indexRef: "advertise",
-                test:""
+                isSearching:true
             }
         },
         metaInfo () {
@@ -42,38 +39,74 @@
                 } ]
             }
         },
+
         components: {
-            Toolbar,
-            Assets,
-            SearchOptions
+            Toolbar,Assets,SearchOptions
         },
+
         computed: {
             view() {
                 return this.$store.state.view;
             }
         },
         methods: {
-            async search() {
-                await this.$store.dispatch("search");
-            },
 
-            changeShowSearchForm: function() {
+          search(params){
+            this.isSearching = true;
+
+
+            if(params.location){
+
+              if(!params.location.latitude)
+                  delete params.location;
+            }
+                  advertiseService.search(params).then((response)=>{
+
+                 this.$store.commit("SET_SEARCH_RESULTS",response.data);
+  this.$store.commit("SET_SEARCH_PARAMS",params);
+                  this.isSearching = false;
+                  this.showSearchForm = false;
+              })
+              .catch((err)=>{
+                console.log(err);
+                  this.$store.commit("SET_SEARCH_PARAMS",params);
+                  this.isSearching = false;
+                  this.showSearchForm = false;
+
+              })
+
+
+
+          },
+          changeShowSearchForm: function() {
                 this.showSearchForm = !this.showSearchForm
             }
     },
-        beforeMount(){
-            if(this.$route.query.new){
+        async beforeMount(){
+
+            this.$store.commit("SET_NO_ADDRESS_FOUND",false);
+            this.$store.commit("SET_NO_INVALID_POSTCODE", false);
+
+
+
+           /* if(this.$route.query.new){
                 this.$store.dispatch("removeAllAdvertiseSearchParams");
                 this.$store.dispatch("selectAllDocumentTypes",true);
                 this.$store.commit("SET_POSTCODE","");
-                  this.$store.commit("SET_AVAILABLE",false);
-                this.search();
+                this.$store.commit("SET_AVAILABLE",false);
+
+              this.search();
+
             }
             else if(this.$route.query.documentType != null){
-               this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
-                 this.search();
+                this.stopWatching = true;
+               await this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
+
+                await this.search();
+
+
             }
-            if(this.$route.query.postcode){
+            else if(this.$route.query.postcode){
                 this.$store.dispatch("setLocationSearchOnly");
                      this.search();
             }
@@ -83,6 +116,8 @@
 
             if(this.$route.query.view)
                 this.$store.commit("SET_VIEW",this.$route.query.view);
+
+                */
         }
     }
 

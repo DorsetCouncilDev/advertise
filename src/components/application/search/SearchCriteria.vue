@@ -1,21 +1,19 @@
 <template>
 <div id="searchCriteria" >
-        <h2 id="numberOfResultsMessage">{{numberOfResultsMessage}}</h2>
+        <h2 id="numberOfResultsMessage" v-show="!isSearching && !isNoAssetsFoundInLocation">{{numberOfResultsMessage}} <span v-show="postcodeSearch">in 10 miles of <span id="postcode">{{postcodeSearch}}</span></span></h2>
         <div id="criteriaTagContainer">
             <div v-for="documentType in documentTypes" class="criteria-tag" v-bind:key="documentType">
                 <span class="criteria-name">{{documentType}}</span>
-                <span role="button" class="remove-criteria" @click="removeDocumentType(documentType)" tabindex="0" title="'Remove'">X</span>
+
             </div>
-            <div v-show="isLocationSearch" class="criteria-tag">
-                <span class="criteria-name">Postcode: <span :class="{'no-postcode-found' : noAddressesFound}">{{postcodeSearched}}</span></span>
-                <span role="button" class="remove-criteria" tabindex="0" @click="removeLocationSearch()" title="'Remove'">X</span>
-            </div>
-               <div v-show="$store.state.searchAvailable" class="criteria-tag">
+
+               <div v-show="isSearchAvailableOnly" class="criteria-tag">
                 <span class="criteria-name">Available only</span>
-                <span role="button" class="remove-criteria" tabindex="0" @click="removeAvailableSearch()" title="'Remove'">X</span>
+
             </div>
         </div>
-        <h2 v-show="noAddressesFound" id="noAddressFound">We cannot find that postcode</h2>
+        <h2 v-show="isInvalidPostcode || noAddressFound" id="noAddressFound">Postcode not recognised</h2>
+        <h2 v-show="isNoAssetsFoundInLocation && !isSearching" id="noAddressFound">No opportunities found within 10 miles of {{postcodeSearch}}</h2>
 </div>
 </template>
 
@@ -27,7 +25,8 @@
         props: [
             "parameters",
             "documnetTypes",
-            "location"
+            "location",
+            "isSearching"
         ],
         methods: {
             removeProperty: function(propertyToRemove) {
@@ -35,41 +34,53 @@
             },
             removeDocumentType: function(type) {
                 this.$store.commit("DESELECT_DOCUMENT_TYPE",type);
-                this.$emit("onSearch")
+                //this.$emit("onSearch")
             },
-            removePostcodeSearch: function() {
 
-            },
             toggleSearchForm() {
                 this.$emit("onChangeShowSearchFom", !this.showSearchForm)
             },
-            removeLocationSearch(){
-                this.$store.commit("SET_NO_ADDRESS",false);
-                this.$store.commit("SET_POSTCODE","")
-                this.$emit("onSearch")
+        removeLocationSearch(){
+               this.$store.dispatch("removePostcodeSearch");
+
+
+ this.$emit("search");
             },
             removeAvailableSearch(){
                 this.$store.commit("SET_AVAILABLE",false);
-                this.$emit("onSearch");
-            },
-            isSearching(){
-              return this.$store.state.isSearching;
+
+                // this.$emit("onSearch");
             }
 
         },
         computed: {
-
-             documentTypes(){
-                return this.$store.state.searchParameters.documentTypes;
+          isNoAssetsFoundInLocation(){
+              return !this.isInvalidPostcode && !this.noAddressFound && this.numberOfResults == 0;
+          },
+              isInvalidPostcode(){
+              return this.$store.state.postcodeSearchErrors.invalidPostscode;
             },
-            isLocationSearch() {
-                return this.$store.state.isLocationSearched;
+            noAddressFound(){
+              return this.$store.state.postcodeSearchErrors.noAddressFound;
+            },
+            documentTypes(){
+              return this.$store.state.searchParams.documentTypes;
+
             },
 
+            postcodeSearch() {
+                if(this.$store.state.searchParams && this.$store.state.searchParams.location && this.$store.state.searchParams.location.postcode)
+                  return this.$store.state.searchParams.location.postcode.toUpperCase();
+
+                return false
+            },
+            numberOfResults(){
+              return this.$store.state.searchResults.length;
+            },
             numberOfResultsMessage(){
 
-              if(!this.isSearching())
-                var numberOfResults = this.$store.state.searchResults.length;
+
+                var numberOfResults = this.numberOfResults;
                 if(numberOfResults == 0)
                   return "No opportunities found";
                 else if(numberOfResults == 1)
@@ -77,15 +88,13 @@
                 else if(numberOfResults > 1)
                     return numberOfResults + " Opportunities found";
             },
-            postcodeSearched(){
-                return this.$store.state.searchedPostcode;
-            },
-            isSearchedAvailable(){
-                return this.$store.state.searchAvailable;
-            },
-            noAddressesFound(){
-                return this.$store.state.noAddressesFound;
+
+            isSearchAvailableOnly(){
+                if(this.$store.state.searchParams && this.$store.state.searchParams.properties && this.$store.state.searchParams.properties.Available)
+                  return true;
+                return false;
             }
+
 
         }
     }
@@ -93,6 +102,9 @@
 </script>
 
 <style scoped lang="scss">
+#postcode{
+  font-weight:700;
+}
 .no-postcode-found{
     text-decoration: line-through;
 }
@@ -100,6 +112,7 @@
     font-size:22px;
     text-align:center;
     color:darkred;
+    margin-top:10px;
 }
    #searchCriteria{
        background:#fafafa;
@@ -109,6 +122,8 @@
        #numberOfResultsMessage{
            font-size:19px;
            text-align: center;
+           font-weight:500;
+           color:#2a2a2a;
        }
        #criteriaTagContainer{
            display:flex;

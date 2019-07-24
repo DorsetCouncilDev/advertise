@@ -7,7 +7,7 @@
                 <h2 class="home-action-label mb-2" id="search">Advertising location finder</h2>
                 <label class="invisible" for="postcode" id="postcodeLabel">Postcode</label>
 
-                <div class="input-group" v-bind:class="{ 'postcode-input-group-error' : isPostcodeError }" id="postcode-input-group">
+                <div class="input-group" v-bind:class="{ 'postcode-input-group-error' : postcodeError }" id="postcode-input-group">
                     <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Enter full postcode" v-model="postcode">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button" id="searchGoBtn" @click="postcodesearch" aria-label="Search postcode"> GO </button>
@@ -35,35 +35,22 @@ import GazetteerService from './../../../services/GazetteerService'
             return {
                 indexRef: "advertise",
                 postcode:"",
-                postcodeErrorMessage: ""
+                postcodeErrorMessage: "",
+                postcodeError: false
             }
         },
         methods: {
             postcodesearch: async function() {
 
-               var validPostcode = await GazetteerService.checkValidPostcode(this.postcode);
-console.log("valid postcode: " + validPostcode)
-                if(validPostcode){
-                    this.$store.commit("SET_POSTCODE",this.postcode);
-                    this.$router.push("/advertise/search?postcode=true");
-                }else{
-                    this.postcodeErrorMessage = "This postcode was not recognised"
+                if(this.postcode.trim().length < 5){
+                    this.postcodeErrorMessage = "Invalid postcode";
+                    this.postcodeError = true;
                 }
+                else
+                    this.$router.push("/advertise/search?postcode=" + this.postcode);
 
-
-
-
-
-            }
-        },
-        computed:{
-            isPostcodeError(){
-                if(this.postcodeErrorMessage != "")
-                    return true;
-                return false;
             }
         }
-
     }
 </script>
 

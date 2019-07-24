@@ -1,12 +1,12 @@
 import api from './api'
 
 export default{
-    
+
     getIndex(){
-        return api.getAdvertiseIndex();  
+        return api.getAdvertiseIndex();
     },
 
     search(params){
-        return api.advertiseSearch(params); 
+        return api.advertiseSearch(params);
     }
 }
