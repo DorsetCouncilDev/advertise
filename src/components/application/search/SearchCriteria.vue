@@ -1,6 +1,6 @@
 <template>
 <div id="searchCriteria" >
-        <h2 id="numberOfResultsMessage" v-show="!isSearching && !isNoAssetsFoundInLocation">{{numberOfResultsMessage}} <span v-show="postcodeSearch">in 10 miles of <span id="postcode">{{postcodeSearch}}</span></span></h2>
+        <h2 id="numberOfResultsMessage" v-show="!isSearching">{{numberOfResultsMessage}}</h2>
         <div id="criteriaTagContainer">
             <div v-for="documentType in documentTypes" class="criteria-tag" v-bind:key="documentType">
                 <span class="criteria-name">{{documentType}}</span>
@@ -12,8 +12,9 @@
 
             </div>
         </div>
-        <h2 v-show="isInvalidPostcode || noAddressFound" id="noAddressFound">Postcode not recognised</h2>
-        <h2 v-show="isNoAssetsFoundInLocation && !isSearching" id="noAddressFound">No opportunities found within 10 miles of {{postcodeSearch}}</h2>
+        <h2 v-show="isNoAddressesFound" id="noAddressFound">Postcode not recognised</h2>
+         <h2 v-show="isInvalidPostcode && !isSearching" id="noAddressFound">Invalid postcode</h2>
+        <h2 v-show="isLocationSearch && numberOfResults == 0" id="noAddressFound">No opportunities found within 10 miles of {{isLocationSearch}}</h2>
 </div>
 </template>
 
@@ -41,7 +42,7 @@
                 this.$emit("onChangeShowSearchFom", !this.showSearchForm)
             },
         removeLocationSearch(){
-               this.$store.dispatch("removePostcodeSearch");
+               this.$store.dispatch("removeisLocationSearch");
 
 
  this.$emit("search");
@@ -51,50 +52,50 @@
 
                 // this.$emit("onSearch");
             }
-
         },
         computed: {
-          isNoAssetsFoundInLocation(){
-              return !this.isInvalidPostcode && !this.noAddressFound && this.numberOfResults == 0;
+          documentTypes(){
+            return this.$store.state.searchParams.documentTypes;
           },
-              isInvalidPostcode(){
-              return this.$store.state.postcodeSearchErrors.invalidPostscode;
-            },
-            noAddressFound(){
-              return this.$store.state.postcodeSearchErrors.noAddressFound;
-            },
-            documentTypes(){
-              return this.$store.state.searchParams.documentTypes;
+          postcode(){
+            return this.$store.state.postcode;
+          },
+          numberOfResults(){
+            return this.$store.state.searchResults.length;
+          },
+          numberOfResultsMessage(){
+            var numberOfResults = this.numberOfResults;
+            var resultsMessage = "";
+            if(numberOfResults == 0)
+              resultsMessage = "No opportunities found";
+            else if(numberOfResults == 1)
+              resultsMessage = "1 Opportunity found";
+            else if(numberOfResults > 1)
+              resultsMessage = numberOfResults + " Opportunities found";
 
-            },
+            if(this.isLocationSearch && numberOfResults > 0)
+              resultsMessage += " within 10 miles of " + this.postcode;
 
-            postcodeSearch() {
-                if(this.$store.state.searchParams && this.$store.state.searchParams.location && this.$store.state.searchParams.location.postcode)
-                  return this.$store.state.searchParams.location.postcode.toUpperCase();
+            console.log("pc: " + this.postcode)
 
-                return false
-            },
-            numberOfResults(){
-              return this.$store.state.searchResults.length;
-            },
-            numberOfResultsMessage(){
-
-
-                var numberOfResults = this.numberOfResults;
-                if(numberOfResults == 0)
-                  return "No opportunities found";
-                else if(numberOfResults == 1)
-                    return "1 Opportunity found";
-                else if(numberOfResults > 1)
-                    return numberOfResults + " Opportunities found";
-            },
+            return resultsMessage;
+          },
 
             isSearchAvailableOnly(){
-                if(this.$store.state.searchParams && this.$store.state.searchParams.properties && this.$store.state.searchParams.properties.Available)
-                  return true;
-                return false;
-            }
+              if(this.$store.state.searchParams && this.$store.state.searchParams.properties && this.$store.state.searchParams.properties.Available)
+                return true;
+              return false;
+            },
 
+            isInvalidPostcode(){
+              return this.$store.state.isInvalidPostcode;
+            },
+            isNoAddressesFound(){
+              return this.$store.state.isNoAddressesFound;
+            },
+            isLocationSearch() {
+              return this.$store.state.isLocationSearch;
+            }
 
         }
     }

@@ -1,29 +1,26 @@
 import api from './api'
+import store from '../store/index';
 
 export default{
 
     async getLocationSearchParameter(postcode){
-        var locationSearchParameter = null;
+      store.commit("SET_NO_ADDRESSES_FOUND",false);
+      let locationParameter = null;
+      if(postcode.trim().length > 5){
+        await  api.postcodeSearch(postcode).then((response)=>{
+          if(response.data.address && response.data.address.length > 0){
+            locationParameter =  this.createLocationSearchParameter(response.data.address[0]);
+            if(locationParameter != null)
+              store.commit("SET_IS_LOCATION_SEARCH",true);
+          }
+          else
+            store.commit("SET_NO_ADDRESSES_FOUND",true);
+        })
+      }
+      else
+        store.commit("SET_IS_INVALID_POSTCODE",true);
 
-        if(postcode.trim().length > 5){
-
-            await  api.postcodeSearch(postcode).then((response)=>{
-                if(response.data.address && response.data.address.length > 0){
-                    var address = response.data.address[0];
-                    locationSearchParameter = this.createLocationSearchParameter(address);
-                    locationSearchParameter.postcode = postcode;
-                }
-                else if(response.data.address.length == 0)
-                    locationSearchParameter  = { "noAddressFound":true }
-                else
-                    locationSearchParameter = {"invalidPostscode":true}
-             })
-        }
-        else
-          locationSearchParameter = {"invalidPostscode":true,postcode}
-
-          locationSearchParameter.postcode = postcode;
-          return locationSearchParameter;
+      return locationParameter;
     },
 
 
@@ -32,10 +29,7 @@ export default{
             "latitude": address.latitude,
             "longitude": address.longitude,
             "distanceUnit": "MILE",
-            "range": 10,
-            "noAddressFound":false,
-            "invalidPostscode":false,
-            "postcode":""
+            "range": 10
         }
         return location;
     },

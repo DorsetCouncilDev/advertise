@@ -54,7 +54,6 @@
           search(params){
             this.isSearching = true;
 
-
             if(params.location){
 
               if(!params.location.latitude)
@@ -63,7 +62,7 @@
                   advertiseService.search(params).then((response)=>{
 
                  this.$store.commit("SET_SEARCH_RESULTS",response.data);
-  this.$store.commit("SET_SEARCH_PARAMS",params);
+              this.$store.commit("SET_SEARCH_PARAMS",params);
                   this.isSearching = false;
                   this.showSearchForm = false;
               })

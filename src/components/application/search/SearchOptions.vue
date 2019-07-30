@@ -20,7 +20,7 @@
             </div>
             <label id="postcodeLabel" class="search-option-title"  for="postcode">Full postcode search</label>
             <div class="form-group">
-                <div class="input-group" :class="{'error-postcode' : isInvalidPostcode || isNoAddressFound}">
+                <div class="input-group" :class="{'error-postcode' : isInvalidPostcode}">
                     <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode">
                     <div class="input-group-append">
                         <button class="btn btn-success" type="button" id="button-addon2" @click.prevent="search">Search</button>
@@ -93,7 +93,12 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
+
             async search(){
+              this.$store.commit("SET_NO_ADDRESSES_FOUND",false);
+              this.$store.commit("SET_IS_INVALID_POSTCODE",false);
+              this.$store.commit("SET_IS_LOCATION_SEARCH",false);
+              this.$store.commit("SET_POSTCODE",this.postcode.trim());
               this.postcodeError = false;
               this.noAddressFound = false;
               var params = {};
@@ -105,13 +110,10 @@
                 params.properties.Available = "true";
               }
 
-              if(this.postcode.trim().length > 0){
+              this.postcode = this.postcode.trim();
+              if(this.postcode.length > 0)
                 params.location = await gazetteerService.getLocationSearchParameter(this.postcode);
 
-                this.$store.commit("SET_NO_ADDRESS_FOUND",params.location.noAddressFound);
-                this.$store.commit("SET_NO_INVALID_POSTCODE", params.location.invalidPostscode);
-
-              }
 
               this.$emit("onSearch",params)
 
@@ -142,11 +144,9 @@
 
         computed: {
             isInvalidPostcode(){
-              return this.$store.state.postcodeSearchErrors.invalidPostscode;
+              return this.$store.state.isInvalidPostcode;
             },
-            isNoAddressFound(){
-              return this.$store.state.postcodeSearchErrors.noAddressFound;
-            }
+
 /*
             available: {
                 get: function() {

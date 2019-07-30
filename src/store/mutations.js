@@ -13,9 +13,7 @@ export const mutations = {
     SET_AVAILABLE(state,payload){
         state.searchAvailable = payload;
     },
-    SET_POSTCODE(state,payload){
-        state.searchPostcode = payload;
-    },
+
 
 
 
@@ -81,6 +79,22 @@ export const mutations = {
     },
     REMOVE_LOCATION_PARAMETER(state){
       delete state.searchParams.location;
+    },
 
+
+
+
+
+    SET_IS_LOCATION_SEARCH(state,payload){
+      state.isLocationSearch = payload;
+    },
+    SET_IS_INVALID_POSTCODE(state,payload){
+      state.isInvalidPostcode = payload;
+    },
+    SET_POSTCODE(state,payload){
+      state.postcode = payload;
+    },
+    SET_NO_ADDRESSES_FOUND(state,payload){
+      state.isNoAddressesFound = payload;
     }
 }
