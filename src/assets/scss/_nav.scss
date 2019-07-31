@@ -54,7 +54,7 @@
 
     list-style: none;
     padding-left: 0;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     display: flex;
     justify-content: space-between;
     width: auto;
@@ -106,7 +106,7 @@
   #menuLinks {
 
         display: flex;
-        justify-content: start;
+        justify-content: flex-end;
 
             #menuList {
               li {
@@ -140,10 +140,7 @@ margin-right:15px;
     margin-bottom:30px;
     margin-top:30px;
   }
-  #menuLinks {
-    display: flex;
-    justify-content: start;
-  }
+
 
 }
 

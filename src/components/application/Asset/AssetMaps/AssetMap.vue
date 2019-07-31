@@ -71,7 +71,7 @@
   display:flex;
   justify-content: center;
   width: 100%;
-  height: 40vh;
+  height: 60vh;
   margin-bottom:30px;
 }
   #map {
@@ -103,7 +103,7 @@
   @media only screen and (min-width: 900px) {
     .map-container{
       display:block;
-      width:65%; height:50vh;
+      width:65%; height:320px;
       &.wide-map{
               width:100%;
             }

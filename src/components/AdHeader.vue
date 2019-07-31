@@ -9,9 +9,9 @@
     </div>
     <div id="titleHolder">
         <div id="title">
-            <router-link :to="{ path: '/advertise'}" id="titleLink" title="Advertise Dorset homepage">Advertise Dorset</router-link>  
-            <img id="brandImage" src="../assets/images/dc-advertise.png" alt=""> 
-        </div>    
+            <router-link :to="{ path: '/advertise'}" id="titleLink" title="Advertise Dorset homepage">Advertise Dorset</router-link>
+            <img id="brandImage" src="../assets/images/dc-advertise.png" alt="">
+        </div>
     </div>
     <div v-if="signedIn != ''"><a @click="logout">logout</a></div>
 </header>
@@ -41,7 +41,7 @@
 
 <style scoped lang="scss">
 
-    
+
 
     $titleHover: darken(#5975de, 30%);
     #header {
@@ -54,7 +54,7 @@
 
     #dfyHolder {
         width: 35%;
-        max-width: 200px;
+        max-width: 150px;
         position: relative;
         padding-top:10px;
         padding-left:3px;
@@ -108,7 +108,7 @@
             height: 80px;
         }
         #titleHolder {
-          
+
             #title {
                 a {
                     line-height: 2.5;
@@ -130,10 +130,10 @@
         #dfyHolder {
             position: absolute;
             padding-left:0;
-        
+
         }
         #header {
-            height: 100px;
+            height: 80px;
             margin-left: 0;
             margin-right: 0;
         }
@@ -142,23 +142,23 @@
             #title {
                 a {
                     line-height:2;
-                    font-size: 36px;
+                    font-size: 28px;
                 }
                  #brandImage {
                     position: absolute;
                     top: 0;
-                    right: -55px;
-                    width:180px;
-                    left:130px;
+
+                    width:150px;
+                    left:100px;
                 }
             }
         }
     }
-    
+
     @media only screen and (min-width: 765px) {
 
         #header {
-            height: 100px;
+            height: 90px;
 
         }
         #titleHolder {
@@ -171,9 +171,9 @@
                 }
                 #brandImage {
                     position: absolute;
-                    top: -10px;
-                    left:60px;
-                    width: 200px;
+                    top: 0;
+                    left:80px;
+                    width: 175px;
                 }
             }
         }
@@ -181,21 +181,21 @@
 
     @media only screen and (min-width: 1100px) {
         #header {
-            height: 130px;
+            height: 90px;
         }
         #titleHolder {
                left: -50px;
             #title {
                 a {
-                    line-height: 2.5;
-                    font-size: 36px;
+                    line-height: 2;
+                    font-size: 32px;
 
                 }
                 #brandImage {
                     position: absolute;
                     top: -5px;
-                    left:80px;
-                    width: 250px;
+                    left:105px;
+                    width: 180px;
                 }
             }
         }

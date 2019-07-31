@@ -6,7 +6,7 @@ const LIVE_CATALOGUE_ADVERTISE = 'https://app.dorsetcouncil.gov.uk/catalogue/api
 
 
 var advertise_axios = axios.create({
-  baseURL: TEST_CATALOGUE_ADVERTISE,
+  baseURL: LIVE_CATALOGUE_ADVERTISE,
   timeout: 10000,
   headers: { post: { "Content-Type": "application/json", "accept": "application/json" }
   }

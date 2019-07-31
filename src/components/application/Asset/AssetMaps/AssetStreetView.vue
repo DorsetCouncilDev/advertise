@@ -49,7 +49,7 @@
 }
        #streetView {
         width: 90%;
-        height: 40vh;
+        height: 60vh;
     }
 
 
@@ -67,7 +67,7 @@
         @media only screen and (min-width: 900px) {
    .streetview-container{
   display:block;
-  width:35%; height:420px;
+  width:35%; height:320px;
 
 }
     }
