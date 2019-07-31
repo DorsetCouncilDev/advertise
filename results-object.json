@@ -1,1 +1,62 @@
-
+{
+  "name": "Gillingham Town Boundary Signage",
+  "reference": "gillingham-town-boundary-signage",
+  "index": {
+    "name": "Advertise",
+    "reference": "advertise"
+  },
+  "documentType": {
+    "name": "Boundary Signage Sponsorship",
+    "reference": "boundary-signage-sponsorship"
+  },
+  "longText": "Gillingham",
+  "properties": {
+    "Availability": {
+      "value": "limited availability"
+    },
+    "Available": {
+      "value": "true"
+    },
+    "Duration of Sponsorship": {
+      "value": "2 year sponsorship agreement"
+    },
+    "Number of Signs": {
+      "value": "2 signs available"
+    },
+    "Price": {
+      "value": 2200.00
+    }
+  },
+  "locations": [{
+    "reference": "52f4ae41-aba9-4a80-978d-dc3f426651df",
+    "formattedAddress": "Gillingham",
+    "primaryLocation": true,
+    "latitude": 51.03668752,
+    "longitude": -2.277521648,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "387716f2-d0a9-4178-aee4-32037a01ee6d",
+    "formattedAddress": "Gillingham",
+    "primaryLocation": false,
+    "latitude": 51.03668752,
+    "longitude": -2.277521648,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "3f2caf4a-b43c-44e0-8750-5148231803ca",
+    "formattedAddress": "Gillingham",
+    "primaryLocation": false,
+    "latitude": 51.03668752,
+    "longitude": -2.277521648,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }],
+  "images": []
+}

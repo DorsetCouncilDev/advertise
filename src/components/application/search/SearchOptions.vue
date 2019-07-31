@@ -1,77 +1,89 @@
 <template>
 <section id="menu"  v-bind:class="{'show-search-form': showSearchForm}">
     <div id="fadedBackgroundBlock" @click="closeMenu" ></div>
+    <div  v-bind:class="{'disabled-form': isSearching}"></div>
     <div id="searchOptionsContainer">
          <div id="closeBtnHolder" v-show="showSearchForm" >
-            <button class="btn btn-light" id="closeBtn" @click="closeMenu">hide</button>
+             <div>Search options</div>
+            <button class="btn btn-dark" id="closeBtn" @click="closeMenu">close</button>
         </div>
-    <h2 id="searchOptionsTitle">Search Options</h2>
 
-    <form id="searchForm" >
-        <div class="form-group dc-toggle">
-          <span class="toggle-label">Show available only</span>
-       <label class="switch" for="available">
-  <input type="checkbox" id="available" v-model="available">
-  <span class="slider round"></span>
-</label>
-</div>
-        <label id="postcodeLabel"  for="postcode">Full postcode search</label>
-        <div class="form-group">
-            <div class="input-group">
-            <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcodeSearch"> 
-              <div class="input-group-append">
-    <button class="btn btn-success" type="button" @click.prevent="search" id="button-addon2">Search</button>
-  </div>
-  </div>
-        </div>
-    <div id="typesSelectionGroup">
-        <legend class="form-legend">Types</legend>
-        <div v-for="type in documentTypes"  class="mb-2" v-bind:key="type.reference">
-        <div class="type-options" v-if="type.display">
+
+        <form id="searchForm">
+            <div class="form-group dc-toggle">
+                <span class="toggle-label search-option-title">Show available only</span>
+                <label class="switch" for="available">
+                    <input type="checkbox" id="available" v-model="available">
+                    <span class="slider round"></span>
+                    <span class="sr-only sr-only-focusable">Show available only</span>
+                </label>
+            </div>
+            <label id="postcodeLabel" class="search-option-title"  for="postcode">Full postcode search</label>
             <div class="form-group">
-                <div class="multiple-choice" :title="type.name">
-                    <input type="checkbox" class="form-control" :id="type.reference" v-model="type.selected">
-                    <label :for="type.reference"  class="mutliple-choice-label">{{type.name}} </label>
+                <div class="input-group" :class="{'error-postcode' : isInvalidPostcode}">
+                    <input class="form-control" id="postcode" name="postcode" type="text" v-model="postcode">
+                    <div class="input-group-append">
+                        <button class="btn btn-success" type="button" id="button-addon2" @click.prevent="search">Search</button>
+                    </div>
                 </div>
             </div>
-            <div class="type-icon">
-                <img class="type-icon" :src="getIcon(type.reference)" alt="">
+            <div id="typesSelectionGroup">
+                <legend class="form-legend search-option-title">Types of opportunities</legend>
+                      <div class="type-options" >
+                        <div class="form-group" style="margin-bottom:0">
+                            <div class="multiple-choice">
+                                <input type="checkbox" class="form-control" id="allTypes" @change="toggleAllDocumentTypes" v-model="allDocumentTypes">
+                                <label for="allTypes"  class="mutliple-choice-label multiple-choice-small">All</label>
+                            </div>
+                        </div>
+                        <div class="type-icon"></div>
+                    </div>
+                <div v-for="type in documentTypes" v-bind:key="type.reference">
+                    <div class="type-options" >
+                        <div class="form-group" style="margin-bottom:0">
+                            <div class="multiple-choice" :title="type.name">
+                                <input type="checkbox" class="form-control" :id="type.reference" @change="checkIfAllDocuemntTypes" v-model="type.selected">
+                                <label :for="type.reference"  class="mutliple-choice-label multiple-choice-small">{{type.name}} </label>
+                            </div>
+                        </div>
+                        <div class="type-icon"><img class="type-icon" :src="getIcon(type.reference)" alt=""></div>
+                    </div>
+                </div>
             </div>
-            
-        </div>
-       
-            </div>
-            </div>
-        <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
-    </form>
-        </div>
+            <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
+        </form>
+    </div>
 </section>
 </template>
 
 <script>
-    import _ from 'lodash'
-    import Vue from 'vue'
-    import Vuex from 'vuex'
-
-
+    import _ from 'lodash';
+    import Vue from 'vue';
+    import Vuex from 'vuex';
     import DocumentTypeService from '../../../services/DocumentTypeService';
     import DocumentService from '../../../services/DocumentService';
-    import GazetteerService from '../../../services/GazetteerService';
+     import indexService from '../../../services/IndexService';
+     import advertiseService from '../../../services/AdvertiseService';
+    import gazetteerService from '../../../services/GazetteerService';
 
-    export default {
+   export default {
         name: 'SearchOptions',
+        data(){
+          return {
+            documentTypes: [],
+            postcode:"",
+            available:"",
+            allDocumentTypes:true
+          }
+        },
         props: {
-
             showSearchForm: {
                 type: Boolean,
                 required: true
-            }
-
-        },
-        data() {
-            return {
-                postcodeSearch: "",
-
+            },
+            isSearching:{
+              type:Boolean,
+              required:true
             }
         },
         methods: {
@@ -81,58 +93,100 @@
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
-            async search() {
-                if (this.postcodeSearch.length > 0) {
-                    this.$store.commit("setPostcode", this.postcodeSearch)
-                    await this.$store.dispatch("aSearch")
-                } else {
-                    this.$store.commit("setPostcodeSearchCriteria", null)
-                    this.$store.commit("setPostcode", "")
-                    this.$store.dispatch("aSearch");
-                }
-                this.$emit("onChangeShowSearchForm")
-            }
-        },
-        watch: {
-            documentTypes: {
-                handler: function() {
 
-                    this.$store.dispatch("setTypesSearchChange", this.documentTypes)
+            async search(){
+              this.$store.commit("SET_NO_ADDRESSES_FOUND",false);
+              this.$store.commit("SET_IS_INVALID_POSTCODE",false);
+              this.$store.commit("SET_IS_LOCATION_SEARCH",false);
+              this.$store.commit("SET_POSTCODE",this.postcode.trim().toUpperCase());
+              this.postcodeError = false;
+              this.noAddressFound = false;
+              var params = {};
+              params.documentTypes = this.documentTypes.filter(type => type.selected == true)
+                                                       .map(t => t.reference);
 
-                },
-                deep: true
+              if(this.available){
+                params.properties = {};
+                params.properties.Available = "true";
+              }
+
+              this.postcode = this.postcode.trim();
+              if(this.postcode.length > 0)
+                params.location = await gazetteerService.getLocationSearchParameter(this.postcode);
+
+
+              this.$emit("onSearch",params)
+
             },
-            postcode: function() {
-                this.postcodeSearch = this.postcode;
+
+            checkIfAllDocuemntTypes(){
+                var allSelected = true;
+                this.documentTypes.forEach((type)=>{
+                    console.log("type: " + type.reference + " - " + type.selected)
+                  if(!type.selected)
+                    allSelected = false;
+                })
+                this.allDocumentTypes = allSelected;
+            },
+              toggleAllDocumentTypes(){
+                this.documentTypes.forEach((type=>{
+                    type.selected = this.allDocumentTypes;
+                }))
+
             }
         },
+        watch:{
+            available(){
+               this.search();
+            }
+
+        },
+
         computed: {
+            isInvalidPostcode(){
+              return this.$store.state.isInvalidPostcode;
+            },
 
-            postcode: {
-                get: function() {
-                    var p = this.$store.state.searchForm.postcode
-                    p = p.toUpperCase()
-                    return p
-                }
-            },
-            documentTypes: {
-                get: function() {
-                    return this.$store.state.searchForm.documentTypes;
-                }
-            },
-            available: {
-                get: function() {
-                      return this.$store.state.searchForm.parameters.available;
-           
-                },
-                set: function(value) {
-                    this.$store.dispatch("setAvailableSearch", value);
-        
-                }
-            }
         },
-        created() {
-            this.postcodeSearch = this.postcode;
+        async beforeMount(){
+           await this.$store.dispatch("setIndex");
+           this.documentTypes = _.cloneDeep(this.$store.state.documentTypes);
+
+           if(this.$route.query.backtoresults){
+
+               if(this.$store.state.searchParams.location)
+                  this.postcode = this.$store.state.postcode
+
+                   if(this.$store.state.searchParams.properties && this.$store.state.searchParams.properties.Available)
+                      this.available = this.$store.state.searchParams.properties.Available;
+
+               this.documentTypes.forEach((type=>{
+                 console.log("current type- " + type.reference)
+                 console.log("params- " + this.$store.state.searchParams.documentTypes.size)
+                 if(!this.$store.state.searchParams.documentTypes.includes(type.reference)){
+                    type.selected = false;
+                 }
+               }))
+
+           }
+           else if(this.$route.query.documentType){
+              var typeReference = this.$route.query.documentType;
+              this.documentTypes.forEach((type)=>{
+                 type.selected = false;
+                 if(type.reference == typeReference)
+                    type.selected = true;
+              })
+              this.allDocumentTypes = false;
+           }
+           else if(this.$route.query.postcode){
+             this.postcode = this.$route.query.postcode;
+             this.$store.commit("SET_SORT","nearest")
+           }
+
+            this.search();
+
+
+
         }
     }
 
@@ -140,10 +194,35 @@
 
 
 <style scoped lang="scss">
-    
+
+.disabled-form{
+  width:100%;
+  height:100%;
+  background:#f5f5f5;
+  opacity:.6;
+  position:absolute;
+  left: 0;
+  top:0;
+  z-index: 4;
+}
+
+.error-postcode{
+  border:solid 2px darkred;
+}
+   #postcodeLabel{
+     font-size:19px;
+
+    }
+
+    .search-option-title
+    {
+        font-weight:600;
+        font-size:19px;
+    }
     .fullPostcodeMessage{
         display: block;
         color:#545454;
+
     }
     #menu {
 
@@ -187,10 +266,11 @@
     #closeBtnHolder {
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         margin-bottom: 5px;
         #closeBtn {
             border: solid 1px grey;
+            font-size:16px;
             &:before {
                 content: 'X ';
             }
@@ -202,15 +282,10 @@
         font-size: 19px;
     }
 
-    @media only screen and (min-width: 767px) {
-        #searchOptionsContainer {
-            margin-top: 25px;
-        }
 
-    }
 
     #searchForm {
-        font-size: 16px;
+        font-size: 19px;
     }
 
     .form-group {
@@ -240,36 +315,20 @@
         #menu {
             top: 175px;
         }
-        
+         .dc-toggle{
+
+        .toggle-label{
+
+            font-size:22px;
+        }
+           #postcodeLabel{
+     font-size:22px;
     }
 
-    @media only screen and (min-width: 900px) {
-        #postcodeLabel{
-     font-size:19px;   
     }
-        #menu {
-
-            display: flex;
-            position: relative;
-            left: 0;
-            opacity: 1;
-            top: 0;
-            width: 275px;
-            #searchOptionsContainer {
-                display: block;
-                box-shadow: none;
-                margin-top: 0;
-     
-            }
-        }
-        #fadedBackgroundBlock {
-            display: none;
-        }
-
-        #closeBtnHolder {
-            display: none;
-        }
     }
+
+
 
     .multiple-choice .mutliple-choice-label {
         white-space: nowrap;
@@ -304,26 +363,16 @@
 
     .type-icon {
 
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
     }
 
     #collapsePrice {
         margin-bottom: .5rem;
     }
 
-    
-        @media only screen and (min-width: 900px) {
-        #menu {
-            width:450px;
-            }
-    }
-    
-            @media only screen and (min-width: 1400px) {
-        #menu {
-            width:550px;
-            }
-    }
+
+
 
     .dc-toggle{
         display: flex;
@@ -332,7 +381,7 @@
         .toggle-label{
             display: block;
             margin-right:20px;
-            font-size:22px;
+            font-size:19px;
         }
         .switch {
   position: relative;
@@ -341,7 +390,7 @@
   height: 34px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -399,7 +448,53 @@ input:checked + .slider:before {
         margin-top:30px;
         margin-bottom:30px;
     }
-      #postcodeLabel{
-     font-size:22px;   
+
+
+     @media only screen and (min-width: 767px) {
+        #searchOptionsContainer {
+            margin-top: 25px;
+        }
     }
+
+    @media only screen and (min-width: 900px) {
+        #menu {
+            width:450px;
+        }
+    }
+
+
+
+    @media only screen and (min-width: 900px) {
+        #postcodeLabel{
+            font-size:19px;
+        }
+
+        #postcode{
+            border-color:black;
+        }
+
+        #menu {
+            display: flex;
+            position: relative;
+            left: 0;
+            opacity: 1;
+            top: 0;
+            width: 40%;
+            #searchOptionsContainer {
+                display: block;
+                box-shadow: none;
+                margin-top: 0;
+
+            }
+        }
+        #fadedBackgroundBlock {
+            display: none;
+        }
+
+        #closeBtnHolder {
+            display: none;
+        }
+    }
+
+
 </style>

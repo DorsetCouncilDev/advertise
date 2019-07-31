@@ -1,37 +1,47 @@
 <template>
 <div id="searchResultsContainer" >
-    <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></Toolbar>
-    <SearchCriteria></SearchCriteria>
-       
-    <transition name="component-fade" mode="out-in">
-        <Map v-show="view == 'mapView'" :assets="documents"></Map>
-    </transition>
-    <div class="result-cards" v-show="showSearchingMessage" id="noResultsMessage">
-        {{searchingMessage}}
-    </div>
- 
-    <div class="result-cards" v-bind:class="{'grid-view':view == 'gridView'}" v-show="(view == 'listView' || view == 'gridView') && !showSearchingMessage"> 
-        <div class="result-card" v-for="d in documents" v-bind:title="d.document.name" v-bind:key="d.document.reference" >
-            <router-link :to="{ path: '/advertise/' + d.document.reference}" class="card-link">
-                <div class="card-heading">
-                    <div class="icon"><img :alt="d.document.documentTypeName"  :src="getIcon(d.document.documentTypeReference)"></div>
-                    <div class="heading"><div class="docTypeLabel" v-bind:style="{color: getTypeColor(d.document.documentTypeReference)}">{{d.document.documentTypeName}}</div><div class="heading-text">{{d.document.name}}</div></div>
-                </div>
+    <Toolbar :showSearchForm="showSearchForm" @onChangeShowSearchForm="$emit('onChangeShowSearchForm')"></Toolbar>
+    <SearchCriteria :isSearching="isSearching" @search="$emit('search')"></SearchCriteria>
 
-                <div class="card-main"><div>{{d.document.longText}}</div>
-                    <div class="info-row mt-2 mb-2">
-                         <div  >
-                    <div class="distance-tag"  v-if="d.distanceFromCoordinate && postcode != ''">{{d.distanceFromCoordinate | round()}} miles from {{postcode}}</div>
-                          
-                   </div>
-                        <div >
-                    <div  v-for="property in d.document.properties"  v-bind:key="property.reference"><span v-if="property.propertyReference == 'price'" class="price-tag">&pound;  {{property.publishedValue | round()}}</span></div>
-                  </div>
-                       
-                </div>
-                 <router-link :to="{ path: '/advertise/' + d.document.reference}" class="view-asset-link">view this opportunity</router-link>
+    <div v-show="isSearching">
+        <h2 id="searchingMessage">{{searchMessage}}</h2>
+        <div class="result-cards"  id="noResultsMessage">
+            <div class="result-card mock"  v-for="index in 10" :key="index"></div>
+        </div>
     </div>
-            </router-link>
+
+    <div v-show="showResults">
+        <Map v-show="view == 'map'" :documents="documents" :class="{'loading-map-assets' : isSearching}"></Map>
+        <div class="result-cards" v-bind:class="{'grid-view':showGridView}" v-show="showListOrGridView">
+
+
+            <div class="result-card" v-for="document in documents" v-bind:key="document.reference">
+                <router-link :to="{ path: '/advertise/' + document.reference + '?fromsearch=true'}" class="card-link">
+                    <div class="card-heading">
+                        <div class="icon" v-if="document.documentType.reference"><img alt="" :src="getIcon(document.documentType.reference)" ></div>
+                        <div class="heading"><div class="docTypeLabel" v-if="document.documentType.reference">{{document.documentType.name}}</div><div class="heading-text">{{document.name}}</div></div>
+                    </div>
+
+                    <div class="card-main">
+                        <div class="asset-detail">
+                            <div class="top-row">
+                                <div class="asset-text">
+                                    <p class="asset-long-text mb-1">{{document.longText}}</p>
+                                    <p class="availability-text mb-1" v-if="getAvailability(document.properties) != null">{{getAvailability(document.properties)}}</p>
+                                </div>
+                                <div class="price-tag" v-if="document.properties">{{ getPrice(document.properties.Price) }}</div>
+                            </div>
+                            <div class="info-row mt-2 mb-2">
+
+                                    <div class="distance-tag"  v-if="document.distanceFromCoordinate">{{document.distanceFromCoordinate | roundMilesFromCoordinate()}} miles from {{postcode}}</div>
+                            </div>
+                        </div>
+                        <div class="view-button-holder">
+                            <button class="btn btn-sm btn-outline-primary">view this opportunity</button>
+                        </div>
+                    </div>
+                </router-link>
+            </div>
         </div>
     </div>
 </div>
@@ -41,153 +51,196 @@
     import Map from './Map.vue'
     import Toolbar from './Toolbar'
     import SearchCriteria from './SearchCriteria'
-    import AOS from 'aos'
 
     export default {
         name: 'Assets',
+        data(){
+            return {
+              searchMessage: "Searching opportunities"
+            }
+        },
         components: {
             Map,
             Toolbar,
             SearchCriteria
         },
         props: {
-            docs: {
-                type: Array,
-                required: true
-            },
             showSearchForm: {
                 type: Boolean,
                 required: true
+            },
+            isSearching:{
+              type:Boolean,
+              required:true
             }
         },
-        data() {
-            return {
-                initialDocuments: [],
-                started: false,
-                searchingMessage:"Loading assets..."
-            }
-        },
-
         methods: {
+
             getIcon(documentType) {
                 return require("../../../assets/images/icons/" + documentType + ".svg");
             },
-            changeShowSearchForm() {
-                this.$emit("onChangeShowSearchForm")
-            },
-            getTypeColor(ref) {
-                var colour = "grey";
-                this.documentTypes.forEach((type) => {
-                    if (type.reference == ref)
-                        colour = type.colour
-                })
-                return colour;
+            getPrice(priceProperty){
+                if(priceProperty && priceProperty.value){
+
+                var price = Number(priceProperty.value);
+
+                if(isNaN(price))
+                  return "POA";
+                price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 0 });
+                price = "£ " + price;
+                if(priceProperty.label)
+                  price = priceProperty.label + " " + price;
+
+                return price;
             }
+            return "POA";
+            },
+            search(){
+              //  this.$emit('onSearch')
+            },
+            getAvailability(properties){
+                if(properties.Availability != null)
+                    return properties.Availability.value
+                return null;
+            },
+
         },
         computed: {
+
+            documents(){
+                return this.$store.state.searchResults;
+            },
             view() {
                 return this.$store.state.view
             },
-            documents() {
-
-                if(this.currentlySearching){
-                     this.searchingMessage = "Searching...";
-                }
-                else{
-                    var results = this.$store.state.searchResults;
-                    if (results != null)
-                    {
-                        if (results.length == 0){
-                            this.searchingMessage = "Sorry, no results found for that search";
-                   }    
-                
-                    /*  Build sitemap
-                    
-                    results.forEach((result)=>{
-                        console.log("<url><loc>https://web.dorsetcc.gov.uk/advertise/" + result.document.reference + "</loc><lastmod>2019-04-01T16:50:05+00:00</lastmod><changefreq>monthly</changefreq></url>");
-                    })
-                    */
-
-                    return results;
-               }
-                }
-               return [];
-           
+            postcode(){
+              if(this.$store.state.searchParams && this.$store.state.searchParams.location && this.$store.state.searchParams.location.postcode)
+                return this.$store.state.searchParams.location.postcode;
             },
-            postcode() {
-                return this.$store.state.searchForm.postcode.toUpperCase()
+            numberOfResults(){
+                   return this.documents.length
             },
-            currentlySearching(){
-                return this.$store.state.currentlySearching;
+            showResults(){
+                return this.numberOfResults > 0 && !this.isSearching;
             },
-            documentTypes: {
-                get: function() {
-                    return this.$store.state.searchForm.documentTypes;
-                }
+            showListOrGridView(){
+                return this.view == 'list' || this.view == 'grid';
             },
-            showSearchingMessage(){
-               if(this.$store.state.currentlySearching || this.$store.state.searchResults.length == 0)     
-                   return true;
-                return false;
+            showGridView(){
+                return this.view == 'grid';
+            },
+            noResultsFound(){
+              if(!this.isSearching && this.numberOfResults == 0)
+                return true;
+              return false;
             }
-        },
-        created() {
-            if (this.$store.state.postcodeSearch == ""){
-                this.initialDocuments = this.docs
-    
-            }
-            this.started = true;
-        },
-        mounted() {
-         /*   AOS.init({
-                once: true,
-                offset: 50,
-                duration: 400,
-                easing: 'ease-in-sine',
-                delay: 50
-            });  */
+
         },
         filters: {
-            round: function(value) {
-                // || value.trim() == "" || value == "0" || value == 0 || isNaN(value))
-               
-              if (value == null) {
-                    return 'P.O.A'
-                }
-
-                if (isNaN(value))
-                    return 'P.O.A'
-                else 
-                    var decimals = 1;
-                    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-                    return value;
-               // }
-            },
-            uppercase: function(value) {
-                return value.toUpperCase()
-            },
-            removeHyphens: function(value) {
-                if (value != null && value != "")
-                    return value.replace(new RegExp('-', 'g'), " ");
-                else
-                    return null;
+            roundMilesFromCoordinate: function(value) {
+                var property = Number(value);
+                var decimals = 1;
+                return  Math.round(property * Math.pow(10, decimals)) / Math.pow(10, decimals);
             }
+
+
+
         }
     }
 
 </script>
 
 <style scoped lang="scss">
-    $noResultsMessageColor: darken(#60d844,40%);
+$mobile-font-size: 16px;
+$desktop-font-size:19px;
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    color: #545454;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+      .25em 0 0 #545454,
+      .5em 0 0 rgba(0,0,0,0);
+   }
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 #545454,
+      .5em 0 0 #545454;
+    }
+}
+
+#searchingMessage{
+    color:#545454;
+    text-align:center;
+    font-size: 22px;
+    &:after {
+        content: ' .';
+        animation: dots 1s steps(5, end) infinite;
+    }
+}
+
+.asset-long-text::first-letter, .availability-text::first-letter{
+text-transform: uppercase;
+}
+.asset-long-text, .availability-text{
+  font-size:16px;
+}
+
+.top-row{
+  display:-webkit-flexbox;
+  display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    .price-tag{
+        min-width:90px;
+        margin-top:15px;
+        background:#f1f1f1;
+        font-weight:500;
+        padding:5px;
+        margin-left:20px;
+        font-size:$mobile-font-size;
+    }
+}
+
+.asset-detail{
+   display:-webkit-flexbox;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    font-size:$mobile-font-size;
+    flex-shrink: 0;
+}
+
+.card-link{
+    height: 100%;
+}
+
+            .view-button-holder{
+                margin-top: 10px;
+                display: flex;
+                justify-content: center;
+                margin-bottom:5px;
+
+            }
     #noResultsMessage{
         padding:30px;
         font-size:24px;
-        color:$noResultsMessageColor;
         text-align: center;
     }
     .greyed-search-area {
         background: grey;
-        opacity: .5;
+        //opacity: .5;
     }
 
     #searchResultsContainer {
@@ -196,7 +249,7 @@
         .result-cards {
             margin-top: 15px;
             width: 100%;
-            transition: background 1s;
+            transition: all 1s;
             .result-card {
                 border: solid 1px darkgrey;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -205,28 +258,38 @@
                 width: 100%;
                 position: relative;
                 overflow: hidden;
+
+                &.mock{
+                    background-color:#f5f5f5;
+                    height:100px;
+                    border:none;
+                    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    opacity:.6;
+                }
                 .info-row{
+                   display:-webkit-flexbox;
                     position: relative;
                     display: flex;
+                    flex-shrink: 0;
                     justify-content: space-between;
-                .price-tag{
-                    
-                   
-                    background:#f1f1f1;
-                    font-weight:500;
-                    padding:5px;
-                }
+
                 .distance-tag{
-                   
-                
+
+
                     background:#f1f1f1;
                     font-weight:500;
                     padding:5px;
                 }
                 }
-                
-                &:hover {
+                a{
+                    display: flex;
+                    flex-direction: column;
+                }
+                a:focus {
                     outline: orange solid 3px;
+                }
+                &:hover{
+                    border:black solid 1px;
                 }
 
                 .card-heading {
@@ -236,18 +299,27 @@
                     padding-bottom: 5px;
                     border-bottom: 1px #E9E9E9 solid;
                     .heading {
-                        display: flex;
+                        display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
                         flex-direction: column;
                         justify-content: center;
                         font-size: 19px;
-              
+
                         overflow:hidden;
                         text-overflow: ellipsis;
+                        .heading-text{
+                            font-weight:600;
+                        }
                     }
 
                     .icon {
                         margin-right: 10px;
-                        display: block;                   
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
                         img {
                             display: block;
                             width: 50px;
@@ -260,6 +332,14 @@
                     padding-top: 5px;
                     padding-left: 10px;
                     padding-right: 10px;
+                    display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
                     .price {
                         text-align: right;
                     }
@@ -267,7 +347,6 @@
             }
         }
     }
-
 
     .icon {
         &.parking-tickets-icon:before {
@@ -280,40 +359,77 @@
 
 
 
-    @media only screen and (min-width: 900px) {
-        #searchResultsContainer {
-            margin-left: 20px;
-        }
-    }
-
-    @media only screen and (min-width: 767px) {
-        #searchResultsContainer {
-            .result-cards {
-                margin-top: 10px;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                .result-card {
-                    width: 90%;
-                }
-            }
-            .grid-view {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                .result-card {
-                    width: 48%;
-                }
-            }
-        }
-    }
-
     .docTypeLabel {
-        font-size: 18px;
-        color: grey;
+        font-size: $mobile-font-size;
+        color: #2A2A2A;
+        font-weight:400;
     }
 .view-asset-link{
     text-decoration: underline;
 
 }
+
+
+
+
+
+@media only screen and (min-width: 767px) {
+    .docTypeLabel {
+        font-size: 16px;
+        color: #2A2A2A;
+        font-weight:400;
+    }
+    .view-button-holder{
+        justify-content: flex-end;
+    }
+    .asset-detail{
+        display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        font-size:$desktop-font-size;
+        flex-shrink: 0;
+    }
+    #searchResultsContainer {
+        .result-cards {
+            margin-top: 10px;
+            display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            .result-card {
+                width: 90%;
+            }
+        }
+        .grid-view {
+            display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: -webkit-flex;
+display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .result-card {
+                width: 48%;
+            }
+        }
+    }
+    .top-row{
+        .price-tag{
+            font-size:$desktop-font-size;
+        }
+    }
+}
+
+@media only screen and (min-width: 900px) {
+        #searchResultsContainer {
+            margin-left: 20px;
+        }
+    }
 </style>

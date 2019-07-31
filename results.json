@@ -1,97 +1,210 @@
 {
-  "name": "ABBEY ROSE",
-  "reference": "125",
-  "index": {
-    "name": "Brokerage",
-    "reference": "brokerage"
-  },
-  "documentType": {
-    "name": "Care homes",
-    "reference": null
-  },
-  "properties": {
-    "Access": {
-      "helpText": null,
-      "label": null,
-      "values": ["Passenger Lift"]
-    },
-    "Address": null,
-    "Contract type": {
-      "helpText": null,
-      "label": null,
-      "values": ["4 Contracted"]
-    },
-    "Email": {
-      "helpText": null,
-      "label": null,
-      "value": "manager@abbeyroserch.co.uk"
-    },
-    "Facilities": {
-      "helpText": null,
-      "label": null,
-      "values": ["Hoisting equipment", "Smoking areas", "Wheelchair user friendly"]
-    },
-    "Level": {
-      "helpText": null,
-      "label": null,
-      "values": ["1", "2", "3"]
-    },
-    "Locality": null,
-    "Manager": {
-      "helpText": null,
-      "label": null,
-      "value": "Mrs Vimla Heeroo - Proprietor  Tracey Harvey - Manager  Linda Manston - Care Manager"
-    },
-    "Notes": null,
-    "Owner": {
-      "helpText": null,
-      "label": null,
-      "value": "Mr & Mrs Kevin Heeroo"
-    },
-    "Rates": {
-      "helpText": null,
-      "label": null,
-      "low": 670,
-      "high": 670
-    },
-    "Rooms": {
-      "helpText": null,
-      "label": null,
-      "number": 24
-    },
-    "Secure": null,
-    "Status": null,
-    "Telephone": {
-      "helpText": null,
-      "label": null,
-      "value": "01202 877764"
-    },
-    "Client group": {
-      "helpText": null,
-      "label": null,
-      "values": ["Dementia - over 65", "Old Age"]
-    }
-  },
-  "locations": [{
-    "formattedAddress": null,
-    "reference": null,
-    "latitude": 50.8270902,
-    "longitude": -1.8435708,
-    "streetviewLatitude": 50.82686602612744,
-    "streetviewLongitude": -1.8438335774583263,
-    "streetviewHeading": 335.7634214653235,
-    "streetviewPitch": 15.773982206149526,
-    "primaryLocation": false
-  }],
-  "images": [{
-    "name": "flower",
-    "reference": "flower",
-    "sources": [{
-      "width": 276,
-      "height": 183
+  "name": "Advertise",
+  "reference": "advertise",
+  "locationServices": true,
+  "documentTypes": [{
+    "name": "Boundary Signage Sponsorship",
+    "reference": "boundary-signage-sponsorship",
+    "properties": [{
+      "name": "Price",
+      "reference": "price",
+      "type": "Number"
     }, {
-      "width": 100,
-      "height": 100
+      "name": "Duration of Sponsorship",
+      "reference": "duration-of-sponsorship",
+      "type": "Text"
+    }, {
+      "name": "Number of Signs",
+      "reference": "number-of-signs",
+      "type": "Text"
+    }, {
+      "name": "Sign Sizes",
+      "reference": "sign-sizes",
+      "type": "Text"
+    }, {
+      "name": "Availability",
+      "reference": "availability",
+      "type": "Text"
+    }, {
+      "name": "Available",
+      "reference": "available",
+      "type": "Boolean"
+    }, {
+      "name": "Description",
+      "reference": "description",
+      "type": "TextArea"
+    }]
+  }, {
+    "name": "Bus Shelter Advertising",
+    "reference": "bus-shelter-advertising",
+    "properties": [{
+      "name": "Price",
+      "reference": "price",
+      "type": "Number"
+    }, {
+      "name": "Duration of Advertising",
+      "reference": "duration-of-advertising",
+      "type": "Text"
+    }, {
+      "name": "Overview",
+      "reference": "overview",
+      "type": "Text"
+    }, {
+      "name": "Availability",
+      "reference": "availability",
+      "type": "Text"
+    }, {
+      "name": "Available",
+      "reference": "available",
+      "type": "Boolean"
+    }, {
+      "name": "Description",
+      "reference": "description",
+      "type": "TextArea"
+    }]
+  }, {
+    "name": "Car Parking Ticket Advertising",
+    "reference": "car-parking-ticket-advertising",
+    "properties": [{
+      "name": "Price",
+      "reference": "price",
+      "type": "Number"
+    }, {
+      "name": "Duration of Advertising",
+      "reference": "duration-of-advertising",
+      "type": "Text"
+    }, {
+      "name": "Overview",
+      "reference": "overview",
+      "type": "Text"
+    }, {
+      "name": "Availability",
+      "reference": "availability",
+      "type": "Text"
+    }, {
+      "name": "Available",
+      "reference": "available",
+      "type": "Boolean"
+    }, {
+      "name": "Description",
+      "reference": "description",
+      "type": "TextArea"
+    }]
+  }, {
+    "name": "eNewsletter Sponsorship",
+    "reference": "enewsletter-sponsorship",
+    "properties": [{
+      "name": "Price",
+      "reference": "price",
+      "type": "Number"
+    }, {
+      "name": "Duration of Advertising",
+      "reference": "duration-of-advertising",
+      "type": "Text"
+    }, {
+      "name": "Overview",
+      "reference": "overview",
+      "type": "Text"
+    }, {
+      "name": "Availability",
+      "reference": "availability",
+      "type": "Text"
+    }, {
+      "name": "Available",
+      "reference": "available",
+      "type": "Boolean"
+    }, {
+      "name": "Description",
+      "reference": "description",
+      "type": "TextArea"
+    }]
+  }, {
+    "name": "Residents' Magazine Advertising",
+    "reference": "residents-magazine-advertising",
+    "properties": []
+  }, {
+    "name": "Roundabout Sponsorship",
+    "reference": "roundabout-sponsorship",
+    "properties": [{
+      "name": "Price",
+      "reference": "price",
+      "type": "Number"
+    }, {
+      "name": "Duration of Sponsorship",
+      "reference": "duration-of-sponsorship",
+      "type": "Text"
+    }, {
+      "name": "Overview",
+      "reference": "overview",
+      "type": "Text"
+    }, {
+      "name": "Number of Signs",
+      "reference": "number-of-signs",
+      "type": "Text"
+    }, {
+      "name": "Sign Sizes",
+      "reference": "sign-sizes",
+      "type": "Text"
+    }, {
+      "name": "Traffic Flow Per 12 Hour Period",
+      "reference": "traffic-flow-per-12-hour-period",
+      "type": "Number"
+    }, {
+      "name": "Sponsorship Fee Per Month",
+      "reference": "sponsorship-fee-per-month",
+      "type": "Text"
+    }, {
+      "name": "Availability",
+      "reference": "availability",
+      "type": "Text"
+    }, {
+      "name": "Description",
+      "reference": "description",
+      "type": "TextArea"
+    }, {
+      "name": "Available",
+      "reference": "available",
+      "type": "Boolean"
+    }]
+  }, {
+    "name": "Timetable Case Posters",
+    "reference": "timetable-case-posters",
+    "properties": []
+  }, {
+    "name": "Vehicle Advertising",
+    "reference": "vehicle-advertising",
+    "properties": [{
+      "name": "Duration of Advertising",
+      "reference": "duration-of-advertising",
+      "type": "Text"
+    }, {
+      "name": "Price",
+      "reference": "price",
+      "type": "Number"
+    }, {
+      "name": "Overview",
+      "reference": "overview",
+      "type": "Text"
+    }, {
+      "name": "Sign Sizes",
+      "reference": "sign-sizes",
+      "type": "Text"
+    }, {
+      "name": "Availability",
+      "reference": "availability",
+      "type": "Text"
+    }, {
+      "name": "Fee Per Month",
+      "reference": "fee-per-month",
+      "type": "Text"
+    }, {
+      "name": "Available",
+      "reference": "available",
+      "type": "Boolean"
+    }, {
+      "name": "Description",
+      "reference": "description",
+      "type": "TextArea"
     }]
   }]
 }

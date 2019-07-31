@@ -1,30 +1,28 @@
 import axios from 'axios';
-var emailService = axios.create({
+var _axios = axios.create({
     timeout: 10000
 });
 export default {
     
-    sending(message, token) {
+    sending(message,token) {
         return new Promise(function (resolve, reject) {
              var formObject = {
             "subject": "Advertise Mail Form",
-            "text": message,
-            "token": token
+            "body": message
         };
-        emailService.post("https://web.dorsetcc.gov.uk/catalogue/v1/public/mail", formObject).then((response) => {
+        _axios.post("https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/advertise/mail/contact-form", formObject, {headers: { "Recaptcha-Response": token }}).then((response) => {
             resolve("worked")
         }).catch((err) => {
-            reject("failed")
+            reject("failed " +  err)
         });
         })
     },
     sendEmail(message, token) {
         var formObject = {
             "subject": "Advertise Mail Form",
-            "text": message,
-            "token": token
+            "body": message
         };
-        emailService.post("https://web.dorsetcc.gov.uk/catalogue/v1/public/mail", formObject).then((response) => {
+        _axios.post("https://apptest.dorsetcc.gov.uk/catalogue/indexes/advertise/mail/contact-form", formObject,{headers: { "Recaptcha-Response": token }}).then((response) => {
             return new Promise();
         }).catch((err) => {
             return new Promise();

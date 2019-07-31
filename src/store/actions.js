@@ -1,316 +1,189 @@
 import Sorting from './utils/sorting.js'
-import SearchService from './../services/SearchService'
-import DocumentTypeService from './../services/DocumentTypeService'
-import DocumentService from './../services/DocumentService'
 import GazetteerService from './../services/GazetteerService'
+import AdvertiseService from './../services/AdvertiseService'
 
-import _ from 'lodash'
-const BASE = 'http://vmcrwebapptest2:18080/catalogue/v1/'
-const SEARCH = 'indexes/advertising/documents'
-const TYPES = 'indexes/advertising/documenttypes?'
-
-const POSTCODESEARCH = 'http://vmcrwebapptest1:8080/gazetteer/rest/address/postcode/'
-
-const mutation_setSearchResults = 'setSearchResults'
 
 export const actions = {
-    /*
-        search(context, param) {
-            console.log("searchings")
-            SearchService.search(param, context.state.searchCriteria, context.state.securityToken).then((response) => {
-                context.commit("setSearchResults", response.data);
-                if (context.state.showSearchForm)
-                    context.commit("toggleSearchForm");
-            }, (error) => {
-               
-                console.log("error searching caught")
-            });
-        },
-        
-    */
-    setSearchParamater(context, param) {
-        var newParameter = param;
 
-        var updated = false
-        var index = 0;
-        var parameters = context.state.searchCriteria.parameters;
+    async setIndex(context,payload){
+        await AdvertiseService.getIndex().then((response)=>{
+            response.data.documentTypes.forEach((type)=>{
+                type.selected = true;
+            })
+            context.commit("SET_INDEX", response.data);
+            context.commit("SET_DOCUMENT_TYPES",response.data.documentTypes);
 
-        parameters.forEach((parameter) => {
-            if (parameter.reference == param.reference) {
-                parameter.value = param.value;
-                updated = true;
-            }
+
+        }).catch((err)=>{
+            // EMIT ERROR
         })
-        if (!updated && (newParameter.value != null || newParameter.value.trim() != ""))
-            parameters.push(param)
-
-        context.commit("setSearchParameters", parameters)
     },
-    async RemoveSearchParameter({
-        dispatch,
-        commit,
-        context
-    }, param) {
-        var index = 0;
-        var found = false;
-        context.state.searchCriteria.parameters.forEach((param) => {
-            if (param.reference == payload.reference) {
-                found = true;
-            }
-            if (!found)
-                index++;
+    selectAllDocumentTypes(context,param){
+          const documentTypes = context.state.index.documentTypes;
+          documentTypes.forEach((type)=>{
+            type.selected = param;
         })
-        await commit("removeSearchParameter", index)
-        dispatch("search");
-    },
-
-
-
-    sortResultsByProperty(context, param) {
-
-        context.commit("setSort", param.sortValue);
-        var sortedResults = Sorting.sortResultsByProperty(context.state.searchResults, param.sortProperty, param.sortType)
-
-        context.commit("setSortResults", sortedResults)
-
+        context.commit("SET_DOCUMENT_TYPES",documentTypes);
 
     },
-    sortResultsByBestMatch(context) {
-        context.commit("setSort", "bestmatch");
-        var sortedResults = Sorting.sortByBestMatch(context.state.searchResults.results)
-        context.commit("setSortResults", sortedResults)
-    },
-
     /*
-    searchPostcode(context) {
-        var searchCriteria = {};
-        api.get("" + POSTCODESEARCH + this.state.postcode).then((response) => {
+    setDocumentTypesSearchParameter(context){
+        var documentTypesSelected = [];
+        var documentTypes = context.state.documentTypes;
+        if(documentTypes != null && documentTypes.length > 0){
+            documentTypes.forEach((type)=>{
+                if(type.selected)
+                    documentTypesSelected.push(type.reference);
+            })
+        }
+        context.commit("SET_DOCUMENT_TYPE_SEARCH_PARAMETERS",documentTypesSelected)
+    },
+
+    async setLocationSearchParameter(context){
+        context.commit("SET_IS_LOCATION_SEARCHED", false);
+        var postcode = context.state.searchPostcode;
+        if(postcode != null && postcode != "" && postcode.length > 4){
+            var locationSearchParmeter = await GazetteerService.setLocationSearch(postcode);
+            context.commit("SET_IS_LOCATION_SEARCHED", true);
+            if(locationSearchParmeter != null){
+                if(locationSearchParmeter.noAddress){
+                    context.commit("SET_NO_ADDRESS",true);
+                    context.commit("SET_SEARCHED_POSTCODE", postcode);
+                }
+                else{
+                    context.commit("SET_NO_ADDRESS",false);
+                    context.commit("SET_LOCATION_SEARCH_PARAMETER",locationSearchParmeter);
+                    context.commit("SET_SEARCHED_POSTCODE", postcode);
+                    context.commit("SET_SORT","nearest");
+
+
+                }
+            }
+        }else{
+          if(context.state.sort == "nearest" || context.state.sort == "furthest")
+                context.commit("SET_SORT","");
+        }
+    },
+
+    async setAvailableSearchParameter(context){
+        var searchAvailable = context.state.searchAvailable;
+        if(searchAvailable)
+            context.commit("SET_AVAILABLE_SEARCH_PARAMETER");
+        else
+            context.commit("REMOVE_AVAILABLE_SEARCH_PARAMETER");
+    },
+
+    async search(context){
+
+        var allSelected = true;
+
+        var types = context.state.documentTypes;
+        types.forEach((type)=>{
+            if(!type.selected)
+              allSelected = false;
+        })
+        console.log("all Selected: " + allSelected)
+        context.commit("SET_ALL_DOCUMENT_TYPES_SELECTED",allSelected);
+
+        context.commit("SET_IS_SEARCHING",true)
+        context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
+        await context.dispatch("setLocationSearchParameter");
+        await context.dispatch("setAvailableSearchParameter");
+        await context.dispatch("setDocumentTypesSearchParameter");
+
+        AdvertiseService.search(context.state.searchParameters).then((response)=>{
+            var documents = response.data;
+
+            context.commit("SET_SEARCH_RESULTS",documents);
+
+            context.dispatch("sortSearchResults")
+            context.commit("SET_IS_SEARCHING",false)
+        }).catch((err)=>{
+            console.log(err);
+            context.commit("SET_IS_SEARCHING",false)
+        })
+    },
+
+    async getAdvertisePostcodeSearchCoordinates(context){
+
+        var postcode = context.state.searchPostcode;
+        await GazetteerService.search(postcode).then((response) => {
+
             var address = response.data.address[0];
-            searchCriteria = {
-                documentTypes: [],
-                parameters: [
-                    {
-                        reference: "available",
-                        value: true
-                        }],
-                location: {
-                    latitude: address.latitude,
-                    longitude: address.longitude,
-                    unit: "MILE",
-                    range: 5
-                }
-            }
-            api.post("" + BASE + SEARCH, searchCriteria).then((response) => {
-                context.commit("setSearchCriteria", searchCriteria);
-                context.commit("setSearchResults", response.data);
-                if (context.state.showSearchForm)
-                    context.commit("toggleSearchForm");
-            });
+            context.dispatch("createAdvertiseLocationSearchParameter",address);
         })
     },
-    
-    */
-    removeSearchCriteriaProperty(context, param) {
-        var index = 0;
-        var parameters = context.state.searchCriteria.parameters;
-        for (index; index < parameters.length; index++) {
-            if (parameters[index].reference == param)
-                context.commit("removeSearchParameter", index)
+
+    sortCurrentSearchResults(context,params){
+        var documents = context.state.searchResults;
+        var sortedDocuments = Sorting.sortAdvertiseDocuments(documents,params);
+        context.commit("SET_SEARCH_RESULTS",sortedDocuments);
+        context.commit("SET_SORT",params);
+    },
+
+    removeAllAdvertiseSearchParams(context){
+        context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
+        context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
+    },
+
+    async setLocationSearchOnly(context){
+        await context.commit("SET_SORT","nearest");
+        await context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
+        await context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
+        await context.dispatch("selectAllDocumentTypes",true);
+        await context.commit("SET_AVAILABLE",false);
+
+    },
+
+    async setSingleDocumentTypeOnlySearch(context,param){
+        await context.commit("REMOVE_LOCATION_SEARCH_PARAMETER");
+        await context.commit("REMOVE_DOCUMENT_TYPE_SEARCH_PARAMETERS");
+        await context.commit("SET_AVAILABLE",false);
+        context.commit("SET_POSTCODE","");
+        var documentTypes = context.state.documentTypes;
+        if(documentTypes == null){
+            await this.dispatch("setIndex");
+            documentTypes = context.state.documentTypes;
+
         }
-    },
-
-
-
-
-    /*************************************************************************************************/
-
-
-    // Set the search options on the form. based on document types available and those currently selected.
-    async setDocumentTypesSearchOptions({
-        dispatch,
-        state,
-        commit
-    }, param) {
-        var documentTypeOptions = [];
-        await DocumentTypeService.getTypes(param).then((response) => {
-            var types = response.data;
-            var typesSelected = state.searchCriteria.documentTypes;
-            types.forEach((type) => {
-                if (typesSelected.length)
-                    type.selected = false;
-                if (_.includes(typesSelected, type.reference)) {
-                    type.selected = true;
-                }
-            })
-            commit("setDocumentTypes", types)
-        })
-    },
-
-
-    // Set the search options on the form. based on document types available and those currently selected.
-    async setInitialDocumentTypesSearchOptions({
-        dispatch,
-        state,
-        commit
-    }, param) {
-        var documentTypeOptions = [];
-        await DocumentTypeService.getTypes(param).then((response) => {
-            var types = response.data;
-            var typesSelected = state.searchCriteria.documentTypes;
-            types.forEach((type) => {
-                if (type.display) {
-                    state.searchCriteria.documentTypes.push(type.reference)
-                    type.selected = true;
-                }
-            })
-            commit("setInitialSearch")
-            commit("setDocumentTypes", types)
-        })
-    },
-
-    // Get the current selected document types selected for search
-    getDocumentTypeSearchOptions(context) {
-        return context.state.searchCriteria.documentTypes;
-    },
-
-    // A document type has been selected or deselected. recalculate types selected list.
-    setTypesSearchChange({
-        commit,
-        dispatch
-    }, param) {
-        var typesSelected = []
-        param.forEach((type) => {
-            if (type.selected) {
-                typesSelected.push(type.reference)
-            }
-        })
-        commit("setDocumentTypeSearchParameters", typesSelected)
-    },
-    removeSearchDocumentType(context, param) {
-        var typesSelected = context.state.searchForm.documentTypes
-        typesSelected.forEach((type) => {
-            if (type.reference == param.reference)
-                type.selected = false
+        documentTypes.forEach((type)=>{
+            type.selected = false;
+            if(param == type.reference)
+                type.selected = true;
         })
 
+        await context.commit("SET_DOCUMENT_TYPES",documentTypes);
     },
-    // new search 
-    async aSearch({
-        state,
-        commit,
-        dispatch
-    }) {
-console.log("searching....")
-        commit("setCurrentlySearching",true);
-        var postcode = state.searchForm.postcode;
-        if (postcode != null && postcode != "") {
-            await GazetteerService.search(postcode).then((response) => {
-                // Use first address from results - possible better way ?
-                var address = response.data.address[0];
-                var location = {
-                    "latitude": address.latitude,
-                    "longitude": address.longitude,
-                    "unit": "MILE",
-                    "range": 10
-                }
-                commit("setPostcodeSearchCriteria", location);
-
-            })
-        }
-        SearchService.search(state.indexReference, state.searchCriteria).then((response) => {
-            commit("setASearchResults", response.data.results)
-            commit("setCurrentlySearching",false);
-        }, (error) => {
-            /* TODO Handle error */
-            console.log("error searching caught")
-            commit("setCurrentlySearching",false);
-        });
+    setAllSelectedCheckbox(context,param){
+        context.dispatch("selectAllDocumentTypes",param);
+        context.commit("SET_ALL_DOCUMENT_TYPES_SELECTED",param);
     },
 
-    async setPostcodeSearchCriteria({
-        state,
-        commit,
-        dispatch
-    }) {
-        var postcode = state.searchForm.postcode;
+    searchAdvertise(context,params){
+      AdvertiseService.search(params).then((response)=>{
+      var documents = response.data;
 
-        if (postcode != null && postcode != "") {
-            await GazetteerService.search(postcode).then((response) => {
+        context.commit("SET_SEARCH_RESULTS",documents);
 
-                // Use first address from results - possible better way ?
-                var address = response.data.address[0];
-
-                var location = {
-                    "latitude": address.latitude,
-                    "longitude": address.longitude,
-                    "unit": "MILE",
-                    "range": 10
-                }
-                commit("setPostcodeSearchCriteria", location);
-
-            })
-            dispatch("aSearch");
-        } else {
-
-            var locationNull = null
-            commit("setPostcodeSearchCriteria", locationNull);
-            dispatch("aSearch");
-        }
-    },
-    setAvailableSearch(context, payload) {
-      
-        var searchCriteriaParameters = context.state.searchCriteria.parameters;
-        if (searchCriteriaParameters.length > 0 && !payload) {
-            console.log("set available search");
-            searchCriteriaParameters.splice(0, 1)
-        } else if (searchCriteriaParameters.length == 0 && payload) {
-            searchCriteriaParameters.push({
-                "reference": "available",
-                "value": true
-            });
-        }
-        context.commit("setSearchParameters", searchCriteriaParameters);
-        context.commit("setAvailableSearch",payload);
-    },
-
-    // Preperation for postcode only search - from homepage
-    removeAllOtherSearchCriteria({
-        state,
-        dispatch
-    }) {
-        dispatch("removeAllDocumentTypesFromSearchCriteria");
-    },
-    // Remove types to search postcode only 
-    removeAllDocumentTypesFromSearchCriteria(context) {
-        var typesSelected = context.state.searchForm.documentTypes
-        typesSelected.forEach((type) => type.selected = false);
-        context.commit("setDocumentTypes", typesSelected);
-    },
-
-
-    async searchSingleDocumentType( {dispatch,state,commit},payload){
-        await DocumentTypeService.getTypes("advertise").then((response) => {
-            var types = response.data;
-            var typesSelected = state.searchCriteria.documentTypes;
-            types.forEach((type) => {
-                if (type.display) {
-                    state.searchCriteria.documentTypes.push(type.reference)
-                    if(type.reference == payload)
-                        type.selected = true;
-                }
-            })
-            commit("setInitialSearch");
-            commit("setDocumentTypes", types);
+        context.dispatch("sortSearchResults")
+        context.commit("SET_IS_SEARCHING",false)
+    }).catch((err)=>{
+        console.log(err);
+        context.commit("SET_IS_SEARCHING",false)
     })
-},
-
-    /*************************************************************************/
-
-    setAdminCurrentLocation(context, payload) {
-        context.commit("setAdminCurrentLocation", payload)
-
-        
     }
+}*/
 
+sortSearchResults(context,params){
+  var documents = context.state.searchResults;
+  var sortedDocuments = Sorting.sortAdvertiseDocuments(documents,params);
+  context.commit("SET_SEARCH_RESULTS",sortedDocuments);
+  context.commit("SET_SORT",params);
+},
+removePostcodeSearch(context){
+    context.commit("RESET_POSTCODE_ERRORS");
+    context.commit("REMOVE_POSTCODE");
+    context.commit("REMOVE_LOCATION_PARAMETER");
 
+}
 }

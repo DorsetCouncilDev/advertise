@@ -3,8 +3,6 @@
 
 import Vue from 'vue';
 import App from './App';
-import jquery from 'jquery';
-import BootstrapVue from 'bootstrap-vue'
 import './assets/scss/_colours.scss';
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'aos/dist/aos.css'
@@ -22,4 +20,4 @@ var app = new Vue({
     components: { App  },
    template : '<App/>' 
 })
-const meta = app.$meta() // here
+const meta = app.$meta() 

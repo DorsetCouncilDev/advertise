@@ -1,9 +1,6 @@
 import api from './api'
 
 export default{
-    create(indexRef,token,documentType){
-        return api.post(indexRef + '/documenttypes/',documentType,token)
-    },
     getType(indexRef,typeRef){
         return api.get(indexRef + '/documenttypes/' + typeRef)
     },
@@ -20,7 +17,7 @@ export default{
         return api.post(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef,null,token)
     },
     addProperties(indexRef,typeRef,properties,token){
-        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/',properties,token)  
+        return api.put(indexRef + '/documenttypes/' + typeRef + '/properties/',properties,token)
     },
     RemovePorperty(indexRef,typeRef,propertyRef){
         return api.delete(indexRef + '/documenttypes/' + typeRef + '/properties/' + propertyRef)
@@ -39,8 +36,8 @@ export default{
     },
     movePropertyUp(indexRef,documentTypeRef,propertyRef,token){
         var url = indexRef + '/documenttypes/' + documentTypeRef + '/properties/' + propertyRef + '/moveup'
-        
+
         return api.put(url,null,token);
     }
-    
+
 }

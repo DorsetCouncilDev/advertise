@@ -1,0 +1,178 @@
+{
+  "name": "Bin Lid Advertising",
+  "reference": "bin-lid-advertising",
+  "index": {
+    "name": "Advertise",
+    "reference": "advertise"
+  },
+  "documentType": {
+    "name": "Bin Lid Advertising",
+    "reference": "bin-lid-advertising"
+  },
+  "longText": "Across Dorset",
+  "properties": {
+    "Availability": {
+      "value": "opportunities currently available"
+    },
+    "Available": {
+      "value": "true"
+    },
+    "Description": {
+      "value": "Residents will see your advert each time they lift the bin lid ? giving you repeat opportunities to communicate your messaging over a minimum 12 month period. Adverts are accompanied by helpful information from the Dorset Waste Partnership regarding the correct usage of the bin. Stickers are moisture resistant, gloss laminated, high quality material and will remain in place for a minimum of 12 mon"
+    },
+    "Duration of Advertising": {
+      "value": "from 12 to 18 months"
+    },
+    "Fee Per Month": {
+      "value": "NULL"
+    },
+    "Overview": {
+      "value": "Bin lid advertising is unique and highly targeted - get your marketing messages repeatedly viewed by residents throughout the year."
+    },
+    "Price": {
+      "value": 1000.00
+    }
+  },
+  "locations": [{
+    "reference": "0b7ff0a8-4c5e-41ac-891e-a448febf84cb",
+    "formattedAddress": " Shaftesbury depot",
+    "primaryLocation": true,
+    "latitude": 51.00824234,
+    "longitude": -2.186800516,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "48127382-3a96-4498-8fa4-84b40574397b",
+    "formattedAddress": "Blandford depot",
+    "primaryLocation": false,
+    "latitude": 50.85730473,
+    "longitude": -2.158824718,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "605e37c8-c132-4583-a7a1-e62ebbdc12f8",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.69593779,
+    "longitude": -2.121323273,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "efda3a02-7c06-40ab-aaaf-348943a54f05",
+    "formattedAddress": "Location",
+    "primaryLocation": false,
+    "latitude": 50.71415498,
+    "longitude": -2.451182924,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "d693bfd9-e55d-4209-9b17-238eb3c121f3",
+    "formattedAddress": "Crookhill depot",
+    "primaryLocation": false,
+    "latitude": 50.6169776,
+    "longitude": -2.503475856,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "5e25b2ce-36df-438e-b544-ae8398139824",
+    "formattedAddress": "Bridec depot",
+    "primaryLocation": false,
+    "latitude": 50.7123098,
+    "longitude": -2.755712674,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "2609b113-45d8-4a34-99cb-0491da44c0fa",
+    "formattedAddress": "Ferndown depot",
+    "primaryLocation": false,
+    "latitude": 50.80995093,
+    "longitude": -1.914613473,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "b7524864-f214-4f6f-9356-769e6584d46d",
+    "formattedAddress": " Shaftesbury depot",
+    "primaryLocation": false,
+    "latitude": 51.00824234,
+    "longitude": -2.186800516,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "3de518ef-18a3-4ec9-a2bf-121a304b55fc",
+    "formattedAddress": "Blandford depot",
+    "primaryLocation": false,
+    "latitude": 50.85730473,
+    "longitude": -2.158824718,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "0a7136eb-4f7d-4360-93e3-d2ad8064fdeb",
+    "formattedAddress": "Bin Lid Advertising",
+    "primaryLocation": false,
+    "latitude": 50.69593779,
+    "longitude": -2.121323273,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "c06eaa24-9670-44a7-8470-388da0595184",
+    "formattedAddress": "Bin Lid Advertising",
+    "primaryLocation": false,
+    "latitude": 50.71415498,
+    "longitude": -2.451182924,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "571c4679-a149-474d-82cf-cdcd0a6884c8",
+    "formattedAddress": "Crookhill depot",
+    "primaryLocation": false,
+    "latitude": 50.6169776,
+    "longitude": -2.503475856,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "c5dcc5bb-c5e9-468e-b992-4b39286fc2a7",
+    "formattedAddress": "Bridec depot",
+    "primaryLocation": false,
+    "latitude": 50.7123098,
+    "longitude": -2.755712674,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }, {
+    "reference": "7650856e-5f4f-4ab4-ad58-0a4396363c78",
+    "formattedAddress": "Ferndown depot",
+    "primaryLocation": false,
+    "latitude": 50.80995093,
+    "longitude": -1.914613473,
+    "streetviewLatitude": null,
+    "streetviewLongitude": null,
+    "streetviewHeading": 0.0,
+    "streetviewPitch": 0.0
+  }],
+  "images": []
+}

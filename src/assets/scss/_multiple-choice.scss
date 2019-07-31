@@ -8,7 +8,7 @@ $gutter-one-third: 5px;
   clear: left;
   position: relative;
 
-  padding: 0 0 0 38px;
+  padding: 0 0 0 32px;
   margin-bottom: $gutter-one-third;
 
     /*
@@ -73,8 +73,8 @@ $gutter-one-third: 5px;
 
   [type=checkbox] + label::before {
     content: "";
-    border: solid 1px #ced4da;
-    background: transparent;
+    border: solid 1px black;
+    background: white;
     width: 34px;
     height: 34px;
     position: absolute;
@@ -85,7 +85,7 @@ $gutter-one-third: 5px;
   [type=checkbox] + label::after {
     content: "";
     border: solid;
-    border-width: 0 0 1px 1px;
+    border-width: 0 0 3px 3px;
     background: transparent;
     border-top-color: transparent;
     width: 25px;
@@ -103,18 +103,18 @@ $gutter-one-third: 5px;
 
   // Focused state
   [type=radio]:focus + label::before {
-    box-shadow: 0 0 0 1px $orange;
+    box-shadow: 0 0 0 1px orange;
   }
 
   [type=checkbox]:focus + label::before {
-    box-shadow: 0 0 0 1px $orange;
+    box-shadow: 0 0 0 1px orange;
   }
 
   // Selected state
   input:checked + label::after {
     opacity: 1;
   }
-    
+
 
 
   // Disabled state
@@ -130,33 +130,36 @@ $gutter-one-third: 5px;
   &:last-child,
   &:last-of-type {
     margin-bottom: 0;
-  } 
-    label.small{
-        padding: 5px 5px 1px 2px;
+  }
+    label.multiple-choice-small{
+        padding: 2px 5px 1px 2px;
         margin-bottom: 1px;
             margin-top: 10px;
+            font-size:16px;
+            line-height:1.2;
+
     }
-    [type=radio] + label.small::before {
+    [type=radio] + label.multiple-choice-small:before {
         width: 24px;
         height: 24px;
     }
-    [type=radio] + label.small::after {
+    [type=radio] + label.multiple-choice-small:after {
         top: 5px;
         left: 5px;
         border: 7px solid;
     }
-    [type=checkbox] + label.small::before {
+    [type=checkbox] + label.multiple-choice-small::before {
         width: 24px;
         height: 24px;
     }
-    [type=checkbox] + label.small::after {
+    [type=checkbox] + label.multiple-choice-small::after {
         width: 20px;
         height: 8px;
         top: 7px;
         left: 3px;
         transform: rotate(-55deg);
     }
-    input.small {
+    input.multiple-choice-small {
         width:24px;
         height:24px;
     }
@@ -172,6 +175,6 @@ $gutter-one-third: 5px;
   }
     */
 }
-    
- 
+
+
 

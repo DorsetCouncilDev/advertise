@@ -1,63 +1,45 @@
 <template>
-   <div>
-    <div id="navRow">
-        <div id="navLinks">
-            <ol class="ad-breadcrumb">
-                <li><router-link :to="{path: '/advertise'}">home</router-link></li>
-                <li><router-link :to="{ path: '/advertise/search'}">search results</router-link></li>
-                <li id="docRefBreadCrumb" aria-current="page">{{document.reference}}</li>     
-            </ol>
-        </div>
-        <div id="menuLinks">
-            <ul id="menuList">
-                <li><router-link to="/advertise/info/contact">Contact us</router-link></li>
-                <li><router-link to="/advertise/info/mediapack">Media pack</router-link></li>
-                <li><router-link to="/advertise/info/faq">FAQs</router-link></li> 
-            </ul> 
-        </div>
-    </div>
+   <div id="content">
+<SiteTopNav currentPage="assetPage" :assetRef="documentRef"></SiteTopNav>
 
  <div v-show="loadingDocument">
     <h1>Loading asset</h1>
 </div>
-
-     <div v-show="!loadingDocument">
         <div class="document-header">
-            <div class="icon-holder">
-                <img :src="getIcon(document.documentTypeReference)" :alt="document.documentTypeReference">
-            </div>   
-            <div class="document-headings">
+          <div class="d-flex flex-column justify-content-center">
                 <h1 id="assetTitleText">{{document.name}}</h1>
-                <h2 id="assetLongText">{{document.documentTypeName}} - {{document.longText}}</h2>
-            </div>
-        </div>
-        <h3 id="assetPrice">{{assetPrice}}</h3>
-        <p id="assetParagraph" v-if="afterPriceText">{{afterPriceText}} </p>
-       <hr>
-   <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + waiting }">Add to waiting list</router-link>
-   <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/info/contact/' + documentRef + '/' + book }">Check availablity &amp; book</router-link>
+</div>
+                <img :src="getIcon(document.documentType.reference)" alt="">
 
-        <section id="propertiesSection" v-for="p in properties"  v-bind:key="p.reference">
-            <span v-if="p.display && p.propertyReference != 'price' && p.propertyReference != 'before-price' && p.publishedValue != null && p.publishedValue != '' && p.propertyReference != 'description' && p.propertyReference != 'meta-title'">
-                <div class="property-section">
-                <span class="generalPropertyName">{{p.propertyName}}</span>
-                <span class="generalPropertyValue">{{p.publishedValue | readBoolean}}</span>
+              </div>
+             <h2 id="assetLongText">{{document.documentType.name}} - {{document.longText}}</h2>
+
+        <h3 id="assetPrice">{{assetPrice}}</h3>
+        <p>{{assetPriceHelpText}}</p>
+
+       <hr>
+   <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=waiting' }">Join waiting list</router-link>
+   <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=book' }">Check availablity &amp; book</router-link>
+
+        <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
+                <div class="property-section" v-if="p != 'Description' && p != 'Available' && p!= 'Price'">
+                    <span class="generalPropertyName">{{p}}</span>
+                    <span class="generalPropertyValue">{{getPropertyValue(p)}}</span>
                 </div>
-                </span>
         </section>
- 
-        <hr>
-        <div v-if="document.locations != null && document.locations.length > 0">
+
+
+        <section id="locationSection" v-if="document.locations != null && document.locations.length > 0">
             <h3>Location</h3>
             <AssetMaps :locations="document.locations" :streetView="streetViewRequired" :name="document.name"></AssetMaps>
-        </div>
-        <div class="description-text" v-if="description != ''"><hr><p>{{description}}</p><hr></div>
-       
+        </section>
+        <div class="description-text" v-if="description != ''"><p>{{description}}</p></div>
+<section id="contactSection">
         <p class="assetParagraph">Contact our marketing team</p>
         <p class="assetParagraph"><a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a> </p>
         <p class="assetParagraph"><a href="tel:+441305224125">01305 224125</a></p>
-        <p class="assetParagraph">quoting reference <strong>{{document.reference}}</strong></p> 
-    </div>
+        <p class="assetParagraph">quoting reference <strong>{{documentRef}}</strong></p>
+</section>
     </div>
 </template>
 
@@ -70,7 +52,7 @@
         props: [ 'documentRef'],
         data() {
             return {
-                document: {},
+                document: {documentType:{reference:""}},
                 indexRef: "advertise",
                 waiting:"waiting",
                 book:"book",
@@ -81,9 +63,9 @@
         },
         metaInfo () {
         return {
-        title: this.pageMetaTitle,
+        title: this.document.metadataTitle,
         meta: [ {
-            name:"description", content:this.pageMetaDescription
+            name:"description", content:this.document.metadataDescription
         } ]
 
       }
@@ -92,144 +74,94 @@
             AssetMaps
         },
         methods: {
-            getIcon(documentType) {
-                if (typeof documentType !== "undefined") {
-                return require("../../../assets/images/icons/" + documentType + ".svg");
-                }
-            },
-            getDocument: function() {
-                DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
+          getDocument: async function() {
+               await DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
                     this.document = response.data;
-                    this.pageMetaDescription = this.metaDescription; 
-                    this.pageMetaTitle =  this.metaTitle; 
+                    this.pageMetaDescription = this.metaDescription;
+                    this.pageMetaTitle =  this.metaTitle;
                     this.loadingDocument = false;
                 })
+            },
+            getPropertyValue(key){
+
+                if( this.document.properties){
+                    var propertyObject =  this.document.properties[key]
+
+                if (propertyObject.value !== "undefined")
+                    return propertyObject.value;
+                else if (propertyObject.values !== "undefined")
+                    return propertyObject.values;
+                 }
+                return null;
+            },
+            propertyKeys(){
+                if( this.document.properties)
+                    return Object.keys(this.document.properties);
+                return [];
+            },
+            getIcon(documentType){
+                if(documentType == "")
+                    return null;
+                 return require("../../../assets/images/icons/" + documentType + ".svg");
             }
         },
         computed: {
+          assetPriceHelpText: function(){
+            if(this.document.properties && this.document.properties.Price && this.document.properties.Price.helpText)
+              return this.document.properties.Price.helpText;
+          },
+          isDocumentLoaded: function() {
+            if(document != null)
+              return true;
+            return false;
+          },
+          assetAvailable(){
+            var available = false
+            if( this.isDocumentLoaded && this.document.properties && this.document.properties.Available && this.document.properties.Available.value == "true")
+                available = true;
+            return available;
+          },
+          description: function(){
+            if(this.isDocumentLoaded && this.document.properties && this.document.properties.Description)
+                return this.document.properties.Description.value;
+            return "";
+          },
+          streetViewRequired() {
+            var primaryLocation;
+            this.document.locations.forEach((location)=>{
+              if(location.primaryLocation)
+                primaryLocation = location;
+              })
+              if(primaryLocation.streetviewLatitude != null)
+                return true;
+              return false;
+          },
+          assetPrice() {
+            if(this.document.properties && this.document.properties.Price){
+              var priceProperty = this.document.properties.Price;
+              var price = Number(priceProperty.value);
 
-        metaDescription(){
-             var descToReturn = null;
-                this.document.properties.forEach((p)=>{
-                   
-                    console.log(p.propertyName);
-                    if(p.propertyName == 'meta-description'){
-                        console.log("value: " + p.publishedValue)
-                        descToReturn = p.publishedValue;
-                }
-                })
-                return descToReturn;
+              if(isNaN(price))
+                return "Price on application";
+              price = Number(parseFloat(price).toFixed(2)).toLocaleString('en', { minimumFractionDigits: 0 });
+              price = "£ " + price;
+
+              if(priceProperty.label)
+                price = priceProperty.label + " " + price;
+
+              return price;
+            }
+            return "Price on application";
+          }
+
+
+
         },
+        async beforeMount() {
+           await this.getDocument();
 
-        metaTitle(){
-             var titleToReturn = null;
-                this.document.properties.forEach((p)=>{
-                   
-                    console.log(p.propertyName);
-                    if(p.propertyName == 'meta-title'){
-                        console.log("value: " + p.publishedValue)
-                        titleToReturn = p.publishedValue;
-                }
-                })
-                return titleToReturn;
-        },
-            properties(){
-                if(this.document != null && this.document.properties != null){
-                    return this.document.properties;
-                }
-                return [];
-            },
-            description: function(){
-                var desc = "";
-                var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'description')
-                        desc =  p.publishedValue
-                   })
-                return desc;
-            },
-            streetViewRequired() {
-               if(this.document.locations[0].streetviewLatitude != null)
-                   return true;
-                else
-                    return false;
-            },
-            assetPrice() {
-                var price = null
-                var before = null
-                var after = null
-                var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'price')
-                        price = p.publishedValue
-                    if (p.propertyReference == 'before-price')
-                        before = p.publishedValue
-                    if (p.propertyReference == 'after-price')
-                        after = p.publishedValue
-                })
-
-                if (price == null) {
-                    return '£ P.O.A'
-                }
-
-                if (isNaN(price))
-                    return '£ P.O.A'
-                else {
-                    var priceDescription = ""
-
-                    if (before != null)
-                        priceDescription += before + " ";
-
-                    var decimals = 1;
-                    price = Math.round(price * Math.pow(10, decimals)) / Math.pow(10, decimals);
-                    priceDescription += "£" + price
-                    return priceDescription
-                }
-            },
-            assetAvailable() {
-                var available = false
-                 var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'available' && p.publishedValue == 'true')
-                       available = true;
-                })    
-                return available
-            },
-            beforePriceText() {
-                var beforePrice = null
-                var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'before-price')
-                        beforePrice = p.publishedValue
-                })
-                return beforePrice
-            },
-            afterPriceText() {
-                var afterPrice = null
-                 var assetProperties = this.properties;
-                assetProperties.forEach((p) => {
-                    if (p.propertyReference == 'after-price')
-                        afterPrice = p.publishedValue
-                })
-                return afterPrice
-        }
-        },
-        beforeMount() {
-          this.getDocument();
-       
         },
         filters: {
-            round: function(value) {
-                if (typeof Number(value) === 'number') {
-                    if (!value) {
-                        value = 0;
-                    }
-                    var decimals = 0;
-                    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
-                }
-                return 'P.O.'
-
-            },
             readBoolean: function(value) {
                 if (value == 'true')
                     return 'Yes'
@@ -242,47 +174,45 @@
                 return value.replace(new RegExp('-', 'g'), " ");
 
             }
-        },
-        created: function(){
-              
         }
     }
 
 </script>
 
 <style scoped lang="scss">
+#locationSection{
+  margin-bottom:60px;
+  margin-top:60px;
+}
 #propertiesSection{
     display: flex;
 
+ .property-section{
+    margin-top:30px;
+    background: #f7f7f7;
+    padding:5px 15px;
+    border-left:grey 5px solid;
+}
 }
 
 #docRefBreadCrumb{
       text-overflow: ellipsis;
 }
-#assetLongText {
-    font-weight:400;
-}
-    .ad-breadcrumb{
-   width:100%;
-        white-space: nowrap;
+
+.ad-breadcrumb{
+  width:100%;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-    }
-
-    
-    .description-text{
-        margin:15px 0;
-    }
-    #assetTitleText {
-        font-size: 24px;
-        margin-bottom: 15px;
-         text-align: left;
-  
-    }
-
-    #assetLongText {
+}
+ .description-text{
+    margin:60px 0;
+}
+#assetLongText {
         font-size: 19px;
         text-align: left;
+         font-weight:400;
+         margin-bottom:20px;
     }
 
     .assetParagraph {
@@ -294,19 +224,21 @@
     .document-header {
         display: flex;
         width: 100%;
-        flex-direction: row-reverse;
         justify-content: space-between;
-        .icon-holder {
-            height: 100px;
-            margin-right: 20px;
-            width: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            img {
-                width: 75px;
-            }
+        margin-bottom:5px;
+
+        #assetTitleText {
+          font-size: 19px;
+          margin-bottom: 15px;
+          text-align: left;
+          margin-bottom:0;
         }
+            img {
+              display:inline-block;
+         vertical-align:top;
+         width:50px;
+            }
+
     }
 
     .available-tag {
@@ -314,17 +246,34 @@
         #assetParagraph {
             margin-bottom: 2px;
         }
-       
+
     }
 
-    @media only screen and (min-width: 700px) {
+     @media only screen and (min-width: 400px) {
 
         .document-header {
-            .icon-holder {
-                width: 100px;
-                height: 100px;
+            #assetTitleText {
+              font-size: 24px;
             }
+            img {
+              width:75px;
+            }
+          }
         }
+
+  @media only screen and (min-width: 500px) {
+
+        .document-header {
+            #assetTitleText {
+              font-size: 28px;
+            }
+            img {
+              width:100px;
+            }
+          }
+        }
+    @media only screen and (min-width: 700px) {
+
         #assetTitleText {
             font-size: 1.8rem;
             margin-bottom: 5px;
@@ -346,23 +295,9 @@
         .contact {
             float: right;
         }
-      
+
     }
-  @media only screen and (min-width: 805px) {
-             #assetTitleText {
-                font-size: 32px;
-            }
-        }
-    
-     @media only screen and (min-width: 420px) {
-      .ad-breadcrumb{
-        width:auto;
-        white-space: nowrap;
-  overflow: hidden;
- 
-    }
-    }
-.generalPropertyName{
+    .generalPropertyName{
     display:block;
     font-weight:500;
 }
@@ -370,16 +305,22 @@
     display:block;
     color: #3f3f3f;
 }
-
-.property-section{
-    margin-top:30px;
-    padding-left:15px;
-    border-left:5px solid darkgrey;
-    padding:5px 15px;
-    background:#f7f7f7;
-}
-
 #assetPrice{
     font-size:22px;
 }
+     @media only screen and (min-width: 420px) {
+      .ad-breadcrumb{
+        width:auto;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+    @media only screen and (min-width: 805px) {
+      #assetTitleText {
+        font-size: 32px;
+      }
+    }
+
+
+
 </style>

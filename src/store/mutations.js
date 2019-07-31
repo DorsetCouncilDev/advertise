@@ -1,131 +1,80 @@
-import { stat } from "fs";
-
 export const mutations = {
-    setCurrentIndex(state,payload){
-        state.currentIndex = payload;  
+
+    SET_INDEX(state,payload){
+        state.index = payload;
     },
-    setDocumentTypes(state,payload){
-        state.types = payload;
+
+
+
+    // Search options form
+    SET_DOCUMENT_TYPES(state,payload){
+        state.documentTypes = payload;
     },
-    removeSearchParameter(payload){
-        state.searchCriteria.parameters.splice(payload);
+    SET_AVAILABLE(state,payload){
+        state.searchAvailable = payload;
     },
-    updateSearchParameter(state,payload){
-        state.searchCriteria.parameters.forEach((param) => {
-            if(param.reference == payload.reference){
-                
-            }
-                param.value = payload.value
-        })
-    },
-    addSearchParameter(state,payload){
-         state.searchCriteria.parameters.push(payload);
-    },
-    setSearchResultsResults(state,payload){
+
+
+
+
+
+
+    SET_SEARCH_RESULTS(state,payload){
         state.searchResults = payload;
     },
-    setView(state,payload){
+
+
+    SET_SORT(state,payload){
+        state.sort = payload;
+    },
+    SET_VIEW(state,payload){
         state.view = payload;
     },
-    setSearchParameters(state,payload){
-        state.searchCriteria.parameters = payload;
-    },
-    toggleSearchForm(state){
-        state.showSearchForm = !state.showSearchForm
-    },
-    setSortResults(state,payload){
-        state.searchResults = payload;
-    },
-    setSort(state,payload){
-        state.sort = payload
-    },
-    setSearchLocation(state,payload){
-        state.searchCriteria.location.latitude = payload.latitude;
-        state.searchCriteria.location.longitude = payload.longitude;
-    },
-   
-    setSearchCriteria(state,payload){
-        state.searchCriteria = payload;
-    },
-    removeSearchParameter(state,payload){
-        state.searchCriteria.parameters.splice(payload,1);
-    },
-    removeDocumentTypeFromSearch(state,payload){
-        state.searchCriteria.documentTypes.splice(payload,1)
-    },
-    addDocumentTypeToSearch(state,payload){
-        state.searchCriteria.documentTypes.push(payload);
-    },
-    revoveSearchDocumentType(state,payload){
-        state.searchCriteria.documentTypes.splice(payload,1)
-    },
-    removeLocationSearch(state){
-        delete state.searchCriteria.location;
-    },
-    removePostcode(state){
-        state.postcode = null;
-    },
-    setSecurityToken(state,payload){
-        state.securityToken = payload
-    },
-     clearSecurityToken(state){
-        state.securityToken = ""
-    },
-     setDocumentTypeSearchParameters(state,param){
-      state.searchCriteria.documentTypes = param
-    },
-    setResults(state,param){
-        state.searchResults = param;
-     
-    }, 
-    setASearchResults(state,param){
-        state.currentlySearching = param;
-    },
-    
-    
-    /***************************************/
-    setIndexReference(state,param){
-      state.indexReference = param  
-    },
-    
-    setDocumentTypes(state,param){
-        state.searchForm.documentTypes = param
-    },
-    setDocumentTypesSearchCriteria(state,param){
-        state.searchCriteria.documentTypes = param
-    },
-    
-    setASearchResults(state,param){
-        state.searchResults = param
-    },
-    setPostcodeSearchCriteria(state,param){
-        state.searchCriteria.location = param
-    },
-    setPostcode(state,payload){
-        state.searchForm.postcode = payload;
-    },
-    setInitialSearch(state){
-        state.initialSearch = true
-    },
-    setAvailableSearch(state,payload){
-        state.searchForm.parameters.available = payload
-    },
-    setSearchTypesForm(state,payload){
-        state.searchForm.documentTypes = payload;
-    },
-    
 
-    setCurrentlySearching(state,payload){
-        state.currentlySearching = payload;
+    DESELECT_DOCUMENT_TYPE(state,payload){
+        state.documentTypes.forEach((type)=>{
+            if(type.reference == payload)
+                type.selected = false;
+        })
     },
-    /**********************************************************/
-    /******  ADMIN   ******************************************/
-    
-    setAdminLocations(state,payload){
-        state.admin.locations = payload
+
+
+
+
+
+    SET_ALL_DOCUMENT_TYPES_SELECTED(state,payload){
+      state.allDocumentTypesSelected = payload
     },
-    setAdminCurrentLocation(state,payload){
-        state.admin.currentLocation = payload
+
+
+
+    SET_SEARCH_PARAMS(state,payload){
+      state.searchParams = payload;
+    },
+
+
+    REMOVE_SEARCH_PARAMETER(state){
+      delete state.searchParams.location;
+    },
+
+    REMOVE_LOCATION_PARAMETER(state){
+      delete state.searchParams.location;
+    },
+
+
+
+
+
+    SET_IS_LOCATION_SEARCH(state,payload){
+      state.isLocationSearch = payload;
+    },
+    SET_IS_INVALID_POSTCODE(state,payload){
+      state.isInvalidPostcode = payload;
+    },
+    SET_POSTCODE(state,payload){
+      state.postcode = payload;
+    },
+    SET_NO_ADDRESSES_FOUND(state,payload){
+      state.isNoAddressesFound = payload;
     }
-    
 }

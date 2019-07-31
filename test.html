@@ -2,22 +2,24 @@
 <html>
 
 <head>
-    <meta charset=utf-8>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB20tzMpjwPqs2eiqh_XmNRCanoaHNzfsk"></script>
-    <meta name=viewport content="width=device-width,initial-scale=1">
-    <title>advertise-dorset</title>
-    <link href=/static/css/app.37322b0bcf130518beddd752ad0d3aea.css rel=stylesheet>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P"></script>
+    
 </head>
 
 <body>
-    <div id=app>
-        <app></app>
-    </div>
-    <script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script>
-    <script type=text/javascript src=/static/js/vendor.608449f8533a2ddc8450.js></script>
-    <script type=text/javascript src=/static/js/app.3ea7f222f877f8dabb8a.js></script>
-</body>
+TEST RECAPTCHA PAGE
 
+
+<script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P').then(function(token) {
+                console.log("TOKEN " + token);
+        },function(err){
+            console.log("ERROR " + err);
+        });
+    });
+    </script>
+</body>
 </html>
 
 

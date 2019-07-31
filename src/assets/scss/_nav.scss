@@ -5,6 +5,10 @@
   font-size: 14px;
   overflow: hidden;
   flex-direction: column-reverse;
+  margin-bottom:20px;
+  margin-top:10px;
+  line-height: 2;
+
 }
 
 #navLinks {
@@ -18,11 +22,11 @@
   padding-left: 0;
   flex-grow: 2;
   margin-bottom: 2px;
-  font-size: 19px;
+  font-size: 16px;
 
   li {
     float: left;
-    margin-right: 5px;
+    margin-right: 2px;
 
     &:after {
       content: ' / ';
@@ -32,7 +36,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-
+      max-width:50vw;
       &:after {
         content: '';
       }
@@ -41,7 +45,7 @@
 }
 
 #menuLinks {
-  font-size: 16px;
+  font-size: 12px;
   padding-bottom: 2px;
   display: flex;
   justify-content: center;
@@ -50,13 +54,14 @@
 
     list-style: none;
     padding-left: 0;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     display: flex;
     justify-content: space-between;
     width: auto;
 
     li {
-      margin-right: 15px;
+      margin-right: 5px;
+
 
       a {
         padding: 2px;
@@ -84,37 +89,70 @@
     }
   }
 }
+@media only screen and (min-width: 380px) {
+  #menuLinks{font-size: 15px;}
+}
+@media only screen and (min-width: 470px) {
+  #menuLinks{font-size: 16px;}
+  .ad-breadcrumb {
+    font-size:19px;
+  }
+}
 @media only screen and (min-width: 600px) {
-    #menuLinks {   
+  .ad-breadcrumb {
+    font-size:19px;
+  }
+
+  #menuLinks {
 
         display: flex;
-        justify-content: start;
+        justify-content: flex-end;
 
             #menuList {
               li {
+margin-right:15px;
                 a {
-                  font-size:19px;
+                  font-size:16px;
                 }
             }
         }
 }
 }
-@media only screen and (min-width: 1000px) {
+
+@media only screen and (min-width: 800px) {
   #menuLinks {
-    display: flex;
-    justify-content: start;
-  }
-  #navRow {
-    font-size: 19px;
-    flex-direction: row;
-  }
+
+
+        #menuList {
+          li {
+margin-right:15px;
+            a {
+              font-size:19px;
+            }
+        }
+    }
+}
 }
 
-@media only screen and (min-width: 1250px) {
+@media only screen and (min-width: 600px) {
+  #navRow {
+    font-size: 19px;
+    margin-bottom:30px;
+    margin-top:30px;
+  }
+
+
+}
+
+@media only screen and (min-width: 1450px) {
+
+
   #navRow {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    margin-bottom:30px;
+
+
 
     #menuLinks {
       a {
@@ -123,4 +161,23 @@
       }
     }
   }
+}
+
+
+
+#searchMenuItem{
+   &:first-letter{
+      text-transform: uppercase;
+   }
+}
+#searchDesktopLabel{
+  display: none;
+}
+@media only screen and (min-width: 600px) {
+
+
+
+#searchDesktopLabel{
+  display: inline;
+}
 }

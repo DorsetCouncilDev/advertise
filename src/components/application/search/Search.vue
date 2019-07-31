@@ -1,26 +1,12 @@
 <template>
-<div>
-    <div id="navRow">
-        <div id="navLinks">
-            <ol class="ad-breadcrumb">
-                <li><router-link :to="{ path: '/advertise'}">home</router-link></li>
-                <li aria-current="page">search</li>     
-            </ol>
-        </div>
-        <div id="menuLinks">
-            <ul id="menuList">
-                <li><router-link to="/advertise/info/contact">Contact us</router-link></li>
-                <li><router-link to="/advertise/info/mediapack">Media pack</router-link></li>
-                <li><router-link to="/advertise/info/faq">FAQs</router-link></li> 
-            </ul> 
-        </div>
-    </div>
- 
+<div id="content">
+  <SiteTopNav currentPage="searchPage"></SiteTopNav>
+
 
     <h1 id="searchTitle">Discover opportunities</h1>
     <div id="searchContainer">
-        <SearchOptions  :showSearchForm="showSearchForm" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
-        <Assets :showSearchForm="showSearchForm" :docs="documents" @onChangeShowSearchForm="changeShowSearchForm" ></Assets>
+        <SearchOptions :showSearchForm="showSearchForm" :isSearching="isSearching"  @onSearch="search" @onChangeShowSearchForm="changeShowSearchForm"></SearchOptions>
+        <Assets :showSearchForm="showSearchForm" :isSearching="isSearching" @search="search" @onChangeShowSearchForm="changeShowSearchForm"></Assets>
     </div>
 </div>
 </template>
@@ -31,24 +17,18 @@
     import Toolbar from './Toolbar';
     import Assets from './Assets';
     import SearchOptions from './SearchOptions';
-
     import DocumentTypeService from '../../../services/DocumentTypeService';
     import DocumentService from '../../../services/DocumentService';
     import SecurityService from '../../../services/SecurityService'
+ import advertiseService from '../../../services/AdvertiseService';
 
-    export default {
+      export default {
         name: 'Search',
         data() {
             return {
                 map: null,
-                documentTypes: [],
-                searchResults: {
-                    results: [],
-                    numberOfResults: 0
-                },
-                documents: [],
                 showSearchForm: false,
-                indexRef: "advertise"
+                isSearching:true
             }
         },
         metaInfo () {
@@ -56,52 +36,52 @@
                 title: "Find advertising options in Dorset | Dorset Council" ,
                 meta: [ {
                     name:"description", content:"Find cost effective local advertising locations in Dorset.  Promote your business with Dorset Council by sponsoring a roundabout or advertising in Dorset."
-
                 } ]
             }
         },
-         props: [ 'documentTypeRef','initialView'],
+
         components: {
-            Toolbar,
-            Assets,
-            SearchOptions
+            Toolbar,Assets,SearchOptions
         },
+
         computed: {
             view() {
-                return this.$store.state.view
+                return this.$store.state.view;
             }
         },
         methods: {
-            getDocumentTypes: async function() {
-                await DocumentTypeService.getTypes(this.indexRef).then((response) => {
-                    this.documentTypes = response.data;
-                    this.getDocuments();
-                }, (error) => {
-                    console.log("Error getting document types")
-                })
-            },
 
-     
-            changeShowSearchForm: function() {
+          search(params){
+            this.isSearching = true;
+
+            if(params.location){
+
+              if(!params.location.latitude)
+                  delete params.location;
+            }
+                  advertiseService.search(params).then((response)=>{
+
+                 this.$store.commit("SET_SEARCH_RESULTS",response.data);
+              this.$store.commit("SET_SEARCH_PARAMS",params);
+                  this.isSearching = false;
+                  this.showSearchForm = false;
+              })
+              .catch((err)=>{
+                console.log(err);
+                  this.$store.commit("SET_SEARCH_PARAMS",params);
+                  this.isSearching = false;
+                  this.showSearchForm = false;
+
+              })
+
+
+
+          },
+          changeShowSearchForm: function() {
                 this.showSearchForm = !this.showSearchForm
             }
+    }
 
-    },
-        beforeMount(){
-            this.$store.commit("setIndexReference",this.indexRef);
-           if(!this.$store.state.initialSearch && this.documentTypeRef == null)
-              this.$store.dispatch("setInitialDocumentTypesSearchOptions",this.indexRef)
-            
-         if(this.documentTypeRef != null)
-                this.$store.dispatch("searchSingleDocumentType",this.documentTypeRef);
-
-          if(this.initialView != null){
-
-              var view = this.initialView + "View";
-              console.log(view)
-              this.$store.commit("setView",view)
-          }
-        }
     }
 
 </script>
@@ -126,14 +106,14 @@
         h1{font-size:32px;
          margin-bottom: 20px;}
     }
-    
+
       @media only screen and (min-width: 900px) {
            #searchContainer {
        display:flex;
        align-items: start;
     }
-          
-         
+
+
     }
 
 </style>

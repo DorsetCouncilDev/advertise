@@ -1,25 +1,20 @@
 <template>
 <div id="searchCriteria" >
-    <div v-for="documentType in searchForm.documentTypes" class="label label-primary tag-label" v-if="documentType.selected">
-        <span class="tag-item">{{documentType.reference}}</span>
-        <span class="delete show" @click="removeDocumentType(documentType)" tabindex="0" title="Remove search criteria">X</span>     
-    </div>
-<!--
-    <div v-for="property in searchForm.parameters" class="label label-primary tag-label">
-        <span class="tag-item">
-            <span v-if="property.reference=='price'">Max </span>{{property.reference}}: <span v-if="property.reference=='price'">&pound;</span>{{property.value}}
-           </span>
-            <span class="delete show" @click="removeProperty(property.reference)" tabindex="0" title="Remove search criteria">X</span>
-        </div>  
--->
-    <div v-if="searchForm.parameters.available" class="label label-primary tag-label">
-           <span class="tag-item">Available</span>
-           <span class="delete show" @click="removePostcodeSearch" tabindex="0" title="Remove search criteria">X</span>
-    </div>  
-       <div v-if="postcode != ''" class="label label-primary tag-label">
-           <span class="tag-item">Postcode: {{postcode}}</span>
-           <span class="delete show" @click="removePostcodeSearch" tabindex="0" title="Remove search criteria">X</span>
-    </div>  
+        <h2 id="numberOfResultsMessage" v-show="!isSearching && ((isLocationSearch && numberOfResults > 0) || !isLocationSearch)">{{numberOfResultsMessage}}</h2>
+        <div id="criteriaTagContainer">
+            <div v-for="documentType in documentTypes" class="criteria-tag" v-bind:key="documentType">
+                <span class="criteria-name">{{documentType}}</span>
+
+            </div>
+
+               <div v-show="isSearchAvailableOnly" class="criteria-tag">
+                <span class="criteria-name">Available only</span>
+
+            </div>
+        </div>
+        <h2 v-show="isNoAddressesFound && !isSearching" id="noAddressFound">Postcode not recognised</h2>
+         <h2 v-show="isInvalidPostcode && !isSearching" id="noAddressFound">Invalid postcode</h2>
+        <h2 v-show="isLocationSearch && numberOfResults == 0 && !isSearching" id="noAddressFound">No opportunities found within 10 miles of {{postcode}}</h2>
 </div>
 </template>
 
@@ -31,50 +26,75 @@
         props: [
             "parameters",
             "documnetTypes",
-            "location"
-
+            "location",
+            "isSearching"
         ],
-        watch: {
-            searchForm: {
-                handler: function() {
-                    this.$store.dispatch("aSearch")
-                },
-                deep: true
-            }
-        },
         methods: {
             removeProperty: function(propertyToRemove) {
-                // remove hyphens
-                propertyToRemove = propertyToRemove.replace(/-/g, "")
-                this.$store.dispatch("removeSearchCriteriaProperty", propertyToRemove)
+
             },
             removeDocumentType: function(type) {
-                this.$store.dispatch("removeSearchDocumentType", type)
+                this.$store.commit("DESELECT_DOCUMENT_TYPE",type);
+                //this.$emit("onSearch")
             },
-            removePostcodeSearch: function() {
-                this.postcode = ""
-                this.$store.dispatch("aSearch")
-            },
+
             toggleSearchForm() {
                 this.$emit("onChangeShowSearchFom", !this.showSearchForm)
+            },
+        removeLocationSearch(){
+               this.$store.dispatch("removeisLocationSearch");
+
+
+ this.$emit("search");
+            },
+            removeAvailableSearch(){
+                this.$store.commit("SET_AVAILABLE",false);
+
+                // this.$emit("onSearch");
             }
         },
         computed: {
-            postcode: {
-                get: function() {
-                    var p = this.$store.state.searchForm.postcode
-                    p = p.toUpperCase()
-                    return p
-                },
-                set: function(newValue) {
-                    this.$store.commit("setPostcode", newValue);
-                    this.$store.dispatch("setPostcodeSearchCriteria");
-                }
+          documentTypes(){
+            return this.$store.state.searchParams.documentTypes;
+          },
+          postcode(){
+            return this.$store.state.postcode;
+          },
+          numberOfResults(){
+            return this.$store.state.searchResults.length;
+          },
+          numberOfResultsMessage(){
+            var numberOfResults = this.numberOfResults;
+            var resultsMessage = "";
+            if(numberOfResults == 0)
+              resultsMessage = "No opportunities found";
+            else if(numberOfResults == 1)
+              resultsMessage = "1 Opportunity found";
+            else if(numberOfResults > 1)
+              resultsMessage = numberOfResults + " Opportunities found";
+
+            if(this.isLocationSearch && numberOfResults > 0)
+              resultsMessage += " within 10 miles of " + this.postcode;
+
+            console.log("pc: " + this.postcode)
+
+            return resultsMessage;
+          },
+
+            isSearchAvailableOnly(){
+              if(this.$store.state.searchParams && this.$store.state.searchParams.properties && this.$store.state.searchParams.properties.Available)
+                return true;
+              return false;
             },
-            searchForm() {
 
-                return this.$store.state.searchForm;
-
+            isInvalidPostcode(){
+              return this.$store.state.isInvalidPostcode;
+            },
+            isNoAddressesFound(){
+              return this.$store.state.isNoAddressesFound;
+            },
+            isLocationSearch() {
+              return this.$store.state.isLocationSearch;
             }
 
         }
@@ -83,95 +103,63 @@
 </script>
 
 <style scoped lang="scss">
-    #searchCriteria {
-        display: none;
-        margin-bottom: 15px;
-        flex-wrap: wrap;
+#postcode{
+  font-weight:700;
+}
+.no-postcode-found{
+    text-decoration: line-through;
+}
+#noAddressFound{
+    font-size:22px;
+    text-align:center;
+    color:darkred;
+    margin-top:10px;
+}
+   #searchCriteria{
+       background:#fafafa;
+       padding:15px;
+      // transition:opacity .8s;
 
-
-        .label {
-            font-size: 14px;
-            float: left;
-            position: relative;
-            display: inline-block;
-            margin-left: 20px;
-            font-weight: normal;
-            padding: 1px;
-            padding-right: 25px;
-            border-radius: 0;
-            transition: all 1s;
-            border-bottom: solid 1px lightgrey;
-            width: 80px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            height: 40px;
-            .tag-item {
-                padding-right: 5px;
-                &:focus {
-                    outline: orange 1px solid;
-                    +.delete {
-                        &:hover{
-                            color:darkred;
-                            cursor: pointer;
-                        }
-                        background-color: darken(#337ab7, 10%);
-                        color: white;
+       #numberOfResultsMessage{
+           font-size:19px;
+           text-align: center;
+           font-weight:500;
+           color:#2a2a2a;
+       }
+       #criteriaTagContainer{
+           display:flex;
+           flex-wrap: wrap;
+           justify-content: center;
+       }
+       .criteria-tag{
+           margin-right:15px;
+           margin-bottom:5px;
+           font-size:16px;
+           border-bottom:grey solid 1px;
+           &:hover{
+                .remove-criteria{
+                    color:black;
+                    &:hover{
+                        font-weight: 700;
+                        color:darkred;
+                        cursor:default;
                     }
                 }
             }
+            .criteria-name{
+                height:22px;
+            }
+            .remove-criteria{
+                color:#545454;
+            }
+       }
+   }
 
-            .delete {
-                position: absolute;
-                top: 0;
-                right: 0;
-                display: inline-block;
-                margin-left: 0;
-                padding: 5px;
-                font-size: 14px;
-
-                &:hover,
-                &:focus {
-                    cursor: pointer;
-                    color: darkred;
-
-                }
-                transition: all 0.5s;
+  @media only screen and (max-width: 1000px) {
+        #searchCriteria{
+            #criteriaTagContainer{
+                display: none;
             }
         }
     }
-
-    .parameter {
-        font-size: 14px;
-        margin-right: 25px;
-        color: darkgreen;
-        &.unmatched {
-            text-decoration: line-through;
-            color: darkred;
-        }
-    }
-
-    @media only screen and (min-width: 767px) {
-
-        #searchCriteria {
-            margin-left: 25px;
-            display: flex;
-            justify-content: center;
-            margin-top:10px;
-        }
-    }
-
-    @media only screen and (min-width: 550px) {
-        #searchCriteria {
-
-
-
-            .label {
-                width: auto;
-                overflow: hidden;
-                text-overflow: inherit;
-                height: auto;
-            }
-        }
-    }
-
 </style>

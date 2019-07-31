@@ -1,53 +1,54 @@
 <template>
+<div>
 <div class="row">
-    <section class="col-md-7 col-lg-5" id="postcodeSearchBlock">      
+    <section class="col-sm-6 col-lg-5" id="homeLocationSearch">
         <form v-on:submit.prevent="postcodesearch">
-            <div class="form-group" aria-labelledBy="search">
+            <div class="form-group" id="postcodeSearchFormGroup" aria-labelledBy="search">
                 <h2 class="home-action-label mb-2" id="search">Advertising location finder</h2>
                 <label class="invisible" for="postcode" id="postcodeLabel">Postcode</label>
-                <div class="input-group">
+
+                <div class="input-group" v-bind:class="{ 'postcode-input-group-error' : postcodeError }" id="postcode-input-group">
                     <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Enter full postcode" v-model="postcode">
                     <div class="input-group-append">
-                        <button class="btn btn-success" type="button" id="searchGoBtn" @click="postcodesearch"> GO </button>
+                        <button class="btn btn-primary" type="button" id="searchGoBtn" @click="postcodesearch" aria-label="Search postcode"> GO </button>
                     </div>
                 </div>
+           <div class="postcode-error-message">{{postcodeErrorMessage}}</div>
             </div>
-        </form>       
+        </form>
     </section>
-    <section class="col-md-7 col-lg-5 offset-lg-1" id="browseLinkBlock">
+    <section class="col-sm-6 col-lg-5 offset-lg-1" id="browseLinkBlock">
         <h2 class="home-action-label mb-2">Choose your advertising space</h2>
-        <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search/'}">Start browsing</router-link>
+        <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search?new=true'}">Start browsing</router-link>
     </section>
+</div>
+
+
 </div>
 </template>
 
 <script>
-    import GazetteerService from '../../../services/GazetteerService'
-
+import GazetteerService from './../../../services/GazetteerService'
     export default {
         name: 'HomeSearch',
         data() {
             return {
-                indexRef: "advertise"
+                indexRef: "advertise",
+                postcode:"",
+                postcodeErrorMessage: "",
+                postcodeError: false
             }
         },
         methods: {
             postcodesearch: async function() {
-                this.$store.dispatch("removeAllOtherSearchCriteria");
-                await this.$store.dispatch("setPostcodeSearchCriteria")
-                this.$router.push("/advertise/search")
-            }
-        },
-        computed: {
-            postcode: {
-                get: function() {
-                    var p = this.$store.state.searchForm.postcode
-                    p = p.toUpperCase()
-                    return p
-                },
-                set: function(newValue) {
-                    this.$store.commit("setPostcode", newValue)
+
+                if(this.postcode.trim().length < 5){
+                    this.postcodeErrorMessage = "Invalid postcode";
+                    this.postcodeError = true;
                 }
+                else
+                    this.$router.push("/advertise/search?postcode=" + this.postcode);
+
             }
         }
     }
@@ -55,20 +56,19 @@
 
 
 <style scoped lang="scss">
-    
-    $buttonBrowseDark: darken(#5975de,50%);
-    $buttonBrowse: darken(#5975de,30%);
-    
-    $buttonBrowseHoverDark: darken(#5975de,40%);
-    $buttonBrowseHover: darken(#5975de,20%);
-    
-    $buttonGoDark: darken(#60d844,50%);
-    $buttonGo:darken(#60d844,30%);
-    
-     $buttonGoHoverDark: darken(#60d844,40%);
-    $buttonGoHover:darken(#60d844,20%);
 
-    
+
+
+
+.postcode-input-group-error{
+  border:darkred solid 2px;
+}
+    .postcode-error-message{
+        color:darkred;
+        transition: display .5s;
+        font-weight: 600;
+        font-size:22px;
+    }
     .home-action-label {
         font-size:19px;
         text-align:left;
@@ -84,32 +84,43 @@
         margin-bottom: 10px;
     }
 
-    #browseLinkBlock {
-        margin-bottom: 20px;
-        
-    }
+
+
+
+
   @media only screen and (min-width: 400px) {
         .home-action-label {
             font-size:24px;
         }
   }
-  
+
     @media only screen and (min-width: 576px) {
         #postcodeSearchBlock {
             margin-top: 30px;
             margin-bottom: 0;
         }
         #browseLinkBlock {
-            margin-top: 30px;
+
             margin-bottom: 30px;
         }
           .home-action-label {
             font-size:24px;
         }
- 
+
+
+
     }
     #postcodeLabel{
         position:absolute;
     }
+
+
+ @media only screen and (min-width: 576px) {
+    #homeLocationSearch{
+      margin-bottom:0;
+  }
+ }
+
+
 
 </style>
