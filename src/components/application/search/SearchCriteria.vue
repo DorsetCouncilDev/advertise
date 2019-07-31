@@ -1,6 +1,6 @@
 <template>
 <div id="searchCriteria" >
-        <h2 id="numberOfResultsMessage" v-show="!isSearching">{{numberOfResultsMessage}}</h2>
+        <h2 id="numberOfResultsMessage" v-show="!isSearching && ((isLocationSearch && numberOfResults > 0) || !isLocationSearch)">{{numberOfResultsMessage}}</h2>
         <div id="criteriaTagContainer">
             <div v-for="documentType in documentTypes" class="criteria-tag" v-bind:key="documentType">
                 <span class="criteria-name">{{documentType}}</span>
@@ -12,9 +12,9 @@
 
             </div>
         </div>
-        <h2 v-show="isNoAddressesFound" id="noAddressFound">Postcode not recognised</h2>
+        <h2 v-show="isNoAddressesFound && !isSearching" id="noAddressFound">Postcode not recognised</h2>
          <h2 v-show="isInvalidPostcode && !isSearching" id="noAddressFound">Invalid postcode</h2>
-        <h2 v-show="isLocationSearch && numberOfResults == 0" id="noAddressFound">No opportunities found within 10 miles of {{isLocationSearch}}</h2>
+        <h2 v-show="isLocationSearch && numberOfResults == 0 && !isSearching" id="noAddressFound">No opportunities found within 10 miles of {{postcode}}</h2>
 </div>
 </template>
 

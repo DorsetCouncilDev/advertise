@@ -70,24 +70,28 @@
 .map-container{
   display:flex;
   justify-content: center;
-     width: 150px;
-        height: 150px;
+  width: 100%;
+  height: 40vh;
+  margin-bottom:30px;
 }
   #map {
-      width:100%;
-            height: 100%;
-        margin-bottom:30px;
-    }
+    width:90%;
+    height: 100%;
+  }
 
     @media only screen and (min-width: 700px) {
 
-        .map-container{
-  display:block;
-  width:275px; height:275px;
-  &.wide-map{
-              width:600px;
-              height:600px
-            }
+      .map-container{
+        display:block;
+        width:60%;
+        height:40vh;
+        &.wide-map{
+          width:600px;
+          height:600px
+        }
+}
+#map{
+  width:100%;
 }
     }
   @media only screen and (min-width: 700px) {
@@ -99,9 +103,9 @@
   @media only screen and (min-width: 900px) {
     .map-container{
       display:block;
-      width:420px; height:420px;
+      width:65%; height:50vh;
       &.wide-map{
-              width:600px;
+              width:100%;
             }
 }
     }

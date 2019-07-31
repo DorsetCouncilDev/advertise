@@ -98,7 +98,7 @@
               this.$store.commit("SET_NO_ADDRESSES_FOUND",false);
               this.$store.commit("SET_IS_INVALID_POSTCODE",false);
               this.$store.commit("SET_IS_LOCATION_SEARCH",false);
-              this.$store.commit("SET_POSTCODE",this.postcode.trim());
+              this.$store.commit("SET_POSTCODE",this.postcode.trim().toUpperCase());
               this.postcodeError = false;
               this.noAddressFound = false;
               var params = {};
@@ -147,34 +147,6 @@
               return this.$store.state.isInvalidPostcode;
             },
 
-/*
-            available: {
-                get: function() {
-                     if(this.$store.state.searchAvailable)
-                        return true;
-                    return false;
-                },
-                set: async function(value) {
-                    this.$store.commit("SET_AVAILABLE",value);
-
-                }
-            },
-             postcode: {
-                get: function(){
-                    return this.$store.state.searchPostcode;
-                },
-                set: function(value){
-
-                    this.$store.commit("SET_POSTCODE",value);
-                }
-            },
-            isPostcodeError() {
-              return this.$store.state.noAddressesFound;
-            },
-            isSearching(){
-                return this.$store.state.isSearching;
-            }
-            */
         },
         async beforeMount(){
            await this.$store.dispatch("setIndex");
@@ -182,8 +154,8 @@
 
            if(this.$route.query.backtoresults){
 
-               if(this.$store.state.searchParams.location && this.$store.state.searchParams.location.postcode)
-                  this.postcode = this.$store.state.searchParams.location.postcode
+               if(this.$store.state.searchParams.location)
+                  this.postcode = this.$store.state.postcode
 
                    if(this.$store.state.searchParams.properties && this.$store.state.searchParams.properties.Available)
                       this.available = this.$store.state.searchParams.properties.Available;

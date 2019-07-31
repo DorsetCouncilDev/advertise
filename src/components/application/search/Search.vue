@@ -80,44 +80,8 @@
           changeShowSearchForm: function() {
                 this.showSearchForm = !this.showSearchForm
             }
-    },
-        async beforeMount(){
+    }
 
-            this.$store.commit("SET_NO_ADDRESS_FOUND",false);
-            this.$store.commit("SET_NO_INVALID_POSTCODE", false);
-
-
-
-           /* if(this.$route.query.new){
-                this.$store.dispatch("removeAllAdvertiseSearchParams");
-                this.$store.dispatch("selectAllDocumentTypes",true);
-                this.$store.commit("SET_POSTCODE","");
-                this.$store.commit("SET_AVAILABLE",false);
-
-              this.search();
-
-            }
-            else if(this.$route.query.documentType != null){
-                this.stopWatching = true;
-               await this.$store.dispatch("setSingleDocumentTypeOnlySearch",this.$route.query.documentType);
-
-                await this.search();
-
-
-            }
-            else if(this.$route.query.postcode){
-                this.$store.dispatch("setLocationSearchOnly");
-                     this.search();
-            }
-            else{
-              this.$store.commit("SET_NO_ADDRESS",false);
-            }
-
-            if(this.$route.query.view)
-                this.$store.commit("SET_VIEW",this.$route.query.view);
-
-                */
-        }
     }
 
 </script>

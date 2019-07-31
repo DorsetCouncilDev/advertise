@@ -18,11 +18,11 @@
         <p>{{assetPriceHelpText}}</p>
 
        <hr>
-   <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=waiting' }">Add to waiting list</router-link>
+   <router-link class="btn btn-primary"  v-if="!assetAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=waiting' }">Join waiting list</router-link>
    <router-link class="btn btn-success"  v-if="assetAvailable" :to="{ path: '/advertise/contact?documentRef=' + documentRef + '&action=book' }">Check availablity &amp; book</router-link>
 
         <section id="propertiesSection" v-for="p in  propertyKeys()" v-bind:key="p">
-                <div class="property-section" v-if="p != 'Description' && p != 'Available'">
+                <div class="property-section" v-if="p != 'Description' && p != 'Available' && p!= 'Price'">
                     <span class="generalPropertyName">{{p}}</span>
                     <span class="generalPropertyValue">{{getPropertyValue(p)}}</span>
                 </div>
