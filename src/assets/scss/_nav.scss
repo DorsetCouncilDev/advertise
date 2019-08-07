@@ -36,7 +36,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width:50vw;
+      max-width:30vw;
       &:after {
         content: '';
       }
@@ -91,6 +91,14 @@
 }
 @media only screen and (min-width: 380px) {
   #menuLinks{font-size: 15px;}
+  #menuLinks{font-size: 16px;}
+  .ad-breadcrumb {
+    li {
+      &:last-child {
+          max-width:50vw;
+      }
+    }
+  }
 }
 @media only screen and (min-width: 470px) {
   #menuLinks{font-size: 16px;}

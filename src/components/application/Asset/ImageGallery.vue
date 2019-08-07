@@ -1,7 +1,7 @@
 <template>
   <section id="imagesSection">
     <h3>Images</h3>
-    <div id="imageContainer">
+    <div id="imageContainer" >
     <img :src="images[0].sources[0].url" v-if="images.length == 1" id="singleImage">
     <div id="imageGallery" v-if="images.length > 1">
       <div class="arrow-left-button" @click="nextImage('l')"><div class="arrow-left"></div></div>
@@ -11,10 +11,11 @@
           <img :src="image.sources[0].url" class="galleryImage" :class="{'currentGalleryImage':image.current}">
         </div>
       </div>
-      <div id="imageThumbsContainer">
+      <div id="imageThumbsContainer" ref="a" :class="{'scrollable':isOverflowed }">
 
    <div class="thumbnail-holder" :class="{'selected-image': currentImage.id == image.id}" v-for="image in images" v-bind:key="image.id" v-on:click="selectImage(image)">
-          <img :src="image.sources[0].url" class="image-thumbnail">
+
+          <img :src="image.sources[0].url" class="image-thumbnail" @load="checkOverflow()">
           </div>
 
 
@@ -34,7 +35,8 @@ export default {
 data(){
   return{
     currentImage:{},
-    imageA:{}
+    imageA:{},
+    isOverflowed: false
   }
 },
   props: {
@@ -66,17 +68,22 @@ data(){
               img.current = false;
       });
       this.currentImage = image
-    }
+    },
+    checkOverflow: function() {
+      console.log(this.$refs.a)
+        this.isOverflowed =  (this.$refs.a.scrollWidth > this.$refs.a.offsetWidth);
+            console.log(this.isOverflowed);
+        }
   },
- beforeMount(){
-    this.selectImage(this.images[0])
-
-
+  beforeMount(){
+    this.selectImage(this.images[0]);
   }
+
 }
 </script>
 
 <style scoped lang="scss">
+
   #imageContainer{
 display:flex;
 justify-content: center;
@@ -155,14 +162,17 @@ justify-content: center;
 
 
     #imageThumbsContainer{
+      position: relative;
       margin-top:15px;
       height:100px;
       width:100%;
-      border-top:solid 2px hsl(203, 85%, 23%);
-      border-bottom:solid 2px hsl(203, 85%, 23%);
+      border-top:solid 2px #f1f1f1;
+      border-bottom:solid 2px #f1f1f1;
       padding:15px 0 5px 0;
       display:flex;
       overflow-x:scroll;
+
+
       .thumbnail-holder{
         .image-thumbnail{
           height: 60px;
@@ -235,10 +245,10 @@ justify-content: center;
 
 
   #imageThumbsContainer{
-    height:170px;
+    height:130px;
  .thumbnail-holder{
         .image-thumbnail{
-          height:120px;
+          height:80px;
         }
  }
   }
