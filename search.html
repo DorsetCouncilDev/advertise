@@ -4,9 +4,41 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>advertise-dorset</title>
+    <style>
+
+    .containter{
+      width:600px;
+      height:600px;
+    }
+    .wrapper {
+      position: relative;
+      background-color: #BADA55;
+      padding-bottom: 56.25%; /* 16:9 (Adjust to your ratio)*/
+      height: 0;
+    }
+    .wrapper .inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    </style>
   </head>
   <body>
-    
-    <!-- built files will be auto injected -->
+    <div class="container">
+    <div class="wrapper">
+      <div class="inner">
+        <img src="sign2.jpg">
+      </div>
+    </div>
+  </div>
+  <div class="container">
+      <div class="wrapper">
+        <div class="inner">
+          <img src="warning.jpg">
+        </div>
+      </div>
+    </div>
   </body>
 </html>

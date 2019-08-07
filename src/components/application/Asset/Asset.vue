@@ -8,13 +8,16 @@
         <div class="document-header">
           <div class="d-flex flex-column justify-content-center">
                 <h1 id="assetTitleText">{{document.name}}</h1>
+                  <h2 id="assetLongText">{{document.documentType.name}} - {{document.longText}}</h2>
+       <h3 id="assetPrice">{{assetPrice}}</h3>
 </div>
-                <img :src="getIcon(document.documentType.reference)" alt="">
-
+  <div id="assetTypeIconHolder">
+    <img id="assetTypeIcon" :src="getIcon(document.documentType.reference)" alt="">
+  </div>
               </div>
-             <h2 id="assetLongText">{{document.documentType.name}} - {{document.longText}}</h2>
 
-        <h3 id="assetPrice">{{assetPrice}}</h3>
+
+
         <p>{{assetPriceHelpText}}</p>
 
        <hr>
@@ -33,6 +36,11 @@
             <h3>Location</h3>
             <AssetMaps :locations="document.locations" :streetView="streetViewRequired" :name="document.name"></AssetMaps>
         </section>
+
+
+        <ImageGallery v-if="assetHasImages" :images="document.images"></ImageGallery>
+
+
         <div class="description-text" v-if="description != ''"><p>{{description}}</p></div>
 <section id="contactSection">
         <p class="assetParagraph">Contact our marketing team</p>
@@ -40,6 +48,7 @@
         <p class="assetParagraph"><a href="tel:+441305224125">01305 224125</a></p>
         <p class="assetParagraph">quoting reference <strong>{{documentRef}}</strong></p>
 </section>
+
     </div>
 </template>
 
@@ -47,6 +56,8 @@
     import Vue from 'vue'
     import AssetMaps from './AssetMaps/AssetMaps';
     import DocumentService from '../../../services/DocumentService';
+    import ImageGallery from './ImageGallery.vue';
+    import ImageService from '../../../services/ImageService';
     export default {
         name: 'AssetView',
         props: [ 'documentRef'],
@@ -58,9 +69,11 @@
                 book:"book",
                 loadingDocument: true,
                 pageMetaTitle: "",
-                pageMetaDescription: ""
+                pageMetaDescription: "",
+                icon: ""
             }
         },
+
         metaInfo () {
         return {
         title: this.document.metadataTitle,
@@ -71,15 +84,21 @@
       }
         },
         components: {
-            AssetMaps
+            AssetMaps, ImageGallery
         },
         methods: {
           getDocument: async function() {
-               await DocumentService.getDocument(this.indexRef, this.documentRef).then(response => {
+               await DocumentService.getDocument(this.indexRef, this.documentRef).then( async response => {
                     this.document = response.data;
                     this.pageMetaDescription = this.metaDescription;
                     this.pageMetaTitle =  this.metaTitle;
                     this.loadingDocument = false;
+
+                    var currentIndex = 0;
+                    this.document.images.forEach((i)=>{
+                        i.id = currentIndex;
+                        currentIndex++;
+                    })
                 })
             },
             getPropertyValue(key){
@@ -106,6 +125,12 @@
             }
         },
         computed: {
+          assetHasImages: function(){
+            if (this.document && this.document.images && this.document.images.length > 0)
+              return true;
+              console.log("no images")
+            return false;
+          },
           assetPriceHelpText: function(){
             if(this.document.properties && this.document.properties.Price && this.document.properties.Price.helpText)
               return this.document.properties.Price.helpText;
@@ -159,6 +184,7 @@
         },
         async beforeMount() {
            await this.getDocument();
+           this.icon = require('./../../../assets/images/icons/'+ this.document.documentType.reference + '.svg');
 
         },
         filters: {
@@ -180,6 +206,7 @@
 </script>
 
 <style scoped lang="scss">
+
 #locationSection{
   margin-bottom:60px;
   margin-top:60px;
@@ -212,7 +239,9 @@
         font-size: 19px;
         text-align: left;
          font-weight:400;
-         margin-bottom:20px;
+          margin-top:10px;
+         margin-bottom:10px;
+         -webkit-font-smoothing: antialiased;
     }
 
     .assetParagraph {
@@ -233,12 +262,15 @@
           text-align: left;
           margin-bottom:0;
         }
-            img {
-              display:inline-block;
+
+        #assetTypeIconHolder{
+           display:inline-block;
          vertical-align:top;
          width:50px;
+           #assetTypeIcon {
+             width:100%;
             }
-
+        }
     }
 
     .available-tag {
@@ -255,9 +287,10 @@
             #assetTitleText {
               font-size: 24px;
             }
-            img {
+            #assetTypeIconHolder{
               width:75px;
             }
+
           }
         }
 
@@ -267,7 +300,7 @@
             #assetTitleText {
               font-size: 28px;
             }
-            img {
+             #assetTypeIconHolder {
               width:100px;
             }
           }
@@ -320,7 +353,10 @@
         font-size: 32px;
       }
     }
-
+#myIcon{
+  width:400px;
+  height:400px;
+}
 
 
 </style>

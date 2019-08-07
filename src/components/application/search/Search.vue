@@ -19,7 +19,6 @@
     import SearchOptions from './SearchOptions';
     import DocumentTypeService from '../../../services/DocumentTypeService';
     import DocumentService from '../../../services/DocumentService';
-    import SecurityService from '../../../services/SecurityService'
  import advertiseService from '../../../services/AdvertiseService';
 
       export default {

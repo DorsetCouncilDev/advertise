@@ -25,10 +25,13 @@
         </fieldset>
     </div>
     <div id="descriptionSearch">Open the search options, when hidden on a small screen. Selecting again shall close the search options.</div>
+
 </div>
+
 </template>
 
 <script>
+
     export default {
         name: 'Toolbar',
         data() {
