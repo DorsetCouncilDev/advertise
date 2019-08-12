@@ -11,11 +11,11 @@
           <img :src="image.sources[0].url" class="galleryImage" :class="{'currentGalleryImage':image.current}">
         </div>
       </div>
-      <div id="imageThumbsContainer" ref="a" :class="{'scrollable':isOverflowed }">
+      <div id="imageThumbsContainer">
 
-   <div class="thumbnail-holder" :class="{'selected-image': currentImage.id == image.id}" v-for="image in images" v-bind:key="image.id" v-on:click="selectImage(image)">
+   <div class="thumbnail-holder" :class="{'selected-image': currentImage.id == image.id}" v-for="image in images" v-bind:key="image.id" v-on:click="selectImage(image)" :id="image.id">
 
-          <img :src="image.sources[0].url" class="image-thumbnail" @load="checkOverflow()">
+          <img :src="image.sources[0].url" class="image-thumbnail">
           </div>
 
 
@@ -47,19 +47,26 @@ data(){
   },
   methods:{
     nextImage(direction){
+      var nextImage = null;
        if(direction == 'l'){
           if(this.currentImage.id - 1 < 0)
-            this.selectImage(this.images[this.images.length-1]);
+            nextImage = this.images[this.images.length-1];
           else
-            this.selectImage(this.images[this.currentImage.id - 1]);
+            nextImage = this.images[this.currentImage.id - 1];
        }
         if(direction == 'r'){
           if(this.currentImage.id + 1 > (this.images.length-1))
-            this.selectImage(this.images[0]);
+            nextImage = this.images[0];
           else
-            this.selectImage(this.images[this.currentImage.id + 1]);
+            nextImage = this.images[this.currentImage.id + 1];
        }
-    },
+
+       this.$nextTick(() => this.showCurrent(nextImage.id));
+
+       this.selectImage(nextImage);
+    },showCurrent(index) {
+            document.getElementById(index).scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'start' });
+        },
     selectImage(image){
       this.images.forEach(img => {
           if(img.id == image.id)
@@ -68,12 +75,7 @@ data(){
               img.current = false;
       });
       this.currentImage = image
-    },
-    checkOverflow: function() {
-      console.log(this.$refs.a)
-        this.isOverflowed =  (this.$refs.a.scrollWidth > this.$refs.a.offsetWidth);
-            console.log(this.isOverflowed);
-        }
+    }
   },
   beforeMount(){
     this.selectImage(this.images[0]);
