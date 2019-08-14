@@ -29,6 +29,8 @@
 </template>
 
 <script>
+
+
 import imageService from './../.././../services/ImageService';
 export default {
   name: 'ImageGallery',
@@ -36,7 +38,8 @@ data(){
   return{
     currentImage:{},
     imageA:{},
-    isOverflowed: false
+    isOverflowed: false,
+
   }
 },
   props: {
@@ -46,6 +49,7 @@ data(){
     }
   },
   methods:{
+
     nextImage(direction){
       var nextImage = null;
        if(direction == 'l'){
@@ -64,9 +68,17 @@ data(){
        this.$nextTick(() => this.showCurrent(nextImage.id));
 
        this.selectImage(nextImage);
-    },showCurrent(index) {
-            document.getElementById(index).scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'start' });
-        },
+    },
+    showCurrent(index) {
+
+
+   var container = document.getElementById("imageThumbsContainer")
+    var el = document.getElementById(index);
+
+    container.scrollLeft =  container.scrollLeft = el.offsetLeft;
+
+    },
+
     selectImage(image){
       this.images.forEach(img => {
           if(img.id == image.id)

@@ -128,7 +128,6 @@
           assetHasImages: function(){
             if (this.document && this.document.images && this.document.images.length > 0)
               return true;
-              console.log("no images")
             return false;
           },
           assetPriceHelpText: function(){

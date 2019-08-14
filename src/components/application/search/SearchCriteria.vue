@@ -76,7 +76,7 @@
             if(this.isLocationSearch && numberOfResults > 0)
               resultsMessage += " within 10 miles of " + this.postcode;
 
-            console.log("pc: " + this.postcode)
+
 
             return resultsMessage;
           },

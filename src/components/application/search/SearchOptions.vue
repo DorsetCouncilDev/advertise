@@ -122,7 +122,7 @@
             checkIfAllDocuemntTypes(){
                 var allSelected = true;
                 this.documentTypes.forEach((type)=>{
-                    console.log("type: " + type.reference + " - " + type.selected)
+
                   if(!type.selected)
                     allSelected = false;
                 })
@@ -161,8 +161,7 @@
                       this.available = this.$store.state.searchParams.properties.Available;
 
                this.documentTypes.forEach((type=>{
-                 console.log("current type- " + type.reference)
-                 console.log("params- " + this.$store.state.searchParams.documentTypes.size)
+
                  if(!this.$store.state.searchParams.documentTypes.includes(type.reference)){
                     type.selected = false;
                  }
