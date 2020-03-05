@@ -1,53 +1,42 @@
 <template>
    <div>
-
-
-        <div class="container">
+      <div class="container">
         <AdHeader></AdHeader>
 
-             <router-view></router-view>
-
-        </div>
-       <AdFooter>
-    </AdFooter>
-    </div>
+        <router-view></router-view>
+      </div>
+      <AdFooter></AdFooter>
+  </div>
 </template>
 
 <script>
+    import Vue from 'vue';
+    import router from './router';
+    import { sync } from 'vuex-router-sync';
+    import store from './store';
+    import SearchService from './services/SearchService';
     import AdHeader from './components/AdHeader';
     import AdFooter from './components/AdFooter';
-     import SiteTopNav from './components/SiteTopNav';
-    import store from './store'
-    import router from './router'
+    import SiteTopNav from './components/SiteTopNav';
 
-    import Vue from 'vue';
-    import { sync } from 'vuex-router-sync'
+
     Vue.component('SiteTopNav',SiteTopNav);
+
     sync(store, router)
+    setIndex();
 
-
-setIndex();
-
-async function setIndex(){
-await store.dispatch("setIndex");
-}
-
-
-
-
-    import SearchService from './services/SearchService'
+    async function setIndex(){
+      await store.dispatch("setIndex");
+    }
 
     export default {
         name: 'App',
         store,
         router,
         components: {
-            AdHeader,AdFooter
+          AdHeader,AdFooter
         }
     }
-
-
-
 </script>
 
 <style>

@@ -58,9 +58,11 @@
 
 
 
-                            var infoContent = '<p style="font-size:16px; margin-bottom:5px; font-weight:600">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">' + price + '</p>' +
-                                '<p><a class="btn btn-outline-primary" style="margin-top:10px; font-size:16px; margin-bottom:5px" href="/advertise/' + document.reference + '?fromsearch=true">View this opportunity</a></p>';
-                            this.addMarker(document, infoContent)
+                           // var infoContent = '<p style="font-size:16px; margin-bottom:5px; font-weight:600">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">' + price + '</p>' +
+                            //    '<p><a class="btn btn-outline-primary" style="margin-top:10px; font-size:16px; margin-bottom:5px" href="' + document.reference + '?fromsearch=true">View this opportunity</a></p>';
+
+                          var link = this.getAssetLinkButton(document,price) + "";
+                           this.addMarker(document, link)
                         }
                     })
                     this.fitMapToBounds();
@@ -68,7 +70,11 @@
                 }
 
             },
+            getAssetLinkButton(document,price){
+                return '<p style="font-size:16px; margin-bottom:5px; font-weight:600">' + document.name + '</p><p style="font-size:16px; margin-bottom:5px">' + price + '</p>' +
+                       '<a href="https://app.dorsetcouncil.gov.uk/advertise/' + document.reference + '">View this opportunity</a></p>'
 
+            },
             // Sets the map on all markers in the array.
             setMapOnAll: function(map) {
                 for (var i = 0; i < this.markers.length; i++) {

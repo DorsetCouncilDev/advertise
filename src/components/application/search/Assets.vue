@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div v-show="showResults">
+    <div v-show="showResults" id="results" aria-live="polite" role="region">
         <Map v-show="view == 'map'" :documents="documents" :class="{'loading-map-assets' : isSearching}"></Map>
         <div class="result-cards" v-bind:class="{'grid-view':showGridView}" v-show="showListOrGridView">
 
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="view-button-holder">
-                            <button class="btn btn-sm btn-outline-primary">view this opportunity</button>
+                            <span class="btn btn-sm btn-outline-primary">view this opportunity</span>
                         </div>
                     </div>
                 </router-link>

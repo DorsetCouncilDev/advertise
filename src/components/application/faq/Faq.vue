@@ -46,7 +46,7 @@
                 return
             }
         }
-            }
+      }
 
 </script>
 <style scoped lang="scss">
@@ -61,11 +61,14 @@
 }
 
  @media only screen and (min-width: 600px) {
-     #faqHeading{
-    font-size:32px;
-    margin-top:30px;
-}
-
+    #faqHeading{
+      font-size:32px;
+      margin-top:30px;
+    }
  }
-          
+
+ .open-section:focus{
+   outline:orange 2px solid;
+ }
+
 </style>

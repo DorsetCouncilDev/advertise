@@ -5,7 +5,7 @@
     </div>
     <div class="stv-radio-tabs-wrapper">
         <label id="sortSelectLabel" for="sortSelect">Sort</label>
-        <select class="form-control" id="sortSelect" v-model="advertiseSort" >
+        <select class="form-control" id="sortSelect" v-model="advertiseSort" aria-controls="assets">
             <option value="price-high">Cost highest</option>
             <option value="price-low">Cost lowest</option>
              <option value="name-az">Name A-Z</option>
@@ -74,6 +74,12 @@
                 return false;
             }
 
+        },
+        beforeMount(){
+           if(this.$route.query.view ){
+
+                  this.$store.commit("SET_VIEW", this.$route.query.view );
+           }
         }
     }
 </script>
@@ -136,7 +142,7 @@
             opacity: 0;
             &:focus {
                 &+label {
-                    border: orange solid 1px;
+                    border: orange solid 3px;
 
                 }
             }
@@ -168,7 +174,7 @@
                     }
 
                     &:focus {
-                        border: orange solid 1px;
+                        border: orange solid 3px;
                     }
                 }
                 &#listViewLabel {
@@ -176,7 +182,7 @@
                         content: url(../../../assets/images/list.svg);
                     }
                     &:focus {
-                        border: orange solid 1px;
+                        border: orange solid 3px;
                     }
                 }
                 &#mapViewLabel {

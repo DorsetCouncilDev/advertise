@@ -1,27 +1,20 @@
 <template>
 <div>
     <SiteTopNav currentPage="contactPage"></SiteTopNav>
-
       <section id="content">
         <h1 id="contactHeading">Get in touch</h1>
-    <div v-show="formSent" id="formSentMessage">
-    Thank you, we'll be in touch soon.
-
-    </div>
-    <div id="contactSection"  v-show="!formSent">
-        <p class="contact-text">Looking to discuss advertising options in the Dorset area?</p>
-        <p class="contact-text">Give us a call on <a href="tel:+441305224125" class="faq-link">01305 224125</a>, email <a href="mailto:marketing@dorsetcouncil.gov.uk" class="faq-link">marketing@dorsetcouncil.gov.uk</a> or fill in the form below and we will get back to you shortly.</p>
-        <div class="row">
-
-
+        <div v-show="formSent" id="formSentMessage">Thank you, we'll be in touch soon.</div>
+        <div id="contactSection"  v-show="!formSent">
+          <p class="contact-text">Looking to discuss advertising options in the Dorset area?</p>
+          <p class="contact-text">Give us a call on <a href="tel:+441305224125" class="faq-link">01305 224125</a>, email <a href="mailto:marketing@dorsetcouncil.gov.uk" class="faq-link">marketing@dorsetcouncil.gov.uk</a> or fill in the form below and we will get back to you shortly.</p>
+          <div class="row">
             <form class="col-sm-8" id="demo-form" action="homepage" method="POST"  @submit.prevent="onSubmit" novalidate>
-
-                <div class="form-group">
-                    <label for="name"><span class="form-label-bold">Name</span><span v-if="errors.name != null && errors.name != '' " class="form-error-message">{{errors.name}}</span></label>
-                    <input class="form-control form-bold-border" id="name" name="name" type="text" required v-model="name">
-                </div>
-                <div class="form-group">
-                    <label for="email"><span class="form-label-bold">Email</span><span v-if="errors.email != null && errors.email != '' " class="form-error-message">{{errors.email}}</span></label>
+              <div class="form-group">
+                <label for="name"><span class="form-label-bold">Name</span><span v-if="errors.name != null && errors.name != '' " class="form-error-message" role="alert">{{errors.name}}</span></label>
+                <input class="form-control form-bold-border" id="name" name="name" type="text" required v-model="name">
+              </div>
+              <div class="form-group">
+                    <label for="email"><span class="form-label-bold">Email</span><span v-if="errors.email != null && errors.email != '' " class="form-error-message" role="alert">{{errors.email}}</span></label>
                     <input class="form-control form-bold-border" id="email" name="email" type="email" v-model="email" required>
                 </div>
                 <div class="form-group">
@@ -29,7 +22,7 @@
                     <input class="form-control form-bold-border" id="tel" name="tel" type="tel" v-model="phone">
                 </div>
                 <div class="form-group">
-                    <label for="message"><span class="form-label-bold">Message</span><span v-if="errors.message != null && errors.message != '' " class="form-error-message">{{errors.message}}</span></label>
+                    <label for="message"><span class="form-label-bold">Message</span><span v-if="errors.message != null && errors.message != '' " class="form-error-message" role="alert">{{errors.message}}</span></label>
                     <textarea rows="6" class="form-control form-bold-border" id="message" v-model="message" required></textarea>
                 </div>
                 <hr>
@@ -49,7 +42,7 @@
             </form>
      </div>
     </div>
-    <div v-show="formSendError"><p class="text-danger">Sorry something went wrong submitting this form. Please try again.</p></div>
+    <p class="form-error-message mt-4" v-show="formSendError">{{errorMessage}}</p>
     </section>
     </div>
 </template>
@@ -58,8 +51,7 @@
     // Secret Key  6LfEWXgUAAAAAMONIvKr8aDqCWZ00iUn6a73ipZf
 
     import Vue from 'vue'
-    import { VueReCaptcha } from 'vue-recaptcha-v3'
-    Vue.use(VueReCaptcha, { siteKey: '6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P'})
+
     import axios from 'axios';
     import emailService from '../services/EmailService';
     export default {
@@ -80,7 +72,8 @@
                     email:null,
                     phone:null
                 },
-                formHasErrors: false
+                formHasErrors: false,
+                errorMessage: ""
             }
         },
         metaInfo () {
@@ -92,21 +85,27 @@
             }
         },
         methods: {
+          resetFormErrors() {
+              this.formError = false;
+              this.formHasErrors = false;
+              this.errorMessage = "";
+              this.errors.name = "";
+              this.errors.email = "";
+              this.errors.message= "";
+          },
             recaptcha() {
 
-
-                this.formError = false;
-                this.formHasErrors = false;
+                this.resetFormErrors();
                 if (this.name == null || this.name.trim() == "") {
                     this.errors.name = "Name is required";
                     this.formHasErrors = true;
                 }
                 if (this.email == null || this.email.trim() == "") {
-                    this.errors.email = "email is required";
+                    this.errors.email = "Email is required";
                     this.formHasErrors = true;
                 }
                 if (this.message == null || this.message.trim() == "") {
-                    this.errors.message= "message is required";
+                    this.errors.message= "Message is required";
                     this.formHasErrors = true;
                 }
                 if (!this.formHasErrors) {
@@ -120,10 +119,11 @@
 
                     this.$recaptcha('login').then((token) => {
                         emailService.sending(text,token).then((resp) => {
-                            this.formSent = true;
+                          this.formSendError = false;
+                          this.formSent = true;
                         }).catch((err) => {
-                            this.formSendError = true;
-                            this.$refs.recaptcha.reset();
+                          this.formSendError = true;
+                          this.errorMessage = "An error has occured, try again later, or you can get in touch by the email or phone";
                         })
                     }).catch((err)=>{
                         console.log("error: " + err)

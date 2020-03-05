@@ -25,6 +25,9 @@ const routes = [
     }
   },
   {
+    path: '/advertise/info/contact', redirect: '/advertise/contact'
+  },
+  {
     path: '/advertise/mediapack',
     component: Mediapack,
     meta: {
@@ -33,12 +36,18 @@ const routes = [
     }
   },
   {
+    path: '/advertise/info/mediapack', redirect: '/advertise/mediapack'
+  },
+  {
     path: '/advertise/faq',
     component: Faq,
     meta: {
       title: 'Roundabout sponsorship FAQs | Dorset Council',
       description: 'Answers to your questions about roundabout sponsorship and advertising in Dorset, from how much it costs, to how to apply and display your message.'
     }
+  },
+  {
+    path: '/advertise/info/faq', redirect: '/advertise/faq'
   },
   {
     path: '/advertise/search',

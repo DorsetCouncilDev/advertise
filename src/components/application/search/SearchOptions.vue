@@ -28,6 +28,7 @@
                 </div>
             </div>
             <div id="typesSelectionGroup">
+              <fieldset>
                 <legend class="form-legend search-option-title">Types of opportunities</legend>
                       <div class="type-options" >
                         <div class="form-group" style="margin-bottom:0">
@@ -49,6 +50,7 @@
                         <div class="type-icon"><img class="type-icon" :src="getIcon(type.reference)" alt=""></div>
                     </div>
                 </div>
+              </fieldset>
             </div>
             <button class="btn btn-success mt-2" type="button" @click.prevent="search">Search</button>
         </form>
@@ -160,12 +162,21 @@
                    if(this.$store.state.searchParams.properties && this.$store.state.searchParams.properties.Available)
                       this.available = this.$store.state.searchParams.properties.Available;
 
-               this.documentTypes.forEach((type=>{
+                var searchParamsDocumentTypes = this.$store.state.searchParams.documentTypes;
 
-                 if(!this.$store.state.searchParams.documentTypes.includes(type.reference)){
+               this.documentTypes.forEach((type)=>{
+
+                  if(typeof searchParamsDocumentTypes !== 'undefined'){
                     type.selected = false;
-                 }
-               }))
+                  searchParamsDocumentTypes.forEach((paramType)=>{
+                      if(paramType == type.reference)
+                        type.selected = true;
+                  })
+                  }
+                  else{
+                     type.selected = true;
+                  }
+               })
 
            }
            else if(this.$route.query.documentType){
@@ -462,7 +473,9 @@ input:checked + .slider:before {
     }
 
 
-
+#postcode:focus{
+ border:orange 2px solid;
+}
     @media only screen and (min-width: 900px) {
         #postcodeLabel{
             font-size:19px;

@@ -4,8 +4,8 @@
     <section class="col-sm-6 col-lg-5" id="homeLocationSearch">
         <form v-on:submit.prevent="postcodesearch">
             <div class="form-group" id="postcodeSearchFormGroup" aria-labelledBy="search">
-                <h2 class="home-action-label mb-2" id="search">Advertising location finder</h2>
-                <label class="invisible" for="postcode" id="postcodeLabel">Postcode</label>
+                <label class="home-action-label mb-1" id="search" for="postcode">Advertising location finder</label>
+
 
                 <div class="input-group" v-bind:class="{ 'postcode-input-group-error' : postcodeError }" id="postcode-input-group">
                     <input type="text" id="postcode" class="form-control  form-control-lg" placeholder="Enter full postcode" v-model="postcode">
@@ -18,7 +18,7 @@
         </form>
     </section>
     <section class="col-sm-6 col-lg-5 offset-lg-1" id="browseLinkBlock">
-        <h2 class="home-action-label mb-2">Choose your advertising space</h2>
+        <h2 class="home-action-label mb-3">Choose your advertising space</h2>
         <router-link class="btn btn-primary btn-lg btn-block" title="browse opportunities" id="browseLink" :to="{path: '/advertise/search?new=true'}">Start browsing</router-link>
     </section>
 </div>

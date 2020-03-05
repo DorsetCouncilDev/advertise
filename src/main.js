@@ -10,7 +10,11 @@ import './assets/fonts/dorsetforyou-eot.eot'
 import './assets/fonts/dorsetforyou-ttf.ttf'
 import './assets/fonts/dorsetforyou-woff.woff'
 import Meta from 'vue-meta';
-Vue.config.productionTip = false
+import { VueReCaptcha } from 'vue-recaptcha-v3';
+Vue.use(VueReCaptcha, { siteKey: '6LfEWXgUAAAAAIbGKOj88SgEapHW3BmmcDk2EB8P',
+                            loaderOptions: { autoHideBadge: true }
+                          })
+Vue.config.productionTip = false;
 
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
@@ -18,6 +22,17 @@ Vue.use(Meta)
 var app = new Vue({
   el: '#app',
     components: { App  },
-   template : '<App/>' 
+   template : '<App/>',
+   methods: {
+     async recaptcha(){
+      await this.$recaptchaLoaded();
+      var recaptchaTextarea = document.getElementById("g-recaptcha-response-100000");
+      recaptchaTextarea.setAttribute("aria-label","do not use");
+
+     }
+   },
+   mounted(){
+     this.recaptcha();
+   }
 })
-const meta = app.$meta() 
+const meta = app.$meta()

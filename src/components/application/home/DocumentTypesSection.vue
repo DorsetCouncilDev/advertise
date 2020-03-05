@@ -1,10 +1,12 @@
 <template>
     <section class="document-types-section">
+        <h2 class="home-second-header">Advertise your business here</h2>
         <p class="documentTypesParagraph">Dorset Council offers a broad portfolio of sponsorship, advertising sites and promotional opportunities. Whether you’re looking to promote a product, service or event - we can help your message gain wide coverage.</p>
-        <p class="documentTypesParagraph">With our local knowledge we can help your marketing message gain wide coverage. Our local advertising solutions in Dorset offer options for all budget sizes. Sponsorship and advertising fees support council services, and benefit Dorset's residents and businesses.</p>
-        <div class="document-types-list">
+        <p class="documentTypesParagraph">Our local advertising solutions in Dorset offer options for all sizes of budget and offer great value. Sponsorship and advertising fees help to support council services, and benefit Dorset's residents and businesses.</p>
+        <ul class="document-types-list list-unstyled" >
             <DocumentTypeDiscovery v-for="type in types" :documentTypeName="type.name" :documentTypeRef="type.ref" :text="type.text" v-bind:key="type.ref"></DocumentTypeDiscovery>
-        </div>
+        </ul>
+
     </section>
 </template>
 
@@ -42,6 +44,9 @@ export default {
         font-size:26px;
         margin-bottom:15px;
     }
+  .type-name{
+    display: block;
+  }
 
     .document-types-section{
         margin-top:15px;

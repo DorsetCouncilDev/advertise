@@ -1,8 +1,8 @@
 <template>
-    <section class="questions-category-section">    
+    <section class="questions-category-section">
         <h3 class="section-heading">{{title}}</h3>
         <div class="open-section-area">
-        <div class="open-section" v-bind:class="{ 'open': sectionAnswersOpen }" @click="toggleSection" tabindex="0"></div>  
+        <div class="open-section" v-bind:class="{ 'open': sectionAnswersOpen }" @click="toggleSection" @keyup.enter="toggleSection" tabindex="0"></div>
         </div>
         <Question v-for="q in questions" v-bind:key="q.id" :question="q" v-on:toggleAnswer="toggleQuestionAnswer"></Question>
 
@@ -69,7 +69,7 @@
 
 
 .questions-category-section{
-  
+
     padding-left:30px;
     margin-top:60px;
     border-left: solid 5px hsl(177,100%,21%);
@@ -88,6 +88,9 @@
         font-size:19px;
         &:hover{
             cursor:pointer;
+        }
+        &:focus{
+          outline:orange 1px solid;
         }
     &:before{
            content:url(../../../assets/images/baseline-add-24px.svg);
@@ -111,8 +114,8 @@
 .open-section-area{
     display: flex;
     flex-direction: row-reverse;
-    width:100%; 
-    
+    width:100%;
+
 }
 .open-section{
 
@@ -121,7 +124,7 @@
     color:hsl(203, 85%, 23%);
     font-weight: 500;
     font-size:16px;
-   
+
         &:hover{
             cursor:pointer;
         }
@@ -129,8 +132,8 @@
         content:url(../../../assets/images/baseline-add-24px.svg);
             left:-25px;
             position:absolute;
-            
-      
+
+
     }
     &:after{
         content:'open all'

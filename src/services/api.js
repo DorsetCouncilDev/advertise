@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-const TEST_CATALOGUE_ADVERTISE = 'HTTPS://apptest.dorsetcc.gov.uk/catalogue/api/indexes/advertise';
+const TEST_CATALOGUE_ADVERTISE = 'https://apptest.dorsetcc.gov.uk/catalogue/api/indexes/advertise';
 const LIVE_CATALOGUE_ADVERTISE = 'https://app.dorsetcouncil.gov.uk/catalogue/api/indexes/advertise';
 
 
 
 var advertise_axios = axios.create({
-  baseURL: LIVE_CATALOGUE_ADVERTISE,
+  baseURL: TEST_CATALOGUE_ADVERTISE,  // LIVE_CATALOGUE_ADVERTISE,
   timeout: 10000,
   headers: { post: { "Content-Type": "application/json", "accept": "application/json" }
   }

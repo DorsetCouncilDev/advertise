@@ -24,8 +24,8 @@
         mounted: function() {
             this.panorama = new google.maps.StreetViewPanorama(document.getElementById('streetView'), {
                 position: {
-                    lat: this.location.latitude,
-                    lng: this.location.longitude
+                    lat: this.location.streetviewLatitude,
+                    lng: this.location.streetviewLongitude
                 },
                 pov: {
                     // direction facing, in degrees from north

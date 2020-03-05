@@ -10,19 +10,19 @@
       {
         "question": "Which roundabouts can be sponsored and where are they located?",
         "answer": "<p>Dorset Council manages the sponsorship of 70 roundabouts across the area. You can view the locations and availability of the roundabouts on our   <router-link to='/advertise/search?view=map' class='faq-link'>map</router-link> or as a <router-link to='/advertise/search?view=list' class='faq-link'>list</router-link>.</p></p>The scheme only covers the roads the council is responsible for, and does not include any of the roundabouts on the trunk roads running through the county (the A31 and the A35 from Bere Regis to the Devon border), which are the responsibility of the Highways Agency, who do not promote advertising on their network.</p>",
-        "id": 2,
+        "id": 1,
         "open": false
       },
       {
         "question": "How long does the sponsorship run for?",
         "answer": " <p>Roundabout sponsorship in Dorset is a minimum duration of 12 months, and after that time, you will have first refusal to renew your agreement for a further year.</p>",
-        "id": 3,
+        "id": 2,
         "open": false
       },
       {
         "question": "Is roundabout sponsorship effective?",
         "answer": " <p>Out of Home (OOH) advertising is an important part of a local advertising plan. Sponsorship and advertising in locations that will reach your customers and communities can raise brand awareness, convey your message about new products and services, and help grow your business.</p><p>Roundabout sponsorship is visible all year round, giving your message the chance to be seen multiple times by a large audience, with opportunities to see your advert in some locations exceeding 30,000 vehicles per 12 hour period. Approximately 87% of adults in the UK see outdoor advertising each week.</p><p>Many of Dorset’s roundabout sponsors have increased the number of roundabouts they sponsor each year, proving that outdoor advertising on roundabouts works well for their businesses. We’ve many positive testimonials from customers, citing growth in their businesses from this form of advertising, and over two-thirds of sponsors renew their roundabouts every year – providing us with the feedback that they are getting a good return on their sponsorship and advertising spend.</p>",
-        "id": 4,
+        "id": 3,
         "open": false
       }
     ]
@@ -33,31 +33,31 @@
     "questions": [{
         "question": "How much does roundabout advertising cost in Dorset?",
         "answer": " <p>Roundabout advertising and sponsorship fees vary between £1800 per annum for our smallest roundabout to £4750 per annum for our largest and busiest location (prices quoted exclude VAT). Each roundabout value is based upon its size, location, number and size of signs, and traffic data where this is available. Sponsorship fees are subject to an annual review. </p>",
-        "id": 0,
+        "id": 4,
         "open": false
       },
       {
         "question": "What does the sponsorship fee include?",
         "answer": " <p>The cost of sponsorship includes the design, manufacture, installation and removal of sponsored signage panels. It also covers the remaking and reinstallation of damaged signage.</p><p>Money raised is used to fund the maintenance of the roundabouts and verges across the county, and funds support the continuation of highway services. By sponsoring a busy roundabout in Dorset you will have a unique opportunity to engage with people whilst they are on the move.</p>",
-        "id": 1,
+        "id": 5,
         "open": false
       },
       {
         "question": "If we sponsor more than one roundabout or book for a longer period of time can this reduce the fee?",
         "answer": " <p>The sponsorship fees can be affected by the quantity of locations sponsored and the duration of the agreement, however, it depends on the exact location of each roundabout and the number of roundabouts that you would like to sponsor. <router-link to='/advertise/contact' class='faq-link'>Contact us</router-link> with your requirements for advice.</p>",
-        "id": 2,
+        "id": 6,
         "open": false
       },
       {
         "question": "Apart from the annual sponsorship fee, are there any other costs involved in sponsorship of roundabouts?",
         "answer": " <p>No, there are no additional costs for the sponsor, and the fee includes for the cost of the design (subject to suitable logo/images provided), manufacture and installation of the signage. The fee also covers the replacement of signage if they are damaged during the year.</p>",
-        "id": 3,
+        "id": 7,
         "open": false
       },
       {
         "question": "How do we pay the sponsorship fee?",
         "answer": " <p>Sponsors can either pay the full amount up front by BACS payment or by monthly direct debit. There is no additional charge to pay by monthly instalments.</p>",
-        "id": 4,
+        "id": 8,
         "open": false
       }
     ]
@@ -68,55 +68,55 @@
     "questions": [{
         "question": "What size are the advertising signs?",
         "answer": " <p>We have two standard sponsorship signs on the roundabouts. Sign size is determined by the planning consent granted for each location. Most signs are 1016mm x 610mm, whilst a limited number are 1219mm x 610mm (including the space for the roundabout name and council logo). Select the following link to <a href='/advertise/static/pdf/examples.pdf' rel='noopener noreferrer' target='_blank' class='faq-link'>view an example</a>.</p>",
-        "id": 0,
+        "id": 9,
         "open": false
       },
       {
         "question": "Who will design the artwork for our sign?",
         "answer": " <p>You can either supply your own creative design which we will add to our standard template, or provide us with a current logo (in a high resolution JPEG at 300dpi or EPS file) and our in-house designer will prepare the artwork for you. Should you wish to prepare your own artwork please let us know, and we can provide you with the specification for your chosen location.</p>",
-        "id": 1,
+        "id": 10,
         "open": false
       },
       {
         "question": "What can I have on my sign?",
         "answer": " <p>You can display your logo or image along with a short message/strapline, plus a web address or business location. We are not able to include directional arrows or reflective materials.</p>",
-        "id": 2,
+        "id": 11,
         "open": false
       },
       {
         "question": "Can we have a different design on each sign?",
         "answer": " <p>Yes, each sponsorship sign can have a unique design, and you can specify the order that they are installed. To make the best impact we recommend that you keep the design simple and clear, with a limited amount of text, and use contracting colours.</p>",
-        "id": 3,
+        "id": 12,
         "open": false
       },
       {
         "question": "Do you have examples of roundabout sign designs?",
         "answer": " <p>Yes, if you’d like to see examples of existing sponsored signs, let us know, and we can send you a selection for some design inspiration. The standard signage design can be viewed in this <a href='/advertise/static/pdf/examples.pdf' target='_blank' class='faq-link'>examples pdf</a>.</p>",
-        "id": 4,
+        "id": 13,
         "open": false
       },
       {
         "question": "Can we change our sign design during the sponsorship?",
         "answer": " <p>Yes, changes can be made at any time during the sponsorship, and a lead in time of 2 - 3 weeks is normally required. If a sponsor wants to change the design there is a separate fee charged which is quoted per roundabout depending on the number of signs that need to be changed, all costs incurred are passed onto the sponsoring company.</p>",
-        "id": 5,
+        "id": 14,
         "open": false
       },
       {
         "question": "What happens if our roundabout signage is damaged?",
         "answer": " <p>If your sponsorship sign is damaged or knocked over but remains intact, the sign will be reinstated at no extra cost to the sponsor. Should the signage get completely destroyed or is not able to be repaired then the council will replace the signage. Please be aware that damage to roundabout signage does not occur on a regular basis, however, when it does happen we endeavour to replace or repair signage within 5 – 10 working days following the reported damage.</p>",
-        "id": 6,
+        "id": 15,
         "open": false
       },
       {
         "question": "Can we make or install my own signs or banners?",
         "answer": " <p>The council will arrange for the signs to be made and installed by our in-house sign shop, who ensure that signage it meets the highway authority’s criteria.</p>",
-        "id": 7,
+        "id": 16,
         "open": false
       },
       {
         "question": "How many advertising signs can we have on the roundabout?",
         "answer": " <p>The number of signs available on each roundabout is determined by the number of approaches to the junction and the overall size of the roundabout, and numbers vary from 2 to 5 signs. Each organisation has exclusivity at the roundabout they sponsor, so it will only be one advertiser displayed at each location.</p>",
-        "id": 8,
+        "id": 17,
         "open": false
       }
     ]
@@ -127,13 +127,13 @@
     "questions": [{
         "question": "How do we apply for sponsorship?",
         "answer": " <p>To become a sponsor, please <router-link to='/advertise/contact' class='faq-link'>contact us</router-link> stating your preferred location. We will let you know the availability of the roundabout and the fee, and if you wish to proceed with your selected roundabout we’ll send you an agreement to read and sign.</p><p>Should you have any queries relating to the roundabout sponsorship process please <router-link to='/advertise/contact' class='faq-link'>contact us</router-link>. </p>",
-        "id": 0,
+        "id": 18,
         "open": false
       },
       {
         "question": "The roundabout we’d like to sponsor is already taken, do you have a waiting list?",
         "answer": " <p>Although there are 70 roundabouts in the sponsorship scheme across the Dorset Council area, over 80% have a current sponsor. We operate a waiting list for each location and notify potential sponsors when there is availability. Should you like to join the waiting list for a particular town or specific roundabout, please <router-link to='/advertise/contact' class='faq-link'>get in touch</a> with our marketing team.</router-link></p>",
-        "id": 1,
+        "id": 19,
         "open": false
       }
     ]

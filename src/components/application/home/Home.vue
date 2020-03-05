@@ -1,12 +1,12 @@
 <template>
-<main class="mb-3" id="content">
+<div>
  <SiteTopNav currentPage="homePage"></SiteTopNav>
-
+<main class="mb-3" id="content">
 
 <h1 class="home-header mb-4">Local advertising solutions in Dorset</h1>
-<HomeSearch :indexRef="indexRef"></HomeSearch>
+<HomeSearch></HomeSearch>
 <section>
-    <h1 class="home-second-header">Advertise in Dorset to reach:</h1>
+    <h2 class="home-second-header">Advertise in Dorset to reach:</h2>
      <div class="ad-data-collection  mb-5">
         <div class="ad-data">18 <span class="ad-data-label">Million yearly visitors</span></div>
         <div class="ad-data">375,050 <span class="ad-data-label">residents</span></div>
@@ -14,16 +14,12 @@
         <div class="ad-data">19,995 <span class="ad-data-label">businesses</span></div>
     </div>
 </section>
-  <section>
-   <h1 class="home-second-header">Advertise your business here</h1>
+
+  <DocumentTypeSection></DocumentTypeSection>
 
 
-    <DocumentTypeSection>
-    </DocumentTypeSection>
-
-    </section>
 <section>
-<h1 class="home-second-header" id="testimonialsHeader">What others say</h1>
+<h2 class="home-second-header" id="testimonialsHeader">What others say</h2>
 
 <div class="quote-container">
 <blockquote class="customer-quote">"We'd recommend roundabout sponsorship in Dorset as a great way of raising brand awareness, and at Dorset Windows we find it provides good value for money. With the right roundabout, we're able to promote our brand as people travel around and be in the forefront of people's minds"</blockquote>
@@ -38,7 +34,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
 </div>
 </section>
     <section id="contact-container">
-<h1 class="third-header">Contact us</h1>
+<h2 class="third-header">Contact us</h2>
 
  <span class="contact-link-name">email</span>
  <span class="contact-link-value contact-bold-link"><a href="mailto:marketing@dorsetcouncil.gov.uk">marketing@dorsetcouncil.gov.uk</a></span>
@@ -52,6 +48,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
         </section>
 
 </main>
+</div>
 </template>
 
 <script>
@@ -105,7 +102,7 @@ We’d recommend roundabout sponsorship in Dorset to other businesses and attrac
     .home-second-header{
         font-size: 24px;
         margin-top:30px;
-        margin-bottom:15px;
+        margin-bottom:5px;
         text-align:left;
         font-weight:500;
     }

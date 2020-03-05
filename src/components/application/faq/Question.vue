@@ -1,8 +1,8 @@
 <template>
     <div class="question-block" v-bind:class="{ 'hide': !question.open }">
-        <a class="question" :id="question.id" tabindex="0" @click="toggleAnswer()">{{question.question}}</a>
+        <a class="question" :id="question.id" tabindex="0" @click="toggleAnswer()" @keyup.enter="toggleAnswer()">{{question.question}}</a>
         <div class="answer" :aria-labelledby="question.id" v-show="question.open">
-        <component v-bind:is="answerObject" /> 
+        <component v-bind:is="answerObject" />
         </div>
     </div>
 
@@ -62,7 +62,7 @@ export default {
         padding: 15px 10px;
         background:#f5f5f5;
         height:auto;
-        overflow:visible;    
+        overflow:visible;
         transition: opacity .5s;
         opacity:1;
         margin-bottom:15px;
@@ -80,7 +80,7 @@ export default {
         }
         .answer{
             height:0;
-            overflow:hidden;    
+            overflow:hidden;
             margin-top:0;
             padding:0;
             opacity:0;
@@ -108,7 +108,7 @@ export default {
     padding-left:30px;
     margin-top:60px;
     border-left: solid 5px hsl(177,100%,21%);
-   
+
 
     .question-block{
     .question{
@@ -119,7 +119,7 @@ export default {
         padding: 15px 30px;
         background:#f5f5f5;
         height:auto;
-        overflow:visible;    
+        overflow:visible;
         transition: opacity .5s;
         opacity:1;
         margin-bottom:15px;
@@ -137,14 +137,14 @@ export default {
         }
         .answer{
             height:0;
-            overflow:hidden;    
+            overflow:hidden;
             margin-top:0;
             padding:0;
             opacity:0;
             margin-bottom:0;
         }
     }
-    
+
     }
 }
  }

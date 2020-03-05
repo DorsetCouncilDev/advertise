@@ -12,9 +12,9 @@
 
             </div>
         </div>
-        <h2 v-show="isNoAddressesFound && !isSearching" id="noAddressFound">Postcode not recognised</h2>
-         <h2 v-show="isInvalidPostcode && !isSearching" id="noAddressFound">Invalid postcode</h2>
-        <h2 v-show="isLocationSearch && numberOfResults == 0 && !isSearching" id="noAddressFound">No opportunities found within 10 miles of {{postcode}}</h2>
+        <div v-show="isNoAddressesFound && !isSearching" class="noAddressFound" role="alert">Postcode not recognised</div>
+         <div v-show="isInvalidPostcode && !isSearching" class="noAddressFound" role="alert">Invalid postcode</div>
+        <div v-show="isLocationSearch && numberOfResults == 0 && !isSearching" class="noAddressFound" role="alert">No opportunities found within 10 miles of {{postcode}}</div>
 </div>
 </template>
 
@@ -109,7 +109,7 @@
 .no-postcode-found{
     text-decoration: line-through;
 }
-#noAddressFound{
+.noAddressFound{
     font-size:22px;
     text-align:center;
     color:darkred;

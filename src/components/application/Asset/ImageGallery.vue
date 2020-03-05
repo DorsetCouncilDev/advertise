@@ -2,20 +2,20 @@
   <section id="imagesSection">
     <h3>Images</h3>
     <div id="imageContainer" >
-    <img :src="images[0].sources[0].url" v-if="images.length == 1" id="singleImage">
+    <img :src="images[0].sources[0].url" v-if="images.length == 1" id="singleImage" alt="">
     <div id="imageGallery" v-if="images.length > 1">
-      <div class="arrow-left-button" @click="nextImage('l')"><div class="arrow-left"></div></div>
-      <div class="arrow-right-button" @click="nextImage('r')"> <div class="arrow-right"></div></div>
+      <div role="button" tabindex="0" class="arrow-left-button" @click="nextImage('l')" v-on:keyup.enter="nextImage('l')"><div class="arrow-left"></div></div>
+      <div role="button" tabindex="0" class="arrow-right-button" @click="nextImage('r')" v-on:keyup.enter="nextImage('r')"> <div class="arrow-right"></div></div>
       <div class="images">
         <div class="image-holder" v-for="image in images" v-bind:key="image.id">
-          <img :src="image.sources[0].url" class="galleryImage" :class="{'currentGalleryImage':image.current}">
+          <img :src="image.sources[0].url" class="galleryImage" :class="{'currentGalleryImage':image.current}" alt="">
         </div>
       </div>
       <div id="imageThumbsContainer">
 
    <div class="thumbnail-holder" :class="{'selected-image': currentImage.id == image.id}" v-for="image in images" v-bind:key="image.id" v-on:click="selectImage(image)" :id="image.id">
 
-          <img :src="image.sources[0].url" class="image-thumbnail">
+          <img :src="image.sources[0].url" class="image-thumbnail" alt="">
           </div>
 
 
@@ -134,6 +134,9 @@ justify-content: center;
       border:solid 5px hsl(203, 85%, 23%);
       top:20%;
       transition:opacity 0.8s;
+      &:focus{
+          border-color:orange;
+      }
       &:hover{
           border-color:orange;
       }
@@ -157,6 +160,9 @@ justify-content: center;
       border:solid 5px hsl(203, 85%, 23%);
       top:20%;
       transition:opacity 0.5s;
+         &:focus{
+          border-color:orange;
+      }
       &:hover{
         border-color:orange;
       }

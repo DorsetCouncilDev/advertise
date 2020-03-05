@@ -1,13 +1,13 @@
 <template>
-    <div class="document-type-square">
+    <li class="document-type-square">
         <router-link :to="{ path: '/advertise/search/?documentType=' + documentTypeRef}" class="type-search-link">
-            <div class="document-type-icon"><img class="type-icon"  :src="getIcon()"></div>
-            <div class="document-type-name">
-                <div class="type-name">{{documentTypeName}}</div>
-            </div>
-            <div class="type-text">{{text}}</div>
+            <span class="document-type-icon"><img class="type-icon"  :src="getIcon()" alt=""></span>
+            <span class="document-type-name">
+                <span class="type-name">{{documentTypeName}}</span>
+            </span>
+            <span class="type-text">{{text}}</span>
         </router-link>
-    </div>
+    </li>
 </template>
 
 <script>
@@ -50,6 +50,7 @@
             }
             &:focus{
                 outline:orange 1px solid;
+                background-color: hsl(203, 97%, 97%);
             }
         }
     }
@@ -62,6 +63,7 @@
         font-size: 16px;
         text-align: center;
         font-weight:500;
+        display: block;
     }
     .document-type-icon{
         display: flex;
@@ -72,6 +74,7 @@
         font-style: italic;
         text-align:center;
         color: black;
+        display: block;
     }
 
     @media only screen and (min-width: 555px) {

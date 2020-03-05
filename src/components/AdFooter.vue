@@ -1,8 +1,8 @@
 <template>
- <footer id="dcFooter">
-                <div class="container">
-                        <div class="footer-items">
-                                <nav class="link-section" aria-labelledby="servicesInfoLinksLabel">
+<footer id="dcFooter">
+  <div class="container">
+    <div class="footer-items">
+      <nav class="link-section" aria-labelledby="servicesInfoLinksLabel">
                                         <h2 id="servicesInfoLinksLabel">Services and information</h2>
 
                                         <ul class="services-info-list">
@@ -37,7 +37,7 @@
                         <div class="footer-common-links">
                                 <img src="../assets/images/dorsetcouncil-logo.svg" class="footer-logo" alt="Dorset Council Home">
                                 <div class="common-links-block">
-                                        <nav>
+
                                                 <ul class="common-links-list">
                                                         <li><a href="https://www.dorsetcouncil.gov.uk/footer/about-dorsetforyou.aspx">About</a></li>
                                                         <li><a href="https://www.dorsetcouncil.gov.uk/footer/accessibility-statement.aspx">Accessibility</a></li>
@@ -47,8 +47,8 @@
                                                         <li><a href="https://www.dorsetcouncil.gov.uk/footer/terms-and-conditions.aspx">Terms &amp; conditions</a></li>
                                                         <li><a href="https://translate.google.com/">Translate</a>&nbsp;</li>
                                                 </ul>
-                                        </nav>
-                                        <nav>
+
+
                                                  <ul class="social-links-list">
                                                         <li class="social-list-item"><a href="https://www.dorsetcouncil.gov.uk/facebook" aria-label="Facebook"  target="_blank" class="fa fa-facebook-square">
                                                             <span class="visuallyhidden">Facebook</span></a>
@@ -67,7 +67,7 @@
                                                             <span class="visuallyhidden">Flickr</span></a>
                                                         </li>
                                             </ul>
-                                        </nav>
+
                                 </div>
                         </div>
                 </div>

@@ -152,3 +152,14 @@ label{
         max-width:1250px;
       }
 }
+
+.input-group-prepend .btn:focus, .input-group-append .btn:focus {
+  outline:orange 2px solid;
+  box-shadow: none;
+}
+
+.form-control:focus,.btn-primary.focus, .btn-primary:focus, .input-group-append .btn:focus, .input-group-prepend .btn:focus {
+  outline:orange 2px solid;
+  box-shadow: none;
+}
+
