@@ -20,7 +20,7 @@
     "jquery": "^3.3.1",
     "jscoord": "^1.2.0",
     "lodash": "^4.17.10",
-    "node-sass": "^4.9.4",
+    "node-sass": "^7.0.0",
     "popper.js": "^1.14.1",
     "smoothscroll-polyfill": "^0.4.4",
     "spectrum-colorpicker": "^1.8.0",
